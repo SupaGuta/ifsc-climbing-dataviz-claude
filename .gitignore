@@ -1,0 +1,14 @@
+# MySQL Workbench backup files
+*.bak
+
+# Error log files
+*.log
+
+# Python bytecode cache
+__pycache__/
+**/__pycache__/
+
+# (optionnel) fichiers compilés Python
+*.pyc
+*.pyo
+*.pyd

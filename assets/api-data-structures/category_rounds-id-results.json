@@ -1,0 +1,3962 @@
+{
+    "id": 9383,
+    "event": "IFSC World Cup Wujiang 2025",
+    "event_id": 1406,
+    "dcat_id": 1,
+    "discipline": "Lead",
+    "status": "finished",
+    "status_as_of": "2025-04-25 07:00:10 UTC",
+    "category": "Men",
+    "round": "Qualification",
+    "format": "IFSC: 2 routes",
+    "routes": [
+        {
+            "id": 14220,
+            "name": "1",
+            "startlist": "/api/v1/routes/14220/startlist",
+            "ranking": "/api/v1/routes/14220/results"
+        },
+        {
+            "id": 14221,
+            "name": "2",
+            "startlist": "/api/v1/routes/14221/startlist",
+            "ranking": "/api/v1/routes/14221/results"
+        }
+    ],
+    "ranking": [
+        {
+            "athlete_id": 13040,
+            "name": "ANRAKU Sorato",
+            "firstname": "Sorato",
+            "lastname": "ANRAKU",
+            "country": "JPN",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/JPN.png",
+            "federation_id": 25,
+            "bib": "10",
+            "rank": 1,
+            "score": "7.75",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": true,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 1,
+                    "corrective_rank": 6.0,
+                    "score": "TOP",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": true,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 1,
+                    "corrective_rank": 10.0,
+                    "score": "TOP",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 532,
+            "name": "AVEZOU Sam",
+            "firstname": "Sam",
+            "lastname": "AVEZOU",
+            "country": "FRA",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/FRA.png",
+            "federation_id": 10,
+            "bib": "46",
+            "rank": 1,
+            "score": "7.75",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": true,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 1,
+                    "corrective_rank": 6.0,
+                    "score": "TOP",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": true,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 1,
+                    "corrective_rank": 10.0,
+                    "score": "TOP",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 12480,
+            "name": "BERTONE Max",
+            "firstname": "Max",
+            "lastname": "BERTONE",
+            "country": "FRA",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/FRA.png",
+            "federation_id": 10,
+            "bib": "6",
+            "rank": 1,
+            "score": "7.75",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": true,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 1,
+                    "corrective_rank": 6.0,
+                    "score": "TOP",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": true,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 1,
+                    "corrective_rank": 10.0,
+                    "score": "TOP",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 811,
+            "name": "GINÉS LÓPEZ Alberto",
+            "firstname": "Alberto",
+            "lastname": "GINÉS LÓPEZ",
+            "country": "ESP",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/ESP.png",
+            "federation_id": 12,
+            "bib": "41",
+            "rank": 1,
+            "score": "7.75",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": true,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 1,
+                    "corrective_rank": 6.0,
+                    "score": "TOP",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": true,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 1,
+                    "corrective_rank": 10.0,
+                    "score": "TOP",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 1170,
+            "name": "POTOCAR Luka",
+            "firstname": "Luka",
+            "lastname": "POTOCAR",
+            "country": "SLO",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/SLO.png",
+            "federation_id": 15,
+            "bib": "36",
+            "rank": 1,
+            "score": "7.75",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": true,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 1,
+                    "corrective_rank": 6.0,
+                    "score": "TOP",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": true,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 1,
+                    "corrective_rank": 10.0,
+                    "score": "TOP",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 11490,
+            "name": "ROBERTS Toby",
+            "firstname": "Toby",
+            "lastname": "ROBERTS",
+            "country": "GBR",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/GBR.png",
+            "federation_id": 11,
+            "bib": "5",
+            "rank": 1,
+            "score": "7.75",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": true,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 1,
+                    "corrective_rank": 6.0,
+                    "score": "TOP",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": true,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 1,
+                    "corrective_rank": 10.0,
+                    "score": "TOP",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 14606,
+            "name": "SUZUKI Neo",
+            "firstname": "Neo",
+            "lastname": "SUZUKI",
+            "country": "JPN",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/JPN.png",
+            "federation_id": 25,
+            "bib": "26",
+            "rank": 1,
+            "score": "7.75",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": true,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 1,
+                    "corrective_rank": 6.0,
+                    "score": "TOP",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": true,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 1,
+                    "corrective_rank": 10.0,
+                    "score": "TOP",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 373,
+            "name": "VAN DUYSEN Hannes",
+            "firstname": "Hannes",
+            "lastname": "VAN DUYSEN",
+            "country": "BEL",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/BEL.png",
+            "federation_id": 9,
+            "bib": "23",
+            "rank": 1,
+            "score": "7.75",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": true,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 1,
+                    "corrective_rank": 6.0,
+                    "score": "TOP",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": true,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 1,
+                    "corrective_rank": 10.0,
+                    "score": "TOP",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 11390,
+            "name": "YOSHIDA Satone",
+            "firstname": "Satone",
+            "lastname": "YOSHIDA",
+            "country": "JPN",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/JPN.png",
+            "federation_id": 25,
+            "bib": "38",
+            "rank": 1,
+            "score": "7.75",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": true,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 1,
+                    "corrective_rank": 6.0,
+                    "score": "TOP",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": true,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 1,
+                    "corrective_rank": 10.0,
+                    "score": "TOP",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 2101,
+            "name": "LEE Dohyun",
+            "firstname": "Dohyun",
+            "lastname": "LEE",
+            "country": "KOR",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/KOR.png",
+            "federation_id": 21,
+            "bib": "47",
+            "rank": 10,
+            "score": "10.95",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": true,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 1,
+                    "corrective_rank": 6.0,
+                    "score": "TOP",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 20,
+                    "corrective_rank": 20,
+                    "score": "37+",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 2947,
+            "name": "PAN Yufei",
+            "firstname": "Yufei",
+            "lastname": "PAN",
+            "country": "CHN",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CHN.png",
+            "federation_id": 37,
+            "bib": "39",
+            "rank": 11,
+            "score": "12.04",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 12,
+                    "corrective_rank": 14.5,
+                    "score": "41+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": true,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 1,
+                    "corrective_rank": 10.0,
+                    "score": "TOP",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 2285,
+            "name": "SHIMIZU Hiroto",
+            "firstname": "Hiroto",
+            "lastname": "SHIMIZU",
+            "country": "JPN",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/JPN.png",
+            "federation_id": 25,
+            "bib": "2",
+            "rank": 11,
+            "score": "12.04",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 12,
+                    "corrective_rank": 14.5,
+                    "score": "41+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": true,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 1,
+                    "corrective_rank": 10.0,
+                    "score": "TOP",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 1005,
+            "name": "TOMATIS Giorgio",
+            "firstname": "Giorgio",
+            "lastname": "TOMATIS",
+            "country": "ITA",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/ITA.png",
+            "federation_id": 13,
+            "bib": "50",
+            "rank": 11,
+            "score": "12.04",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 12,
+                    "corrective_rank": 14.5,
+                    "score": "41+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": true,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 1,
+                    "corrective_rank": 10.0,
+                    "score": "TOP",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 2370,
+            "name": "HOMMA Taisei",
+            "firstname": "Taisei",
+            "lastname": "HOMMA",
+            "country": "JPN",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/JPN.png",
+            "federation_id": 25,
+            "bib": "28",
+            "rank": 14,
+            "score": "12.73",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": true,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 1,
+                    "corrective_rank": 6.0,
+                    "score": "TOP",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 26,
+                    "corrective_rank": 27.0,
+                    "score": "32+",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 4299,
+            "name": "LEHMANN Sascha",
+            "firstname": "Sascha",
+            "lastname": "LEHMANN",
+            "country": "SUI",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/SUI.png",
+            "federation_id": 8,
+            "bib": "44",
+            "rank": 15,
+            "score": "13.78",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 18,
+                    "corrective_rank": 19.0,
+                    "score": "40+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": true,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 1,
+                    "corrective_rank": 10.0,
+                    "score": "TOP",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 1029,
+            "name": "PLACCI Giovanni",
+            "firstname": "Giovanni",
+            "lastname": "PLACCI",
+            "country": "ITA",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/ITA.png",
+            "federation_id": 13,
+            "bib": "27",
+            "rank": 15,
+            "score": "13.78",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 18,
+                    "corrective_rank": 19.0,
+                    "score": "40+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": true,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 1,
+                    "corrective_rank": 10.0,
+                    "score": "TOP",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 3131,
+            "name": "FLOHÉ Yannick",
+            "firstname": "Yannick",
+            "lastname": "FLOHÉ",
+            "country": "GER",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/GER.png",
+            "federation_id": 6,
+            "bib": "20",
+            "rank": 17,
+            "score": "14.66",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 21,
+                    "corrective_rank": 21.5,
+                    "score": "40",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": true,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 1,
+                    "corrective_rank": 10.0,
+                    "score": "TOP",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 4284,
+            "name": "GRÜNENFELDER Nino",
+            "firstname": "Nino",
+            "lastname": "GRÜNENFELDER",
+            "country": "SUI",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/SUI.png",
+            "federation_id": 8,
+            "bib": "51",
+            "rank": 18,
+            "score": "16.43",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 23,
+                    "corrective_rank": 27.0,
+                    "score": "39+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": true,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 1,
+                    "corrective_rank": 10.0,
+                    "score": "TOP",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 12335,
+            "name": "NAGEL Yannick",
+            "firstname": "Yannick",
+            "lastname": "NAGEL",
+            "country": "GER",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/GER.png",
+            "federation_id": 6,
+            "bib": "35",
+            "rank": 18,
+            "score": "16.43",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 23,
+                    "corrective_rank": 27.0,
+                    "score": "39+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": true,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 1,
+                    "corrective_rank": 10.0,
+                    "score": "TOP",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 1749,
+            "name": "GRUPPER Jesse",
+            "firstname": "Jesse",
+            "lastname": "GRUPPER",
+            "country": "USA",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/USA.png",
+            "federation_id": 20,
+            "bib": "14",
+            "rank": 20,
+            "score": "20.37",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 41,
+                    "corrective_rank": 41.5,
+                    "score": "35+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": true,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 1,
+                    "corrective_rank": 10.0,
+                    "score": "TOP",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 13986,
+            "name": "OMATA Shion",
+            "firstname": "Shion",
+            "lastname": "OMATA",
+            "country": "JPN",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/JPN.png",
+            "federation_id": 25,
+            "bib": "17",
+            "rank": 21,
+            "score": "20.45",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 18,
+                    "corrective_rank": 19.0,
+                    "score": "40+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 21,
+                    "corrective_rank": 22.0,
+                    "score": "35+",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 2068,
+            "name": "SHIN Joonha",
+            "firstname": "Joonha",
+            "lastname": "SHIN",
+            "country": "KOR",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/KOR.png",
+            "federation_id": 21,
+            "bib": "52",
+            "rank": 22,
+            "score": "20.86",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 12,
+                    "corrective_rank": 14.5,
+                    "score": "41+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 29,
+                    "corrective_rank": 30.0,
+                    "score": "32",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 3883,
+            "name": "UTELLI Jonas",
+            "firstname": "Jonas",
+            "lastname": "UTELLI",
+            "country": "SUI",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/SUI.png",
+            "federation_id": 8,
+            "bib": "25",
+            "rank": 22,
+            "score": "20.86",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 12,
+                    "corrective_rank": 14.5,
+                    "score": "41+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 29,
+                    "corrective_rank": 30.0,
+                    "score": "32",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 912,
+            "name": "SCHENK Filip",
+            "firstname": "Filip",
+            "lastname": "SCHENK",
+            "country": "ITA",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/ITA.png",
+            "federation_id": 13,
+            "bib": "15",
+            "rank": 24,
+            "score": "21.91",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 48,
+                    "corrective_rank": 48,
+                    "score": "30",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": true,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 1,
+                    "corrective_rank": 10.0,
+                    "score": "TOP",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 356,
+            "name": "VANCRAEYNEST Ties",
+            "firstname": "Ties",
+            "lastname": "VANCRAEYNEST",
+            "country": "BEL",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/BEL.png",
+            "federation_id": 9,
+            "bib": "13",
+            "rank": 25,
+            "score": "24.37",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 23,
+                    "corrective_rank": 27.0,
+                    "score": "39+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 21,
+                    "corrective_rank": 22.0,
+                    "score": "35+",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 765,
+            "name": "MARTIN Philipp",
+            "firstname": "Philipp",
+            "lastname": "MARTIN",
+            "country": "GER",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/GER.png",
+            "federation_id": 6,
+            "bib": "37",
+            "rank": 26,
+            "score": "26.79",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 12,
+                    "corrective_rank": 14.5,
+                    "score": "41+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 49,
+                    "corrective_rank": 49.5,
+                    "score": "25+",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 15031,
+            "name": "NOH Hyunseung",
+            "firstname": "Hyunseung",
+            "lastname": "NOH",
+            "country": "KOR",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/KOR.png",
+            "federation_id": 21,
+            "bib": "11",
+            "rank": 27,
+            "score": "27.0",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 23,
+                    "corrective_rank": 27.0,
+                    "score": "39+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 26,
+                    "corrective_rank": 27.0,
+                    "score": "32+",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 1361,
+            "name": "STRANIK Martin",
+            "firstname": "Martin",
+            "lastname": "STRANIK",
+            "country": "CZE",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CZE.png",
+            "federation_id": 17,
+            "bib": "8",
+            "rank": 28,
+            "score": "28.0",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 32,
+                    "corrective_rank": 32,
+                    "score": "39",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 24,
+                    "corrective_rank": 24.5,
+                    "score": "35",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 3125,
+            "name": "HALENKE Sebastian",
+            "firstname": "Sebastian",
+            "lastname": "HALENKE",
+            "country": "GER",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/GER.png",
+            "federation_id": 6,
+            "bib": "24",
+            "rank": 29,
+            "score": "28.46",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 23,
+                    "corrective_rank": 27.0,
+                    "score": "39+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 29,
+                    "corrective_rank": 30.0,
+                    "score": "32",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 1274,
+            "name": "SCHERZ Stefan",
+            "firstname": "Stefan",
+            "lastname": "SCHERZ",
+            "country": "AUT",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/AUT.png",
+            "federation_id": 16,
+            "bib": "21",
+            "rank": 30,
+            "score": "29.66",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 40,
+                    "corrective_rank": 40,
+                    "score": "36",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 21,
+                    "corrective_rank": 22.0,
+                    "score": "35+",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 2014,
+            "name": "HANKE Christoph",
+            "firstname": "Christoph",
+            "lastname": "HANKE",
+            "country": "GER",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/GER.png",
+            "federation_id": 6,
+            "bib": "16",
+            "rank": 31,
+            "score": "30.07",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 23,
+                    "corrective_rank": 27.0,
+                    "score": "39+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 33,
+                    "corrective_rank": 33.5,
+                    "score": "30+",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 12870,
+            "name": "RIZKY SYAHRAFLI SIMATUPANG Muhammad",
+            "firstname": "Muhammad",
+            "lastname": "RIZKY SYAHRAFLI SIMATUPANG",
+            "country": "INA",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/INA.png",
+            "federation_id": 45,
+            "bib": "40",
+            "rank": 32,
+            "score": "30.91",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 39,
+                    "corrective_rank": 39,
+                    "score": "36+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 24,
+                    "corrective_rank": 24.5,
+                    "score": "35",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 12565,
+            "name": "MOKROLUSKY Lukas",
+            "firstname": "Lukas",
+            "lastname": "MOKROLUSKY",
+            "country": "CZE",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CZE.png",
+            "federation_id": 17,
+            "bib": "48",
+            "rank": 33,
+            "score": "31.28",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 21,
+                    "corrective_rank": 21.5,
+                    "score": "40",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 45,
+                    "corrective_rank": 45.5,
+                    "score": "27",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 1644,
+            "name": "BAUDRAND Victor",
+            "firstname": "Victor",
+            "lastname": "BAUDRAND",
+            "country": "CAN",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CAN.png",
+            "federation_id": 19,
+            "bib": "34",
+            "rank": 34,
+            "score": "32.24",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 23,
+                    "corrective_rank": 27.0,
+                    "score": "39+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 35,
+                    "corrective_rank": 38.5,
+                    "score": "28+",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 11676,
+            "name": "GUILLERMIN Victor",
+            "firstname": "Victor",
+            "lastname": "GUILLERMIN",
+            "country": "FRA",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/FRA.png",
+            "federation_id": 10,
+            "bib": "32",
+            "rank": 34,
+            "score": "32.24",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 23,
+                    "corrective_rank": 27.0,
+                    "score": "39+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 35,
+                    "corrective_rank": 38.5,
+                    "score": "28+",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 11862,
+            "name": "URRUTIA Joaquin",
+            "firstname": "Joaquin",
+            "lastname": "URRUTIA",
+            "country": "CHI",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CHI.png",
+            "federation_id": 58,
+            "bib": "43",
+            "rank": 34,
+            "score": "32.24",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 23,
+                    "corrective_rank": 27.0,
+                    "score": "39+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 35,
+                    "corrective_rank": 38.5,
+                    "score": "28+",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 13031,
+            "name": "Osgood Declan",
+            "firstname": "Declan",
+            "lastname": "OSGOOD",
+            "country": "USA",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/USA.png",
+            "federation_id": 20,
+            "bib": "42",
+            "rank": 37,
+            "score": "32.74",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 33,
+                    "corrective_rank": 33.5,
+                    "score": "38+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 32,
+                    "corrective_rank": 32,
+                    "score": "31",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 320,
+            "name": "COLLIN Nicolas",
+            "firstname": "Nicolas",
+            "lastname": "COLLIN",
+            "country": "BEL",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/BEL.png",
+            "federation_id": 9,
+            "bib": "57",
+            "rank": 38,
+            "score": "33.5",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 33,
+                    "corrective_rank": 33.5,
+                    "score": "38+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 33,
+                    "corrective_rank": 33.5,
+                    "score": "30+",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 12237,
+            "name": "BUTTERWORTH Samuel",
+            "firstname": "Samuel",
+            "lastname": "BUTTERWORTH",
+            "country": "GBR",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/GBR.png",
+            "federation_id": 11,
+            "bib": "29",
+            "rank": 39,
+            "score": "36.37",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 49,
+                    "corrective_rank": 49,
+                    "score": "29+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 26,
+                    "corrective_rank": 27.0,
+                    "score": "32+",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 13842,
+            "name": "AUEAREECHIT Auswin",
+            "firstname": "Auswin",
+            "lastname": "AUEAREECHIT",
+            "country": "THA",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/THA.png",
+            "federation_id": 59,
+            "bib": "62",
+            "rank": 40,
+            "score": "37.23",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 35,
+                    "corrective_rank": 36.0,
+                    "score": "37+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 35,
+                    "corrective_rank": 38.5,
+                    "score": "28+",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 13028,
+            "name": "Lakhno Sergey",
+            "firstname": "Sergey",
+            "lastname": "LAKHNO",
+            "country": "USA",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/USA.png",
+            "federation_id": 20,
+            "bib": "3",
+            "rank": 40,
+            "score": "37.23",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 35,
+                    "corrective_rank": 36.0,
+                    "score": "37+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 35,
+                    "corrective_rank": 38.5,
+                    "score": "28+",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 12340,
+            "name": "RÂPĂ Darius",
+            "firstname": "Darius",
+            "lastname": "RÂPĂ",
+            "country": "ROU",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/ROU.png",
+            "federation_id": 33,
+            "bib": "19",
+            "rank": 42,
+            "score": "40.42",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 38,
+                    "corrective_rank": 38,
+                    "score": "37",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 43,
+                    "corrective_rank": 43,
+                    "score": "28",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 1418,
+            "name": "POTUCEK Simon",
+            "firstname": "Simon",
+            "lastname": "POTUCEK",
+            "country": "CZE",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CZE.png",
+            "federation_id": 17,
+            "bib": "9",
+            "rank": 43,
+            "score": "41.62",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 44,
+                    "corrective_rank": 45.0,
+                    "score": "31+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 35,
+                    "corrective_rank": 38.5,
+                    "score": "28+",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 13969,
+            "name": "YANG Lihao",
+            "firstname": "Lihao",
+            "lastname": "YANG",
+            "country": "CHN",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CHN.png",
+            "federation_id": 37,
+            "bib": "56",
+            "rank": 43,
+            "score": "41.62",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 44,
+                    "corrective_rank": 45.0,
+                    "score": "31+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 35,
+                    "corrective_rank": 38.5,
+                    "score": "28+",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 13626,
+            "name": "YAO Jinwei",
+            "firstname": "Jinwei",
+            "lastname": "YAO",
+            "country": "CHN",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CHN.png",
+            "federation_id": 37,
+            "bib": "31",
+            "rank": 45,
+            "score": "42.54",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 47,
+                    "corrective_rank": 47,
+                    "score": "30+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 35,
+                    "corrective_rank": 38.5,
+                    "score": "28+",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 11382,
+            "name": "CHEN Yongchen",
+            "firstname": "Yongchen",
+            "lastname": "CHEN",
+            "country": "CHN",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CHN.png",
+            "federation_id": 37,
+            "bib": "53",
+            "rank": 46,
+            "score": "43.5",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 43,
+                    "corrective_rank": 43,
+                    "score": "32+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 44,
+                    "corrective_rank": 44,
+                    "score": "27+",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 13760,
+            "name": "KWON Kibeom",
+            "firstname": "Kibeom",
+            "lastname": "KWON",
+            "country": "KOR",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/KOR.png",
+            "federation_id": 21,
+            "bib": "55",
+            "rank": 47,
+            "score": "44.4",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 41,
+                    "corrective_rank": 41.5,
+                    "score": "35+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 47,
+                    "corrective_rank": 47.5,
+                    "score": "26+",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 13289,
+            "name": "STIPEK Jan",
+            "firstname": "Jan",
+            "lastname": "STIPEK",
+            "country": "CZE",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CZE.png",
+            "federation_id": 17,
+            "bib": "22",
+            "rank": 48,
+            "score": "47.05",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 35,
+                    "corrective_rank": 36.0,
+                    "score": "37+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 61,
+                    "corrective_rank": 61.5,
+                    "score": "6",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 12872,
+            "name": "MUSAUWIR Musauwir",
+            "firstname": "Musauwir",
+            "lastname": "MUSAUWIR",
+            "country": "INA",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/INA.png",
+            "federation_id": 45,
+            "bib": "12",
+            "rank": 49,
+            "score": "48.14",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 44,
+                    "corrective_rank": 45.0,
+                    "score": "31+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 51,
+                    "corrective_rank": 51.5,
+                    "score": "22+",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 15006,
+            "name": "KE Qun Tao",
+            "firstname": "Qun Tao",
+            "lastname": "KE",
+            "country": "MAS",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/MAS.png",
+            "federation_id": 46,
+            "bib": "18",
+            "rank": 50,
+            "score": "48.17",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 51,
+                    "corrective_rank": 51,
+                    "score": "28",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 45,
+                    "corrective_rank": 45.5,
+                    "score": "27",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 3665,
+            "name": "GOH WEN BIN Luke",
+            "firstname": "Luke",
+            "lastname": "GOH WEN BIN",
+            "country": "SGP",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/SGP.png",
+            "federation_id": 51,
+            "bib": "60",
+            "rank": 51,
+            "score": "50.88",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 54,
+                    "corrective_rank": 54.5,
+                    "score": "25",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 47,
+                    "corrective_rank": 47.5,
+                    "score": "26+",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 13457,
+            "name": "JENKINS James",
+            "firstname": "James",
+            "lastname": "JENKINS",
+            "country": "GBR",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/GBR.png",
+            "federation_id": 11,
+            "bib": "45",
+            "rank": 52,
+            "score": "51.75",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 52,
+                    "corrective_rank": 52,
+                    "score": "26",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 51,
+                    "corrective_rank": 51.5,
+                    "score": "22+",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 4168,
+            "name": "GRUZITIS Edvards",
+            "firstname": "Edvards",
+            "lastname": "GRUZITIS",
+            "country": "LAT",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/LAT.png",
+            "federation_id": 66,
+            "bib": "61",
+            "rank": 53,
+            "score": "53.58",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 57,
+                    "corrective_rank": 58.0,
+                    "score": "23+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 49,
+                    "corrective_rank": 49.5,
+                    "score": "25+",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 2217,
+            "name": "AU Chi-Fung",
+            "firstname": "Chi-Fung",
+            "lastname": "AU",
+            "country": "HKG",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/HKG.png",
+            "federation_id": 24,
+            "bib": "33",
+            "rank": 54,
+            "score": "53.74",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 53,
+                    "corrective_rank": 53,
+                    "score": "25+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 53,
+                    "corrective_rank": 54.5,
+                    "score": "21+",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 16149,
+            "name": "MA Yuanliang",
+            "firstname": "Yuanliang",
+            "lastname": "MA",
+            "country": "CHN",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CHN.png",
+            "federation_id": 37,
+            "bib": "49",
+            "rank": 55,
+            "score": "54.77",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 50,
+                    "corrective_rank": 50,
+                    "score": "28+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 60,
+                    "corrective_rank": 60,
+                    "score": "11",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 16662,
+            "name": "BAYO VEROSIL Gerald",
+            "firstname": "Gerald",
+            "lastname": "BAYO VEROSIL",
+            "country": "SGP",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/SGP.png",
+            "federation_id": 51,
+            "bib": "1",
+            "rank": 56,
+            "score": "55.24",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 56,
+                    "corrective_rank": 56,
+                    "score": "24+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 53,
+                    "corrective_rank": 54.5,
+                    "score": "21+",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 13595,
+            "name": "LUO Jintao",
+            "firstname": "Jintao",
+            "lastname": "LUO",
+            "country": "CHN",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CHN.png",
+            "federation_id": 37,
+            "bib": "30",
+            "rank": 57,
+            "score": "56.22",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 57,
+                    "corrective_rank": 58.0,
+                    "score": "23+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 53,
+                    "corrective_rank": 54.5,
+                    "score": "21+",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 13067,
+            "name": "MAIKOTOV Azat",
+            "firstname": "Azat",
+            "lastname": "MAIKOTOV",
+            "country": "KAZ",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/KAZ.png",
+            "federation_id": 47,
+            "bib": "59",
+            "rank": 58,
+            "score": "57.5",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 57,
+                    "corrective_rank": 58.0,
+                    "score": "23+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 57,
+                    "corrective_rank": 57,
+                    "score": "20+",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 14850,
+            "name": "TAN Ian",
+            "firstname": "Ian",
+            "lastname": "TAN",
+            "country": "CAN",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CAN.png",
+            "federation_id": 19,
+            "bib": "54",
+            "rank": 59,
+            "score": "57.89",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 54,
+                    "corrective_rank": 54.5,
+                    "score": "25",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 61,
+                    "corrective_rank": 61.5,
+                    "score": "6",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 11397,
+            "name": "CHOU Tzu-Yu",
+            "firstname": "Tzu-Yu",
+            "lastname": "CHOU",
+            "country": "TPE",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/TPE.png",
+            "federation_id": 22,
+            "bib": "58",
+            "rank": 60,
+            "score": "58.13",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 62,
+                    "corrective_rank": 62,
+                    "score": "6",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 53,
+                    "corrective_rank": 54.5,
+                    "score": "21+",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 15082,
+            "name": "ALHADDAD Taher",
+            "firstname": "Taher",
+            "lastname": "ALHADDAD",
+            "country": "KSA",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/KSA.png",
+            "federation_id": 104,
+            "bib": "4",
+            "rank": 61,
+            "score": "58.99",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 60,
+                    "corrective_rank": 60,
+                    "score": "17+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": false,
+                    "restarted": false,
+                    "rank": 58,
+                    "corrective_rank": 58,
+                    "score": "20",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        },
+        {
+            "athlete_id": 15921,
+            "name": "FATANI Yousef",
+            "firstname": "Yousef",
+            "lastname": "FATANI",
+            "country": "KSA",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/KSA.png",
+            "federation_id": 104,
+            "bib": "7",
+            "rank": 62,
+            "score": "59.99",
+            "ascents": [
+                {
+                    "route_id": 14220,
+                    "route_name": "1",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 61,
+                    "corrective_rank": 61,
+                    "score": "12+",
+                    "status": "locked",
+                    "top_tries": null
+                },
+                {
+                    "route_id": 14221,
+                    "route_name": "2",
+                    "top": false,
+                    "plus": true,
+                    "restarted": false,
+                    "rank": 59,
+                    "corrective_rank": 59,
+                    "score": "11+",
+                    "status": "locked",
+                    "top_tries": null
+                }
+            ],
+            "combined_stages": null,
+            "active": false,
+            "under_appeal": false
+        }
+    ],
+    "startlist": [
+        {
+            "athlete_id": 16662,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 1
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 32
+                }
+            ],
+            "name": "BAYO VEROSIL Gerald",
+            "firstname": "Gerald",
+            "lastname": "BAYO VEROSIL",
+            "bib": "1",
+            "country": "SGP",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/SGP.png",
+            "federation_id": 51
+        },
+        {
+            "athlete_id": 11676,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 32
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 1
+                }
+            ],
+            "name": "GUILLERMIN Victor",
+            "firstname": "Victor",
+            "lastname": "GUILLERMIN",
+            "bib": "32",
+            "country": "FRA",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/FRA.png",
+            "federation_id": 10
+        },
+        {
+            "athlete_id": 2285,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 2
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 33
+                }
+            ],
+            "name": "SHIMIZU Hiroto",
+            "firstname": "Hiroto",
+            "lastname": "SHIMIZU",
+            "bib": "2",
+            "country": "JPN",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/JPN.png",
+            "federation_id": 25
+        },
+        {
+            "athlete_id": 2217,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 33
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 2
+                }
+            ],
+            "name": "AU Chi-Fung",
+            "firstname": "Chi-Fung",
+            "lastname": "AU",
+            "bib": "33",
+            "country": "HKG",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/HKG.png",
+            "federation_id": 24
+        },
+        {
+            "athlete_id": 1644,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 34
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 3
+                }
+            ],
+            "name": "BAUDRAND Victor",
+            "firstname": "Victor",
+            "lastname": "BAUDRAND",
+            "bib": "34",
+            "country": "CAN",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CAN.png",
+            "federation_id": 19
+        },
+        {
+            "athlete_id": 13028,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 3
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 34
+                }
+            ],
+            "name": "LAKHNO Sergey",
+            "firstname": "Sergey",
+            "lastname": "LAKHNO",
+            "bib": "3",
+            "country": "USA",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/USA.png",
+            "federation_id": 20
+        },
+        {
+            "athlete_id": 15082,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 4
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 35
+                }
+            ],
+            "name": "ALHADDAD Taher",
+            "firstname": "Taher",
+            "lastname": "ALHADDAD",
+            "bib": "4",
+            "country": "KSA",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/KSA.png",
+            "federation_id": 104
+        },
+        {
+            "athlete_id": 12335,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 35
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 4
+                }
+            ],
+            "name": "NAGEL Yannick",
+            "firstname": "Yannick",
+            "lastname": "NAGEL",
+            "bib": "35",
+            "country": "GER",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/GER.png",
+            "federation_id": 6
+        },
+        {
+            "athlete_id": 11490,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 5
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 36
+                }
+            ],
+            "name": "ROBERTS Toby",
+            "firstname": "Toby",
+            "lastname": "ROBERTS",
+            "bib": "5",
+            "country": "GBR",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/GBR.png",
+            "federation_id": 11
+        },
+        {
+            "athlete_id": 1170,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 36
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 5
+                }
+            ],
+            "name": "POTOCAR Luka",
+            "firstname": "Luka",
+            "lastname": "POTOCAR",
+            "bib": "36",
+            "country": "SLO",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/SLO.png",
+            "federation_id": 15
+        },
+        {
+            "athlete_id": 12480,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 6
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 37
+                }
+            ],
+            "name": "BERTONE Max",
+            "firstname": "Max",
+            "lastname": "BERTONE",
+            "bib": "6",
+            "country": "FRA",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/FRA.png",
+            "federation_id": 10
+        },
+        {
+            "athlete_id": 765,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 37
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 6
+                }
+            ],
+            "name": "MARTIN Philipp",
+            "firstname": "Philipp",
+            "lastname": "MARTIN",
+            "bib": "37",
+            "country": "GER",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/GER.png",
+            "federation_id": 6
+        },
+        {
+            "athlete_id": 15921,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 7
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 38
+                }
+            ],
+            "name": "FATANI Yousef",
+            "firstname": "Yousef",
+            "lastname": "FATANI",
+            "bib": "7",
+            "country": "KSA",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/KSA.png",
+            "federation_id": 104
+        },
+        {
+            "athlete_id": 11390,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 38
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 7
+                }
+            ],
+            "name": "YOSHIDA Satone",
+            "firstname": "Satone",
+            "lastname": "YOSHIDA",
+            "bib": "38",
+            "country": "JPN",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/JPN.png",
+            "federation_id": 25
+        },
+        {
+            "athlete_id": 1361,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 8
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 39
+                }
+            ],
+            "name": "STRANIK Martin",
+            "firstname": "Martin",
+            "lastname": "STRANIK",
+            "bib": "8",
+            "country": "CZE",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CZE.png",
+            "federation_id": 17
+        },
+        {
+            "athlete_id": 2947,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 39
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 8
+                }
+            ],
+            "name": "PAN Yufei",
+            "firstname": "Yufei",
+            "lastname": "PAN",
+            "bib": "39",
+            "country": "CHN",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CHN.png",
+            "federation_id": 37
+        },
+        {
+            "athlete_id": 12870,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 40
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 9
+                }
+            ],
+            "name": "RIZKY SYAHRAFLI SIMATUPANG Muhammad",
+            "firstname": "Muhammad",
+            "lastname": "RIZKY SYAHRAFLI SIMATUPANG",
+            "bib": "40",
+            "country": "INA",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/INA.png",
+            "federation_id": 45
+        },
+        {
+            "athlete_id": 1418,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 9
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 40
+                }
+            ],
+            "name": "POTUCEK Simon",
+            "firstname": "Simon",
+            "lastname": "POTUCEK",
+            "bib": "9",
+            "country": "CZE",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CZE.png",
+            "federation_id": 17
+        },
+        {
+            "athlete_id": 811,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 41
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 10
+                }
+            ],
+            "name": "GINÉS LÓPEZ Alberto",
+            "firstname": "Alberto",
+            "lastname": "GINÉS LÓPEZ",
+            "bib": "41",
+            "country": "ESP",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/ESP.png",
+            "federation_id": 12
+        },
+        {
+            "athlete_id": 13040,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 10
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 41
+                }
+            ],
+            "name": "ANRAKU Sorato",
+            "firstname": "Sorato",
+            "lastname": "ANRAKU",
+            "bib": "10",
+            "country": "JPN",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/JPN.png",
+            "federation_id": 25
+        },
+        {
+            "athlete_id": 13031,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 42
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 11
+                }
+            ],
+            "name": "OSGOOD Declan",
+            "firstname": "Declan",
+            "lastname": "OSGOOD",
+            "bib": "42",
+            "country": "USA",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/USA.png",
+            "federation_id": 20
+        },
+        {
+            "athlete_id": 15031,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 11
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 42
+                }
+            ],
+            "name": "NOH Hyunseung",
+            "firstname": "Hyunseung",
+            "lastname": "NOH",
+            "bib": "11",
+            "country": "KOR",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/KOR.png",
+            "federation_id": 21
+        },
+        {
+            "athlete_id": 11862,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 43
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 12
+                }
+            ],
+            "name": "URRUTIA Joaquin",
+            "firstname": "Joaquin",
+            "lastname": "URRUTIA",
+            "bib": "43",
+            "country": "CHI",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CHI.png",
+            "federation_id": 58
+        },
+        {
+            "athlete_id": 12872,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 12
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 43
+                }
+            ],
+            "name": "MUSAUWIR Musauwir",
+            "firstname": "Musauwir",
+            "lastname": "MUSAUWIR",
+            "bib": "12",
+            "country": "INA",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/INA.png",
+            "federation_id": 45
+        },
+        {
+            "athlete_id": 356,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 13
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 44
+                }
+            ],
+            "name": "VANCRAEYNEST Ties",
+            "firstname": "Ties",
+            "lastname": "VANCRAEYNEST",
+            "bib": "13",
+            "country": "BEL",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/BEL.png",
+            "federation_id": 9
+        },
+        {
+            "athlete_id": 4299,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 44
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 13
+                }
+            ],
+            "name": "LEHMANN Sascha",
+            "firstname": "Sascha",
+            "lastname": "LEHMANN",
+            "bib": "44",
+            "country": "SUI",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/SUI.png",
+            "federation_id": 8
+        },
+        {
+            "athlete_id": 1749,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 14
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 45
+                }
+            ],
+            "name": "GRUPPER Jesse",
+            "firstname": "Jesse",
+            "lastname": "GRUPPER",
+            "bib": "14",
+            "country": "USA",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/USA.png",
+            "federation_id": 20
+        },
+        {
+            "athlete_id": 13457,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 45
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 14
+                }
+            ],
+            "name": "JENKINS James",
+            "firstname": "James",
+            "lastname": "JENKINS",
+            "bib": "45",
+            "country": "GBR",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/GBR.png",
+            "federation_id": 11
+        },
+        {
+            "athlete_id": 912,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 15
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 46
+                }
+            ],
+            "name": "SCHENK Filip",
+            "firstname": "Filip",
+            "lastname": "SCHENK",
+            "bib": "15",
+            "country": "ITA",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/ITA.png",
+            "federation_id": 13
+        },
+        {
+            "athlete_id": 532,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 46
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 15
+                }
+            ],
+            "name": "AVEZOU Sam",
+            "firstname": "Sam",
+            "lastname": "AVEZOU",
+            "bib": "46",
+            "country": "FRA",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/FRA.png",
+            "federation_id": 10
+        },
+        {
+            "athlete_id": 2101,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 47
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 16
+                }
+            ],
+            "name": "LEE Dohyun",
+            "firstname": "Dohyun",
+            "lastname": "LEE",
+            "bib": "47",
+            "country": "KOR",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/KOR.png",
+            "federation_id": 21
+        },
+        {
+            "athlete_id": 2014,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 16
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 47
+                }
+            ],
+            "name": "HANKE Christoph",
+            "firstname": "Christoph",
+            "lastname": "HANKE",
+            "bib": "16",
+            "country": "GER",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/GER.png",
+            "federation_id": 6
+        },
+        {
+            "athlete_id": 12565,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 48
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 17
+                }
+            ],
+            "name": "MOKROLUSKY Lukas",
+            "firstname": "Lukas",
+            "lastname": "MOKROLUSKY",
+            "bib": "48",
+            "country": "CZE",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CZE.png",
+            "federation_id": 17
+        },
+        {
+            "athlete_id": 13986,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 17
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 48
+                }
+            ],
+            "name": "OMATA Shion",
+            "firstname": "Shion",
+            "lastname": "OMATA",
+            "bib": "17",
+            "country": "JPN",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/JPN.png",
+            "federation_id": 25
+        },
+        {
+            "athlete_id": 15006,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 18
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 49
+                }
+            ],
+            "name": "KE Qun Tao",
+            "firstname": "Qun Tao",
+            "lastname": "KE",
+            "bib": "18",
+            "country": "MAS",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/MAS.png",
+            "federation_id": 46
+        },
+        {
+            "athlete_id": 16149,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 49
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 18
+                }
+            ],
+            "name": "MA Yuanliang",
+            "firstname": "Yuanliang",
+            "lastname": "MA",
+            "bib": "49",
+            "country": "CHN",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CHN.png",
+            "federation_id": 37
+        },
+        {
+            "athlete_id": 1005,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 50
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 19
+                }
+            ],
+            "name": "TOMATIS Giorgio",
+            "firstname": "Giorgio",
+            "lastname": "TOMATIS",
+            "bib": "50",
+            "country": "ITA",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/ITA.png",
+            "federation_id": 13
+        },
+        {
+            "athlete_id": 12340,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 19
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 50
+                }
+            ],
+            "name": "RÂPĂ Darius",
+            "firstname": "Darius",
+            "lastname": "RÂPĂ",
+            "bib": "19",
+            "country": "ROU",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/ROU.png",
+            "federation_id": 33
+        },
+        {
+            "athlete_id": 4284,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 51
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 20
+                }
+            ],
+            "name": "GRÜNENFELDER Nino",
+            "firstname": "Nino",
+            "lastname": "GRÜNENFELDER",
+            "bib": "51",
+            "country": "SUI",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/SUI.png",
+            "federation_id": 8
+        },
+        {
+            "athlete_id": 3131,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 20
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 51
+                }
+            ],
+            "name": "FLOHÉ Yannick",
+            "firstname": "Yannick",
+            "lastname": "FLOHÉ",
+            "bib": "20",
+            "country": "GER",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/GER.png",
+            "federation_id": 6
+        },
+        {
+            "athlete_id": 1274,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 21
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 52
+                }
+            ],
+            "name": "SCHERZ Stefan",
+            "firstname": "Stefan",
+            "lastname": "SCHERZ",
+            "bib": "21",
+            "country": "AUT",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/AUT.png",
+            "federation_id": 16
+        },
+        {
+            "athlete_id": 2068,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 52
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 21
+                }
+            ],
+            "name": "SHIN Joonha",
+            "firstname": "Joonha",
+            "lastname": "SHIN",
+            "bib": "52",
+            "country": "KOR",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/KOR.png",
+            "federation_id": 21
+        },
+        {
+            "athlete_id": 13289,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 22
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 53
+                }
+            ],
+            "name": "STIPEK Jan",
+            "firstname": "Jan",
+            "lastname": "STIPEK",
+            "bib": "22",
+            "country": "CZE",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CZE.png",
+            "federation_id": 17
+        },
+        {
+            "athlete_id": 11382,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 53
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 22
+                }
+            ],
+            "name": "CHEN Yongchen",
+            "firstname": "Yongchen",
+            "lastname": "CHEN",
+            "bib": "53",
+            "country": "CHN",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CHN.png",
+            "federation_id": 37
+        },
+        {
+            "athlete_id": 373,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 23
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 54
+                }
+            ],
+            "name": "VAN DUYSEN Hannes",
+            "firstname": "Hannes",
+            "lastname": "VAN DUYSEN",
+            "bib": "23",
+            "country": "BEL",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/BEL.png",
+            "federation_id": 9
+        },
+        {
+            "athlete_id": 14850,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 54
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 23
+                }
+            ],
+            "name": "TAN Ian",
+            "firstname": "Ian",
+            "lastname": "TAN",
+            "bib": "54",
+            "country": "CAN",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CAN.png",
+            "federation_id": 19
+        },
+        {
+            "athlete_id": 13760,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 55
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 24
+                }
+            ],
+            "name": "KWON Kibeom",
+            "firstname": "Kibeom",
+            "lastname": "KWON",
+            "bib": "55",
+            "country": "KOR",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/KOR.png",
+            "federation_id": 21
+        },
+        {
+            "athlete_id": 3125,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 24
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 55
+                }
+            ],
+            "name": "HALENKE Sebastian",
+            "firstname": "Sebastian",
+            "lastname": "HALENKE",
+            "bib": "24",
+            "country": "GER",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/GER.png",
+            "federation_id": 6
+        },
+        {
+            "athlete_id": 3883,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 25
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 56
+                }
+            ],
+            "name": "UTELLI Jonas",
+            "firstname": "Jonas",
+            "lastname": "UTELLI",
+            "bib": "25",
+            "country": "SUI",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/SUI.png",
+            "federation_id": 8
+        },
+        {
+            "athlete_id": 13969,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 56
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 25
+                }
+            ],
+            "name": "YANG Lihao",
+            "firstname": "Lihao",
+            "lastname": "YANG",
+            "bib": "56",
+            "country": "CHN",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CHN.png",
+            "federation_id": 37
+        },
+        {
+            "athlete_id": 320,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 57
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 26
+                }
+            ],
+            "name": "COLLIN Nicolas",
+            "firstname": "Nicolas",
+            "lastname": "COLLIN",
+            "bib": "57",
+            "country": "BEL",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/BEL.png",
+            "federation_id": 9
+        },
+        {
+            "athlete_id": 14606,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 26
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 57
+                }
+            ],
+            "name": "SUZUKI Neo",
+            "firstname": "Neo",
+            "lastname": "SUZUKI",
+            "bib": "26",
+            "country": "JPN",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/JPN.png",
+            "federation_id": 25
+        },
+        {
+            "athlete_id": 11397,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 58
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 27
+                }
+            ],
+            "name": "CHOU Tzu-Yu",
+            "firstname": "Tzu-Yu",
+            "lastname": "CHOU",
+            "bib": "58",
+            "country": "TPE",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/TPE.png",
+            "federation_id": 22
+        },
+        {
+            "athlete_id": 1029,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 27
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 58
+                }
+            ],
+            "name": "PLACCI Giovanni",
+            "firstname": "Giovanni",
+            "lastname": "PLACCI",
+            "bib": "27",
+            "country": "ITA",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/ITA.png",
+            "federation_id": 13
+        },
+        {
+            "athlete_id": 2370,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 28
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 59
+                }
+            ],
+            "name": "HOMMA Taisei",
+            "firstname": "Taisei",
+            "lastname": "HOMMA",
+            "bib": "28",
+            "country": "JPN",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/JPN.png",
+            "federation_id": 25
+        },
+        {
+            "athlete_id": 13067,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 59
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 28
+                }
+            ],
+            "name": "MAIKOTOV Azat",
+            "firstname": "Azat",
+            "lastname": "MAIKOTOV",
+            "bib": "59",
+            "country": "KAZ",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/KAZ.png",
+            "federation_id": 47
+        },
+        {
+            "athlete_id": 12237,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 29
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 60
+                }
+            ],
+            "name": "BUTTERWORTH Samuel",
+            "firstname": "Samuel",
+            "lastname": "BUTTERWORTH",
+            "bib": "29",
+            "country": "GBR",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/GBR.png",
+            "federation_id": 11
+        },
+        {
+            "athlete_id": 3665,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 60
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 29
+                }
+            ],
+            "name": "GOH WEN BIN Luke",
+            "firstname": "Luke",
+            "lastname": "GOH WEN BIN",
+            "bib": "60",
+            "country": "SGP",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/SGP.png",
+            "federation_id": 51
+        },
+        {
+            "athlete_id": 4168,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 61
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 30
+                }
+            ],
+            "name": "GRUZITIS Edvards",
+            "firstname": "Edvards",
+            "lastname": "GRUZITIS",
+            "bib": "61",
+            "country": "LAT",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/LAT.png",
+            "federation_id": 66
+        },
+        {
+            "athlete_id": 13595,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 30
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 61
+                }
+            ],
+            "name": "LUO Jintao",
+            "firstname": "Jintao",
+            "lastname": "LUO",
+            "bib": "30",
+            "country": "CHN",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CHN.png",
+            "federation_id": 37
+        },
+        {
+            "athlete_id": 13842,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 62
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 31
+                }
+            ],
+            "name": "AUEAREECHIT Auswin",
+            "firstname": "Auswin",
+            "lastname": "AUEAREECHIT",
+            "bib": "62",
+            "country": "THA",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/THA.png",
+            "federation_id": 59
+        },
+        {
+            "athlete_id": 13626,
+            "route_start_positions": [
+                {
+                    "route_name": "1",
+                    "route_id": 14220,
+                    "position": 31
+                },
+                {
+                    "route_name": "2",
+                    "route_id": 14221,
+                    "position": 62
+                }
+            ],
+            "name": "YAO Jinwei",
+            "firstname": "Jinwei",
+            "lastname": "YAO",
+            "bib": "31",
+            "country": "CHN",
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CHN.png",
+            "federation_id": 37
+        }
+    ],
+    "next_round_startlist": [
+        912,
+        2068,
+        3883,
+        13986,
+        1749,
+        12335,
+        4284,
+        3131,
+        1029,
+        4299,
+        2370,
+        2285,
+        2947,
+        1005,
+        2101,
+        14606,
+        373,
+        1170,
+        811,
+        12480,
+        11390,
+        13040,
+        11490,
+        532
+    ]
+}
