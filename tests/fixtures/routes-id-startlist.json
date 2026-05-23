@@ -1,0 +1,627 @@
+{
+    "route_id": 14220,
+    "route_name": "1",
+    "category_round": "Men Qualification",
+    "startlist": [
+        {
+            "athlete_id": 16662,
+            "starting_order": 1,
+            "name": "BAYO VEROSIL Gerald",
+            "firstname": "Gerald",
+            "lastname": "BAYO VEROSIL",
+            "bib": "1",
+            "country": "SGP",
+            "federation_id": 51
+        },
+        {
+            "athlete_id": 2285,
+            "starting_order": 2,
+            "name": "SHIMIZU Hiroto",
+            "firstname": "Hiroto",
+            "lastname": "SHIMIZU",
+            "bib": "2",
+            "country": "JPN",
+            "federation_id": 25
+        },
+        {
+            "athlete_id": 13028,
+            "starting_order": 3,
+            "name": "LAKHNO Sergey",
+            "firstname": "Sergey",
+            "lastname": "LAKHNO",
+            "bib": "3",
+            "country": "USA",
+            "federation_id": 20
+        },
+        {
+            "athlete_id": 15082,
+            "starting_order": 4,
+            "name": "ALHADDAD Taher",
+            "firstname": "Taher",
+            "lastname": "ALHADDAD",
+            "bib": "4",
+            "country": "KSA",
+            "federation_id": 104
+        },
+        {
+            "athlete_id": 11490,
+            "starting_order": 5,
+            "name": "ROBERTS Toby",
+            "firstname": "Toby",
+            "lastname": "ROBERTS",
+            "bib": "5",
+            "country": "GBR",
+            "federation_id": 11
+        },
+        {
+            "athlete_id": 12480,
+            "starting_order": 6,
+            "name": "BERTONE Max",
+            "firstname": "Max",
+            "lastname": "BERTONE",
+            "bib": "6",
+            "country": "FRA",
+            "federation_id": 10
+        },
+        {
+            "athlete_id": 15921,
+            "starting_order": 7,
+            "name": "FATANI Yousef",
+            "firstname": "Yousef",
+            "lastname": "FATANI",
+            "bib": "7",
+            "country": "KSA",
+            "federation_id": 104
+        },
+        {
+            "athlete_id": 1361,
+            "starting_order": 8,
+            "name": "STRANIK Martin",
+            "firstname": "Martin",
+            "lastname": "STRANIK",
+            "bib": "8",
+            "country": "CZE",
+            "federation_id": 17
+        },
+        {
+            "athlete_id": 1418,
+            "starting_order": 9,
+            "name": "POTUCEK Simon",
+            "firstname": "Simon",
+            "lastname": "POTUCEK",
+            "bib": "9",
+            "country": "CZE",
+            "federation_id": 17
+        },
+        {
+            "athlete_id": 13040,
+            "starting_order": 10,
+            "name": "ANRAKU Sorato",
+            "firstname": "Sorato",
+            "lastname": "ANRAKU",
+            "bib": "10",
+            "country": "JPN",
+            "federation_id": 25
+        },
+        {
+            "athlete_id": 15031,
+            "starting_order": 11,
+            "name": "NOH Hyunseung",
+            "firstname": "Hyunseung",
+            "lastname": "NOH",
+            "bib": "11",
+            "country": "KOR",
+            "federation_id": 21
+        },
+        {
+            "athlete_id": 12872,
+            "starting_order": 12,
+            "name": "MUSAUWIR Musauwir",
+            "firstname": "Musauwir",
+            "lastname": "MUSAUWIR",
+            "bib": "12",
+            "country": "INA",
+            "federation_id": 45
+        },
+        {
+            "athlete_id": 356,
+            "starting_order": 13,
+            "name": "VANCRAEYNEST Ties",
+            "firstname": "Ties",
+            "lastname": "VANCRAEYNEST",
+            "bib": "13",
+            "country": "BEL",
+            "federation_id": 9
+        },
+        {
+            "athlete_id": 1749,
+            "starting_order": 14,
+            "name": "GRUPPER Jesse",
+            "firstname": "Jesse",
+            "lastname": "GRUPPER",
+            "bib": "14",
+            "country": "USA",
+            "federation_id": 20
+        },
+        {
+            "athlete_id": 912,
+            "starting_order": 15,
+            "name": "SCHENK Filip",
+            "firstname": "Filip",
+            "lastname": "SCHENK",
+            "bib": "15",
+            "country": "ITA",
+            "federation_id": 13
+        },
+        {
+            "athlete_id": 2014,
+            "starting_order": 16,
+            "name": "HANKE Christoph",
+            "firstname": "Christoph",
+            "lastname": "HANKE",
+            "bib": "16",
+            "country": "GER",
+            "federation_id": 6
+        },
+        {
+            "athlete_id": 13986,
+            "starting_order": 17,
+            "name": "OMATA Shion",
+            "firstname": "Shion",
+            "lastname": "OMATA",
+            "bib": "17",
+            "country": "JPN",
+            "federation_id": 25
+        },
+        {
+            "athlete_id": 15006,
+            "starting_order": 18,
+            "name": "KE Qun Tao",
+            "firstname": "Qun Tao",
+            "lastname": "KE",
+            "bib": "18",
+            "country": "MAS",
+            "federation_id": 46
+        },
+        {
+            "athlete_id": 12340,
+            "starting_order": 19,
+            "name": "RÂPĂ Darius",
+            "firstname": "Darius",
+            "lastname": "RÂPĂ",
+            "bib": "19",
+            "country": "ROU",
+            "federation_id": 33
+        },
+        {
+            "athlete_id": 3131,
+            "starting_order": 20,
+            "name": "FLOHÉ Yannick",
+            "firstname": "Yannick",
+            "lastname": "FLOHÉ",
+            "bib": "20",
+            "country": "GER",
+            "federation_id": 6
+        },
+        {
+            "athlete_id": 1274,
+            "starting_order": 21,
+            "name": "SCHERZ Stefan",
+            "firstname": "Stefan",
+            "lastname": "SCHERZ",
+            "bib": "21",
+            "country": "AUT",
+            "federation_id": 16
+        },
+        {
+            "athlete_id": 13289,
+            "starting_order": 22,
+            "name": "STIPEK Jan",
+            "firstname": "Jan",
+            "lastname": "STIPEK",
+            "bib": "22",
+            "country": "CZE",
+            "federation_id": 17
+        },
+        {
+            "athlete_id": 373,
+            "starting_order": 23,
+            "name": "VAN DUYSEN Hannes",
+            "firstname": "Hannes",
+            "lastname": "VAN DUYSEN",
+            "bib": "23",
+            "country": "BEL",
+            "federation_id": 9
+        },
+        {
+            "athlete_id": 3125,
+            "starting_order": 24,
+            "name": "HALENKE Sebastian",
+            "firstname": "Sebastian",
+            "lastname": "HALENKE",
+            "bib": "24",
+            "country": "GER",
+            "federation_id": 6
+        },
+        {
+            "athlete_id": 3883,
+            "starting_order": 25,
+            "name": "UTELLI Jonas",
+            "firstname": "Jonas",
+            "lastname": "UTELLI",
+            "bib": "25",
+            "country": "SUI",
+            "federation_id": 8
+        },
+        {
+            "athlete_id": 14606,
+            "starting_order": 26,
+            "name": "SUZUKI Neo",
+            "firstname": "Neo",
+            "lastname": "SUZUKI",
+            "bib": "26",
+            "country": "JPN",
+            "federation_id": 25
+        },
+        {
+            "athlete_id": 1029,
+            "starting_order": 27,
+            "name": "PLACCI Giovanni",
+            "firstname": "Giovanni",
+            "lastname": "PLACCI",
+            "bib": "27",
+            "country": "ITA",
+            "federation_id": 13
+        },
+        {
+            "athlete_id": 2370,
+            "starting_order": 28,
+            "name": "HOMMA Taisei",
+            "firstname": "Taisei",
+            "lastname": "HOMMA",
+            "bib": "28",
+            "country": "JPN",
+            "federation_id": 25
+        },
+        {
+            "athlete_id": 12237,
+            "starting_order": 29,
+            "name": "BUTTERWORTH Samuel",
+            "firstname": "Samuel",
+            "lastname": "BUTTERWORTH",
+            "bib": "29",
+            "country": "GBR",
+            "federation_id": 11
+        },
+        {
+            "athlete_id": 13595,
+            "starting_order": 30,
+            "name": "LUO Jintao",
+            "firstname": "Jintao",
+            "lastname": "LUO",
+            "bib": "30",
+            "country": "CHN",
+            "federation_id": 37
+        },
+        {
+            "athlete_id": 13626,
+            "starting_order": 31,
+            "name": "YAO Jinwei",
+            "firstname": "Jinwei",
+            "lastname": "YAO",
+            "bib": "31",
+            "country": "CHN",
+            "federation_id": 37
+        },
+        {
+            "athlete_id": 11676,
+            "starting_order": 32,
+            "name": "GUILLERMIN Victor",
+            "firstname": "Victor",
+            "lastname": "GUILLERMIN",
+            "bib": "32",
+            "country": "FRA",
+            "federation_id": 10
+        },
+        {
+            "athlete_id": 2217,
+            "starting_order": 33,
+            "name": "AU Chi-Fung",
+            "firstname": "Chi-Fung",
+            "lastname": "AU",
+            "bib": "33",
+            "country": "HKG",
+            "federation_id": 24
+        },
+        {
+            "athlete_id": 1644,
+            "starting_order": 34,
+            "name": "BAUDRAND Victor",
+            "firstname": "Victor",
+            "lastname": "BAUDRAND",
+            "bib": "34",
+            "country": "CAN",
+            "federation_id": 19
+        },
+        {
+            "athlete_id": 12335,
+            "starting_order": 35,
+            "name": "NAGEL Yannick",
+            "firstname": "Yannick",
+            "lastname": "NAGEL",
+            "bib": "35",
+            "country": "GER",
+            "federation_id": 6
+        },
+        {
+            "athlete_id": 1170,
+            "starting_order": 36,
+            "name": "POTOCAR Luka",
+            "firstname": "Luka",
+            "lastname": "POTOCAR",
+            "bib": "36",
+            "country": "SLO",
+            "federation_id": 15
+        },
+        {
+            "athlete_id": 765,
+            "starting_order": 37,
+            "name": "MARTIN Philipp",
+            "firstname": "Philipp",
+            "lastname": "MARTIN",
+            "bib": "37",
+            "country": "GER",
+            "federation_id": 6
+        },
+        {
+            "athlete_id": 11390,
+            "starting_order": 38,
+            "name": "YOSHIDA Satone",
+            "firstname": "Satone",
+            "lastname": "YOSHIDA",
+            "bib": "38",
+            "country": "JPN",
+            "federation_id": 25
+        },
+        {
+            "athlete_id": 2947,
+            "starting_order": 39,
+            "name": "PAN Yufei",
+            "firstname": "Yufei",
+            "lastname": "PAN",
+            "bib": "39",
+            "country": "CHN",
+            "federation_id": 37
+        },
+        {
+            "athlete_id": 12870,
+            "starting_order": 40,
+            "name": "RIZKY SYAHRAFLI SIMATUPANG Muhammad",
+            "firstname": "Muhammad",
+            "lastname": "RIZKY SYAHRAFLI SIMATUPANG",
+            "bib": "40",
+            "country": "INA",
+            "federation_id": 45
+        },
+        {
+            "athlete_id": 811,
+            "starting_order": 41,
+            "name": "GINÉS LÓPEZ Alberto",
+            "firstname": "Alberto",
+            "lastname": "GINÉS LÓPEZ",
+            "bib": "41",
+            "country": "ESP",
+            "federation_id": 12
+        },
+        {
+            "athlete_id": 13031,
+            "starting_order": 42,
+            "name": "OSGOOD Declan",
+            "firstname": "Declan",
+            "lastname": "OSGOOD",
+            "bib": "42",
+            "country": "USA",
+            "federation_id": 20
+        },
+        {
+            "athlete_id": 11862,
+            "starting_order": 43,
+            "name": "URRUTIA Joaquin",
+            "firstname": "Joaquin",
+            "lastname": "URRUTIA",
+            "bib": "43",
+            "country": "CHI",
+            "federation_id": 58
+        },
+        {
+            "athlete_id": 4299,
+            "starting_order": 44,
+            "name": "LEHMANN Sascha",
+            "firstname": "Sascha",
+            "lastname": "LEHMANN",
+            "bib": "44",
+            "country": "SUI",
+            "federation_id": 8
+        },
+        {
+            "athlete_id": 13457,
+            "starting_order": 45,
+            "name": "JENKINS James",
+            "firstname": "James",
+            "lastname": "JENKINS",
+            "bib": "45",
+            "country": "GBR",
+            "federation_id": 11
+        },
+        {
+            "athlete_id": 532,
+            "starting_order": 46,
+            "name": "AVEZOU Sam",
+            "firstname": "Sam",
+            "lastname": "AVEZOU",
+            "bib": "46",
+            "country": "FRA",
+            "federation_id": 10
+        },
+        {
+            "athlete_id": 2101,
+            "starting_order": 47,
+            "name": "LEE Dohyun",
+            "firstname": "Dohyun",
+            "lastname": "LEE",
+            "bib": "47",
+            "country": "KOR",
+            "federation_id": 21
+        },
+        {
+            "athlete_id": 12565,
+            "starting_order": 48,
+            "name": "MOKROLUSKY Lukas",
+            "firstname": "Lukas",
+            "lastname": "MOKROLUSKY",
+            "bib": "48",
+            "country": "CZE",
+            "federation_id": 17
+        },
+        {
+            "athlete_id": 16149,
+            "starting_order": 49,
+            "name": "MA Yuanliang",
+            "firstname": "Yuanliang",
+            "lastname": "MA",
+            "bib": "49",
+            "country": "CHN",
+            "federation_id": 37
+        },
+        {
+            "athlete_id": 1005,
+            "starting_order": 50,
+            "name": "TOMATIS Giorgio",
+            "firstname": "Giorgio",
+            "lastname": "TOMATIS",
+            "bib": "50",
+            "country": "ITA",
+            "federation_id": 13
+        },
+        {
+            "athlete_id": 4284,
+            "starting_order": 51,
+            "name": "GRÜNENFELDER Nino",
+            "firstname": "Nino",
+            "lastname": "GRÜNENFELDER",
+            "bib": "51",
+            "country": "SUI",
+            "federation_id": 8
+        },
+        {
+            "athlete_id": 2068,
+            "starting_order": 52,
+            "name": "SHIN Joonha",
+            "firstname": "Joonha",
+            "lastname": "SHIN",
+            "bib": "52",
+            "country": "KOR",
+            "federation_id": 21
+        },
+        {
+            "athlete_id": 11382,
+            "starting_order": 53,
+            "name": "CHEN Yongchen",
+            "firstname": "Yongchen",
+            "lastname": "CHEN",
+            "bib": "53",
+            "country": "CHN",
+            "federation_id": 37
+        },
+        {
+            "athlete_id": 14850,
+            "starting_order": 54,
+            "name": "TAN Ian",
+            "firstname": "Ian",
+            "lastname": "TAN",
+            "bib": "54",
+            "country": "CAN",
+            "federation_id": 19
+        },
+        {
+            "athlete_id": 13760,
+            "starting_order": 55,
+            "name": "KWON Kibeom",
+            "firstname": "Kibeom",
+            "lastname": "KWON",
+            "bib": "55",
+            "country": "KOR",
+            "federation_id": 21
+        },
+        {
+            "athlete_id": 13969,
+            "starting_order": 56,
+            "name": "YANG Lihao",
+            "firstname": "Lihao",
+            "lastname": "YANG",
+            "bib": "56",
+            "country": "CHN",
+            "federation_id": 37
+        },
+        {
+            "athlete_id": 320,
+            "starting_order": 57,
+            "name": "COLLIN Nicolas",
+            "firstname": "Nicolas",
+            "lastname": "COLLIN",
+            "bib": "57",
+            "country": "BEL",
+            "federation_id": 9
+        },
+        {
+            "athlete_id": 11397,
+            "starting_order": 58,
+            "name": "CHOU Tzu-Yu",
+            "firstname": "Tzu-Yu",
+            "lastname": "CHOU",
+            "bib": "58",
+            "country": "TPE",
+            "federation_id": 22
+        },
+        {
+            "athlete_id": 13067,
+            "starting_order": 59,
+            "name": "MAIKOTOV Azat",
+            "firstname": "Azat",
+            "lastname": "MAIKOTOV",
+            "bib": "59",
+            "country": "KAZ",
+            "federation_id": 47
+        },
+        {
+            "athlete_id": 3665,
+            "starting_order": 60,
+            "name": "GOH WEN BIN Luke",
+            "firstname": "Luke",
+            "lastname": "GOH WEN BIN",
+            "bib": "60",
+            "country": "SGP",
+            "federation_id": 51
+        },
+        {
+            "athlete_id": 4168,
+            "starting_order": 61,
+            "name": "GRUZITIS Edvards",
+            "firstname": "Edvards",
+            "lastname": "GRUZITIS",
+            "bib": "61",
+            "country": "LAT",
+            "federation_id": 66
+        },
+        {
+            "athlete_id": 13842,
+            "starting_order": 62,
+            "name": "AUEAREECHIT Auswin",
+            "firstname": "Auswin",
+            "lastname": "AUEAREECHIT",
+            "bib": "62",
+            "country": "THA",
+            "federation_id": 59
+        }
+    ]
+}

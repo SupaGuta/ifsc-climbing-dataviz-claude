@@ -1,0 +1,1972 @@
+{
+    "id": 1364,
+    "firstname": "Adam",
+    "lastname": "ONDRA",
+    "birthday": "1993-02-05",
+    "gender": "male",
+    "paraclimbing_sport_class": null,
+    "sport_class_status": null,
+    "sport_class_review_date": null,
+    "pronouns": null,
+    "personal_story": null,
+    "federation": {
+        "id": 17,
+        "name": "Cesky Horolezecky Svaz",
+        "abbreviation": "CHS",
+        "url": "https://www.horosvaz.cz/"
+    },
+    "speed_personal_best": {
+        "time": "6.86",
+        "date": "2021-10-12",
+        "event_name": "Olympic Games (C) - Tokyo (JPN) 2020",
+        "round_name": "Final"
+    },
+    "country": "CZE",
+    "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CZE.png",
+    "city": "Brno - Komin",
+    "age": 32,
+    "arm_span": null,
+    "height": 186,
+    "favourite_movie": null,
+    "favourite_game": null,
+    "favourite_song": null,
+    "sporting_hero": null,
+    "hobby": null,
+    "website": "https://www.adamondra.com/",
+    "instagram": "https://www.instagram.com/adam.ondra/",
+    "twitter": null,
+    "facebook": "https://www.facebook.com/adamondraofficial/",
+    "youtube": "https://www.youtube.com/channel/UC8eNyF9eYwgr_K-Nl4gSHWw",
+    "nickname": "",
+    "residence": "",
+    "spoken_languages": "",
+    "coach": null,
+    "photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/zw05rrno2ghv21adtkiy9v3jrstl",
+    "action_photo_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/4pv30r4ww8cbayvsxzgkmf69s7cz",
+    "discipline_podiums": [
+        {
+            "discipline_kind": "lead",
+            "total": 52,
+            "1": 36,
+            "2": 11,
+            "3": 5
+        },
+        {
+            "discipline_kind": "speed",
+            "total": 1,
+            "1": 0,
+            "2": 1,
+            "3": 0
+        },
+        {
+            "discipline_kind": "boulder",
+            "total": 22,
+            "1": 8,
+            "2": 10,
+            "3": 4
+        },
+        {
+            "discipline_kind": "combined",
+            "total": 2,
+            "1": 0,
+            "2": 2,
+            "3": 0
+        },
+        {
+            "discipline_kind": "boulder&lead",
+            "total": 3,
+            "1": 0,
+            "2": 1,
+            "3": 2
+        }
+    ],
+    "world_championships_discipline_podiums": [
+        {
+            "discipline_kind": "lead",
+            "total": 7,
+            "1": 3,
+            "2": 2,
+            "3": 2
+        },
+        {
+            "discipline_kind": "speed",
+            "total": 0,
+            "1": 0,
+            "2": 0,
+            "3": 0
+        },
+        {
+            "discipline_kind": "boulder",
+            "total": 3,
+            "1": 1,
+            "2": 2,
+            "3": 0
+        },
+        {
+            "discipline_kind": "combined",
+            "total": 1,
+            "1": 0,
+            "2": 1,
+            "3": 0
+        },
+        {
+            "discipline_kind": "boulder&lead",
+            "total": 0,
+            "1": 0,
+            "2": 0,
+            "3": 0
+        }
+    ],
+    "continental_championships_discipline_podiums": [
+        {
+            "discipline_kind": "lead",
+            "total": 5,
+            "1": 2,
+            "2": 3,
+            "3": 0
+        },
+        {
+            "discipline_kind": "speed",
+            "total": 0,
+            "1": 0,
+            "2": 0,
+            "3": 0
+        },
+        {
+            "discipline_kind": "boulder",
+            "total": 3,
+            "1": 0,
+            "2": 2,
+            "3": 1
+        },
+        {
+            "discipline_kind": "combined",
+            "total": 0,
+            "1": 0,
+            "2": 0,
+            "3": 0
+        },
+        {
+            "discipline_kind": "boulder&lead",
+            "total": 1,
+            "1": 0,
+            "2": 1,
+            "3": 0
+        }
+    ],
+    "all_results": [
+        {
+            "season": "2025",
+            "rank": 15,
+            "discipline": "lead",
+            "event_name": "IFSC World Championships Seoul 2025",
+            "event_id": 1417,
+            "event_location": "Seoul, KOR",
+            "d_cat": 1,
+            "date": "2025-09-28",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1417/result/1"
+        },
+        {
+            "season": "2025",
+            "rank": 7,
+            "discipline": "lead",
+            "event_name": "IFSC World Cup Koper 2025",
+            "event_id": 1416,
+            "event_location": "Koper, SLO",
+            "d_cat": 1,
+            "date": "2025-09-06",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1416/result/1"
+        },
+        {
+            "season": "2025",
+            "rank": 15,
+            "discipline": "boulder",
+            "event_name": "IFSC World Cup Prague 2025",
+            "event_id": 1410,
+            "event_location": "Prague, CZE",
+            "d_cat": 3,
+            "date": "2025-06-08",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1410/result/3"
+        },
+        {
+            "season": "2024",
+            "rank": 6,
+            "discipline": "boulder",
+            "event_name": "IFSC World Cup Prague 2024",
+            "event_id": 1360,
+            "event_location": "Prague",
+            "d_cat": 3,
+            "date": "2024-09-22",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1360/result/3"
+        },
+        {
+            "season": "2024",
+            "rank": 6,
+            "discipline": "boulder&lead",
+            "event_name": "Olympic Games Paris 2024",
+            "event_id": 1386,
+            "event_location": "Paris",
+            "d_cat": 677,
+            "date": "2024-08-11",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1386/result/677"
+        },
+        {
+            "season": "2024",
+            "rank": 6,
+            "discipline": "lead",
+            "event_name": "IFSC World Cup Chamonix 2024",
+            "event_id": 1357,
+            "event_location": "Chamonix",
+            "d_cat": 1,
+            "date": "2024-07-14",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1357/result/1"
+        },
+        {
+            "season": "2024",
+            "rank": 3,
+            "discipline": "boulder&lead",
+            "event_name": "Olympic Qualifier Series Budapest 2024",
+            "event_id": 1385,
+            "event_location": "Budapest",
+            "d_cat": 677,
+            "date": "2024-06-23",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1385/result/677"
+        },
+        {
+            "season": "2024",
+            "rank": 3,
+            "discipline": "boulder&lead",
+            "event_name": "Olympic Qualifier Series Shanghai 2024",
+            "event_id": 1384,
+            "event_location": "Shanghai",
+            "d_cat": 677,
+            "date": "2024-05-19",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1384/result/677"
+        },
+        {
+            "season": "2023",
+            "rank": 4,
+            "discipline": "boulder&lead",
+            "event_name": "IFSC European Qualifier Laval 2023",
+            "event_id": 1308,
+            "event_location": "Laval",
+            "d_cat": 669,
+            "date": "2023-10-29",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1308/result/669"
+        },
+        {
+            "season": "2023",
+            "rank": 8,
+            "discipline": "boulder",
+            "event_name": "IFSC World Championships Bern 2023",
+            "event_id": 1301,
+            "event_location": "Bern",
+            "d_cat": 3,
+            "date": "2023-08-12",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1301/result/3"
+        },
+        {
+            "season": "2023",
+            "rank": 8,
+            "discipline": "lead",
+            "event_name": "IFSC World Championships Bern 2023",
+            "event_id": 1301,
+            "event_location": "Bern",
+            "d_cat": 1,
+            "date": "2023-08-12",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1301/result/1"
+        },
+        {
+            "season": "2023",
+            "rank": 6,
+            "discipline": "boulder&lead",
+            "event_name": "IFSC World Championships Bern 2023",
+            "event_id": 1301,
+            "event_location": "Bern",
+            "d_cat": 617,
+            "date": "2023-08-12",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1301/result/617"
+        },
+        {
+            "season": "2023",
+            "rank": 2,
+            "discipline": "lead",
+            "event_name": "IFSC World Cup Villars 2023",
+            "event_id": 1298,
+            "event_location": "Villars-sur-Ollon",
+            "d_cat": 1,
+            "date": "2023-07-02",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1298/result/1"
+        },
+        {
+            "season": "2023",
+            "rank": 19,
+            "discipline": "boulder",
+            "event_name": "IFSC World Cup Brixen 2023",
+            "event_id": 1296,
+            "event_location": "Brixen",
+            "d_cat": 3,
+            "date": "2023-06-11",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1296/result/3"
+        },
+        {
+            "season": "2023",
+            "rank": 2,
+            "discipline": "boulder",
+            "event_name": "IFSC World Cup Prague 2023",
+            "event_id": 1295,
+            "event_location": "Prague",
+            "d_cat": 3,
+            "date": "2023-06-04",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1295/result/3"
+        },
+        {
+            "season": "2022",
+            "rank": 3,
+            "discipline": "boulder",
+            "event_name": "IFSC Europe - Continental Championships (B,S,L) - Munich (GER) 2022",
+            "event_id": 1247,
+            "event_location": "Munich",
+            "d_cat": 227,
+            "date": "2022-08-18",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1247/result/227"
+        },
+        {
+            "season": "2022",
+            "rank": 1,
+            "discipline": "lead",
+            "event_name": "IFSC Europe - Continental Championships (B,S,L) - Munich (GER) 2022",
+            "event_id": 1247,
+            "event_location": "Munich",
+            "d_cat": 225,
+            "date": "2022-08-18",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1247/result/225"
+        },
+        {
+            "season": "2022",
+            "rank": 2,
+            "discipline": "boulder&lead",
+            "event_name": "IFSC Europe - Continental Championships (B,S,L) - Munich (GER) 2022",
+            "event_id": 1247,
+            "event_location": "Munich",
+            "d_cat": 669,
+            "date": "2022-08-18",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1247/result/669"
+        },
+        {
+            "season": "2022",
+            "rank": 1,
+            "discipline": "lead",
+            "event_name": "IFSC - Climbing World Cup (L,S) - Chamonix (FRA) 2022",
+            "event_id": 1240,
+            "event_location": "Chamonix",
+            "d_cat": 1,
+            "date": "2022-07-10",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1240/result/1"
+        },
+        {
+            "season": "2022",
+            "rank": 1,
+            "discipline": "boulder",
+            "event_name": "IFSC Europe - Continental Cup (B) - Prague (CZE) 2022",
+            "event_id": 1260,
+            "event_location": "Prague",
+            "d_cat": 227,
+            "date": "2022-05-01",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1260/result/227"
+        },
+        {
+            "season": "2021",
+            "rank": 6,
+            "discipline": "combined",
+            "event_name": "Olympic Games (C) - Tokyo (JPN) 2020",
+            "event_id": 1227,
+            "event_location": "Tokyo",
+            "d_cat": 316,
+            "date": "2021-08-06",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1227/result/316"
+        },
+        {
+            "season": "2021",
+            "rank": 8,
+            "discipline": "lead",
+            "event_name": "IFSC - Climbing World Cup (B,L) - Innsbruck (AUT) 2021",
+            "event_id": 1193,
+            "event_location": "Innsbruck",
+            "d_cat": 1,
+            "date": "2021-06-26",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1193/result/1"
+        },
+        {
+            "season": "2021",
+            "rank": 1,
+            "discipline": "boulder",
+            "event_name": "IFSC - Climbing World Cup (B) - Salt Lake City (USA) 2021",
+            "event_id": 1190,
+            "event_location": "Salt Lake City",
+            "d_cat": 3,
+            "date": "2021-05-23",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1190/result/3"
+        },
+        {
+            "season": "2021",
+            "rank": 1,
+            "discipline": "boulder",
+            "event_name": "IFSC - Climbing World Cup (B) - Meiringen (SUI) 2021",
+            "event_id": 1187,
+            "event_location": "Meiringen",
+            "d_cat": 3,
+            "date": "2021-04-17",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1187/result/3"
+        },
+        {
+            "season": "2020",
+            "rank": 1,
+            "discipline": "lead",
+            "event_name": "IFSC - Climbing World Cup (L) - Briançon (FRA) 2020",
+            "event_id": 65,
+            "event_location": "Briançon",
+            "d_cat": 1,
+            "date": "2020-08-22",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/65/result/1"
+        },
+        {
+            "season": "2019",
+            "rank": 2,
+            "discipline": "combined",
+            "event_name": "IFSC Combined Qualifier - Toulouse/Tournefeuille (FRA) 2019",
+            "event_id": 1152,
+            "event_location": "WCH Combined",
+            "d_cat": 356,
+            "date": "2019-12-01",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1152/result/356"
+        },
+        {
+            "season": "2019",
+            "rank": 1,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing Worldcup (L, S) - Xiamen (CHN) 2019 ",
+            "event_id": 1124,
+            "event_location": "XiamenWC",
+            "d_cat": 1,
+            "date": "2019-10-20",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1124/result/1"
+        },
+        {
+            "season": "2019",
+            "rank": 50,
+            "discipline": "speed",
+            "event_name": "IFSC Climbing Worldcup (L, S) - Xiamen (CHN) 2019 ",
+            "event_id": 1124,
+            "event_location": "XiamenWC",
+            "d_cat": 2,
+            "date": "2019-10-20",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1124/result/2"
+        },
+        {
+            "season": "2019",
+            "rank": 1,
+            "discipline": "lead",
+            "event_name": "European Championship (L,S) - Edinburgh (GBR) 2019",
+            "event_id": 1136,
+            "event_location": "EdinCH19",
+            "d_cat": 225,
+            "date": "2019-10-06",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1136/result/225"
+        },
+        {
+            "season": "2019",
+            "rank": 1,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing Worldcup (L) - Kranj (SLO) 2019 ",
+            "event_id": 1123,
+            "event_location": "KranjWC",
+            "d_cat": 1,
+            "date": "2019-09-29",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1123/result/1"
+        },
+        {
+            "season": "2019",
+            "rank": 1,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing World Championships - Hachioji (JPN) 2019",
+            "event_id": 1121,
+            "event_location": "WCH Hachioji",
+            "d_cat": 1,
+            "date": "2019-08-21",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1121/result/1"
+        },
+        {
+            "season": "2019",
+            "rank": 6,
+            "discipline": "boulder",
+            "event_name": "IFSC Climbing World Championships - Hachioji (JPN) 2019",
+            "event_id": 1121,
+            "event_location": "WCH Hachioji",
+            "d_cat": 3,
+            "date": "2019-08-21",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1121/result/3"
+        },
+        {
+            "season": "2019",
+            "rank": 58,
+            "discipline": "speed",
+            "event_name": "IFSC Climbing World Championships - Hachioji (JPN) 2019",
+            "event_id": 1121,
+            "event_location": "WCH Hachioji",
+            "d_cat": 2,
+            "date": "2019-08-21",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1121/result/2"
+        },
+        {
+            "season": "2019",
+            "rank": 18,
+            "discipline": "combined",
+            "event_name": "IFSC Climbing World Championships Combined - Hachioji (JPN) 2019",
+            "event_id": 1122,
+            "event_location": "WCH Combined",
+            "d_cat": 4,
+            "date": "2019-08-21",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1122/result/4"
+        },
+        {
+            "season": "2019",
+            "rank": 1,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing Worldcup (L, S) - Chamonix (FRA) 2019 ",
+            "event_id": 1119,
+            "event_location": "ChamonixWC",
+            "d_cat": 1,
+            "date": "2019-07-13",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1119/result/1"
+        },
+        {
+            "season": "2019",
+            "rank": 63,
+            "discipline": "speed",
+            "event_name": "IFSC Climbing Worldcup (L, S) - Chamonix (FRA) 2019 ",
+            "event_id": 1119,
+            "event_location": "ChamonixWC",
+            "d_cat": 2,
+            "date": "2019-07-13",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1119/result/2"
+        },
+        {
+            "season": "2019",
+            "rank": 5,
+            "discipline": "boulder",
+            "event_name": "IFSC Climbing Worldcup (B) - Vail (USA) 2019 ",
+            "event_id": 1117,
+            "event_location": "VailWC",
+            "d_cat": 3,
+            "date": "2019-06-08",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1117/result/3"
+        },
+        {
+            "season": "2019",
+            "rank": 2,
+            "discipline": "boulder",
+            "event_name": "IFSC Climbing Worldcup (B) - Munich (GER) 2019",
+            "event_id": 1116,
+            "event_location": "MunichWC",
+            "d_cat": 3,
+            "date": "2019-05-19",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1116/result/3"
+        },
+        {
+            "season": "2019",
+            "rank": 14,
+            "discipline": "boulder",
+            "event_name": "IFSC Climbing Worldcup (B,S) - Wujiang (CHN) 2019",
+            "event_id": 1115,
+            "event_location": "WujiangWC",
+            "d_cat": 3,
+            "date": "2019-05-05",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1115/result/3"
+        },
+        {
+            "season": "2019",
+            "rank": 2,
+            "discipline": "boulder",
+            "event_name": "IFSC Climbing Worldcup (B,S) - Moscow (RUS) 2019 ",
+            "event_id": 1113,
+            "event_location": "MoscowWC",
+            "d_cat": 3,
+            "date": "2019-04-14",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1113/result/3"
+        },
+        {
+            "season": "2019",
+            "rank": 1,
+            "discipline": "boulder",
+            "event_name": "IFSC Climbing Worldcup (B) - Meiringen (SUI) 2019 ",
+            "event_id": 1112,
+            "event_location": "MeiringenWC",
+            "d_cat": 3,
+            "date": "2019-04-06",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1112/result/3"
+        },
+        {
+            "season": "2018",
+            "rank": 2,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing World Championships - Innsbruck (AUT) 2018",
+            "event_id": 1061,
+            "event_location": "WCH Innsbruck",
+            "d_cat": 1,
+            "date": "2018-09-16",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1061/result/1"
+        },
+        {
+            "season": "2018",
+            "rank": 17,
+            "discipline": "boulder",
+            "event_name": "IFSC Climbing World Championships - Innsbruck (AUT) 2018",
+            "event_id": 1061,
+            "event_location": "WCH Innsbruck",
+            "d_cat": 3,
+            "date": "2018-09-16",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1061/result/3"
+        },
+        {
+            "season": "2018",
+            "rank": 81,
+            "discipline": "speed",
+            "event_name": "IFSC Climbing World Championships - Innsbruck (AUT) 2018",
+            "event_id": 1061,
+            "event_location": "WCH Innsbruck",
+            "d_cat": 2,
+            "date": "2018-09-16",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1061/result/2"
+        },
+        {
+            "season": "2018",
+            "rank": 2,
+            "discipline": "combined",
+            "event_name": "IFSC Climbing World Championships Combined - Innsbruck (AUT) 2018",
+            "event_id": 1062,
+            "event_location": "WCH Combined",
+            "d_cat": 4,
+            "date": "2018-09-16",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1062/result/4"
+        },
+        {
+            "season": "2018",
+            "rank": 4,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing Worldcup (L,S) - Arco (ITA) 2018 ",
+            "event_id": 1056,
+            "event_location": "ArcoWC",
+            "d_cat": 1,
+            "date": "2018-07-28",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1056/result/1"
+        },
+        {
+            "season": "2017",
+            "rank": 2,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing Worldcup (L,S) - Arco (ITA) 2017 ",
+            "event_id": 993,
+            "event_location": "ArcoWC",
+            "d_cat": 1,
+            "date": "2017-08-26",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/993/result/1"
+        },
+        {
+            "season": "2017",
+            "rank": 2,
+            "discipline": "lead",
+            "event_name": "European Championship (L,S) - Campitello di Fassa (ITA) 2017 ",
+            "event_id": 1008,
+            "event_location": "CAMPECH17",
+            "d_cat": 225,
+            "date": "2017-07-01",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/1008/result/225"
+        },
+        {
+            "season": "2016",
+            "rank": 1,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing World Championships - Paris (FRA) 2016",
+            "event_id": 950,
+            "event_location": "WCH Paris",
+            "d_cat": 1,
+            "date": "2016-09-18",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/950/result/1"
+        },
+        {
+            "season": "2016",
+            "rank": 2,
+            "discipline": "boulder",
+            "event_name": "IFSC Climbing World Championships - Paris (FRA) 2016",
+            "event_id": 950,
+            "event_location": "WCH Paris",
+            "d_cat": 3,
+            "date": "2016-09-18",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/950/result/3"
+        },
+        {
+            "season": "2016",
+            "rank": 5,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing Worldcup (L, S) - Arco (ITA) 2016",
+            "event_id": 949,
+            "event_location": "ArcoWC",
+            "d_cat": 1,
+            "date": "2016-08-27",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/949/result/1"
+        },
+        {
+            "season": "2015",
+            "rank": 1,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing Worldcup (L) - Kranj (SLO) 2015",
+            "event_id": 909,
+            "event_location": "Kranj",
+            "d_cat": 1,
+            "date": "2015-11-15",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/909/result/1"
+        },
+        {
+            "season": "2015",
+            "rank": 1,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing Worldcup (L,S) - Wujiang (CHN) 2015",
+            "event_id": 908,
+            "event_location": "Wujiang",
+            "d_cat": 1,
+            "date": "2015-10-18",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/908/result/1"
+        },
+        {
+            "season": "2015",
+            "rank": 10,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing Worldcup (L) - Puurs (BEL) 2015 ",
+            "event_id": 907,
+            "event_location": "Puurs",
+            "d_cat": 1,
+            "date": "2015-09-27",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/907/result/1"
+        },
+        {
+            "season": "2015",
+            "rank": 2,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing Worldcup (L) - Stavanger (NOR) 2015",
+            "event_id": 906,
+            "event_location": "Stavanger",
+            "d_cat": 1,
+            "date": "2015-08-22",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/906/result/1"
+        },
+        {
+            "season": "2015",
+            "rank": 8,
+            "discipline": "boulder",
+            "event_name": "IFSC Climbing Worldcup (B) - Munich (GER) 2015",
+            "event_id": 905,
+            "event_location": "Munich",
+            "d_cat": 3,
+            "date": "2015-08-15",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/905/result/3"
+        },
+        {
+            "season": "2015",
+            "rank": 4,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing Worldcup (L) - Imst (AUT) 2015 ",
+            "event_id": 904,
+            "event_location": "Imst",
+            "d_cat": 1,
+            "date": "2015-08-01",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/904/result/1"
+        },
+        {
+            "season": "2015",
+            "rank": 7,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing Worldcup (L) - Briançon (FRA) 2015",
+            "event_id": 903,
+            "event_location": "Briançon",
+            "d_cat": 1,
+            "date": "2015-07-18",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/903/result/1"
+        },
+        {
+            "season": "2015",
+            "rank": 2,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing Worldcup (L,S) - Chamonix (FRA) 2015",
+            "event_id": 902,
+            "event_location": "Chamonix",
+            "d_cat": 1,
+            "date": "2015-07-12",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/902/result/1"
+        },
+        {
+            "season": "2015",
+            "rank": 2,
+            "discipline": "lead",
+            "event_name": "European Championship (L,S) - Chamonix (FRA) 2015",
+            "event_id": 917,
+            "event_location": "ChamECH15",
+            "d_cat": 225,
+            "date": "2015-07-12",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/917/result/225"
+        },
+        {
+            "season": "2015",
+            "rank": 5,
+            "discipline": "boulder",
+            "event_name": "IFSC Climbing Worldcup (B,S) - Haiyang (CHN) 2015",
+            "event_id": 901,
+            "event_location": "Haiyang",
+            "d_cat": 3,
+            "date": "2015-06-27",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/901/result/3"
+        },
+        {
+            "season": "2015",
+            "rank": 8,
+            "discipline": "boulder",
+            "event_name": "IFSC Climbing Worldcup (B,S) - Chongqing (CHN) 2015",
+            "event_id": 900,
+            "event_location": "Chongqing",
+            "d_cat": 3,
+            "date": "2015-06-21",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/900/result/3"
+        },
+        {
+            "season": "2015",
+            "rank": 3,
+            "discipline": "boulder",
+            "event_name": "IFSC Climbing Worldcup (B) - Vail (USA) 2015",
+            "event_id": 899,
+            "event_location": "Vail",
+            "d_cat": 3,
+            "date": "2015-06-06",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/899/result/3"
+        },
+        {
+            "season": "2015",
+            "rank": 3,
+            "discipline": "boulder",
+            "event_name": "IFSC Climbing Worldcup (B) - Toronto (CAN) 2015",
+            "event_id": 898,
+            "event_location": "Toronto15 ",
+            "d_cat": 3,
+            "date": "2015-05-31",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/898/result/3"
+        },
+        {
+            "season": "2015",
+            "rank": 2,
+            "discipline": "boulder",
+            "event_name": "European Championship (B) - Innsbruck (AUT) 2015",
+            "event_id": 916,
+            "event_location": "InnsbruckECH15",
+            "d_cat": 227,
+            "date": "2015-05-16",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/916/result/227"
+        },
+        {
+            "season": "2014",
+            "rank": 1,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing Worldcup (L) - Kranj (SLO) 2014 ",
+            "event_id": 866,
+            "event_location": "Kranj",
+            "d_cat": 1,
+            "date": "2014-11-16",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/866/result/1"
+        },
+        {
+            "season": "2014",
+            "rank": 1,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing Worldcup (L) - Inzai (JPN) 2014 ",
+            "event_id": 865,
+            "event_location": "Inzai",
+            "d_cat": 1,
+            "date": "2014-10-26",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/865/result/1"
+        },
+        {
+            "season": "2014",
+            "rank": 19,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing Worldcup (L,S) - Wujiang (CHN) 2014 ",
+            "event_id": 864,
+            "event_location": "Wujiang",
+            "d_cat": 1,
+            "date": "2014-10-19",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/864/result/1"
+        },
+        {
+            "season": "2014",
+            "rank": 9,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing Worldcup (L,S) - Mokpo (KOR) 2014 ",
+            "event_id": 863,
+            "event_location": "Mokpo",
+            "d_cat": 1,
+            "date": "2014-10-12",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/863/result/1"
+        },
+        {
+            "season": "2014",
+            "rank": 1,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing World Championship (L, S) - Gijon (ESP) 2014",
+            "event_id": 862,
+            "event_location": "Gijon",
+            "d_cat": 1,
+            "date": "2014-09-14",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/862/result/1"
+        },
+        {
+            "season": "2014",
+            "rank": 1,
+            "discipline": "boulder",
+            "event_name": "IFSC Climbing World Championship (B) - Munich (GER) 2014",
+            "event_id": 860,
+            "event_location": "Munich",
+            "d_cat": 3,
+            "date": "2014-08-23",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/860/result/3"
+        },
+        {
+            "season": "2014",
+            "rank": 1,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing Worldcup (L) - Imst (AUT) 2014 ",
+            "event_id": 859,
+            "event_location": "Imst",
+            "d_cat": 1,
+            "date": "2014-08-02",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/859/result/1"
+        },
+        {
+            "season": "2014",
+            "rank": 8,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing Worldcup (L) - Briançon (FRA) 2014",
+            "event_id": 858,
+            "event_location": "Briançon",
+            "d_cat": 1,
+            "date": "2014-07-20",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/858/result/1"
+        },
+        {
+            "season": "2014",
+            "rank": 27,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing Worldcup (L,S) - Chamonix (FRA) 2014",
+            "event_id": 857,
+            "event_location": "Chamonix",
+            "d_cat": 1,
+            "date": "2014-07-12",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/857/result/1"
+        },
+        {
+            "season": "2014",
+            "rank": 9,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing Worldcup (L, B, S) - Haiyang (CHN) 2014 ",
+            "event_id": 855,
+            "event_location": "Haiyang",
+            "d_cat": 1,
+            "date": "2014-06-22",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/855/result/1"
+        },
+        {
+            "season": "2014",
+            "rank": 2,
+            "discipline": "boulder",
+            "event_name": "IFSC Climbing Worldcup (B) - Innsbruck (AUT) 2014 ",
+            "event_id": 852,
+            "event_location": "Innsbruck",
+            "d_cat": 3,
+            "date": "2014-05-17",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/852/result/3"
+        },
+        {
+            "season": "2013",
+            "rank": 2,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing Worldcup (L) - Kranj (SLO) 2013",
+            "event_id": 807,
+            "event_location": "Kranj",
+            "d_cat": 1,
+            "date": "2013-11-17",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/807/result/1"
+        },
+        {
+            "season": "2013",
+            "rank": 1,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing Worldcup (L) - Valence (FRA) 2013",
+            "event_id": 806,
+            "event_location": "Valence",
+            "d_cat": 1,
+            "date": "2013-11-02",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/806/result/1"
+        },
+        {
+            "season": "2012",
+            "rank": 3,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing World Championship - Paris (FRA) 2012",
+            "event_id": 738,
+            "event_location": "WCH Paris",
+            "d_cat": 1,
+            "date": "2012-09-16",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/738/result/1"
+        },
+        {
+            "season": "2012",
+            "rank": 5,
+            "discipline": "lead",
+            "event_name": "Intl. Event (L, B) - ROCKMASTER - Arco (ITA) 2012",
+            "event_id": 783,
+            "event_location": "Arco_RM_12",
+            "d_cat": 393,
+            "date": "2012-09-02",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/783/result/393"
+        },
+        {
+            "season": "2012",
+            "rank": 2,
+            "discipline": "speed",
+            "event_name": "Intl. Event (L, B) - ROCKMASTER - Arco (ITA) 2012",
+            "event_id": 783,
+            "event_location": "Arco_RM_12",
+            "d_cat": 394,
+            "date": "2012-09-02",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/783/result/394"
+        },
+        {
+            "season": "2011",
+            "rank": 3,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing World Championships  - Arco (ITA) 2011",
+            "event_id": 675,
+            "event_location": "WCH Arco 2011",
+            "d_cat": 1,
+            "date": "2011-07-24",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/675/result/1"
+        },
+        {
+            "season": "2011",
+            "rank": 2,
+            "discipline": "boulder",
+            "event_name": "IFSC Climbing World Championships  - Arco (ITA) 2011",
+            "event_id": 675,
+            "event_location": "WCH Arco 2011",
+            "d_cat": 3,
+            "date": "2011-07-24",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/675/result/3"
+        },
+        {
+            "season": "2011",
+            "rank": 70,
+            "discipline": "speed",
+            "event_name": "IFSC Climbing World Championships  - Arco (ITA) 2011",
+            "event_id": 675,
+            "event_location": "WCH Arco 2011",
+            "d_cat": 2,
+            "date": "2011-07-24",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/675/result/2"
+        },
+        {
+            "season": "2011",
+            "rank": 1,
+            "discipline": "lead",
+            "event_name": "Rockmaster Gala Duel - Arco (ITA) 2011",
+            "event_id": 717,
+            "event_location": "Rockmaster Duel",
+            "d_cat": 393,
+            "date": "2011-07-24",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/717/result/393"
+        },
+        {
+            "season": "2011",
+            "rank": 17,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing Worldcup (L,S) - Chamonix (FRA) 2011",
+            "event_id": 674,
+            "event_location": "Chamonix",
+            "d_cat": 1,
+            "date": "2011-07-13",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/674/result/1"
+        },
+        {
+            "season": "2010",
+            "rank": 2,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing Worldcup (L) - Kranj (SLO) 2010",
+            "event_id": 622,
+            "event_location": "WC Kranj",
+            "d_cat": 1,
+            "date": "2010-11-14",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/622/result/1"
+        },
+        {
+            "season": "2010",
+            "rank": 8,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing Worldcup (L, S) - Huaiji (CHN) 2010",
+            "event_id": 621,
+            "event_location": "WC Huaiji",
+            "d_cat": 1,
+            "date": "2010-10-30",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/621/result/1"
+        },
+        {
+            "season": "2010",
+            "rank": 3,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing Worldcup (L) - Puurs (BEL) 2010",
+            "event_id": 620,
+            "event_location": "WC Puurs",
+            "d_cat": 1,
+            "date": "2010-09-25",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/620/result/1"
+        },
+        {
+            "season": "2010",
+            "rank": 2,
+            "discipline": "lead",
+            "event_name": "European Championship - Imst/Innsbruck (AUT) 2010",
+            "event_id": 629,
+            "event_location": "ECH Imst/Innsbruck",
+            "d_cat": 225,
+            "date": "2010-09-18",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/629/result/225"
+        },
+        {
+            "season": "2010",
+            "rank": 2,
+            "discipline": "boulder",
+            "event_name": "European Championship - Imst/Innsbruck (AUT) 2010",
+            "event_id": 629,
+            "event_location": "ECH Imst/Innsbruck",
+            "d_cat": 227,
+            "date": "2010-09-18",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/629/result/227"
+        },
+        {
+            "season": "2010",
+            "rank": 4,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing Worldcup (L,S) - Chuncheon (KOR) 2010",
+            "event_id": 619,
+            "event_location": "WC Chuncheon",
+            "d_cat": 1,
+            "date": "2010-08-30",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/619/result/1"
+        },
+        {
+            "season": "2010",
+            "rank": 1,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing Worldcup (L, S) - Xining (CHN) 2010",
+            "event_id": 618,
+            "event_location": "WC Xining",
+            "d_cat": 1,
+            "date": "2010-08-21",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/618/result/1"
+        },
+        {
+            "season": "2010",
+            "rank": 1,
+            "discipline": "boulder",
+            "event_name": "IFSC Climbing Worldcup (B) - Munich (GER) 2010",
+            "event_id": 617,
+            "event_location": "WC Munich",
+            "d_cat": 3,
+            "date": "2010-07-31",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/617/result/3"
+        },
+        {
+            "season": "2010",
+            "rank": 3,
+            "discipline": "lead",
+            "event_name": "Rock Master - World Championship Pre-event - Arco (ITA)",
+            "event_id": 655,
+            "event_location": "Rockmaster Arco",
+            "d_cat": 393,
+            "date": "2010-07-18",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/655/result/393"
+        },
+        {
+            "season": "2010",
+            "rank": 1,
+            "discipline": "lead",
+            "event_name": "Rockmaster ARCO  2010 - Duel Lead",
+            "event_id": 656,
+            "event_location": "10_Arco_Duel",
+            "d_cat": 393,
+            "date": "2010-07-18",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/656/result/393"
+        },
+        {
+            "season": "2010",
+            "rank": 9,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing Worldcup (L,S) - Chamonix (FRA) 2010",
+            "event_id": 615,
+            "event_location": "Wc Chamonix",
+            "d_cat": 1,
+            "date": "2010-07-13",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/615/result/1"
+        },
+        {
+            "season": "2010",
+            "rank": 1,
+            "discipline": "boulder",
+            "event_name": "IFSC Climbing Worldcup (B) - Sheffield (GBR) 2010",
+            "event_id": 614,
+            "event_location": "WC Sheffield",
+            "d_cat": 3,
+            "date": "2010-07-04",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/614/result/3"
+        },
+        {
+            "season": "2010",
+            "rank": 4,
+            "discipline": "boulder",
+            "event_name": "IFSC Climbing Worldcup (B) - Eindhoven (NED) 2010",
+            "event_id": 613,
+            "event_location": "WC Eindhoven",
+            "d_cat": 3,
+            "date": "2010-06-26",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/613/result/3"
+        },
+        {
+            "season": "2010",
+            "rank": 1,
+            "discipline": "boulder",
+            "event_name": "IFSC Climbing Worldcup (B,S) - Moscow (RUS) 2010",
+            "event_id": 612,
+            "event_location": "WC Moscow",
+            "d_cat": 3,
+            "date": "2010-06-21",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/612/result/3"
+        },
+        {
+            "season": "2010",
+            "rank": 2,
+            "discipline": "boulder",
+            "event_name": "IFSC Climbing Worldcup (B) - Wien (AUT) 2010",
+            "event_id": 610,
+            "event_location": "WC Wien",
+            "d_cat": 3,
+            "date": "2010-05-30",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/610/result/3"
+        },
+        {
+            "season": "2010",
+            "rank": 2,
+            "discipline": "boulder",
+            "event_name": "IFSC Climbing Worldcup (B) - Greifensee (SUI) 2010",
+            "event_id": 609,
+            "event_location": "WC Greifensee",
+            "d_cat": 3,
+            "date": "2010-05-15",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/609/result/3"
+        },
+        {
+            "season": "2009",
+            "rank": 1,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing Worldcup (L) - Kranj (SLO) 2009",
+            "event_id": 575,
+            "event_location": "WC Kranj",
+            "d_cat": 1,
+            "date": "2009-11-15",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/575/result/1"
+        },
+        {
+            "season": "2009",
+            "rank": 11,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing Worldcup (L) - Brno (CZE) 2009",
+            "event_id": 574,
+            "event_location": "WC Brno",
+            "d_cat": 1,
+            "date": "2009-11-07",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/574/result/1"
+        },
+        {
+            "season": "2009",
+            "rank": 1,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing Worldcup (L) - Puurs (BEL) 2009",
+            "event_id": 573,
+            "event_location": "WC Puurs",
+            "d_cat": 1,
+            "date": "2009-09-26",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/573/result/1"
+        },
+        {
+            "season": "2009",
+            "rank": 3,
+            "discipline": "lead",
+            "event_name": " Int. Event (L+B+S) ROCKMASTER - Arco (ITA) 2009",
+            "event_id": 605,
+            "event_location": null,
+            "d_cat": 393,
+            "date": "2009-09-06",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/605/result/393"
+        },
+        {
+            "season": "2009",
+            "rank": 1,
+            "discipline": "lead",
+            "event_name": "IFSC World Youth Championships - Valence (FRA) 2009",
+            "event_id": 576,
+            "event_location": null,
+            "d_cat": 13,
+            "date": "2009-08-30",
+            "category_name": "Youth A Male",
+            "result_url": "/api/v1/events/576/result/13"
+        },
+        {
+            "season": "2009",
+            "rank": 1,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing Worldcup (L) - Imst (AUT) 2009",
+            "event_id": 572,
+            "event_location": "WC Imst",
+            "d_cat": 1,
+            "date": "2009-08-22",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/572/result/1"
+        },
+        {
+            "season": "2009",
+            "rank": 1,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing Worldcup (L) - Barcelona (ESP) 2009",
+            "event_id": 571,
+            "event_location": "WC Barcelona",
+            "d_cat": 1,
+            "date": "2009-08-09",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/571/result/1"
+        },
+        {
+            "season": "2009",
+            "rank": 5,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing Worldcup (S, L) - Chamonix (FRA) 2009",
+            "event_id": 569,
+            "event_location": "WC Chamonix",
+            "d_cat": 1,
+            "date": "2009-07-13",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/569/result/1"
+        },
+        {
+            "season": "2009",
+            "rank": 2,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing World Championships  - Qinghai (CHN) 2009",
+            "event_id": 568,
+            "event_location": "Quinghai",
+            "d_cat": 1,
+            "date": "2009-07-05",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/568/result/1"
+        },
+        {
+            "season": "2009",
+            "rank": 11,
+            "discipline": "boulder",
+            "event_name": "IFSC Climbing Worldcup (B) - Wien (AUT) 2009",
+            "event_id": 564,
+            "event_location": "WC Wien",
+            "d_cat": 3,
+            "date": "2009-05-30",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/564/result/3"
+        },
+        {
+            "season": "2009",
+            "rank": 3,
+            "discipline": "boulder",
+            "event_name": "IFSC Climbing Worldcup (B) - Hall (AUT) 2009",
+            "event_id": 563,
+            "event_location": "WC Hall",
+            "d_cat": 3,
+            "date": "2009-05-02",
+            "category_name": "Men",
+            "result_url": "/api/v1/events/563/result/3"
+        },
+        {
+            "season": "2008",
+            "rank": 1,
+            "discipline": "lead",
+            "event_name": "IFSC European Youth Series (L) - Kranj (SLO) 2008",
+            "event_id": 536,
+            "event_location": "08_EY_KR",
+            "d_cat": 241,
+            "date": "2008-11-23",
+            "category_name": "Youth B Male",
+            "result_url": "/api/v1/events/536/result/241"
+        },
+        {
+            "season": "2008",
+            "rank": 1,
+            "discipline": "lead",
+            "event_name": "IFSC European Youth Series (L) - Annecy (FRA) 2008",
+            "event_id": 535,
+            "event_location": "08_EY_AN",
+            "d_cat": 241,
+            "date": "2008-11-02",
+            "category_name": "Youth B Male",
+            "result_url": "/api/v1/events/535/result/241"
+        },
+        {
+            "season": "2008",
+            "rank": 1,
+            "discipline": "lead",
+            "event_name": "IFSC European Youth Series (L) - Imst (AUT) 2008",
+            "event_id": 534,
+            "event_location": "08EYC_IM",
+            "d_cat": 241,
+            "date": "2008-09-28",
+            "category_name": "Youth B Male",
+            "result_url": "/api/v1/events/534/result/241"
+        },
+        {
+            "season": "2008",
+            "rank": 1,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing World Youth Championship - Sydney (AUS) 2008",
+            "event_id": 527,
+            "event_location": "Sidney",
+            "d_cat": 17,
+            "date": "2008-08-31",
+            "category_name": "Youth B Male",
+            "result_url": "/api/v1/events/527/result/17"
+        },
+        {
+            "season": "2008",
+            "rank": 1,
+            "discipline": "lead",
+            "event_name": "IFSC European Youth Series (L+S) - Wuppertal (GER) 2008",
+            "event_id": 533,
+            "event_location": "08_EY_WU",
+            "d_cat": 241,
+            "date": "2008-06-22",
+            "category_name": "Youth B Male",
+            "result_url": "/api/v1/events/533/result/241"
+        },
+        {
+            "season": "2008",
+            "rank": 1,
+            "discipline": "lead",
+            "event_name": "IFSC European Youth Series (L) - Prague (CZE) 2008",
+            "event_id": 532,
+            "event_location": "08_JS_PR",
+            "d_cat": 241,
+            "date": "2008-05-18",
+            "category_name": "Youth B Male",
+            "result_url": "/api/v1/events/532/result/241"
+        },
+        {
+            "season": "2007",
+            "rank": 1,
+            "discipline": "lead",
+            "event_name": "European Youth Series - Kranj (SLO) 2007",
+            "event_id": 495,
+            "event_location": "EYS Kranj",
+            "d_cat": 241,
+            "date": "2007-11-25",
+            "category_name": "Youth B Male",
+            "result_url": "/api/v1/events/495/result/241"
+        },
+        {
+            "season": "2007",
+            "rank": 1,
+            "discipline": "lead",
+            "event_name": "European Youth Series - Linz (AUT) 2007",
+            "event_id": 494,
+            "event_location": "EYS Linz",
+            "d_cat": 241,
+            "date": "2007-10-28",
+            "category_name": "Youth B Male",
+            "result_url": "/api/v1/events/494/result/241"
+        },
+        {
+            "season": "2007",
+            "rank": 1,
+            "discipline": "lead",
+            "event_name": "IFSC Climbing World Youth Championship - Ibarra (ECU) 2007",
+            "event_id": 487,
+            "event_location": "Ibarra",
+            "d_cat": 17,
+            "date": "2007-08-26",
+            "category_name": "Youth B Male",
+            "result_url": "/api/v1/events/487/result/17"
+        },
+        {
+            "season": "2007",
+            "rank": 1,
+            "discipline": "lead",
+            "event_name": "European Youth Series - Warsaw (POL) 2007",
+            "event_id": 493,
+            "event_location": "EYS Warsaw",
+            "d_cat": 241,
+            "date": "2007-07-22",
+            "category_name": "Youth B Male",
+            "result_url": "/api/v1/events/493/result/241"
+        },
+        {
+            "season": "2007",
+            "rank": 1,
+            "discipline": "lead",
+            "event_name": "European Youth Series - Leipzig (GER) 2007",
+            "event_id": 492,
+            "event_location": "EYS Leipzig",
+            "d_cat": 241,
+            "date": "2007-07-08",
+            "category_name": "Youth B Male",
+            "result_url": "/api/v1/events/492/result/241"
+        },
+        {
+            "season": "2007",
+            "rank": 1,
+            "discipline": "lead",
+            "event_name": "European Youth Series - Veliko Tarnovo (BUL) 2007",
+            "event_id": 491,
+            "event_location": "EYS Velika",
+            "d_cat": 241,
+            "date": "2007-07-01",
+            "category_name": "Youth B Male",
+            "result_url": "/api/v1/events/491/result/241"
+        },
+        {
+            "season": "2007",
+            "rank": 10,
+            "discipline": "lead",
+            "event_name": "European Youth Series - Imst (AUT) 2007",
+            "event_id": 490,
+            "event_location": "EYS Imst",
+            "d_cat": 241,
+            "date": "2007-05-20",
+            "category_name": "Youth B Male",
+            "result_url": "/api/v1/events/490/result/241"
+        }
+    ],
+    "cup_rankings": [
+        {
+            "name": "European Youth Series 2007",
+            "id": 38,
+            "season": "2007",
+            "lead": {
+                "rank": 1,
+                "result_url": "/api/v1/cups/38/dcat/233",
+                "d_cat_id": 233,
+                "disc_kind_id": 0
+            }
+        },
+        {
+            "name": "European Youth Series 2008",
+            "id": 40,
+            "season": "2008",
+            "lead": {
+                "rank": 1,
+                "result_url": "/api/v1/cups/40/dcat/233",
+                "d_cat_id": 233,
+                "disc_kind_id": 0
+            }
+        },
+        {
+            "name": "IFSC Climbing Worldcup 2009",
+            "id": 41,
+            "season": "2009",
+            "lead": {
+                "rank": 1,
+                "result_url": "/api/v1/cups/41/dcat/233",
+                "d_cat_id": 233,
+                "disc_kind_id": 0
+            },
+            "boulder": {
+                "rank": 15,
+                "result_url": "/api/v1/cups/41/dcat/235",
+                "d_cat_id": 235,
+                "disc_kind_id": 2
+            },
+            "combined": {
+                "rank": 1,
+                "result_url": "/api/v1/cups/41/dcat/236",
+                "d_cat_id": 236,
+                "disc_kind_id": 3
+            }
+        },
+        {
+            "name": "IFSC Climbing Worldcup 2010",
+            "id": 43,
+            "season": "2010",
+            "lead": {
+                "rank": 3,
+                "result_url": "/api/v1/cups/43/dcat/233",
+                "d_cat_id": 233,
+                "disc_kind_id": 0
+            },
+            "boulder": {
+                "rank": 1,
+                "result_url": "/api/v1/cups/43/dcat/235",
+                "d_cat_id": 235,
+                "disc_kind_id": 2
+            },
+            "combined": {
+                "rank": 1,
+                "result_url": "/api/v1/cups/43/dcat/236",
+                "d_cat_id": 236,
+                "disc_kind_id": 3
+            }
+        },
+        {
+            "name": "IFSC Climbing Worldcup 2011",
+            "id": 45,
+            "season": "2011",
+            "lead": {
+                "rank": 57,
+                "result_url": "/api/v1/cups/45/dcat/233",
+                "d_cat_id": 233,
+                "disc_kind_id": 0
+            }
+        },
+        {
+            "name": "IFSC Climbing Worldcup 2013",
+            "id": 51,
+            "season": "2013",
+            "lead": {
+                "rank": 11,
+                "result_url": "/api/v1/cups/51/dcat/233",
+                "d_cat_id": 233,
+                "disc_kind_id": 0
+            }
+        },
+        {
+            "name": "IFSC Climbing Worldcup 2014",
+            "id": 53,
+            "season": "2014",
+            "lead": {
+                "rank": 3,
+                "result_url": "/api/v1/cups/53/dcat/233",
+                "d_cat_id": 233,
+                "disc_kind_id": 0
+            },
+            "boulder": {
+                "rank": 24,
+                "result_url": "/api/v1/cups/53/dcat/235",
+                "d_cat_id": 235,
+                "disc_kind_id": 2
+            },
+            "combined": {
+                "rank": 2,
+                "result_url": "/api/v1/cups/53/dcat/236",
+                "d_cat_id": 236,
+                "disc_kind_id": 3
+            }
+        },
+        {
+            "name": "IFSC Climbing Worldcup 2015",
+            "id": 55,
+            "season": "2015",
+            "lead": {
+                "rank": 1,
+                "result_url": "/api/v1/cups/55/dcat/233",
+                "d_cat_id": 233,
+                "disc_kind_id": 0
+            },
+            "boulder": {
+                "rank": 3,
+                "result_url": "/api/v1/cups/55/dcat/235",
+                "d_cat_id": 235,
+                "disc_kind_id": 2
+            },
+            "combined": {
+                "rank": 1,
+                "result_url": "/api/v1/cups/55/dcat/236",
+                "d_cat_id": 236,
+                "disc_kind_id": 3
+            }
+        },
+        {
+            "name": "IFSC Climbing Worldcup 2016",
+            "id": 57,
+            "season": "2016",
+            "lead": {
+                "rank": 24,
+                "result_url": "/api/v1/cups/57/dcat/233",
+                "d_cat_id": 233,
+                "disc_kind_id": 0
+            }
+        },
+        {
+            "name": "IFSC Climbing Worldcup 2017",
+            "id": 59,
+            "season": "2017",
+            "lead": {
+                "rank": 27,
+                "result_url": "/api/v1/cups/59/dcat/233",
+                "d_cat_id": 233,
+                "disc_kind_id": 0
+            },
+            "combined": {
+                "rank": 65,
+                "result_url": "/api/v1/cups/59/dcat/236",
+                "d_cat_id": 236,
+                "disc_kind_id": 3
+            }
+        },
+        {
+            "name": "IFSC Climbing Worldcup 2018",
+            "id": 61,
+            "season": "2018",
+            "lead": {
+                "rank": 31,
+                "result_url": "/api/v1/cups/61/dcat/233",
+                "d_cat_id": 233,
+                "disc_kind_id": 0
+            }
+        },
+        {
+            "name": "IFSC Climbing World Cup 2019",
+            "id": 63,
+            "season": "2019",
+            "lead": {
+                "rank": 1,
+                "result_url": "/api/v1/cups/63/dcat/233",
+                "d_cat_id": 233,
+                "disc_kind_id": 0
+            },
+            "boulder": {
+                "rank": 2,
+                "result_url": "/api/v1/cups/63/dcat/235",
+                "d_cat_id": 235,
+                "disc_kind_id": 2
+            },
+            "combined": {
+                "rank": 2,
+                "result_url": "/api/v1/cups/63/dcat/236",
+                "d_cat_id": 236,
+                "disc_kind_id": 3
+            }
+        },
+        {
+            "name": "IFSC Climbing World Cup 2021",
+            "id": 66,
+            "season": "2021",
+            "lead": {
+                "rank": 31,
+                "result_url": "/api/v1/cups/66/dcat/233",
+                "d_cat_id": 233,
+                "disc_kind_id": 0
+            },
+            "boulder": {
+                "rank": 3,
+                "result_url": "/api/v1/cups/66/dcat/235",
+                "d_cat_id": 235,
+                "disc_kind_id": 2
+            }
+        },
+        {
+            "name": "IFSC Climbing World Cup 2022",
+            "id": 72,
+            "season": "2022",
+            "lead": {
+                "rank": 19,
+                "result_url": "/api/v1/cups/72/dcat/233",
+                "d_cat_id": 233,
+                "disc_kind_id": 0
+            }
+        },
+        {
+            "name": "IFSC-Europe Climbing European Cup 2022 - Lead",
+            "id": 78,
+            "season": "2022",
+            "": {
+                "rank": 5,
+                "result_url": "/api/v1/cups/78/dcat/57",
+                "d_cat_id": 57,
+                "disc_kind_id": null
+            }
+        },
+        {
+            "name": "IFSC-Europe Climbing European Cup 2022 - Boulder",
+            "id": 88,
+            "season": "2022",
+            "": {
+                "rank": 7,
+                "result_url": "/api/v1/cups/88/dcat/57",
+                "d_cat_id": 57,
+                "disc_kind_id": null
+            }
+        },
+        {
+            "name": "IFSC Climbing World Cup 2023",
+            "id": 90,
+            "season": "2023",
+            "lead": {
+                "rank": 22,
+                "result_url": "/api/v1/cups/90/dcat/233",
+                "d_cat_id": 233,
+                "disc_kind_id": 0
+            },
+            "boulder": {
+                "rank": 20,
+                "result_url": "/api/v1/cups/90/dcat/235",
+                "d_cat_id": 235,
+                "disc_kind_id": 2
+            }
+        },
+        {
+            "name": "IFSC Climbing World Cup 2024",
+            "id": 94,
+            "season": "2024",
+            "lead": {
+                "rank": 35,
+                "result_url": "/api/v1/cups/94/dcat/233",
+                "d_cat_id": 233,
+                "disc_kind_id": 0
+            },
+            "boulder": {
+                "rank": 32,
+                "result_url": "/api/v1/cups/94/dcat/235",
+                "d_cat_id": 235,
+                "disc_kind_id": 2
+            }
+        },
+        {
+            "name": "IFSC Climbing World Cup 2025",
+            "id": 103,
+            "season": "2025",
+            "lead": {
+                "rank": 33,
+                "result_url": "/api/v1/cups/103/dcat/233",
+                "d_cat_id": 233,
+                "disc_kind_id": 0
+            },
+            "boulder": {
+                "rank": 50,
+                "result_url": "/api/v1/cups/103/dcat/235",
+                "d_cat_id": 235,
+                "disc_kind_id": 2
+            }
+        }
+    ]
+}

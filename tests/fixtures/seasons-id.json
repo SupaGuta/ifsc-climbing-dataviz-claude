@@ -1,0 +1,2228 @@
+{
+    "name": "2025",
+    "leagues": [
+        {
+            "name": "World Cups and World Championships",
+            "url": "/api/v1/season_leagues/443"
+        },
+        {
+            "name": "IFSC Youth",
+            "url": "/api/v1/season_leagues/444"
+        },
+        {
+            "name": "IFSC Paraclimbing",
+            "url": "/api/v1/season_leagues/445"
+        },
+        {
+            "name": "IFSC Asia Adults",
+            "url": "/api/v1/season_leagues/446"
+        },
+        {
+            "name": "IFSC Asia Youth",
+            "url": "/api/v1/season_leagues/447"
+        },
+        {
+            "name": "IFSC Europe Adults",
+            "url": "/api/v1/season_leagues/448"
+        },
+        {
+            "name": "IFSC Europe Youth",
+            "url": "/api/v1/season_leagues/449"
+        },
+        {
+            "name": "Games",
+            "url": "/api/v1/season_leagues/450"
+        },
+        {
+            "name": "Other events",
+            "url": "/api/v1/season_leagues/451"
+        },
+        {
+            "name": "Masters and Promotional Events",
+            "url": "/api/v1/season_leagues/452"
+        },
+        {
+            "name": "IFSC Pan America Adults",
+            "url": "/api/v1/season_leagues/453"
+        },
+        {
+            "name": "IFSC Oceania Adults",
+            "url": "/api/v1/season_leagues/455"
+        },
+        {
+            "name": "IFSC Africa Adults",
+            "url": "/api/v1/season_leagues/456"
+        }
+    ],
+    "events": [
+        {
+            "event": "IFSC Oceania Cup Mount Maunganui 2025",
+            "league_season_id": 455,
+            "location": "Mount Maunganui, NZL",
+            "country": "NZL",
+            "registration_deadline": "2025-02-15T00:00:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": null,
+            "series_logo": null,
+            "event_id": 1456,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [],
+            "url": "/api/v1/events/1456",
+            "registration_url": "/api/v1/events/1456/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1456/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-02-21 11:00:00 UTC",
+            "ends_at": "2025-02-22 10:59:00 UTC",
+            "local_start_date": "2025-02-22",
+            "local_end_date": "2025-02-22",
+            "timezone": {
+                "value": "Pacific/Auckland"
+            },
+            "disciplines": [
+                {
+                    "id": 1773,
+                    "kind": "speed",
+                    "event_id": 1456,
+                    "created_at": "2025-01-13T16:24:36.000Z",
+                    "updated_at": "2025-01-13T16:24:36.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC European Cup Munich 2025",
+            "league_season_id": 448,
+            "location": "Munich, GER",
+            "country": "GER",
+            "registration_deadline": "2025-02-25T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": null,
+            "series_logo": null,
+            "event_id": 1424,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [
+                107
+            ],
+            "url": "/api/v1/events/1424",
+            "registration_url": "/api/v1/events/1424/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1424/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-03-06 23:00:00 UTC",
+            "ends_at": "2025-03-08 22:59:00 UTC",
+            "local_start_date": "2025-03-07",
+            "local_end_date": "2025-03-08",
+            "timezone": {
+                "value": "Europe/Berlin"
+            },
+            "disciplines": [
+                {
+                    "id": 1740,
+                    "kind": "boulder",
+                    "event_id": 1424,
+                    "created_at": "2024-11-11T12:42:20.000Z",
+                    "updated_at": "2024-11-11T12:42:20.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC Asian Cup Hong Kong 2025",
+            "league_season_id": 446,
+            "location": "Hong Kong, HKG",
+            "country": "HKG",
+            "registration_deadline": "2025-02-21T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": null,
+            "series_logo": null,
+            "event_id": 1457,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [],
+            "url": "/api/v1/events/1457",
+            "registration_url": "/api/v1/events/1457/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1457/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-03-07 16:00:00 UTC",
+            "ends_at": "2025-03-09 15:59:00 UTC",
+            "local_start_date": "2025-03-08",
+            "local_end_date": "2025-03-09",
+            "timezone": {
+                "value": "Asia/Hong_Kong"
+            },
+            "disciplines": [
+                {
+                    "id": 1774,
+                    "kind": "boulder",
+                    "event_id": 1457,
+                    "created_at": "2025-01-15T11:34:14.000Z",
+                    "updated_at": "2025-01-15T11:34:14.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC European Cup Rome 2025",
+            "league_season_id": 448,
+            "location": "Rome, ITA",
+            "country": "ITA",
+            "registration_deadline": "2025-03-26T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": null,
+            "series_logo": null,
+            "event_id": 1425,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [
+                107
+            ],
+            "url": "/api/v1/events/1425",
+            "registration_url": "/api/v1/events/1425/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1425/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-04-04 22:00:00 UTC",
+            "ends_at": "2025-04-06 21:59:00 UTC",
+            "local_start_date": "2025-04-05",
+            "local_end_date": "2025-04-06",
+            "timezone": {
+                "value": "Europe/Rome"
+            },
+            "disciplines": [
+                {
+                    "id": 1741,
+                    "kind": "boulder",
+                    "event_id": 1425,
+                    "created_at": "2024-11-11T12:44:49.000Z",
+                    "updated_at": "2024-11-11T12:44:49.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC World Cup Keqiao 2025",
+            "league_season_id": 443,
+            "location": "Keqiao, CHN",
+            "country": "CHN",
+            "registration_deadline": "2025-04-03T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/atfkt7lovj6sfpbmu4mtwiq9skwm",
+            "series_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/mllx5zet5jscwpeh406i5dklv51n",
+            "event_id": 1405,
+            "cup_name": "IFSC Climbing World Cup 2025",
+            "cup_id": 103,
+            "custom_cup_ids": [],
+            "url": "/api/v1/events/1405",
+            "registration_url": "/api/v1/events/1405/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1405/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-04-17 16:00:00 UTC",
+            "ends_at": "2025-04-20 15:59:00 UTC",
+            "local_start_date": "2025-04-18",
+            "local_end_date": "2025-04-20",
+            "timezone": {
+                "value": "Asia/Shanghai"
+            },
+            "disciplines": [
+                {
+                    "id": 1715,
+                    "kind": "boulder",
+                    "event_id": 1405,
+                    "created_at": "2024-10-02T02:12:01.000Z",
+                    "updated_at": "2024-10-02T02:12:01.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC World Cup Wujiang 2025",
+            "league_season_id": 443,
+            "location": "Wujiang, CHN",
+            "country": "CHN",
+            "registration_deadline": "2025-04-10T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/mvniesramu22dmm15ptgxjip7i09",
+            "series_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/myh7zf9dyogtcgil9f1qjxrmbn9e",
+            "event_id": 1406,
+            "cup_name": "IFSC Climbing World Cup 2025",
+            "cup_id": 103,
+            "custom_cup_ids": [],
+            "url": "/api/v1/events/1406",
+            "registration_url": "/api/v1/events/1406/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1406/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-04-24 16:00:00 UTC",
+            "ends_at": "2025-04-27 15:59:00 UTC",
+            "local_start_date": "2025-04-25",
+            "local_end_date": "2025-04-27",
+            "timezone": {
+                "value": "Asia/Shanghai"
+            },
+            "disciplines": [
+                {
+                    "id": 1716,
+                    "kind": "lead",
+                    "event_id": 1406,
+                    "created_at": "2024-10-02T02:13:14.000Z",
+                    "updated_at": "2024-10-02T02:13:14.000Z",
+                    "settings": null
+                },
+                {
+                    "id": 1717,
+                    "kind": "speed",
+                    "event_id": 1406,
+                    "created_at": "2024-10-02T02:13:14.000Z",
+                    "updated_at": "2024-10-02T02:13:14.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC Youth European Cup Soure 2025",
+            "league_season_id": 449,
+            "location": "Soure, POR",
+            "country": "POR",
+            "registration_deadline": "2025-04-16T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": null,
+            "series_logo": null,
+            "event_id": 1438,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [
+                110
+            ],
+            "url": "/api/v1/events/1438",
+            "registration_url": "/api/v1/events/1438/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1438/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-04-25 23:00:00 UTC",
+            "ends_at": "2025-04-27 22:59:00 UTC",
+            "local_start_date": "2025-04-26",
+            "local_end_date": "2025-04-27",
+            "timezone": {
+                "value": "Europe/Lisbon"
+            },
+            "disciplines": [
+                {
+                    "id": 1754,
+                    "kind": "boulder",
+                    "event_id": 1438,
+                    "created_at": "2024-11-11T13:32:20.000Z",
+                    "updated_at": "2024-11-11T13:32:20.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC World Cup Bali 2025",
+            "league_season_id": 443,
+            "location": "Bali, INA",
+            "country": "INA",
+            "registration_deadline": "2025-04-17T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/li8ll395mmrxurs04jzcmra995e9",
+            "series_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/mx1yxks6kdqw2emr2n3aht7f3a12",
+            "event_id": 1407,
+            "cup_name": "IFSC Climbing World Cup 2025",
+            "cup_id": 103,
+            "custom_cup_ids": [],
+            "url": "/api/v1/events/1407",
+            "registration_url": "/api/v1/events/1407/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1407/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-05-01 16:00:00 UTC",
+            "ends_at": "2025-05-04 15:59:00 UTC",
+            "local_start_date": "2025-05-02",
+            "local_end_date": "2025-05-04",
+            "timezone": {
+                "value": "Asia/Singapore"
+            },
+            "disciplines": [
+                {
+                    "id": 1718,
+                    "kind": "lead",
+                    "event_id": 1407,
+                    "created_at": "2024-10-02T02:14:31.000Z",
+                    "updated_at": "2024-10-02T02:14:31.000Z",
+                    "settings": null
+                },
+                {
+                    "id": 1719,
+                    "kind": "speed",
+                    "event_id": 1407,
+                    "created_at": "2024-10-02T02:14:31.000Z",
+                    "updated_at": "2024-10-02T02:14:31.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC European Cup Brussels 2025",
+            "league_season_id": 448,
+            "location": "Brussels, BEL",
+            "country": "BEL",
+            "registration_deadline": "2025-04-23T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": null,
+            "series_logo": null,
+            "event_id": 1426,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [
+                107
+            ],
+            "url": "/api/v1/events/1426",
+            "registration_url": "/api/v1/events/1426/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1426/infosheet",
+            "additional_info_url": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/gvybvliwyxq2nlr33fwujjzvlno3",
+            "starts_at": "2025-05-02 22:00:00 UTC",
+            "ends_at": "2025-05-04 21:59:00 UTC",
+            "local_start_date": "2025-05-03",
+            "local_end_date": "2025-05-04",
+            "timezone": {
+                "value": "Europe/Brussels"
+            },
+            "disciplines": [
+                {
+                    "id": 1742,
+                    "kind": "boulder",
+                    "event_id": 1426,
+                    "created_at": "2024-11-11T12:46:51.000Z",
+                    "updated_at": "2024-11-11T12:46:51.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC Youth European Cup Graz 2025",
+            "league_season_id": 449,
+            "location": "Graz, AUT",
+            "country": "AUT",
+            "registration_deadline": "2025-04-30T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/t4abd2el7qoe9fflq3xgw4jkn49x",
+            "series_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/plrhv3cqwho6q3fzvq33wcyygdxk",
+            "event_id": 1439,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [
+                110
+            ],
+            "url": "/api/v1/events/1439",
+            "registration_url": "/api/v1/events/1439/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1439/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-05-09 22:00:00 UTC",
+            "ends_at": "2025-05-11 21:59:00 UTC",
+            "local_start_date": "2025-05-10",
+            "local_end_date": "2025-05-11",
+            "timezone": {
+                "value": "Europe/Vienna"
+            },
+            "disciplines": [
+                {
+                    "id": 1755,
+                    "kind": "boulder",
+                    "event_id": 1439,
+                    "created_at": "2024-11-11T13:36:11.000Z",
+                    "updated_at": "2024-11-11T13:36:11.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC Youth European Championships Curno 2025",
+            "league_season_id": 449,
+            "location": "Curno, ITA",
+            "country": "ITA",
+            "registration_deadline": "2025-05-05T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": null,
+            "series_logo": null,
+            "event_id": 1441,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [],
+            "url": "/api/v1/events/1441",
+            "registration_url": "/api/v1/events/1441/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1441/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-05-14 22:00:00 UTC",
+            "ends_at": "2025-05-18 21:59:00 UTC",
+            "local_start_date": "2025-05-15",
+            "local_end_date": "2025-05-18",
+            "timezone": {
+                "value": "Europe/Rome"
+            },
+            "disciplines": [
+                {
+                    "id": 1757,
+                    "kind": "boulder",
+                    "event_id": 1441,
+                    "created_at": "2024-11-11T13:38:25.000Z",
+                    "updated_at": "2024-11-11T13:38:25.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC World Cup Curitiba 2025",
+            "league_season_id": 443,
+            "location": "Curitiba, BRA",
+            "country": "BRA",
+            "registration_deadline": "2025-05-01T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/6f183c4kh388tadalppzlbm9823f",
+            "series_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/8yrc8nrdxzxum8hdx8a7482ymgiw",
+            "event_id": 1408,
+            "cup_name": "IFSC Climbing World Cup 2025",
+            "cup_id": 103,
+            "custom_cup_ids": [],
+            "url": "/api/v1/events/1408",
+            "registration_url": "/api/v1/events/1408/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1408/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-05-16 03:00:00 UTC",
+            "ends_at": "2025-05-19 02:59:00 UTC",
+            "local_start_date": "2025-05-16",
+            "local_end_date": "2025-05-18",
+            "timezone": {
+                "value": "America/Sao_Paulo"
+            },
+            "disciplines": [
+                {
+                    "id": 1720,
+                    "kind": "boulder",
+                    "event_id": 1408,
+                    "created_at": "2024-10-02T02:16:13.000Z",
+                    "updated_at": "2024-10-02T02:16:13.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC Para Climbing World Cup Salt Lake City 2025",
+            "league_season_id": 445,
+            "location": "Salt Lake City, USA",
+            "country": "USA",
+            "registration_deadline": "2025-04-08T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/yv2nust2jflx0jvm8mf5rvfdoknk",
+            "series_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/apgbcx1gwze7ph0w9psf72n30kny",
+            "event_id": 1461,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [],
+            "url": "/api/v1/events/1461",
+            "registration_url": "/api/v1/events/1461/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1461/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-05-20 06:00:00 UTC",
+            "ends_at": "2025-05-22 05:59:00 UTC",
+            "local_start_date": "2025-05-20",
+            "local_end_date": "2025-05-21",
+            "timezone": {
+                "value": "America/Denver"
+            },
+            "disciplines": [
+                {
+                    "id": 1781,
+                    "kind": "lead",
+                    "event_id": 1461,
+                    "created_at": "2025-03-13T08:20:17.000Z",
+                    "updated_at": "2025-03-13T08:20:17.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC World Cup Salt Lake City 2025",
+            "league_season_id": 443,
+            "location": "Salt Lake City, USA",
+            "country": "USA",
+            "registration_deadline": "2025-05-08T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/z5ea41nqyj6rdc56t9nyma9fnipv",
+            "series_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/lnwgcw5t1575flf7kg49901y6l6m",
+            "event_id": 1409,
+            "cup_name": "IFSC Climbing World Cup 2025",
+            "cup_id": 103,
+            "custom_cup_ids": [],
+            "url": "/api/v1/events/1409",
+            "registration_url": "/api/v1/events/1409/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1409/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-05-23 06:00:00 UTC",
+            "ends_at": "2025-05-26 05:59:00 UTC",
+            "local_start_date": "2025-05-23",
+            "local_end_date": "2025-05-25",
+            "timezone": {
+                "value": "America/Denver"
+            },
+            "disciplines": [
+                {
+                    "id": 1721,
+                    "kind": "boulder",
+                    "event_id": 1409,
+                    "created_at": "2024-10-02T02:17:15.000Z",
+                    "updated_at": "2024-10-02T02:17:15.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC Youth European Cup Molde 2025",
+            "league_season_id": 449,
+            "location": "Molde, NOR",
+            "country": "NOR",
+            "registration_deadline": "2025-05-14T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": null,
+            "series_logo": null,
+            "event_id": 1440,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [
+                110
+            ],
+            "url": "/api/v1/events/1440",
+            "registration_url": "/api/v1/events/1440/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1440/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-05-23 22:00:00 UTC",
+            "ends_at": "2025-05-25 21:59:00 UTC",
+            "local_start_date": "2025-05-24",
+            "local_end_date": "2025-05-25",
+            "timezone": {
+                "value": "Europe/Stockholm"
+            },
+            "disciplines": [
+                {
+                    "id": 1756,
+                    "kind": "boulder",
+                    "event_id": 1440,
+                    "created_at": "2024-11-11T13:37:04.000Z",
+                    "updated_at": "2024-11-11T13:37:04.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC World Cup Denver 2025",
+            "league_season_id": 443,
+            "location": "Denver, USA",
+            "country": "USA",
+            "registration_deadline": "2025-05-16T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/4e2m1gaklsvipee7tf5cbpkxsvt4",
+            "series_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/ybo1ka01p449zi4lbjiqcxqzpvbe",
+            "event_id": 1455,
+            "cup_name": "IFSC Climbing World Cup 2025",
+            "cup_id": 103,
+            "custom_cup_ids": [],
+            "url": "/api/v1/events/1455",
+            "registration_url": "/api/v1/events/1455/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1455/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-05-31 06:00:00 UTC",
+            "ends_at": "2025-06-02 05:59:00 UTC",
+            "local_start_date": "2025-05-31",
+            "local_end_date": "2025-06-01",
+            "timezone": {
+                "value": "America/Denver"
+            },
+            "disciplines": [
+                {
+                    "id": 1772,
+                    "kind": "speed",
+                    "event_id": 1455,
+                    "created_at": "2024-12-16T10:57:06.000Z",
+                    "updated_at": "2024-12-16T10:57:06.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC World Cup Prague 2025",
+            "league_season_id": 443,
+            "location": "Prague, CZE",
+            "country": "CZE",
+            "registration_deadline": "2025-05-22T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/zfnrw5yhxgbhw5jhz47dwwtb07pj",
+            "series_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/afls2wi9ki5mfgdrks6smvncdzmq",
+            "event_id": 1410,
+            "cup_name": "IFSC Climbing World Cup 2025",
+            "cup_id": 103,
+            "custom_cup_ids": [],
+            "url": "/api/v1/events/1410",
+            "registration_url": "/api/v1/events/1410/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1410/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-06-05 22:00:00 UTC",
+            "ends_at": "2025-06-08 21:59:00 UTC",
+            "local_start_date": "2025-06-06",
+            "local_end_date": "2025-06-08",
+            "timezone": {
+                "value": "Europe/Prague"
+            },
+            "disciplines": [
+                {
+                    "id": 1722,
+                    "kind": "boulder",
+                    "event_id": 1410,
+                    "created_at": "2024-10-02T02:18:40.000Z",
+                    "updated_at": "2024-10-02T02:18:40.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC Youth European Cup Mezzolombardo 2025",
+            "league_season_id": 449,
+            "location": "Mezzolombardo, ITA",
+            "country": "ITA",
+            "registration_deadline": "2025-05-27T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/1tjqtuer5vc3010x1189rl9b8e2b",
+            "series_logo": null,
+            "event_id": 1433,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [
+                108
+            ],
+            "url": "/api/v1/events/1433",
+            "registration_url": "/api/v1/events/1433/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1433/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-06-05 22:00:00 UTC",
+            "ends_at": "2025-06-06 21:59:00 UTC",
+            "local_start_date": "2025-06-06",
+            "local_end_date": "2025-06-06",
+            "timezone": {
+                "value": "Europe/Rome"
+            },
+            "disciplines": [
+                {
+                    "id": 1749,
+                    "kind": "speed",
+                    "event_id": 1433,
+                    "created_at": "2024-11-11T13:19:50.000Z",
+                    "updated_at": "2024-11-11T13:19:50.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC European Cup Mezzolombardo 2025",
+            "league_season_id": 448,
+            "location": "Mezzolombardo, ITA",
+            "country": "ITA",
+            "registration_deadline": "2025-05-28T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/14eyhx82zs26qpjlnmbmjgwlu8wk",
+            "series_logo": null,
+            "event_id": 1429,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [
+                105
+            ],
+            "url": "/api/v1/events/1429",
+            "registration_url": "/api/v1/events/1429/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1429/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-06-06 22:00:00 UTC",
+            "ends_at": "2025-06-07 21:59:00 UTC",
+            "local_start_date": "2025-06-07",
+            "local_end_date": "2025-06-07",
+            "timezone": {
+                "value": "Europe/Rome"
+            },
+            "disciplines": [
+                {
+                    "id": 1745,
+                    "kind": "speed",
+                    "event_id": 1429,
+                    "created_at": "2024-11-11T12:58:16.000Z",
+                    "updated_at": "2024-11-11T12:58:16.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC World Cup Bern 2025",
+            "league_season_id": 443,
+            "location": "Bern, SUI",
+            "country": "SUI",
+            "registration_deadline": "2025-05-29T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/da0cgvsvocx2wp39i8s4hm9qwpbc",
+            "series_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/4cpl7htv6daxlzdo4vrehrto7ziq",
+            "event_id": 1411,
+            "cup_name": "IFSC Climbing World Cup 2025",
+            "cup_id": 103,
+            "custom_cup_ids": [],
+            "url": "/api/v1/events/1411",
+            "registration_url": "/api/v1/events/1411/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1411/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-06-12 22:00:00 UTC",
+            "ends_at": "2025-06-15 21:59:00 UTC",
+            "local_start_date": "2025-06-13",
+            "local_end_date": "2025-06-15",
+            "timezone": {
+                "value": "Europe/Zurich"
+            },
+            "disciplines": [
+                {
+                    "id": 1723,
+                    "kind": "boulder",
+                    "event_id": 1411,
+                    "created_at": "2024-10-02T02:19:49.000Z",
+                    "updated_at": "2024-10-02T02:19:49.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC Youth European Cup Sukoró 2025",
+            "league_season_id": 449,
+            "location": "Sukoró, HUN",
+            "country": "HUN",
+            "registration_deadline": "2025-06-04T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": null,
+            "series_logo": null,
+            "event_id": 1460,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [
+                110
+            ],
+            "url": "/api/v1/events/1460",
+            "registration_url": "/api/v1/events/1460/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1460/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-06-13 22:00:00 UTC",
+            "ends_at": "2025-06-15 21:59:00 UTC",
+            "local_start_date": "2025-06-14",
+            "local_end_date": "2025-06-15",
+            "timezone": {
+                "value": "Europe/Budapest"
+            },
+            "disciplines": [
+                {
+                    "id": 1780,
+                    "kind": "boulder",
+                    "event_id": 1460,
+                    "created_at": "2025-02-13T14:56:47.000Z",
+                    "updated_at": "2025-02-13T14:56:47.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC European Cup Zakopane 2025",
+            "league_season_id": 448,
+            "location": "Zakopane, POL",
+            "country": "POL",
+            "registration_deadline": "2025-06-04T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": null,
+            "series_logo": null,
+            "event_id": 1430,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [
+                105
+            ],
+            "url": "/api/v1/events/1430",
+            "registration_url": "/api/v1/events/1430/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1430/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-06-13 22:00:00 UTC",
+            "ends_at": "2025-06-14 21:59:00 UTC",
+            "local_start_date": "2025-06-14",
+            "local_end_date": "2025-06-14",
+            "timezone": {
+                "value": "Europe/Warsaw"
+            },
+            "disciplines": [
+                {
+                    "id": 1746,
+                    "kind": "speed",
+                    "event_id": 1430,
+                    "created_at": "2024-11-11T13:16:26.000Z",
+                    "updated_at": "2024-11-11T13:16:26.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC Youth European Cup Zakopane 2025",
+            "league_season_id": 449,
+            "location": "Zakopane, POL",
+            "country": "POL",
+            "registration_deadline": "2025-06-05T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": null,
+            "series_logo": null,
+            "event_id": 1434,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [
+                108
+            ],
+            "url": "/api/v1/events/1434",
+            "registration_url": "/api/v1/events/1434/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1434/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-06-14 22:00:00 UTC",
+            "ends_at": "2025-06-15 21:59:00 UTC",
+            "local_start_date": "2025-06-15",
+            "local_end_date": "2025-06-15",
+            "timezone": {
+                "value": "Europe/Warsaw"
+            },
+            "disciplines": [
+                {
+                    "id": 1750,
+                    "kind": "speed",
+                    "event_id": 1434,
+                    "created_at": "2024-11-11T13:21:24.000Z",
+                    "updated_at": "2024-11-11T13:21:24.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC European Cup Campitello di Fassa 2025",
+            "league_season_id": 448,
+            "location": "Campitello di Fassa, ITA",
+            "country": "ITA",
+            "registration_deadline": "2025-06-11T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/3h8tc2h0r7hfaeldf4gzj7rmhnca",
+            "series_logo": null,
+            "event_id": 1427,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [
+                106
+            ],
+            "url": "/api/v1/events/1427",
+            "registration_url": "/api/v1/events/1427/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1427/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-06-20 22:00:00 UTC",
+            "ends_at": "2025-06-22 21:59:00 UTC",
+            "local_start_date": "2025-06-21",
+            "local_end_date": "2025-06-22",
+            "timezone": {
+                "value": "Europe/Rome"
+            },
+            "disciplines": [
+                {
+                    "id": 1743,
+                    "kind": "lead",
+                    "event_id": 1427,
+                    "created_at": "2024-11-11T12:49:54.000Z",
+                    "updated_at": "2024-11-11T12:49:54.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC Para Climbing World Cup Innsbruck 2025",
+            "league_season_id": 445,
+            "location": "Innsbruck, AUT",
+            "country": "AUT",
+            "registration_deadline": "2025-05-12T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/l5qd05ifa7bofxpg7swtiqfl7i97",
+            "series_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/culi8cr1w60hoeaapkr07qh76t8x",
+            "event_id": 1463,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [],
+            "url": "/api/v1/events/1463",
+            "registration_url": "/api/v1/events/1463/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1463/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-06-22 22:00:00 UTC",
+            "ends_at": "2025-06-24 21:59:00 UTC",
+            "local_start_date": "2025-06-23",
+            "local_end_date": "2025-06-24",
+            "timezone": {
+                "value": "Europe/Vienna"
+            },
+            "disciplines": [
+                {
+                    "id": 1783,
+                    "kind": "lead",
+                    "event_id": 1463,
+                    "created_at": "2025-03-13T08:23:31.000Z",
+                    "updated_at": "2025-03-13T08:23:31.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC World Cup Innsbruck 2025",
+            "league_season_id": 443,
+            "location": "Innsbruck, AUT",
+            "country": "AUT",
+            "registration_deadline": "2025-06-10T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/4cvrazw72873jhnrmqf4an0jf3jf",
+            "series_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/n11l7sp8ax4tq63rvyluj10ibe6o",
+            "event_id": 1412,
+            "cup_name": "IFSC Climbing World Cup 2025",
+            "cup_id": 103,
+            "custom_cup_ids": [],
+            "url": "/api/v1/events/1412",
+            "registration_url": "/api/v1/events/1412/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1412/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-06-24 22:00:00 UTC",
+            "ends_at": "2025-06-29 21:59:00 UTC",
+            "local_start_date": "2025-06-25",
+            "local_end_date": "2025-06-29",
+            "timezone": {
+                "value": "Europe/Vienna"
+            },
+            "disciplines": [
+                {
+                    "id": 1724,
+                    "kind": "boulder",
+                    "event_id": 1412,
+                    "created_at": "2024-10-02T02:21:03.000Z",
+                    "updated_at": "2024-10-02T02:21:03.000Z",
+                    "settings": null
+                },
+                {
+                    "id": 1725,
+                    "kind": "lead",
+                    "event_id": 1412,
+                    "created_at": "2024-10-02T02:21:03.000Z",
+                    "updated_at": "2024-10-02T02:21:03.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC European Cup Ostermundigen 2025",
+            "league_season_id": 448,
+            "location": "Ostermundigen, SUI",
+            "country": "SUI",
+            "registration_deadline": "2025-06-24T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": null,
+            "series_logo": null,
+            "event_id": 1428,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [
+                106
+            ],
+            "url": "/api/v1/events/1428",
+            "registration_url": "/api/v1/events/1428/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1428/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-07-03 22:00:00 UTC",
+            "ends_at": "2025-07-05 21:59:00 UTC",
+            "local_start_date": "2025-07-04",
+            "local_end_date": "2025-07-05",
+            "timezone": {
+                "value": "Europe/Zurich"
+            },
+            "disciplines": [
+                {
+                    "id": 1744,
+                    "kind": "lead",
+                    "event_id": 1428,
+                    "created_at": "2024-11-11T12:51:23.000Z",
+                    "updated_at": "2024-11-11T12:51:23.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC World Cup Krakow 2025",
+            "league_season_id": 443,
+            "location": "Krakow, POL",
+            "country": "POL",
+            "registration_deadline": "2025-06-20T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/8ljqnkjhd0ox9kqqk72dut1cu46w",
+            "series_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/fuljj1nhed68z57whzopem0tfj21",
+            "event_id": 1413,
+            "cup_name": "IFSC Climbing World Cup 2025",
+            "cup_id": 103,
+            "custom_cup_ids": [],
+            "url": "/api/v1/events/1413",
+            "registration_url": "/api/v1/events/1413/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1413/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-07-04 22:00:00 UTC",
+            "ends_at": "2025-07-06 21:59:00 UTC",
+            "local_start_date": "2025-07-05",
+            "local_end_date": "2025-07-06",
+            "timezone": {
+                "value": "Europe/Warsaw"
+            },
+            "disciplines": [
+                {
+                    "id": 1726,
+                    "kind": "speed",
+                    "event_id": 1413,
+                    "created_at": "2024-10-02T02:22:12.000Z",
+                    "updated_at": "2024-10-02T02:22:12.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC World Cup Chamonix 2025",
+            "league_season_id": 443,
+            "location": "Chamonix, FRA",
+            "country": "FRA",
+            "registration_deadline": "2025-06-26T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": null,
+            "series_logo": null,
+            "event_id": 1414,
+            "cup_name": "IFSC Climbing World Cup 2025",
+            "cup_id": 103,
+            "custom_cup_ids": [],
+            "url": "/api/v1/events/1414",
+            "registration_url": "/api/v1/events/1414/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1414/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-07-10 22:00:00 UTC",
+            "ends_at": "2025-07-13 21:59:00 UTC",
+            "local_start_date": "2025-07-11",
+            "local_end_date": "2025-07-13",
+            "timezone": {
+                "value": "Europe/Paris"
+            },
+            "disciplines": [
+                {
+                    "id": 1727,
+                    "kind": "lead",
+                    "event_id": 1414,
+                    "created_at": "2024-10-02T02:23:32.000Z",
+                    "updated_at": "2024-10-02T02:23:32.000Z",
+                    "settings": null
+                },
+                {
+                    "id": 1728,
+                    "kind": "speed",
+                    "event_id": 1414,
+                    "created_at": "2024-10-02T02:23:32.000Z",
+                    "updated_at": "2024-10-02T02:23:32.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC World Cup Comunidad de Madrid 2025",
+            "league_season_id": 443,
+            "location": "Madrid, ESP",
+            "country": "ESP",
+            "registration_deadline": "2025-07-03T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": null,
+            "series_logo": null,
+            "event_id": 1454,
+            "cup_name": "IFSC Climbing World Cup 2025",
+            "cup_id": 103,
+            "custom_cup_ids": [],
+            "url": "/api/v1/events/1454",
+            "registration_url": "/api/v1/events/1454/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1454/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-07-17 22:00:00 UTC",
+            "ends_at": "2025-07-19 21:59:00 UTC",
+            "local_start_date": "2025-07-18",
+            "local_end_date": "2025-07-19",
+            "timezone": {
+                "value": "Europe/Madrid"
+            },
+            "disciplines": [
+                {
+                    "id": 1771,
+                    "kind": "lead",
+                    "event_id": 1454,
+                    "created_at": "2024-12-16T10:55:32.000Z",
+                    "updated_at": "2024-12-16T10:55:32.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC Youth European Cup Bologna 2025",
+            "league_season_id": 449,
+            "location": "Bologna, ITA",
+            "country": "ITA",
+            "registration_deadline": "2025-07-09T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/rlg6dvplnnxsipix3x66fky014bg",
+            "series_logo": null,
+            "event_id": 1436,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [
+                109
+            ],
+            "url": "/api/v1/events/1436",
+            "registration_url": "/api/v1/events/1436/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1436/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-07-18 22:00:00 UTC",
+            "ends_at": "2025-07-20 21:59:00 UTC",
+            "local_start_date": "2025-07-19",
+            "local_end_date": "2025-07-20",
+            "timezone": {
+                "value": "Europe/Rome"
+            },
+            "disciplines": [
+                {
+                    "id": 1752,
+                    "kind": "lead",
+                    "event_id": 1436,
+                    "created_at": "2024-11-11T13:26:15.000Z",
+                    "updated_at": "2024-11-11T13:26:15.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC European Cup Soure 2025 [CANCELLED]",
+            "league_season_id": 448,
+            "location": "Soure, POR",
+            "country": "POR",
+            "registration_deadline": "2024-03-06T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": null,
+            "series_logo": null,
+            "event_id": 1431,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [
+                105
+            ],
+            "url": "/api/v1/events/1431",
+            "registration_url": "/api/v1/events/1431/registrations",
+            "infosheet_url": null,
+            "additional_info_url": null,
+            "starts_at": "2025-07-18 23:00:00 UTC",
+            "ends_at": "2025-07-19 22:59:00 UTC",
+            "local_start_date": "2025-07-19",
+            "local_end_date": "2025-07-19",
+            "timezone": {
+                "value": "Europe/Lisbon"
+            },
+            "disciplines": [
+                {
+                    "id": 1747,
+                    "kind": "speed",
+                    "event_id": 1431,
+                    "created_at": "2024-11-11T13:17:24.000Z",
+                    "updated_at": "2024-11-11T13:17:24.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC Youth World Championships Helsinki 2025",
+            "league_season_id": 444,
+            "location": "Helsinki, FIN",
+            "country": "FIN",
+            "registration_deadline": "2025-06-28T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": null,
+            "series_logo": null,
+            "event_id": 1418,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [],
+            "url": "/api/v1/events/1418",
+            "registration_url": "/api/v1/events/1418/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1418/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-07-27 21:00:00 UTC",
+            "ends_at": "2025-08-03 20:59:00 UTC",
+            "local_start_date": "2025-07-28",
+            "local_end_date": "2025-08-03",
+            "timezone": {
+                "value": "Europe/Helsinki"
+            },
+            "disciplines": [
+                {
+                    "id": 1777,
+                    "kind": "lead",
+                    "event_id": 1418,
+                    "created_at": "2025-01-29T11:31:35.000Z",
+                    "updated_at": "2025-01-29T11:31:35.000Z",
+                    "settings": null
+                },
+                {
+                    "id": 1778,
+                    "kind": "speed",
+                    "event_id": 1418,
+                    "created_at": "2025-01-29T11:31:35.000Z",
+                    "updated_at": "2025-01-29T11:31:35.000Z",
+                    "settings": null
+                },
+                {
+                    "id": 1779,
+                    "kind": "boulder",
+                    "event_id": 1418,
+                    "created_at": "2025-01-29T11:31:36.000Z",
+                    "updated_at": "2025-01-29T11:31:36.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "The World Games Chengdu 2025",
+            "league_season_id": 450,
+            "location": "Chengdu, CHN",
+            "country": "CHN",
+            "registration_deadline": "2024-03-25T00:00:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": null,
+            "series_logo": null,
+            "event_id": 1419,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [],
+            "url": "/api/v1/events/1419",
+            "registration_url": "/api/v1/events/1419/registrations",
+            "infosheet_url": null,
+            "additional_info_url": null,
+            "starts_at": "2025-08-06 16:00:00 UTC",
+            "ends_at": "2025-08-17 15:59:00 UTC",
+            "local_start_date": "2025-08-07",
+            "local_end_date": "2025-08-17",
+            "timezone": {
+                "value": "Asia/Shanghai"
+            },
+            "disciplines": [
+                {
+                    "id": 1737,
+                    "kind": "speed",
+                    "event_id": 1419,
+                    "created_at": "2024-10-02T02:31:52.000Z",
+                    "updated_at": "2024-10-02T02:31:52.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC Youth European Cup St. Pölten 2025",
+            "league_season_id": 449,
+            "location": "St. Pölten, AUT",
+            "country": "AUT",
+            "registration_deadline": "2025-08-06T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/n53fh91dc3l1dn3wa62te52py2sy",
+            "series_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/41t651w4fp65evt7gdkgnl9abcjh",
+            "event_id": 1444,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [
+                108
+            ],
+            "url": "/api/v1/events/1444",
+            "registration_url": "/api/v1/events/1444/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1444/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-08-15 22:00:00 UTC",
+            "ends_at": "2025-08-16 21:59:00 UTC",
+            "local_start_date": "2025-08-16",
+            "local_end_date": "2025-08-16",
+            "timezone": {
+                "value": "Europe/Vienna"
+            },
+            "disciplines": [
+                {
+                    "id": 1761,
+                    "kind": "speed",
+                    "event_id": 1444,
+                    "created_at": "2024-11-25T13:05:40.000Z",
+                    "updated_at": "2024-11-25T13:05:40.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC European Cup St. Pölten 2025",
+            "league_season_id": 448,
+            "location": "St. Pölten, AUT",
+            "country": "AUT",
+            "registration_deadline": "2025-08-07T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/16wrz843zjxd1542cgum5ddm82d6",
+            "series_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/5nlw8ils0hr933v050nadr897arg",
+            "event_id": 1432,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [
+                105
+            ],
+            "url": "/api/v1/events/1432",
+            "registration_url": "/api/v1/events/1432/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1432/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-08-16 22:00:00 UTC",
+            "ends_at": "2025-08-17 21:59:00 UTC",
+            "local_start_date": "2025-08-17",
+            "local_end_date": "2025-08-17",
+            "timezone": {
+                "value": "Europe/Vienna"
+            },
+            "disciplines": [
+                {
+                    "id": 1748,
+                    "kind": "speed",
+                    "event_id": 1432,
+                    "created_at": "2024-11-11T13:18:38.000Z",
+                    "updated_at": "2024-11-11T13:18:38.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC Youth Asian Championships Guiyang 2025",
+            "league_season_id": 447,
+            "location": "Guiyang, CHN",
+            "country": "CHN",
+            "registration_deadline": "2025-08-05T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": null,
+            "series_logo": null,
+            "event_id": 1468,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [],
+            "url": "/api/v1/events/1468",
+            "registration_url": "/api/v1/events/1468/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1468/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-08-19 16:00:00 UTC",
+            "ends_at": "2025-08-24 15:59:00 UTC",
+            "local_start_date": "2025-08-20",
+            "local_end_date": "2025-08-24",
+            "timezone": {
+                "value": "Asia/Shanghai"
+            },
+            "disciplines": [
+                {
+                    "id": 1791,
+                    "kind": "lead",
+                    "event_id": 1468,
+                    "created_at": "2025-06-04T15:27:24.000Z",
+                    "updated_at": "2025-06-04T15:27:24.000Z",
+                    "settings": null
+                },
+                {
+                    "id": 1792,
+                    "kind": "speed",
+                    "event_id": 1468,
+                    "created_at": "2025-06-04T15:27:24.000Z",
+                    "updated_at": "2025-06-04T15:27:24.000Z",
+                    "settings": null
+                },
+                {
+                    "id": 1793,
+                    "kind": "boulder",
+                    "event_id": 1468,
+                    "created_at": "2025-06-04T15:27:24.000Z",
+                    "updated_at": "2025-06-04T15:27:24.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC Youth European Championships Žilina 2025",
+            "league_season_id": 449,
+            "location": "Žilina, SVK",
+            "country": "SVK",
+            "registration_deadline": "2025-08-18T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": null,
+            "series_logo": null,
+            "event_id": 1442,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [],
+            "url": "/api/v1/events/1442",
+            "registration_url": "/api/v1/events/1442/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1442/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-08-27 22:00:00 UTC",
+            "ends_at": "2025-08-31 21:59:00 UTC",
+            "local_start_date": "2025-08-28",
+            "local_end_date": "2025-08-31",
+            "timezone": {
+                "value": "Europe/Bratislava"
+            },
+            "disciplines": [
+                {
+                    "id": 1758,
+                    "kind": "lead",
+                    "event_id": 1442,
+                    "created_at": "2024-11-11T13:39:35.000Z",
+                    "updated_at": "2024-11-11T13:39:35.000Z",
+                    "settings": null
+                },
+                {
+                    "id": 1759,
+                    "kind": "speed",
+                    "event_id": 1442,
+                    "created_at": "2024-11-11T13:39:36.000Z",
+                    "updated_at": "2024-11-11T13:39:36.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC Asian Cup Almaty 2025",
+            "league_season_id": 446,
+            "location": "Almaty, KAZ",
+            "country": "KAZ",
+            "registration_deadline": "2025-08-14T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/6ogiyue0limzn93sigihlvmu31ej",
+            "series_logo": null,
+            "event_id": 1469,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [],
+            "url": "/api/v1/events/1469",
+            "registration_url": "/api/v1/events/1469/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1469/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-08-28 19:00:00 UTC",
+            "ends_at": "2025-08-31 18:59:00 UTC",
+            "local_start_date": "2025-08-29",
+            "local_end_date": "2025-08-31",
+            "timezone": {
+                "value": "Asia/Almaty"
+            },
+            "disciplines": [
+                {
+                    "id": 1794,
+                    "kind": "lead",
+                    "event_id": 1469,
+                    "created_at": "2025-06-05T10:04:41.000Z",
+                    "updated_at": "2025-06-05T10:04:41.000Z",
+                    "settings": null
+                },
+                {
+                    "id": 1795,
+                    "kind": "speed",
+                    "event_id": 1469,
+                    "created_at": "2025-06-05T10:04:41.000Z",
+                    "updated_at": "2025-06-05T10:04:41.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC World Cup Koper 2025",
+            "league_season_id": 443,
+            "location": "Koper, SLO",
+            "country": "SLO",
+            "registration_deadline": "2025-08-21T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": null,
+            "series_logo": null,
+            "event_id": 1416,
+            "cup_name": "IFSC Climbing World Cup 2025",
+            "cup_id": 103,
+            "custom_cup_ids": [],
+            "url": "/api/v1/events/1416",
+            "registration_url": "/api/v1/events/1416/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1416/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-09-04 22:00:00 UTC",
+            "ends_at": "2025-09-06 21:59:00 UTC",
+            "local_start_date": "2025-09-05",
+            "local_end_date": "2025-09-06",
+            "timezone": {
+                "value": "Europe/Ljubljana"
+            },
+            "disciplines": [
+                {
+                    "id": 1730,
+                    "kind": "lead",
+                    "event_id": 1416,
+                    "created_at": "2024-10-02T02:26:22.000Z",
+                    "updated_at": "2024-10-02T02:26:22.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC World Cup Guiyang 2025",
+            "league_season_id": 443,
+            "location": "Guiyang, CHN",
+            "country": "CHN",
+            "registration_deadline": "2025-08-28T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": null,
+            "series_logo": null,
+            "event_id": 1467,
+            "cup_name": "IFSC Climbing World Cup 2025",
+            "cup_id": 103,
+            "custom_cup_ids": [],
+            "url": "/api/v1/events/1467",
+            "registration_url": "/api/v1/events/1467/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1467/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-09-11 16:00:00 UTC",
+            "ends_at": "2025-09-13 15:59:00 UTC",
+            "local_start_date": "2025-09-12",
+            "local_end_date": "2025-09-13",
+            "timezone": {
+                "value": "Asia/Shanghai"
+            },
+            "disciplines": [
+                {
+                    "id": 1790,
+                    "kind": "speed",
+                    "event_id": 1467,
+                    "created_at": "2025-05-27T10:51:01.000Z",
+                    "updated_at": "2025-05-27T10:51:01.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC European Cup Hamburg 2025",
+            "league_season_id": 448,
+            "location": "Hamburg, GER",
+            "country": "GER",
+            "registration_deadline": "2025-09-03T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": null,
+            "series_logo": null,
+            "event_id": 1470,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [
+                105
+            ],
+            "url": "/api/v1/events/1470",
+            "registration_url": "/api/v1/events/1470/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1470/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-09-12 22:00:00 UTC",
+            "ends_at": "2025-09-13 21:59:00 UTC",
+            "local_start_date": "2025-09-13",
+            "local_end_date": "2025-09-13",
+            "timezone": {
+                "value": "Europe/Berlin"
+            },
+            "disciplines": [
+                {
+                    "id": 1796,
+                    "kind": "speed",
+                    "event_id": 1470,
+                    "created_at": "2025-07-04T08:31:45.000Z",
+                    "updated_at": "2025-07-04T08:31:45.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC Youth European Cup Imst 2025",
+            "league_season_id": 449,
+            "location": "Imst, AUT",
+            "country": "AUT",
+            "registration_deadline": "2025-09-03T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": null,
+            "series_logo": null,
+            "event_id": 1435,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [
+                109
+            ],
+            "url": "/api/v1/events/1435",
+            "registration_url": "/api/v1/events/1435/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1435/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-09-12 22:00:00 UTC",
+            "ends_at": "2025-09-14 21:59:00 UTC",
+            "local_start_date": "2025-09-13",
+            "local_end_date": "2025-09-14",
+            "timezone": {
+                "value": "Europe/Vienna"
+            },
+            "disciplines": [
+                {
+                    "id": 1751,
+                    "kind": "lead",
+                    "event_id": 1435,
+                    "created_at": "2024-11-11T13:23:55.000Z",
+                    "updated_at": "2024-11-11T13:23:55.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC Para Climbing World Championships Seoul 2025",
+            "league_season_id": 445,
+            "location": "Seoul, KOR",
+            "country": "KOR",
+            "registration_deadline": "2025-08-09T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": null,
+            "series_logo": null,
+            "event_id": 1462,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [],
+            "url": "/api/v1/events/1462",
+            "registration_url": "/api/v1/events/1462/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1462/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-09-19 15:00:00 UTC",
+            "ends_at": "2025-09-25 14:59:00 UTC",
+            "local_start_date": "2025-09-20",
+            "local_end_date": "2025-09-25",
+            "timezone": {
+                "value": "Asia/Seoul"
+            },
+            "disciplines": [
+                {
+                    "id": 1782,
+                    "kind": "lead",
+                    "event_id": 1462,
+                    "created_at": "2025-03-13T08:22:04.000Z",
+                    "updated_at": "2025-03-13T08:22:04.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC World Championships Seoul 2025",
+            "league_season_id": 443,
+            "location": "Seoul, KOR",
+            "country": "KOR",
+            "registration_deadline": "2025-08-21T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": null,
+            "series_logo": null,
+            "event_id": 1417,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [],
+            "url": "/api/v1/events/1417",
+            "registration_url": "/api/v1/events/1417/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1417/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-09-20 15:00:00 UTC",
+            "ends_at": "2025-09-28 14:59:00 UTC",
+            "local_start_date": "2025-09-21",
+            "local_end_date": "2025-09-28",
+            "timezone": {
+                "value": "Asia/Seoul"
+            },
+            "disciplines": [
+                {
+                    "id": 1731,
+                    "kind": "lead",
+                    "event_id": 1417,
+                    "created_at": "2024-10-02T02:27:48.000Z",
+                    "updated_at": "2024-10-02T02:27:48.000Z",
+                    "settings": null
+                },
+                {
+                    "id": 1732,
+                    "kind": "speed",
+                    "event_id": 1417,
+                    "created_at": "2024-10-02T02:27:48.000Z",
+                    "updated_at": "2024-10-02T02:27:48.000Z",
+                    "settings": null
+                },
+                {
+                    "id": 1733,
+                    "kind": "boulder",
+                    "event_id": 1417,
+                    "created_at": "2024-10-02T02:27:48.000Z",
+                    "updated_at": "2024-10-02T02:27:48.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC Para Climbing Master Fukuoka 2025",
+            "league_season_id": 445,
+            "location": "Fukuoka, JPN",
+            "country": "JPN",
+            "registration_deadline": "2025-09-30T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": null,
+            "series_logo": null,
+            "event_id": 1473,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [],
+            "url": "/api/v1/events/1473",
+            "registration_url": "/api/v1/events/1473/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1473/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-10-22 15:00:00 UTC",
+            "ends_at": "2025-10-26 14:59:00 UTC",
+            "local_start_date": "2025-10-23",
+            "local_end_date": "2025-10-26",
+            "timezone": {
+                "value": "Asia/Tokyo"
+            },
+            "disciplines": [
+                {
+                    "id": 1799,
+                    "kind": "lead",
+                    "event_id": 1473,
+                    "created_at": "2025-07-31T13:24:14.000Z",
+                    "updated_at": "2025-07-31T13:24:14.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC Nations Grand Finale Fukuoka 2025",
+            "league_season_id": 452,
+            "location": "Fukuoka, JPN",
+            "country": "JPN",
+            "registration_deadline": "2024-06-10T00:00:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": null,
+            "series_logo": null,
+            "event_id": 1471,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [],
+            "url": "/api/v1/events/1471",
+            "registration_url": "/api/v1/events/1471/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1471/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-10-22 15:00:00 UTC",
+            "ends_at": "2025-10-26 14:59:00 UTC",
+            "local_start_date": "2025-10-23",
+            "local_end_date": "2025-10-26",
+            "timezone": {
+                "value": "Asia/Tokyo"
+            },
+            "disciplines": [
+                {
+                    "id": 1797,
+                    "kind": "lead",
+                    "event_id": 1471,
+                    "created_at": "2025-07-31T13:17:35.000Z",
+                    "updated_at": "2025-07-31T13:17:35.000Z",
+                    "settings": null
+                },
+                {
+                    "id": 1798,
+                    "kind": "boulder",
+                    "event_id": 1471,
+                    "created_at": "2025-07-31T13:17:35.000Z",
+                    "updated_at": "2025-07-31T13:17:35.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "International Speed Master Meishan 2025",
+            "league_season_id": 452,
+            "location": "Meishan, CHN",
+            "country": "CHN",
+            "registration_deadline": "2025-10-22T00:00:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": null,
+            "series_logo": null,
+            "event_id": 1476,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [],
+            "url": "/api/v1/events/1476",
+            "registration_url": "/api/v1/events/1476/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1476/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-10-22 16:00:00 UTC",
+            "ends_at": "2025-10-25 15:59:00 UTC",
+            "local_start_date": "2025-10-23",
+            "local_end_date": "2025-10-25",
+            "timezone": {
+                "value": "Asia/Chongqing"
+            },
+            "disciplines": [
+                {
+                    "id": 1802,
+                    "kind": "speed",
+                    "event_id": 1476,
+                    "created_at": "2025-10-13T08:04:22.000Z",
+                    "updated_at": "2025-10-13T08:04:22.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC European Cup Laval 2025",
+            "league_season_id": 448,
+            "location": "Laval, FRA",
+            "country": "FRA",
+            "registration_deadline": "2025-10-14T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": null,
+            "series_logo": null,
+            "event_id": 1447,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [
+                105
+            ],
+            "url": "/api/v1/events/1447",
+            "registration_url": "/api/v1/events/1447/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1447/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-10-23 22:00:00 UTC",
+            "ends_at": "2025-10-25 21:59:00 UTC",
+            "local_start_date": "2025-10-24",
+            "local_end_date": "2025-10-25",
+            "timezone": {
+                "value": "Europe/Paris"
+            },
+            "disciplines": [
+                {
+                    "id": 1764,
+                    "kind": "speed",
+                    "event_id": 1447,
+                    "created_at": "2024-12-04T10:23:16.000Z",
+                    "updated_at": "2024-12-04T10:23:16.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC Youth European Cup Laval 2025",
+            "league_season_id": 449,
+            "location": "Laval, FRA",
+            "country": "FRA",
+            "registration_deadline": "2025-10-15T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": null,
+            "series_logo": null,
+            "event_id": 1446,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [
+                108
+            ],
+            "url": "/api/v1/events/1446",
+            "registration_url": "/api/v1/events/1446/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1446/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-10-24 22:00:00 UTC",
+            "ends_at": "2025-10-26 22:59:00 UTC",
+            "local_start_date": "2025-10-25",
+            "local_end_date": "2025-10-26",
+            "timezone": {
+                "value": "Europe/Paris"
+            },
+            "disciplines": [
+                {
+                    "id": 1763,
+                    "kind": "speed",
+                    "event_id": 1446,
+                    "created_at": "2024-12-04T10:21:49.000Z",
+                    "updated_at": "2024-12-04T10:21:49.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC Para Climbing World Cup Laval 2025",
+            "league_season_id": 445,
+            "location": "Laval, FRA",
+            "country": "FRA",
+            "registration_deadline": "2025-09-13T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": null,
+            "series_logo": null,
+            "event_id": 1464,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [],
+            "url": "/api/v1/events/1464",
+            "registration_url": "/api/v1/events/1464/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1464/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-10-24 22:00:00 UTC",
+            "ends_at": "2025-10-26 22:59:00 UTC",
+            "local_start_date": "2025-10-25",
+            "local_end_date": "2025-10-26",
+            "timezone": {
+                "value": "Europe/Paris"
+            },
+            "disciplines": [
+                {
+                    "id": 1784,
+                    "kind": "lead",
+                    "event_id": 1464,
+                    "created_at": "2025-03-13T08:28:21.000Z",
+                    "updated_at": "2025-03-13T08:28:21.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "Central American Games",
+            "league_season_id": 450,
+            "location": "Jalapa",
+            "country": "GUA",
+            "registration_deadline": "2025-10-29T00:00:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": null,
+            "series_logo": null,
+            "event_id": 1474,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [],
+            "url": "/api/v1/events/1474",
+            "registration_url": "/api/v1/events/1474/registrations",
+            "infosheet_url": null,
+            "additional_info_url": null,
+            "starts_at": "2025-10-29 06:00:00 UTC",
+            "ends_at": "2025-10-31 05:59:00 UTC",
+            "local_start_date": "2025-10-29",
+            "local_end_date": "2025-10-30",
+            "timezone": {
+                "value": "America/Guatemala"
+            },
+            "disciplines": [
+                {
+                    "id": 1800,
+                    "kind": "lead",
+                    "event_id": 1474,
+                    "created_at": "2025-09-12T08:42:19.000Z",
+                    "updated_at": "2025-09-12T08:42:19.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC European Cup Toulouse-Tournefeuille 2025",
+            "league_season_id": 448,
+            "location": "Toulouse, FRA",
+            "country": "FRA",
+            "registration_deadline": "2025-10-21T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": null,
+            "series_logo": null,
+            "event_id": 1449,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [
+                106
+            ],
+            "url": "/api/v1/events/1449",
+            "registration_url": "/api/v1/events/1449/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1449/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-10-30 23:00:00 UTC",
+            "ends_at": "2025-11-01 22:59:00 UTC",
+            "local_start_date": "2025-10-31",
+            "local_end_date": "2025-11-01",
+            "timezone": {
+                "value": "Europe/Paris"
+            },
+            "disciplines": [
+                {
+                    "id": 1766,
+                    "kind": "lead",
+                    "event_id": 1449,
+                    "created_at": "2024-12-04T10:26:43.000Z",
+                    "updated_at": "2024-12-04T10:26:43.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC Youth European Cup Toulouse-Tournefeuille 2025",
+            "league_season_id": 449,
+            "location": "Toulouse, FRA",
+            "country": "FRA",
+            "registration_deadline": "2025-10-22T23:59:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": null,
+            "series_logo": null,
+            "event_id": 1448,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [
+                109
+            ],
+            "url": "/api/v1/events/1448",
+            "registration_url": "/api/v1/events/1448/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1448/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-10-31 23:00:00 UTC",
+            "ends_at": "2025-11-02 22:59:00 UTC",
+            "local_start_date": "2025-11-01",
+            "local_end_date": "2025-11-02",
+            "timezone": {
+                "value": "Europe/Paris"
+            },
+            "disciplines": [
+                {
+                    "id": 1765,
+                    "kind": "lead",
+                    "event_id": 1448,
+                    "created_at": "2024-12-04T10:25:18.000Z",
+                    "updated_at": "2024-12-04T10:25:18.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC Pan American Cup Santiago 2025 [CANCELLED]",
+            "league_season_id": 453,
+            "location": "Santiago, CHI",
+            "country": "CHI",
+            "registration_deadline": "2025-10-29T00:00:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": null,
+            "series_logo": null,
+            "event_id": 1466,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [],
+            "url": "/api/v1/events/1466",
+            "registration_url": "/api/v1/events/1466/registrations",
+            "infosheet_url": null,
+            "additional_info_url": null,
+            "starts_at": "2025-11-13 03:00:00 UTC",
+            "ends_at": "2025-11-17 02:59:00 UTC",
+            "local_start_date": "2025-11-13",
+            "local_end_date": "2025-11-16",
+            "timezone": {
+                "value": "America/Santiago"
+            },
+            "disciplines": [
+                {
+                    "id": 1788,
+                    "kind": "lead",
+                    "event_id": 1466,
+                    "created_at": "2025-04-22T08:46:36.000Z",
+                    "updated_at": "2025-04-22T08:46:36.000Z",
+                    "settings": null
+                },
+                {
+                    "id": 1789,
+                    "kind": "speed",
+                    "event_id": 1466,
+                    "created_at": "2025-04-22T08:46:36.000Z",
+                    "updated_at": "2025-04-22T08:46:36.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "IFSC Pan American Cup Armenia 2025",
+            "league_season_id": 453,
+            "location": "Armenia, COL",
+            "country": "COL",
+            "registration_deadline": "2025-11-07T00:00:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/h8ut86pcfpyz0tp1wv7tgych8gyg",
+            "series_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/499n4csthuvu1hm4lpzus4t6l0am",
+            "event_id": 1465,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [],
+            "url": "/api/v1/events/1465",
+            "registration_url": "/api/v1/events/1465/registrations",
+            "infosheet_url": "https://ifsc.results.info/events/1465/infosheet",
+            "additional_info_url": null,
+            "starts_at": "2025-11-22 05:00:00 UTC",
+            "ends_at": "2025-11-28 04:59:00 UTC",
+            "local_start_date": "2025-11-22",
+            "local_end_date": "2025-11-27",
+            "timezone": {
+                "value": "America/Bogota"
+            },
+            "disciplines": [
+                {
+                    "id": 1785,
+                    "kind": "lead",
+                    "event_id": 1465,
+                    "created_at": "2025-04-22T08:41:32.000Z",
+                    "updated_at": "2025-11-20T11:58:14.000Z",
+                    "settings": null
+                },
+                {
+                    "id": 1786,
+                    "kind": "speed",
+                    "event_id": 1465,
+                    "created_at": "2025-04-22T08:41:32.000Z",
+                    "updated_at": "2025-11-20T11:58:39.000Z",
+                    "settings": null
+                },
+                {
+                    "id": 1787,
+                    "kind": "boulder",
+                    "event_id": 1465,
+                    "created_at": "2025-04-22T08:41:32.000Z",
+                    "updated_at": "2025-11-22T22:40:36.000Z",
+                    "settings": null
+                }
+            ]
+        },
+        {
+            "event": "Bolivarian Games [CANCELLED]",
+            "league_season_id": 450,
+            "location": "Lima",
+            "country": "PER",
+            "registration_deadline": "2025-12-02T00:00:00.000Z",
+            "athlete_self_registration": false,
+            "event_logo": null,
+            "series_logo": null,
+            "event_id": 1475,
+            "cup_name": "",
+            "cup_id": null,
+            "custom_cup_ids": [],
+            "url": "/api/v1/events/1475",
+            "registration_url": "/api/v1/events/1475/registrations",
+            "infosheet_url": null,
+            "additional_info_url": null,
+            "starts_at": "2025-12-02 06:00:00 UTC",
+            "ends_at": "2025-12-05 05:59:00 UTC",
+            "local_start_date": "2025-12-02",
+            "local_end_date": "2025-12-04",
+            "timezone": {
+                "value": "America/Guatemala"
+            },
+            "disciplines": [
+                {
+                    "id": 1801,
+                    "kind": "boulder",
+                    "event_id": 1475,
+                    "created_at": "2025-09-12T08:44:38.000Z",
+                    "updated_at": "2025-09-12T08:44:38.000Z",
+                    "settings": null
+                }
+            ]
+        }
+    ]
+}

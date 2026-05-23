@@ -1,0 +1,1106 @@
+{
+    "id": 1406,
+    "name": "IFSC World Cup Wujiang 2025",
+    "type": "classic",
+    "league_id": 1,
+    "rounds": [
+        {
+            "id": 2576,
+            "name": "Qualification"
+        },
+        {
+            "id": 2577,
+            "name": "Qualification"
+        },
+        {
+            "id": 2695,
+            "name": "Semi-final"
+        },
+        {
+            "id": 2696,
+            "name": "Final"
+        },
+        {
+            "id": 2697,
+            "name": "Final"
+        }
+    ],
+    "league_season_id": 443,
+    "season_id": 37,
+    "starts_at": "2025-04-24 16:00:00 UTC",
+    "ends_at": "2025-04-27 15:59:00 UTC",
+    "local_start_date": "2025-04-25",
+    "local_end_date": "2025-04-27",
+    "timezone": {
+        "value": "Asia/Shanghai"
+    },
+    "location": "Wujiang, CHN",
+    "registration_url": "/api/v1/events/1406/registrations",
+    "public_information": {
+        "organiser_name": null,
+        "organiser_url": null,
+        "venue_name": null,
+        "description": null
+    },
+    "cup_name": "IFSC Climbing World Cup 2025",
+    "country": "CHN",
+    "registration_deadline": "2025-04-10T23:59:00.000Z",
+    "registration_opens_at": "2024-04-24T16:00:00.000Z",
+    "removal_deadline": "2025-04-10T23:59:00.000Z",
+    "athlete_self_registration": false,
+    "team_official_self_registration": false,
+    "event_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/mvniesramu22dmm15ptgxjip7i09",
+    "series_logo": "https://d1n1qj9geboqnb.cloudfront.net/ifsc/public/myh7zf9dyogtcgil9f1qjxrmbn9e",
+    "cover": null,
+    "infosheet_url": "https://ifsc.results.info/events/1406/infosheet",
+    "additional_info_url": null,
+    "is_paraclimbing_event": false,
+    "self_judged": false,
+    "d_cats": [
+        {
+            "dcat_id": 1,
+            "event_id": 1406,
+            "dcat_name": "LEAD Men",
+            "discipline_kind": "lead",
+            "category_id": 6332,
+            "category_name": "Men",
+            "status": "finished",
+            "status_as_of": "2025-10-02 07:18:42 UTC",
+            "ranking_as_of": "2025-04-27 13:11:41 UTC",
+            "category_rounds": [
+                {
+                    "category_round_id": 9383,
+                    "kind": "lead",
+                    "name": "Qualification",
+                    "category": "Men",
+                    "schedule": null,
+                    "status": "finished",
+                    "status_as_of": "2025-04-25 07:00:10 UTC",
+                    "result_url": "/api/v1/category_rounds/9383/results",
+                    "starting_groups": [],
+                    "combined_stages": [],
+                    "round": {
+                        "league_round_id": 1
+                    },
+                    "format": "IFSC: 2 routes",
+                    "routes": [
+                        {
+                            "id": 14220,
+                            "name": "1",
+                            "startlist": "/api/v1/routes/14220/startlist",
+                            "ranking": "/api/v1/routes/14220/results"
+                        },
+                        {
+                            "id": 14221,
+                            "name": "2",
+                            "startlist": "/api/v1/routes/14221/startlist",
+                            "ranking": "/api/v1/routes/14221/results"
+                        }
+                    ]
+                },
+                {
+                    "category_round_id": 9957,
+                    "kind": "lead",
+                    "name": "Semi-final",
+                    "category": "Men",
+                    "schedule": null,
+                    "status": "finished",
+                    "status_as_of": "2025-04-26 09:52:44 UTC",
+                    "result_url": "/api/v1/category_rounds/9957/results",
+                    "starting_groups": [],
+                    "combined_stages": [],
+                    "round": {
+                        "league_round_id": 2
+                    },
+                    "format": "IFSC: 1 route",
+                    "routes": [
+                        {
+                            "id": 16201,
+                            "name": "1",
+                            "startlist": "/api/v1/routes/16201/startlist",
+                            "ranking": "/api/v1/routes/16201/results"
+                        }
+                    ]
+                },
+                {
+                    "category_round_id": 9959,
+                    "kind": "lead",
+                    "name": "Final",
+                    "category": "Men",
+                    "schedule": null,
+                    "status": "finished",
+                    "status_as_of": "2025-04-27 13:11:55 UTC",
+                    "result_url": "/api/v1/category_rounds/9959/results",
+                    "starting_groups": [],
+                    "combined_stages": [],
+                    "round": {
+                        "league_round_id": 3
+                    },
+                    "format": "IFSC: 1 route",
+                    "routes": [
+                        {
+                            "id": 16203,
+                            "name": "1",
+                            "startlist": "/api/v1/routes/16203/startlist",
+                            "ranking": "/api/v1/routes/16203/results"
+                        }
+                    ]
+                }
+            ],
+            "full_results_url": "/api/v1/events/1406/result/1",
+            "top_3_results": [
+                {
+                    "athlete_id": 13040,
+                    "rank": 1,
+                    "name": "ANRAKU Sorato",
+                    "firstname": "Sorato",
+                    "lastname": "ANRAKU",
+                    "paraclimbing_sport_class": null,
+                    "sport_class_status": null,
+                    "bib": "10",
+                    "country": "JPN",
+                    "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/JPN.png",
+                    "federation_id": 25,
+                    "rounds": [],
+                    "qualified": null
+                },
+                {
+                    "athlete_id": 14606,
+                    "rank": 2,
+                    "name": "SUZUKI Neo",
+                    "firstname": "Neo",
+                    "lastname": "SUZUKI",
+                    "paraclimbing_sport_class": null,
+                    "sport_class_status": null,
+                    "bib": "26",
+                    "country": "JPN",
+                    "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/JPN.png",
+                    "federation_id": 25,
+                    "rounds": [],
+                    "qualified": null
+                },
+                {
+                    "athlete_id": 811,
+                    "rank": 3,
+                    "name": "GINÉS LÓPEZ Alberto",
+                    "firstname": "Alberto",
+                    "lastname": "GINÉS LÓPEZ",
+                    "paraclimbing_sport_class": null,
+                    "sport_class_status": null,
+                    "bib": "41",
+                    "country": "ESP",
+                    "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/ESP.png",
+                    "federation_id": 12,
+                    "rounds": [],
+                    "qualified": null
+                }
+            ]
+        },
+        {
+            "dcat_id": 5,
+            "event_id": 1406,
+            "dcat_name": "LEAD Women",
+            "discipline_kind": "lead",
+            "category_id": 6333,
+            "category_name": "Women",
+            "status": "finished",
+            "status_as_of": "2025-10-02 07:18:42 UTC",
+            "ranking_as_of": "2025-04-27 11:50:25 UTC",
+            "category_rounds": [
+                {
+                    "category_round_id": 9384,
+                    "kind": "lead",
+                    "name": "Qualification",
+                    "category": "Women",
+                    "schedule": null,
+                    "status": "finished",
+                    "status_as_of": "2025-04-25 07:24:20 UTC",
+                    "result_url": "/api/v1/category_rounds/9384/results",
+                    "starting_groups": [],
+                    "combined_stages": [],
+                    "round": {
+                        "league_round_id": 1
+                    },
+                    "format": "IFSC: 2 routes",
+                    "routes": [
+                        {
+                            "id": 14222,
+                            "name": "1",
+                            "startlist": "/api/v1/routes/14222/startlist",
+                            "ranking": "/api/v1/routes/14222/results"
+                        },
+                        {
+                            "id": 14223,
+                            "name": "2",
+                            "startlist": "/api/v1/routes/14223/startlist",
+                            "ranking": "/api/v1/routes/14223/results"
+                        }
+                    ]
+                },
+                {
+                    "category_round_id": 9958,
+                    "kind": "lead",
+                    "name": "Semi-final",
+                    "category": "Women",
+                    "schedule": null,
+                    "status": "finished",
+                    "status_as_of": "2025-04-26 09:50:30 UTC",
+                    "result_url": "/api/v1/category_rounds/9958/results",
+                    "starting_groups": [],
+                    "combined_stages": [],
+                    "round": {
+                        "league_round_id": 2
+                    },
+                    "format": "IFSC: 1 route",
+                    "routes": [
+                        {
+                            "id": 16202,
+                            "name": "1",
+                            "startlist": "/api/v1/routes/16202/startlist",
+                            "ranking": "/api/v1/routes/16202/results"
+                        }
+                    ]
+                },
+                {
+                    "category_round_id": 9960,
+                    "kind": "lead",
+                    "name": "Final",
+                    "category": "Women",
+                    "schedule": null,
+                    "status": "finished",
+                    "status_as_of": "2025-04-27 11:57:38 UTC",
+                    "result_url": "/api/v1/category_rounds/9960/results",
+                    "starting_groups": [],
+                    "combined_stages": [],
+                    "round": {
+                        "league_round_id": 3
+                    },
+                    "format": "IFSC: 1 route",
+                    "routes": [
+                        {
+                            "id": 16204,
+                            "name": "1",
+                            "startlist": "/api/v1/routes/16204/startlist",
+                            "ranking": "/api/v1/routes/16204/results"
+                        }
+                    ]
+                }
+            ],
+            "full_results_url": "/api/v1/events/1406/result/5",
+            "top_3_results": [
+                {
+                    "athlete_id": 11468,
+                    "rank": 1,
+                    "name": "MCNEICE Erin",
+                    "firstname": "Erin",
+                    "lastname": "MCNEICE",
+                    "paraclimbing_sport_class": null,
+                    "sport_class_status": null,
+                    "bib": "110",
+                    "country": "GBR",
+                    "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/GBR.png",
+                    "federation_id": 11,
+                    "rounds": [],
+                    "qualified": null
+                },
+                {
+                    "athlete_id": 2080,
+                    "rank": 1,
+                    "name": "SEO Chaehyun",
+                    "firstname": "Chaehyun",
+                    "lastname": "SEO",
+                    "paraclimbing_sport_class": null,
+                    "sport_class_status": null,
+                    "bib": "113",
+                    "country": "KOR",
+                    "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/KOR.png",
+                    "federation_id": 21,
+                    "rounds": [],
+                    "qualified": null
+                },
+                {
+                    "athlete_id": 13021,
+                    "rank": 3,
+                    "name": "SANDERS Annie",
+                    "firstname": "Annie",
+                    "lastname": "SANDERS",
+                    "paraclimbing_sport_class": null,
+                    "sport_class_status": null,
+                    "bib": "91",
+                    "country": "USA",
+                    "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/USA.png",
+                    "federation_id": 20,
+                    "rounds": [],
+                    "qualified": null
+                }
+            ]
+        },
+        {
+            "dcat_id": 2,
+            "event_id": 1406,
+            "dcat_name": "SPEED Men",
+            "discipline_kind": "speed",
+            "category_id": 6334,
+            "category_name": "Men",
+            "status": "finished",
+            "status_as_of": "2025-10-02 07:18:42 UTC",
+            "ranking_as_of": "2025-04-26 12:35:13 UTC",
+            "category_rounds": [
+                {
+                    "category_round_id": 9385,
+                    "kind": "speed",
+                    "name": "Qualification",
+                    "category": "Men",
+                    "schedule": null,
+                    "status": "finished",
+                    "status_as_of": "2025-04-25 12:55:09 UTC",
+                    "result_url": "/api/v1/category_rounds/9385/results",
+                    "starting_groups": [],
+                    "combined_stages": [],
+                    "round": {
+                        "league_round_id": 1
+                    },
+                    "format": "IFSC 2025: Qualification",
+                    "routes": [
+                        {
+                            "id": 16209,
+                            "name": "A",
+                            "startlist": "/api/v1/routes/16209/startlist"
+                        },
+                        {
+                            "id": 16210,
+                            "name": "B",
+                            "startlist": "/api/v1/routes/16210/startlist"
+                        }
+                    ]
+                },
+                {
+                    "category_round_id": 9961,
+                    "kind": "speed",
+                    "name": "Final",
+                    "category": "Men",
+                    "schedule": null,
+                    "status": "finished",
+                    "status_as_of": "2025-04-26 12:35:35 UTC",
+                    "result_url": "/api/v1/category_rounds/9961/results",
+                    "starting_groups": [],
+                    "combined_stages": [],
+                    "round": {
+                        "league_round_id": 3
+                    },
+                    "format": "IFSC 2023+: Elimination",
+                    "routes": [
+                        {
+                            "id": 16205,
+                            "name": "A",
+                            "startlist": "/api/v1/routes/16205/startlist"
+                        },
+                        {
+                            "id": 16206,
+                            "name": "B",
+                            "startlist": "/api/v1/routes/16206/startlist"
+                        }
+                    ]
+                }
+            ],
+            "full_results_url": "/api/v1/events/1406/result/2",
+            "top_3_results": [
+                {
+                    "athlete_id": 11395,
+                    "rank": 1,
+                    "name": "LONG Jianguo",
+                    "firstname": "Jianguo",
+                    "lastname": "LONG",
+                    "paraclimbing_sport_class": null,
+                    "sport_class_status": null,
+                    "bib": "191",
+                    "country": "CHN",
+                    "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CHN.png",
+                    "federation_id": 37,
+                    "rounds": [],
+                    "qualified": null
+                },
+                {
+                    "athlete_id": 1547,
+                    "rank": 2,
+                    "name": "ILCHYSHYN Hryhorii",
+                    "firstname": "Hryhorii",
+                    "lastname": "ILCHYSHYN",
+                    "paraclimbing_sport_class": null,
+                    "sport_class_status": null,
+                    "bib": "174",
+                    "country": "UKR",
+                    "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/UKR.png",
+                    "federation_id": 18,
+                    "rounds": [],
+                    "qualified": null
+                },
+                {
+                    "athlete_id": 3324,
+                    "rank": 3,
+                    "name": "KATIBIN Kiromal",
+                    "firstname": "Kiromal",
+                    "lastname": "KATIBIN",
+                    "paraclimbing_sport_class": null,
+                    "sport_class_status": null,
+                    "bib": "198",
+                    "country": "INA",
+                    "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/INA.png",
+                    "federation_id": 45,
+                    "rounds": [],
+                    "qualified": null
+                }
+            ]
+        },
+        {
+            "dcat_id": 6,
+            "event_id": 1406,
+            "dcat_name": "SPEED Women",
+            "discipline_kind": "speed",
+            "category_id": 6335,
+            "category_name": "Women",
+            "status": "finished",
+            "status_as_of": "2025-10-02 07:18:42 UTC",
+            "ranking_as_of": "2025-04-26 12:33:44 UTC",
+            "category_rounds": [
+                {
+                    "category_round_id": 9386,
+                    "kind": "speed",
+                    "name": "Qualification",
+                    "category": "Women",
+                    "schedule": null,
+                    "status": "finished",
+                    "status_as_of": "2025-04-25 11:44:09 UTC",
+                    "result_url": "/api/v1/category_rounds/9386/results",
+                    "starting_groups": [],
+                    "combined_stages": [],
+                    "round": {
+                        "league_round_id": 1
+                    },
+                    "format": "IFSC 2025: Qualification",
+                    "routes": [
+                        {
+                            "id": 16211,
+                            "name": "A",
+                            "startlist": "/api/v1/routes/16211/startlist"
+                        },
+                        {
+                            "id": 16212,
+                            "name": "B",
+                            "startlist": "/api/v1/routes/16212/startlist"
+                        }
+                    ]
+                },
+                {
+                    "category_round_id": 9962,
+                    "kind": "speed",
+                    "name": "Final",
+                    "category": "Women",
+                    "schedule": null,
+                    "status": "finished",
+                    "status_as_of": "2025-04-26 12:34:00 UTC",
+                    "result_url": "/api/v1/category_rounds/9962/results",
+                    "starting_groups": [],
+                    "combined_stages": [],
+                    "round": {
+                        "league_round_id": 3
+                    },
+                    "format": "IFSC 2023+: Elimination",
+                    "routes": [
+                        {
+                            "id": 16207,
+                            "name": "A",
+                            "startlist": "/api/v1/routes/16207/startlist"
+                        },
+                        {
+                            "id": 16208,
+                            "name": "B",
+                            "startlist": "/api/v1/routes/16208/startlist"
+                        }
+                    ]
+                }
+            ],
+            "full_results_url": "/api/v1/events/1406/result/6",
+            "top_3_results": [
+                {
+                    "athlete_id": 14415,
+                    "rank": 1,
+                    "name": "ZHANG Shaoqin",
+                    "firstname": "Shaoqin",
+                    "lastname": "ZHANG",
+                    "paraclimbing_sport_class": null,
+                    "sport_class_status": null,
+                    "bib": "163",
+                    "country": "CHN",
+                    "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CHN.png",
+                    "federation_id": 37,
+                    "rounds": [],
+                    "qualified": null
+                },
+                {
+                    "athlete_id": 13154,
+                    "rank": 2,
+                    "name": "JEONG Jimin",
+                    "firstname": "Jimin",
+                    "lastname": "JEONG",
+                    "paraclimbing_sport_class": null,
+                    "sport_class_status": null,
+                    "bib": "133",
+                    "country": "KOR",
+                    "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/KOR.png",
+                    "federation_id": 21,
+                    "rounds": [],
+                    "qualified": null
+                },
+                {
+                    "athlete_id": 3014,
+                    "rank": 3,
+                    "name": "DENG Lijuan",
+                    "firstname": "Lijuan",
+                    "lastname": "DENG",
+                    "paraclimbing_sport_class": null,
+                    "sport_class_status": null,
+                    "bib": "134",
+                    "country": "CHN",
+                    "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CHN.png",
+                    "federation_id": 37,
+                    "rounds": [],
+                    "qualified": null
+                }
+            ]
+        }
+    ],
+    "dcats": [
+        {
+            "dcat_id": 1,
+            "event_id": 1406,
+            "dcat_name": "LEAD Men",
+            "discipline_kind": "lead",
+            "category_id": 6332,
+            "category_name": "Men",
+            "status": "finished",
+            "status_as_of": "2025-10-02 07:18:42 UTC",
+            "ranking_as_of": "2025-04-27 13:11:41 UTC",
+            "category_rounds": [
+                {
+                    "category_round_id": 9383,
+                    "kind": "lead",
+                    "name": "Qualification",
+                    "category": "Men",
+                    "schedule": null,
+                    "status": "finished",
+                    "status_as_of": "2025-04-25 07:00:10 UTC",
+                    "result_url": "/api/v1/category_rounds/9383/results",
+                    "starting_groups": [],
+                    "combined_stages": [],
+                    "round": {
+                        "league_round_id": 1
+                    },
+                    "format": "IFSC: 2 routes",
+                    "routes": [
+                        {
+                            "id": 14220,
+                            "name": "1",
+                            "startlist": "/api/v1/routes/14220/startlist",
+                            "ranking": "/api/v1/routes/14220/results"
+                        },
+                        {
+                            "id": 14221,
+                            "name": "2",
+                            "startlist": "/api/v1/routes/14221/startlist",
+                            "ranking": "/api/v1/routes/14221/results"
+                        }
+                    ]
+                },
+                {
+                    "category_round_id": 9957,
+                    "kind": "lead",
+                    "name": "Semi-final",
+                    "category": "Men",
+                    "schedule": null,
+                    "status": "finished",
+                    "status_as_of": "2025-04-26 09:52:44 UTC",
+                    "result_url": "/api/v1/category_rounds/9957/results",
+                    "starting_groups": [],
+                    "combined_stages": [],
+                    "round": {
+                        "league_round_id": 2
+                    },
+                    "format": "IFSC: 1 route",
+                    "routes": [
+                        {
+                            "id": 16201,
+                            "name": "1",
+                            "startlist": "/api/v1/routes/16201/startlist",
+                            "ranking": "/api/v1/routes/16201/results"
+                        }
+                    ]
+                },
+                {
+                    "category_round_id": 9959,
+                    "kind": "lead",
+                    "name": "Final",
+                    "category": "Men",
+                    "schedule": null,
+                    "status": "finished",
+                    "status_as_of": "2025-04-27 13:11:55 UTC",
+                    "result_url": "/api/v1/category_rounds/9959/results",
+                    "starting_groups": [],
+                    "combined_stages": [],
+                    "round": {
+                        "league_round_id": 3
+                    },
+                    "format": "IFSC: 1 route",
+                    "routes": [
+                        {
+                            "id": 16203,
+                            "name": "1",
+                            "startlist": "/api/v1/routes/16203/startlist",
+                            "ranking": "/api/v1/routes/16203/results"
+                        }
+                    ]
+                }
+            ],
+            "full_results_url": "/api/v1/events/1406/result/1",
+            "top_3_results": [
+                {
+                    "athlete_id": 13040,
+                    "rank": 1,
+                    "name": "ANRAKU Sorato",
+                    "firstname": "Sorato",
+                    "lastname": "ANRAKU",
+                    "paraclimbing_sport_class": null,
+                    "sport_class_status": null,
+                    "bib": "10",
+                    "country": "JPN",
+                    "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/JPN.png",
+                    "federation_id": 25,
+                    "rounds": [],
+                    "qualified": null
+                },
+                {
+                    "athlete_id": 14606,
+                    "rank": 2,
+                    "name": "SUZUKI Neo",
+                    "firstname": "Neo",
+                    "lastname": "SUZUKI",
+                    "paraclimbing_sport_class": null,
+                    "sport_class_status": null,
+                    "bib": "26",
+                    "country": "JPN",
+                    "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/JPN.png",
+                    "federation_id": 25,
+                    "rounds": [],
+                    "qualified": null
+                },
+                {
+                    "athlete_id": 811,
+                    "rank": 3,
+                    "name": "GINÉS LÓPEZ Alberto",
+                    "firstname": "Alberto",
+                    "lastname": "GINÉS LÓPEZ",
+                    "paraclimbing_sport_class": null,
+                    "sport_class_status": null,
+                    "bib": "41",
+                    "country": "ESP",
+                    "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/ESP.png",
+                    "federation_id": 12,
+                    "rounds": [],
+                    "qualified": null
+                }
+            ]
+        },
+        {
+            "dcat_id": 5,
+            "event_id": 1406,
+            "dcat_name": "LEAD Women",
+            "discipline_kind": "lead",
+            "category_id": 6333,
+            "category_name": "Women",
+            "status": "finished",
+            "status_as_of": "2025-10-02 07:18:42 UTC",
+            "ranking_as_of": "2025-04-27 11:50:25 UTC",
+            "category_rounds": [
+                {
+                    "category_round_id": 9384,
+                    "kind": "lead",
+                    "name": "Qualification",
+                    "category": "Women",
+                    "schedule": null,
+                    "status": "finished",
+                    "status_as_of": "2025-04-25 07:24:20 UTC",
+                    "result_url": "/api/v1/category_rounds/9384/results",
+                    "starting_groups": [],
+                    "combined_stages": [],
+                    "round": {
+                        "league_round_id": 1
+                    },
+                    "format": "IFSC: 2 routes",
+                    "routes": [
+                        {
+                            "id": 14222,
+                            "name": "1",
+                            "startlist": "/api/v1/routes/14222/startlist",
+                            "ranking": "/api/v1/routes/14222/results"
+                        },
+                        {
+                            "id": 14223,
+                            "name": "2",
+                            "startlist": "/api/v1/routes/14223/startlist",
+                            "ranking": "/api/v1/routes/14223/results"
+                        }
+                    ]
+                },
+                {
+                    "category_round_id": 9958,
+                    "kind": "lead",
+                    "name": "Semi-final",
+                    "category": "Women",
+                    "schedule": null,
+                    "status": "finished",
+                    "status_as_of": "2025-04-26 09:50:30 UTC",
+                    "result_url": "/api/v1/category_rounds/9958/results",
+                    "starting_groups": [],
+                    "combined_stages": [],
+                    "round": {
+                        "league_round_id": 2
+                    },
+                    "format": "IFSC: 1 route",
+                    "routes": [
+                        {
+                            "id": 16202,
+                            "name": "1",
+                            "startlist": "/api/v1/routes/16202/startlist",
+                            "ranking": "/api/v1/routes/16202/results"
+                        }
+                    ]
+                },
+                {
+                    "category_round_id": 9960,
+                    "kind": "lead",
+                    "name": "Final",
+                    "category": "Women",
+                    "schedule": null,
+                    "status": "finished",
+                    "status_as_of": "2025-04-27 11:57:38 UTC",
+                    "result_url": "/api/v1/category_rounds/9960/results",
+                    "starting_groups": [],
+                    "combined_stages": [],
+                    "round": {
+                        "league_round_id": 3
+                    },
+                    "format": "IFSC: 1 route",
+                    "routes": [
+                        {
+                            "id": 16204,
+                            "name": "1",
+                            "startlist": "/api/v1/routes/16204/startlist",
+                            "ranking": "/api/v1/routes/16204/results"
+                        }
+                    ]
+                }
+            ],
+            "full_results_url": "/api/v1/events/1406/result/5",
+            "top_3_results": [
+                {
+                    "athlete_id": 11468,
+                    "rank": 1,
+                    "name": "MCNEICE Erin",
+                    "firstname": "Erin",
+                    "lastname": "MCNEICE",
+                    "paraclimbing_sport_class": null,
+                    "sport_class_status": null,
+                    "bib": "110",
+                    "country": "GBR",
+                    "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/GBR.png",
+                    "federation_id": 11,
+                    "rounds": [],
+                    "qualified": null
+                },
+                {
+                    "athlete_id": 2080,
+                    "rank": 1,
+                    "name": "SEO Chaehyun",
+                    "firstname": "Chaehyun",
+                    "lastname": "SEO",
+                    "paraclimbing_sport_class": null,
+                    "sport_class_status": null,
+                    "bib": "113",
+                    "country": "KOR",
+                    "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/KOR.png",
+                    "federation_id": 21,
+                    "rounds": [],
+                    "qualified": null
+                },
+                {
+                    "athlete_id": 13021,
+                    "rank": 3,
+                    "name": "SANDERS Annie",
+                    "firstname": "Annie",
+                    "lastname": "SANDERS",
+                    "paraclimbing_sport_class": null,
+                    "sport_class_status": null,
+                    "bib": "91",
+                    "country": "USA",
+                    "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/USA.png",
+                    "federation_id": 20,
+                    "rounds": [],
+                    "qualified": null
+                }
+            ]
+        },
+        {
+            "dcat_id": 2,
+            "event_id": 1406,
+            "dcat_name": "SPEED Men",
+            "discipline_kind": "speed",
+            "category_id": 6334,
+            "category_name": "Men",
+            "status": "finished",
+            "status_as_of": "2025-10-02 07:18:42 UTC",
+            "ranking_as_of": "2025-04-26 12:35:13 UTC",
+            "category_rounds": [
+                {
+                    "category_round_id": 9385,
+                    "kind": "speed",
+                    "name": "Qualification",
+                    "category": "Men",
+                    "schedule": null,
+                    "status": "finished",
+                    "status_as_of": "2025-04-25 12:55:09 UTC",
+                    "result_url": "/api/v1/category_rounds/9385/results",
+                    "starting_groups": [],
+                    "combined_stages": [],
+                    "round": {
+                        "league_round_id": 1
+                    },
+                    "format": "IFSC 2025: Qualification",
+                    "routes": [
+                        {
+                            "id": 16209,
+                            "name": "A",
+                            "startlist": "/api/v1/routes/16209/startlist"
+                        },
+                        {
+                            "id": 16210,
+                            "name": "B",
+                            "startlist": "/api/v1/routes/16210/startlist"
+                        }
+                    ]
+                },
+                {
+                    "category_round_id": 9961,
+                    "kind": "speed",
+                    "name": "Final",
+                    "category": "Men",
+                    "schedule": null,
+                    "status": "finished",
+                    "status_as_of": "2025-04-26 12:35:35 UTC",
+                    "result_url": "/api/v1/category_rounds/9961/results",
+                    "starting_groups": [],
+                    "combined_stages": [],
+                    "round": {
+                        "league_round_id": 3
+                    },
+                    "format": "IFSC 2023+: Elimination",
+                    "routes": [
+                        {
+                            "id": 16205,
+                            "name": "A",
+                            "startlist": "/api/v1/routes/16205/startlist"
+                        },
+                        {
+                            "id": 16206,
+                            "name": "B",
+                            "startlist": "/api/v1/routes/16206/startlist"
+                        }
+                    ]
+                }
+            ],
+            "full_results_url": "/api/v1/events/1406/result/2",
+            "top_3_results": [
+                {
+                    "athlete_id": 11395,
+                    "rank": 1,
+                    "name": "LONG Jianguo",
+                    "firstname": "Jianguo",
+                    "lastname": "LONG",
+                    "paraclimbing_sport_class": null,
+                    "sport_class_status": null,
+                    "bib": "191",
+                    "country": "CHN",
+                    "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CHN.png",
+                    "federation_id": 37,
+                    "rounds": [],
+                    "qualified": null
+                },
+                {
+                    "athlete_id": 1547,
+                    "rank": 2,
+                    "name": "ILCHYSHYN Hryhorii",
+                    "firstname": "Hryhorii",
+                    "lastname": "ILCHYSHYN",
+                    "paraclimbing_sport_class": null,
+                    "sport_class_status": null,
+                    "bib": "174",
+                    "country": "UKR",
+                    "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/UKR.png",
+                    "federation_id": 18,
+                    "rounds": [],
+                    "qualified": null
+                },
+                {
+                    "athlete_id": 3324,
+                    "rank": 3,
+                    "name": "KATIBIN Kiromal",
+                    "firstname": "Kiromal",
+                    "lastname": "KATIBIN",
+                    "paraclimbing_sport_class": null,
+                    "sport_class_status": null,
+                    "bib": "198",
+                    "country": "INA",
+                    "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/INA.png",
+                    "federation_id": 45,
+                    "rounds": [],
+                    "qualified": null
+                }
+            ]
+        },
+        {
+            "dcat_id": 6,
+            "event_id": 1406,
+            "dcat_name": "SPEED Women",
+            "discipline_kind": "speed",
+            "category_id": 6335,
+            "category_name": "Women",
+            "status": "finished",
+            "status_as_of": "2025-10-02 07:18:42 UTC",
+            "ranking_as_of": "2025-04-26 12:33:44 UTC",
+            "category_rounds": [
+                {
+                    "category_round_id": 9386,
+                    "kind": "speed",
+                    "name": "Qualification",
+                    "category": "Women",
+                    "schedule": null,
+                    "status": "finished",
+                    "status_as_of": "2025-04-25 11:44:09 UTC",
+                    "result_url": "/api/v1/category_rounds/9386/results",
+                    "starting_groups": [],
+                    "combined_stages": [],
+                    "round": {
+                        "league_round_id": 1
+                    },
+                    "format": "IFSC 2025: Qualification",
+                    "routes": [
+                        {
+                            "id": 16211,
+                            "name": "A",
+                            "startlist": "/api/v1/routes/16211/startlist"
+                        },
+                        {
+                            "id": 16212,
+                            "name": "B",
+                            "startlist": "/api/v1/routes/16212/startlist"
+                        }
+                    ]
+                },
+                {
+                    "category_round_id": 9962,
+                    "kind": "speed",
+                    "name": "Final",
+                    "category": "Women",
+                    "schedule": null,
+                    "status": "finished",
+                    "status_as_of": "2025-04-26 12:34:00 UTC",
+                    "result_url": "/api/v1/category_rounds/9962/results",
+                    "starting_groups": [],
+                    "combined_stages": [],
+                    "round": {
+                        "league_round_id": 3
+                    },
+                    "format": "IFSC 2023+: Elimination",
+                    "routes": [
+                        {
+                            "id": 16207,
+                            "name": "A",
+                            "startlist": "/api/v1/routes/16207/startlist"
+                        },
+                        {
+                            "id": 16208,
+                            "name": "B",
+                            "startlist": "/api/v1/routes/16208/startlist"
+                        }
+                    ]
+                }
+            ],
+            "full_results_url": "/api/v1/events/1406/result/6",
+            "top_3_results": [
+                {
+                    "athlete_id": 14415,
+                    "rank": 1,
+                    "name": "ZHANG Shaoqin",
+                    "firstname": "Shaoqin",
+                    "lastname": "ZHANG",
+                    "paraclimbing_sport_class": null,
+                    "sport_class_status": null,
+                    "bib": "163",
+                    "country": "CHN",
+                    "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CHN.png",
+                    "federation_id": 37,
+                    "rounds": [],
+                    "qualified": null
+                },
+                {
+                    "athlete_id": 13154,
+                    "rank": 2,
+                    "name": "JEONG Jimin",
+                    "firstname": "Jimin",
+                    "lastname": "JEONG",
+                    "paraclimbing_sport_class": null,
+                    "sport_class_status": null,
+                    "bib": "133",
+                    "country": "KOR",
+                    "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/KOR.png",
+                    "federation_id": 21,
+                    "rounds": [],
+                    "qualified": null
+                },
+                {
+                    "athlete_id": 3014,
+                    "rank": 3,
+                    "name": "DENG Lijuan",
+                    "firstname": "Lijuan",
+                    "lastname": "DENG",
+                    "paraclimbing_sport_class": null,
+                    "sport_class_status": null,
+                    "bib": "134",
+                    "country": "CHN",
+                    "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CHN.png",
+                    "federation_id": 37,
+                    "rounds": [],
+                    "qualified": null
+                }
+            ]
+        }
+    ],
+    "disciplines": [
+        {
+            "id": 1716,
+            "kind": "lead",
+            "settings": null
+        },
+        {
+            "id": 1717,
+            "kind": "speed",
+            "settings": null
+        }
+    ],
+    "computed_combined_categories": [],
+    "team_ranking_disciplines": [
+        "lead",
+        "speed"
+    ],
+    "team_ranking_url": "/api/v1/events/1406/team_results/",
+    "custom_event_registration_fields": []
+}
