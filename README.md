@@ -2,6 +2,8 @@
 
 The data ingestion layer for the IFSC climbing project: a small Python package that ingests the [IFSC public API](https://ifsc.results.info) into a single local SQLite warehouse. Downstream consumers read from the warehouse — they never talk to the API directly.
 
+> For contributor & architecture documentation (the **why** behind the design), see [`docs/`](docs/).
+
 ## What it does
 
 - **Discovers** new entities (seasons, events, athletes, …) by walking the API tree.
@@ -12,7 +14,7 @@ The data ingestion layer for the IFSC climbing project: a small Python package t
 
 ## Setup
 
-Requires **Python 3.11+**.
+Requires **Python 3.12+** (the package uses PEP 695 generic syntax).
 
 ```bash
 pip install -e ".[dev]"
