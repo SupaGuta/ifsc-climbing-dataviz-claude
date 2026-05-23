@@ -1,14 +1,29 @@
-# MySQL Workbench backup files
-*.bak
-
-# Error log files
-*.log
-
-# Python bytecode cache
+# Python
 __pycache__/
 **/__pycache__/
-
-# (optionnel) fichiers compilés Python
 *.pyc
 *.pyo
 *.pyd
+*.egg-info/
+.pytest_cache/
+build/
+dist/
+
+# Environment / secrets
+.env
+
+# MySQL Workbench backups
+*.bak
+
+# Logs
+*.log
+logs/
+
+# CSV exports (timestamped, regenerable)
+data/exports/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Claude Code local settings
+.claude/
