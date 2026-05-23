@@ -8,7 +8,6 @@
 from __future__ import annotations
 
 import logging
-from pathlib import Path
 
 from colorama import Fore, Style, init as colorama_init
 

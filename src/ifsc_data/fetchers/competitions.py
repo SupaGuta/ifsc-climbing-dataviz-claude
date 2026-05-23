@@ -11,7 +11,7 @@ competition.
 from __future__ import annotations
 
 import logging
-from typing import Optional
+from typing import Optional, cast
 
 from ..api.client import APIClient
 from ..db.repository import Repository
@@ -41,8 +41,8 @@ def hydrate(
 
     log.info("Hydrating %d competition(s).", len(rows))
 
-    items = [
-        (r["comp_id"], f"/events/{r['event_ifsc']}/result/{r['comp_ifsc']}")
+    items: list[tuple[int, str]] = [
+        (cast(int, r["comp_id"]), f"/events/{r['event_ifsc']}/result/{r['comp_ifsc']}")
         for r in rows
     ]
 

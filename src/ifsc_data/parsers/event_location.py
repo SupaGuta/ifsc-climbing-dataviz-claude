@@ -172,7 +172,7 @@ def country_name_to_iso3_safe(name: str) -> Optional[str]:
     if strong or len(s) >= 12:
         try:
             c = pycountry.countries.search_fuzzy(s)[0]
-            return c.alpha_3
+            return c.alpha_3  # type: ignore[attr-defined]
         except Exception:
             return None
     return None

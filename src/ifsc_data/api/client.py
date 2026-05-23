@@ -27,10 +27,10 @@ API_BASE_URL = "https://ifsc.results.info/api/v1"
 
 
 @dataclass(frozen=True)
-class Fetched:
+class Fetched[K: Hashable]:
     """A single successful fetch result."""
 
-    key: Hashable        # Whatever the caller passed in (typically the ifsc_id)
+    key: K               # Whatever the caller passed in (typically the ifsc_id)
     path: str
     data: dict[str, Any]
 
@@ -80,7 +80,7 @@ class APIClient:
         max_retries: int = 2,
         retry_delay: float = 2.0,
         retry_on: Optional[Callable[[FetchError], bool]] = None,
-    ) -> Iterator[Fetched]:
+    ) -> Iterator[Fetched[int]]:
         """Fetch `/{endpoint}/{id}` for each id. Yields as each completes."""
         items = [(ifsc_id, f"/{endpoint}/{ifsc_id}") for ifsc_id in ifsc_ids]
         yield from self.stream_paths(
@@ -90,14 +90,14 @@ class APIClient:
             retry_on=retry_on,
         )
 
-    def stream_paths(
+    def stream_paths[K: Hashable](
         self,
-        items: Iterable[tuple[Hashable, str]],
+        items: Iterable[tuple[K, str]],
         *,
         max_retries: int = 2,
         retry_delay: float = 2.0,
         retry_on: Optional[Callable[[FetchError], bool]] = None,
-    ) -> Iterator[Fetched]:
+    ) -> Iterator[Fetched[K]]:
         """Fetch arbitrary paths concurrently; yield `Fetched` as each succeeds.
 
         `items` is an iterable of (caller_key, path) pairs.
@@ -113,7 +113,7 @@ class APIClient:
                 log.info("Retry attempt %d for %d items.", attempt, len(pending))
                 time.sleep(retry_delay)
 
-            failures: list[tuple[Hashable, str]] = []
+            failures: list[tuple[K, str]] = []
             with ThreadPoolExecutor(max_workers=self.settings.max_workers) as pool:
                 future_to_item = {
                     pool.submit(self._fetch_one, path): (key, path)

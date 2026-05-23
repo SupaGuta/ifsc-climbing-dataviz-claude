@@ -8,9 +8,10 @@ land or roll back as a unit.
 from __future__ import annotations
 
 import sqlite3
+from collections.abc import Generator
 from contextlib import contextmanager
 from datetime import datetime, timedelta, timezone
-from typing import Any, Iterator, Optional
+from typing import Any, Optional
 
 # Tables that carry a `last_fetched_at` column.
 HYDRATABLE_TABLES = ("seasons", "season_leagues", "events", "competitions", "athletes")
@@ -45,7 +46,7 @@ class Repository:
     # ------------------------------------------------------------- Transaction
 
     @contextmanager
-    def transaction(self) -> Iterator[None]:
+    def transaction(self) -> Generator[None, None, None]:
         """Group multiple repo calls into one atomic SQLite transaction.
 
         Inside the context, per-call commits are suppressed; the final commit
