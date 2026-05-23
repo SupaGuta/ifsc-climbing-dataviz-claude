@@ -21,6 +21,7 @@ class Settings:
     request_timeout: int
     db_path: Path
     stale_days: int
+    grace_days: int
 
     @property
     def api_headers(self) -> dict[str, str]:
@@ -58,4 +59,5 @@ def load_settings(*, require_credentials: bool = True) -> Settings:
         request_timeout=int(os.getenv("IFSC_REQUEST_TIMEOUT", "120")),
         db_path=db_path,
         stale_days=int(os.getenv("IFSC_STALE_DAYS", "30")),
+        grace_days=int(os.getenv("IFSC_GRACE_DAYS", "15")),
     )

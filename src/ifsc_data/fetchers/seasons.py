@@ -7,10 +7,13 @@ and creates season_league skeletons for the next phase.
 from __future__ import annotations
 
 import logging
-from typing import Optional
+from typing import TYPE_CHECKING, Optional
 
 from ..api.client import APIClient
 from ..db.repository import Repository
+
+if TYPE_CHECKING:
+    import sqlite3
 
 log = logging.getLogger(__name__)
 
@@ -43,18 +46,26 @@ def hydrate(
     repo: Repository,
     client: APIClient,
     *,
-    stale_days: int,
+    stale_days: Optional[int] = None,
+    rows: Optional[list[sqlite3.Row]] = None,
     limit: Optional[int] = None,
 ) -> tuple[int, int]:
-    """Refresh stale/null seasons; populate leagues + season_leagues skeletons."""
-    stale = repo.find_stale("seasons", stale_days=stale_days)
+    """Refresh stale/null seasons; populate leagues + season_leagues skeletons.
+
+    Pass either `stale_days` (default behavior, used by `refresh`/`hydrate`) or
+    `rows` (used by `pull_new` to scope to ongoing seasons only).
+    """
+    if rows is None:
+        if stale_days is None:
+            raise ValueError("hydrate() requires either stale_days or rows")
+        rows = repo.find_stale("seasons", stale_days=stale_days)
     if limit is not None:
-        stale = stale[:limit]
-    if not stale:
+        rows = rows[:limit]
+    if not rows:
         return 0, 0
 
-    ifsc_to_id = {row["ifsc_id"]: row["id"] for row in stale}
-    log.info("Hydrating %d season(s).", len(stale))
+    ifsc_to_id = {row["ifsc_id"]: row["id"] for row in rows}
+    log.info("Hydrating %d season(s).", len(rows))
 
     ok = fail = 0
     for fetched in client.stream("seasons", ifsc_to_id.keys()):

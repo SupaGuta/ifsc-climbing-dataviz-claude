@@ -70,6 +70,13 @@ for the parser's rules and why it returns NULL rather than guessing.
 - **Date fields are local to the event** — no timezone info, no time of day.
   If you need UTC dates, you'll need an external mapping from event country
   to timezone.
+- **`date_end` is load-bearing for `pull-new`**. It's the field that decides
+  whether an event is "ongoing" (re-fetched on every `pull-new`) or "ended"
+  (skipped by `pull-new` once more than 15 days past `date_end`). A NULL
+  `date_end` is treated as ongoing. See
+  [ADR 0006](../decisions/0006-ongoing-only-pull-new.md). If you ever
+  hand-edit `date_end` to a far-past date, you'll silently exclude the event
+  from `pull-new`'s scope.
 - **Sibling backfill:** an event with a city but no country can inherit the
   country from a sibling event in the same city (cross-batch backfill runs
   after every events hydration). This is the main reason `country` coverage

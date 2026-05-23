@@ -127,3 +127,98 @@ def test_backfill_event_country_from_siblings(memory_db):
 
     row = memory_db.execute("SELECT country FROM events WHERE id = ?", (b,)).fetchone()
     assert row["country"] == "AUT"
+
+
+# --------------------------------------------------------------- find_ongoing_*
+# These power `pull-new`'s ongoing-only scope. See ADR 0006.
+
+def test_find_ongoing_seasons_includes_current_and_skeletons(memory_db):
+    repo = Repository(memory_db)
+    current_year = datetime.now(timezone.utc).year
+
+    ongoing = repo.upsert_season(101, year=current_year)
+    ended = repo.upsert_season(102, year=current_year - 5)
+    skeleton = repo.upsert_season(103)  # year IS NULL
+
+    got = {r["id"] for r in repo.find_ongoing_seasons()}
+    assert ongoing in got
+    assert skeleton in got
+    assert ended not in got
+
+
+def test_find_ongoing_season_leagues_follows_parent_season(memory_db):
+    repo = Repository(memory_db)
+    current_year = datetime.now(timezone.utc).year
+
+    ongoing_season = repo.upsert_season(201, year=current_year)
+    ended_season = repo.upsert_season(202, year=current_year - 5)
+    league = repo.upsert_league("World Cup")
+
+    ongoing_sl = repo.upsert_season_league(301, season_id=ongoing_season, league_id=league)
+    ended_sl = repo.upsert_season_league(302, season_id=ended_season, league_id=league)
+
+    got = {r["id"] for r in repo.find_ongoing_season_leagues()}
+    assert ongoing_sl in got
+    assert ended_sl not in got
+
+
+def test_find_ongoing_events_respects_grace_days(memory_db):
+    repo = Repository(memory_db)
+    today = datetime.now(timezone.utc).date()
+    sid = repo.upsert_season(401, year=today.year)
+
+    future = repo.upsert_event_skeleton(501, season_id=sid)
+    repo.update_event(future, date_end=(today + timedelta(days=10)).isoformat())
+
+    recent_ended = repo.upsert_event_skeleton(502, season_id=sid)
+    repo.update_event(recent_ended, date_end=(today - timedelta(days=10)).isoformat())
+
+    long_ended = repo.upsert_event_skeleton(503, season_id=sid)
+    repo.update_event(long_ended, date_end=(today - timedelta(days=60)).isoformat())
+
+    skeleton = repo.upsert_event_skeleton(504, season_id=sid)  # date_end IS NULL
+
+    # Default grace (15 days): future + recent_ended (10 days < 15) + NULL skeleton.
+    got = {r["id"] for r in repo.find_ongoing_events()}
+    assert future in got
+    assert recent_ended in got
+    assert skeleton in got
+    assert long_ended not in got
+
+    # Strict (grace_days=0): only future + skeleton; recent_ended now excluded.
+    strict = {r["id"] for r in repo.find_ongoing_events(grace_days=0)}
+    assert future in strict
+    assert skeleton in strict
+    assert recent_ended not in strict
+
+
+def test_find_ongoing_competitions_joins_through_event(memory_db):
+    repo = Repository(memory_db)
+    today = datetime.now(timezone.utc).date()
+    sid = repo.upsert_season(601, year=today.year)
+    discipline = repo.upsert_discipline("lead")
+    category = repo.upsert_category("Men", gender=0)
+
+    ongoing_event = repo.upsert_event_skeleton(701, season_id=sid)
+    repo.update_event(ongoing_event, date_end=(today + timedelta(days=5)).isoformat())
+
+    ended_event = repo.upsert_event_skeleton(702, season_id=sid)
+    repo.update_event(ended_event, date_end=(today - timedelta(days=60)).isoformat())
+
+    ongoing_comp = repo.upsert_competition(
+        event_id=ongoing_event, ifsc_id=801,
+        discipline_id=discipline, category_id=category,
+    )
+    ended_comp = repo.upsert_competition(
+        event_id=ended_event, ifsc_id=802,
+        discipline_id=discipline, category_id=category,
+    )
+
+    got = {r["comp_id"] for r in repo.find_ongoing_competitions()}
+    assert ongoing_comp in got
+    assert ended_comp not in got
+
+    # Shape check: caller relies on these columns.
+    row = next(r for r in repo.find_ongoing_competitions() if r["comp_id"] == ongoing_comp)
+    assert row["comp_ifsc"] == 801
+    assert row["event_ifsc"] == 701

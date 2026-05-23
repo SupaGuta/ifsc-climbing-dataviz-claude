@@ -2,11 +2,14 @@
 from __future__ import annotations
 
 import logging
-from typing import Optional
+from typing import TYPE_CHECKING, Optional
 
 from ..api.client import APIClient
 from ..db.repository import Repository
 from ..parsers import event_location
+
+if TYPE_CHECKING:
+    import sqlite3
 
 log = logging.getLogger(__name__)
 
@@ -20,17 +23,22 @@ def hydrate(
     repo: Repository,
     client: APIClient,
     *,
-    stale_days: int,
+    stale_days: Optional[int] = None,
+    rows: Optional[list[sqlite3.Row]] = None,
     limit: Optional[int] = None,
 ) -> tuple[int, int]:
-    stale = repo.find_stale("events", stale_days=stale_days)
+    """Pass either `stale_days` (default) or `rows` (used by `pull_new`)."""
+    if rows is None:
+        if stale_days is None:
+            raise ValueError("hydrate() requires either stale_days or rows")
+        rows = repo.find_stale("events", stale_days=stale_days)
     if limit is not None:
-        stale = stale[:limit]
-    if not stale:
+        rows = rows[:limit]
+    if not rows:
         return 0, 0
 
-    ifsc_to_id = {row["ifsc_id"]: row["id"] for row in stale}
-    log.info("Hydrating %d event(s).", len(stale))
+    ifsc_to_id = {row["ifsc_id"]: row["id"] for row in rows}
+    log.info("Hydrating %d event(s).", len(rows))
 
     cities_missing_country: dict[int, str] = {}  # event_row_id -> city
     city_to_country: dict[str, str] = {}

@@ -58,12 +58,15 @@ def build_parser() -> argparse.ArgumentParser:
 
     p_pull = sub.add_parser(
         "pull-new",
-        help="Force-refresh container entities to discover new content; hydrate only newly-discovered athletes."
+        help="Force-refresh ongoing container entities to discover new content; hydrate only newly-discovered athletes."
     )
     p_pull.add_argument("--limit", type=int, default=None,
                         help="Cap rows per entity (smoke testing).")
     p_pull.add_argument("--workers", type=int, default=None,
                         help="Override IFSC_MAX_WORKERS for this run.")
+    p_pull.add_argument("--grace-days", type=int, default=None,
+                        help="Override IFSC_GRACE_DAYS for this run (default 15). "
+                             "Days past an event's date_end during which it's still treated as ongoing.")
 
     p_hydrate = sub.add_parser("hydrate", help="Hydrate one entity only.")
     p_hydrate.add_argument("entity", choices=ENTITIES, help="Which entity to hydrate.")
@@ -114,7 +117,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "refresh":
         return _cmd_refresh(settings, limit=args.limit, stale_days=args.stale_days, workers=args.workers)
     if args.command == "pull-new":
-        return _cmd_pull_new(settings, limit=args.limit, workers=args.workers)
+        return _cmd_pull_new(settings, limit=args.limit, workers=args.workers, grace_days=args.grace_days)
     if args.command == "hydrate":
         return _cmd_hydrate(settings, args.entity, limit=args.limit, stale_days=args.stale_days, workers=args.workers)
     parser.error(f"Unknown command {args.command}")
@@ -172,13 +175,14 @@ def _cmd_refresh(settings, *, limit, stale_days, workers) -> int:
     return 0
 
 
-def _cmd_pull_new(settings, *, limit, workers) -> int:
+def _cmd_pull_new(settings, *, limit, workers, grace_days) -> int:
     if workers is not None:
         settings = replace(settings, max_workers=workers)
+    grace = grace_days if grace_days is not None else settings.grace_days
     conn = open_db(settings.db_path)
     repo = Repository(conn)
     client = APIClient(settings)
-    summary = refresh_orchestrator.pull_new(repo, client, limit=limit)
+    summary = refresh_orchestrator.pull_new(repo, client, limit=limit, grace_days=grace)
     _print_summary(summary)
     conn.close()
     return 0

@@ -18,23 +18,38 @@ def pull_new(
     client: APIClient,
     *,
     limit: Optional[int] = None,
+    grace_days: int = 15,
 ) -> dict[str, tuple[int, int]]:
-    """Discover all newly-published content without re-hydrating existing athletes.
+    """Discover all newly-published content without re-hydrating existing data.
 
-    Force-refreshes the container entities (seasons, season_leagues, events,
-    competitions) so any new children they list are picked up, then hydrates
-    only brand-new athlete skeletons. Existing athlete profiles (the slow part
-    of `refresh --stale-days 0`) are left alone — they almost never change.
+    Scopes the container re-fetch to **ongoing** rows only — seasons in the
+    current calendar year, events whose `date_end` is within `grace_days` of
+    today (default 15), and their descendants. Historical containers are skipped
+    because ended seasons never gain new leagues/events and ended events never
+    gain new competitions. See ADR 0006.
 
-    Order of magnitude: minutes, not the 30+ of a nuclear refresh.
+    Athletes are unchanged: only brand-new skeletons (NULL `last_fetched_at`)
+    discovered during this run get hydrated.
+
+    Order of magnitude: ~30-60s on a steady-state warehouse, vs ~30+ for
+    `refresh --stale-days 0`. The `refresh` command remains the escape hatch
+    for catching retroactive IFSC edits to ended containers.
     """
     summary: dict[str, tuple[int, int]] = {}
 
     seasons.discover(repo, client)
-    summary["seasons"] = seasons.hydrate(repo, client, stale_days=0, limit=limit)
-    summary["season_leagues"] = season_leagues.hydrate(repo, client, stale_days=0, limit=limit)
-    summary["events"] = events.hydrate(repo, client, stale_days=0, limit=limit)
-    summary["competitions"] = competitions.hydrate(repo, client, stale_days=0, limit=limit)
+    summary["seasons"] = seasons.hydrate(
+        repo, client, rows=repo.find_ongoing_seasons(), limit=limit,
+    )
+    summary["season_leagues"] = season_leagues.hydrate(
+        repo, client, rows=repo.find_ongoing_season_leagues(), limit=limit,
+    )
+    summary["events"] = events.hydrate(
+        repo, client, rows=repo.find_ongoing_events(grace_days=grace_days), limit=limit,
+    )
+    summary["competitions"] = competitions.hydrate(
+        repo, client, rows=repo.find_ongoing_competitions(grace_days=grace_days), limit=limit,
+    )
     # Huge stale_days → only rows with last_fetched_at IS NULL match. That is
     # exactly the set of athletes just discovered during competitions hydration.
     summary["athletes"] = athletes.hydrate(repo, client, stale_days=365_000, limit=limit)

@@ -121,10 +121,10 @@ python -m ifsc_data refresh --workers 100     # push concurrency higher
 
 ### `pull-new`
 
-Catch all newly-published IFSC content (new events, competitions, athletes appearing in recent results) without re-hydrating the ~15k existing athlete profiles. Force-refreshes the container entities; only newly-discovered athlete skeletons get hydrated.
+Catch all newly-published IFSC content (new events, competitions, athletes appearing in recent results) without re-fetching ancient containers or re-hydrating the ~15k existing athlete profiles. Only **ongoing** containers (current-year seasons, events within 15 days of `date_end`, plus their descendants) are re-fetched; only newly-discovered athlete skeletons get hydrated.
 
 ```bash
-python -m ifsc_data pull-new [--limit N] [--workers N]
+python -m ifsc_data pull-new [--limit N] [--workers N] [--grace-days N]
 ```
 
 **Options:**
@@ -133,16 +133,18 @@ python -m ifsc_data pull-new [--limit N] [--workers N]
 |------|------|---------|-------------|
 | `--limit N` | int | unlimited | Cap rows touched per entity. |
 | `--workers N` | int | `IFSC_MAX_WORKERS` (default 50) | Concurrent worker count override. |
+| `--grace-days N` | int | `IFSC_GRACE_DAYS` (default 15) | Days past an event's `date_end` during which it's still re-fetched. `0` = strict (ended = frozen). |
 
 **Examples:**
 
 ```bash
-python -m ifsc_data pull-new                # catch all new content (~3–5 min)
+python -m ifsc_data pull-new                # catch all new content (~30-60s on a steady-state warehouse)
 python -m ifsc_data pull-new --workers 75   # push concurrency
 python -m ifsc_data pull-new --limit 10     # smoke test
+python -m ifsc_data pull-new --grace-days 30   # more forgiving for late corrections
 ```
 
-**Why this exists:** `refresh --stale-days 0` would also catch new content but takes ~30 min because it re-fetches every athlete profile. Athlete profile data (height, birthday, …) almost never changes, so `pull-new` skips that work and only hydrates brand-new athletes.
+**Why this exists:** `refresh --stale-days 0` would also catch new content but takes ~30 min because it re-fetches every athlete profile *and* every historical container. Athlete profile data almost never changes; ended seasons/events never gain new structural children. `pull-new` skips both kinds of waste. See [docs/decisions/0006-ongoing-only-pull-new.md](docs/decisions/0006-ongoing-only-pull-new.md) for the design rationale.
 
 ---
 
@@ -249,6 +251,7 @@ python -m ifsc_data export athletes --output-dir /tmp/csv
 | `IFSC_REQUEST_TIMEOUT` | `120` | Per-request timeout in seconds. |
 | `IFSC_DB_PATH` | `data/ifsc.sqlite` | Where the warehouse lives. Relative paths resolve against the repo root. |
 | `IFSC_STALE_DAYS` | `30` | Default staleness threshold for `refresh` / `hydrate`. Overridable with `--stale-days`. |
+| `IFSC_GRACE_DAYS` | `15` | Days past an event's `date_end` during which `pull-new` still treats it as ongoing. Catches late result corrections. Overridable with `--grace-days`. |
 
 ## Data model
 

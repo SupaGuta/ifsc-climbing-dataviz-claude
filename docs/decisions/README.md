@@ -73,3 +73,4 @@ bullets is fine.
 - [0003 — Selective 4xx-skip retry](0003-selective-4xx-skip-retry.md)
 - [0004 — Incremental hydration with staleness](0004-incremental-hydration-with-staleness.md)
 - [0005 — Transactional boundary on competitions](0005-transactional-boundary-on-competitions.md)
+- [0006 — Scope `pull-new` to ongoing containers only](0006-ongoing-only-pull-new.md)

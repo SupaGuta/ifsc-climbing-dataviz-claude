@@ -46,13 +46,17 @@ everything (~30 min); `stale_days=30` is the standard cadence.
 ### `pull_new`
 
 ```python
-summary = refresh.pull_new(repo, client, limit=None)
+summary = refresh.pull_new(repo, client, limit=None, grace_days=15)
 ```
 
-Force-refreshes containers (seasons → competitions) with `stale_days=0`,
-then hydrates **only newly-discovered athletes** by passing
-`stale_days=365_000` (only NULL `last_fetched_at` matches). The everyday
-"catch new content cheaply" entry point.
+Re-fetches **ongoing** containers only — current-year seasons, events
+within `grace_days` of `date_end`, plus their descendants — then hydrates
+**only newly-discovered athletes** by passing `stale_days=365_000` (only
+NULL `last_fetched_at` matches). The everyday "catch new content cheaply"
+entry point. See [ADR 0006](../decisions/0006-ongoing-only-pull-new.md).
+
+`grace_days` defaults to 15. The CLI surface (`--grace-days`) and env var
+(`IFSC_GRACE_DAYS`) plumb through to this argument.
 
 ### `hydrate_entity`
 
@@ -72,8 +76,15 @@ refresh.ENTITIES        # ("seasons", "season_leagues", "events", "competitions"
 
 ## Per-fetcher entry points
 
-Each fetcher module exposes a `hydrate(repo, client, *, stale_days, limit=None)`
-with identical signature, and `seasons` additionally exposes `discover`.
+Each fetcher module exposes a `hydrate(repo, client, *, stale_days=None,
+rows=None, limit=None)` with identical signature, and `seasons`
+additionally exposes `discover`. Pass either `stale_days=` (default
+behavior — fetcher calls `repo.find_stale` internally) or `rows=` (caller
+supplies the work list). `pull_new` uses the `rows=` mode to scope to
+ongoing containers; `refresh` / `hydrate_entity` use `stale_days=`.
+
+`athletes.hydrate` does **not** accept `rows=` — it always goes through
+`find_stale` with the NULL-only trick.
 
 ```python
 from ifsc_data.fetchers import seasons, season_leagues, events, competitions, athletes
@@ -83,6 +94,9 @@ seasons.discover(repo, client, lookahead=10)
 
 # Hydrate just one entity, equivalent to refresh.hydrate_entity
 ok, fail = athletes.hydrate(repo, client, stale_days=30, limit=None)
+
+# Custom scope (e.g. only ongoing events) via rows=
+ok, fail = events.hydrate(repo, client, rows=repo.find_ongoing_events(grace_days=30))
 ```
 
 Call signature is uniform — pick the level that matches your task.

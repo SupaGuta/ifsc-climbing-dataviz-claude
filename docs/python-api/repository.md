@@ -55,6 +55,36 @@ For custom queries that need the same cutoff format:
 cutoff = repo.stale_cutoff(30)              # 'YYYY-MM-DDTHH:MM:SSZ'
 ```
 
+## Finding ongoing rows
+
+For `pull-new`'s ongoing-only scope (see
+[ADR 0006](../decisions/0006-ongoing-only-pull-new.md)):
+
+```python
+repo.find_ongoing_seasons()                  # year >= current_year OR NULL
+repo.find_ongoing_season_leagues()           # parent season is ongoing
+repo.find_ongoing_events(grace_days=15)      # date_end >= today - grace_days OR NULL
+repo.find_ongoing_competitions(grace_days=15) # parent event is ongoing
+```
+
+All four return `list[sqlite3.Row]`. The first three return rows shaped
+`(id, ifsc_id)`. `find_ongoing_competitions` returns rows shaped
+`(comp_id, comp_ifsc, event_ifsc)` — the JOIN gives you the event's
+`ifsc_id` so you can build the
+`/events/{event_ifsc}/result/{comp_ifsc}` path without a second query.
+
+`grace_days` defaults to 15 (the production default for `pull-new`) but
+is parameterizable for testing or strict-mode runs (`grace_days=0`).
+
+These are read-only — they don't write anything. The intended pattern is
+to pass the result into the matching fetcher's `hydrate(rows=...)`
+parameter, e.g.:
+
+```python
+from ifsc_data.fetchers import events as events_fetcher
+events_fetcher.hydrate(repo, client, rows=repo.find_ongoing_events())
+```
+
 ## Marking a row as freshly hydrated
 
 ```python

@@ -69,26 +69,41 @@ gap `pull-new` fills.
 ### `pull-new` — catch new content cheaply
 
 ```bash
-python -m ifsc_data pull-new                 # ~3-5 min
+python -m ifsc_data pull-new                 # ~30-60s on a steady-state warehouse
 ```
 
 Calls `pull_new(repo, client)`. Runs `seasons.discover` first to probe for
-any new seasons past the highest known `ifsc_id`, then force-refreshes the
-**container** entities (seasons → competitions) with `stale_days=0` so
-newly-added children are discovered, then hydrates athletes with
+any new seasons past the highest known `ifsc_id`, then re-fetches **only
+ongoing containers** (current-year seasons → events within 15 days of
+`date_end`, plus their descendants), then hydrates athletes with
 `stale_days=365_000` — effectively "NULL only" — so only brand-new athlete
 skeletons get filled in.
 
-**Why this exists:** `refresh --stale-days 0` would also catch new content but
-takes ~30 min because it re-fetches every existing athlete. Athlete profile
-fields (`height`, `birthday`, …) almost never change, so `pull-new` skips
-that work. This is the everyday command.
+The "ongoing" predicate is deterministic — see
+[ADR 0006](../decisions/0006-ongoing-only-pull-new.md) for the full table
+and rationale. In short: ended seasons never gain new leagues/events and
+ended events never gain new competitions, so re-fetching them is pure
+overhead. The 15-day grace period (configurable via `IFSC_GRACE_DAYS` /
+`--grace-days`) catches late result corrections without re-fetching
+ancient data.
 
-The trick is the `stale_days=365_000` argument in `refresh.py:40` — `find_stale`'s
-SQL is `last_fetched_at IS NULL OR last_fetched_at < cutoff`, and with a
-cutoff 1000 years in the past, the cutoff branch matches nothing, leaving only
-the NULL branch. That NULL set is *exactly* the athletes just discovered
-during the competitions phase.
+**Why this exists:** `refresh --stale-days 0` would also catch new content
+but takes ~30 min because it re-fetches every athlete profile AND every
+historical container. Athlete profile fields (`height`, `birthday`, …)
+almost never change, and historical containers literally cannot change
+structurally, so `pull-new` skips both kinds of waste.
+
+The athletes trick: the `stale_days=365_000` argument in `refresh.py` —
+`find_stale`'s SQL is `last_fetched_at IS NULL OR last_fetched_at <
+cutoff`, and with a cutoff 1000 years in the past, the cutoff branch
+matches nothing, leaving only the NULL branch. That NULL set is *exactly*
+the athletes just discovered during the competitions phase.
+
+The ongoing-containers trick: `pull_new` calls
+`repo.find_ongoing_seasons` / `find_ongoing_season_leagues` /
+`find_ongoing_events` / `find_ongoing_competitions` and passes the
+resulting row lists into each fetcher's `hydrate(rows=...)` parameter —
+bypassing the staleness model entirely for these phases.
 
 ### `hydrate <entity>` — surgical
 

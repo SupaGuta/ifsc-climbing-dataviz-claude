@@ -10,13 +10,27 @@ Recipes for the three ingestion commands: `pull-new`, `refresh`,
 python -m ifsc_data pull-new
 ```
 
-Force-refreshes container entities (seasons, season_leagues, events,
-competitions) to surface any newly-published content, then hydrates only
-**brand-new** athlete skeletons. Takes 3–5 minutes.
+Re-fetches **ongoing** container entities only (current-year seasons,
+events within 15 days of `date_end`, plus their descendants) to surface
+newly-published content, then hydrates only **brand-new** athlete
+skeletons. Takes ~30–60 seconds on a steady-state warehouse.
 
 Use this **daily or weekly**. It's the default cadence.
 
-## Refresh stale rows on the 30-day cadence
+**Grace period override** (catches late result corrections within N days
+of an event's end):
+
+```bash
+python -m ifsc_data pull-new --grace-days 30   # more forgiving
+python -m ifsc_data pull-new --grace-days 0    # strict: ended = frozen
+```
+
+Default is 15 days, configurable via `IFSC_GRACE_DAYS` in `.env`. See
+[ADR 0006](../decisions/0006-ongoing-only-pull-new.md) for the rationale.
+If you need to catch a retroactive edit to an ended container, use
+`refresh --stale-days 0` instead.
+
+## Refresh stale rows on the 30-day cadence (covers all containers)
 
 ```bash
 python -m ifsc_data refresh

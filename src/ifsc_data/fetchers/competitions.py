@@ -11,10 +11,13 @@ competition.
 from __future__ import annotations
 
 import logging
-from typing import Optional, cast
+from typing import TYPE_CHECKING, Optional, cast
 
 from ..api.client import APIClient
 from ..db.repository import Repository
+
+if TYPE_CHECKING:
+    import sqlite3
 
 log = logging.getLogger(__name__)
 
@@ -23,17 +26,27 @@ def hydrate(
     repo: Repository,
     client: APIClient,
     *,
-    stale_days: int,
+    stale_days: Optional[int] = None,
+    rows: Optional[list[sqlite3.Row]] = None,
     limit: Optional[int] = None,
 ) -> tuple[int, int]:
-    cutoff = repo.stale_cutoff(stale_days)
-    rows = list(repo.conn.execute(
-        "SELECT c.id AS comp_id, c.ifsc_id AS comp_ifsc, e.ifsc_id AS event_ifsc "
-        "FROM competitions c JOIN events e ON c.event_id = e.id "
-        "WHERE c.last_fetched_at IS NULL OR c.last_fetched_at < ? "
-        "ORDER BY c.id ASC",
-        (cutoff,),
-    ))
+    """Pass either `stale_days` (default) or `rows` (used by `pull_new`).
+
+    Rows shape: `(comp_id, comp_ifsc, event_ifsc)` — the inline JOIN provides this
+    when `stale_days` is used; callers passing `rows=` must use the same shape
+    (e.g. `repo.find_ongoing_competitions()`).
+    """
+    if rows is None:
+        if stale_days is None:
+            raise ValueError("hydrate() requires either stale_days or rows")
+        cutoff = repo.stale_cutoff(stale_days)
+        rows = list(repo.conn.execute(
+            "SELECT c.id AS comp_id, c.ifsc_id AS comp_ifsc, e.ifsc_id AS event_ifsc "
+            "FROM competitions c JOIN events e ON c.event_id = e.id "
+            "WHERE c.last_fetched_at IS NULL OR c.last_fetched_at < ? "
+            "ORDER BY c.id ASC",
+            (cutoff,),
+        ))
     if limit is not None:
         rows = rows[:limit]
     if not rows:

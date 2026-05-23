@@ -105,6 +105,53 @@ class Repository:
         """Public helper so callers running custom SQL can use the same cutoff format."""
         return (datetime.now(timezone.utc) - timedelta(days=stale_days)).strftime(TS_FMT)
 
+    # --------------------------------------------------------------- Ongoing-only
+    # These power `pull-new`'s optimized scope. "Ongoing" means a row whose
+    # parent timeframe hasn't ended yet — i.e. one that the IFSC might still
+    # add structural children to. See ADR 0006.
+
+    def find_ongoing_seasons(self) -> list[sqlite3.Row]:
+        """Seasons in the current calendar year or later, plus skeletons (NULL year)."""
+        current_year = datetime.now(timezone.utc).year
+        return list(self.conn.execute(
+            "SELECT id, ifsc_id FROM seasons "
+            "WHERE year IS NULL OR year >= ? "
+            "ORDER BY id ASC",
+            (current_year,),
+        ))
+
+    def find_ongoing_season_leagues(self) -> list[sqlite3.Row]:
+        """Season_leagues whose parent season is ongoing."""
+        current_year = datetime.now(timezone.utc).year
+        return list(self.conn.execute(
+            "SELECT sl.id, sl.ifsc_id FROM season_leagues sl "
+            "JOIN seasons s ON sl.season_id = s.id "
+            "WHERE s.year IS NULL OR s.year >= ? "
+            "ORDER BY sl.id ASC",
+            (current_year,),
+        ))
+
+    def find_ongoing_events(self, *, grace_days: int = 15) -> list[sqlite3.Row]:
+        """Events that haven't ended yet, plus a `grace_days` tail for late corrections."""
+        cutoff = (datetime.now(timezone.utc) - timedelta(days=grace_days)).date().isoformat()
+        return list(self.conn.execute(
+            "SELECT id, ifsc_id FROM events "
+            "WHERE date_end IS NULL OR date_end >= ? "
+            "ORDER BY id ASC",
+            (cutoff,),
+        ))
+
+    def find_ongoing_competitions(self, *, grace_days: int = 15) -> list[sqlite3.Row]:
+        """Competitions whose parent event is ongoing (within grace_days of date_end)."""
+        cutoff = (datetime.now(timezone.utc) - timedelta(days=grace_days)).date().isoformat()
+        return list(self.conn.execute(
+            "SELECT c.id AS comp_id, c.ifsc_id AS comp_ifsc, e.ifsc_id AS event_ifsc "
+            "FROM competitions c JOIN events e ON c.event_id = e.id "
+            "WHERE e.date_end IS NULL OR e.date_end >= ? "
+            "ORDER BY c.id ASC",
+            (cutoff,),
+        ))
+
     # ----------------------------------------------------------------- Seasons
 
     def upsert_season(self, ifsc_id: int, *, year: Optional[int] = None) -> int:

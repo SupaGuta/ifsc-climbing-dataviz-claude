@@ -16,6 +16,7 @@ def make_settings(tmp_path: Path) -> Settings:
         max_workers=4, request_timeout=5,
         db_path=tmp_path / "db.sqlite",
         stale_days=30,
+        grace_days=15,
     )
 
 
