@@ -246,7 +246,7 @@ def _ensure_speed_stage(
     One round_stages row per physical heat: keyed by `heat_id` when present,
     so multiple heats sharing a bracket name (e.g. eight 1/8 heats) each get
     their own row. `seq` is set to `heat_id` directly — heat ids are
-    monotonically allocated by the IFSC, so ORDER BY seq preserves chronology.
+    monotonically allocated by the World Climbing, so ORDER BY seq preserves chronology.
 
     If `heat_id` is absent (very old payloads), fall back to the bracket name
     via SPEED_HEAT_SEQ — accepting that multiple unnamed heats would collapse,

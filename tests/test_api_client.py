@@ -6,8 +6,8 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from ifsc_data.api.client import APIClient, Fetched
-from ifsc_data.config import Settings
+from wcl_data.api.client import APIClient, Fetched
+from wcl_data.config import Settings
 
 
 def make_settings(tmp_path: Path) -> Settings:

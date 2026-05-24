@@ -8,7 +8,7 @@ users). Pick whichever fits your workflow; both yield equivalent results.
 ## Export everything
 
 ```bash
-python -m ifsc_data export
+python -m wcl_data export
 ```
 
 Writes seven CSVs to `data/exports/`:
@@ -32,20 +32,20 @@ qualif). Most analyses use one of these two.
 is not part of `export` defaults. Run it explicitly when needed:
 
 ```bash
-python -m ifsc_data export ascents
+python -m wcl_data export ascents
 ```
 
 ## Export one view
 
 ```bash
-python -m ifsc_data export results
-python -m ifsc_data export round_results
-python -m ifsc_data export ascents --output-dir /tmp/csv
+python -m wcl_data export results
+python -m wcl_data export round_results
+python -m wcl_data export ascents --output-dir /tmp/csv
 ```
 
 Choices: `seasons`, `leagues`, `events`, `competitions`, `athletes`,
 `results`, `round_results`, `ascents`. View definitions live in
-[`src/ifsc_data/exporter.py`](https://github.com/SupaGuta/world-climbing-lab/blob/main/src/ifsc_data/exporter.py).
+[`src/wcl_data/exporter.py`](https://github.com/SupaGuta/world-climbing-lab/blob/main/src/wcl_data/exporter.py).
 
 ---
 
@@ -81,7 +81,7 @@ wl.to_csv("data/exports/results_women_lead.csv", index=False)
 **sqlite3 CLI:**
 
 ```bash
-sqlite3 data/ifsc.sqlite <<'SQL' > data/exports/results_women_lead.csv
+sqlite3 data/wcl.sqlite <<'SQL' > data/exports/results_women_lead.csv
 .headers on
 .mode csv
 SELECT e.name AS event_name, s.year, e.city, e.country,
@@ -122,7 +122,7 @@ chamonix.sort_values("date_start", ascending=False)
 **sqlite3 CLI:**
 
 ```bash
-sqlite3 data/ifsc.sqlite "SELECT name, date_start FROM events WHERE city = 'Chamonix' ORDER BY date_start DESC;"
+sqlite3 data/wcl.sqlite "SELECT name, date_start FROM events WHERE city = 'Chamonix' ORDER BY date_start DESC;"
 ```
 
 ---
@@ -141,7 +141,7 @@ by_country.head(20)
 **sqlite3 CLI:**
 
 ```bash
-sqlite3 data/ifsc.sqlite <<'SQL'
+sqlite3 data/wcl.sqlite <<'SQL'
 .headers on
 .mode column
 SELECT a.country, COUNT(*) AS top10_count
@@ -174,7 +174,7 @@ para = events[events["is_paraclimbing"] == 1]
 **sqlite3 CLI:**
 
 ```bash
-sqlite3 data/ifsc.sqlite "SELECT name, city, country, date_start FROM events WHERE is_paraclimbing = 1 ORDER BY date_start DESC LIMIT 50;"
+sqlite3 data/wcl.sqlite "SELECT name, city, country, date_start FROM events WHERE is_paraclimbing = 1 ORDER BY date_start DESC LIMIT 50;"
 ```
 
 For full paraclimbing *results*, join through `competitions` → `events`:
@@ -199,7 +199,7 @@ WHERE e.is_paraclimbing = 1;
 - **Exports are point-in-time.** They don't update if you re-run `pull-new`
   afterward — re-export to refresh.
 - **For one-off questions, skip the export.** Just run a SQL query straight
-  against `data/ifsc.sqlite` — see [custom-queries.md](custom-queries.md).
+  against `data/wcl.sqlite` — see [custom-queries.md](custom-queries.md).
 - **CSV gender values are `"male"` / `"female"`**, not 0/1, because the
   export views use a `CASE` to translate. Internal queries against the
   SQLite use the integer encoding (`cat.gender = 0` for men).

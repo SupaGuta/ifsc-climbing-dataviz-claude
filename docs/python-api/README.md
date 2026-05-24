@@ -1,6 +1,6 @@
 # Python API
 
-Programmatic use of `ifsc_data` from a script, notebook, or REPL. Useful
+Programmatic use of `wcl_data` from a script, notebook, or REPL. Useful
 when the CLI's task model doesn't fit — e.g. ingesting only a specific list
 of athletes, embedding a hydration step in a larger pipeline, or driving
 custom exports.
@@ -42,10 +42,10 @@ class or module's public surface with copy-pasteable snippets.
 Most snippets in the reference pages start from this:
 
 ```python
-from ifsc_data.config import load_settings
-from ifsc_data.db.schema import open_db
-from ifsc_data.db.repository import Repository
-from ifsc_data.api.client import APIClient
+from wcl_data.config import load_settings
+from wcl_data.db.schema import open_db
+from wcl_data.db.repository import Repository
+from wcl_data.api.client import APIClient
 
 settings = load_settings()                  # reads .env
 conn = open_db(settings.db_path)            # applies schema if missing
@@ -53,8 +53,8 @@ repo = Repository(conn)
 client = APIClient(settings)
 ```
 
-`load_settings()` raises `RuntimeError` if `IFSC_CSRF_TOKEN` /
-`IFSC_SESSION_COOKIE` are missing. For read-only / no-API work (queries,
+`load_settings()` raises `RuntimeError` if `WCL_CSRF_TOKEN` /
+`WCL_SESSION_COOKIE` are missing. For read-only / no-API work (queries,
 exports), pass `require_credentials=False`:
 
 ```python

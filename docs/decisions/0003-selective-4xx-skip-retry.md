@@ -7,7 +7,7 @@
 
 Seasons have no parent endpoint — discovery walks unknown `ifsc_id`s past the
 highest one we've seen, probing with `/seasons/{id}` until the API returns
-404 (and probably a few empty slots beyond, because IFSC season IDs aren't
+404 (and probably a few empty slots beyond, because World Climbing season IDs aren't
 strictly contiguous). With a `requests`-default retry behaviour (retry on
 any error), each 404 would burn 2s × 2 retries = ~6s per non-existent ID,
 and a `lookahead` of 5 → 30s of pointless retries on every `pull-new`.

@@ -6,8 +6,8 @@ import re
 
 import pytest
 
-from ifsc_data.db.repository import Repository
-from ifsc_data.exporter import DEFAULT_EXPORT_VIEWS, VIEW_NAMES, export_all, export_view
+from wcl_data.db.repository import Repository
+from wcl_data.exporter import DEFAULT_EXPORT_VIEWS, VIEW_NAMES, export_all, export_view
 
 
 def _seed(memory_db) -> None:
@@ -75,7 +75,7 @@ def test_export_round_results_joins_through_to_athletes(memory_db, tmp_path):
     athlete = memory_db.execute("SELECT id FROM athletes").fetchone()[0]
     cr = repo.upsert_category_round(
         9999, competition_id=comp, kind="lead", name="Qualification",
-        format="IFSC: 2 routes", league_round_id=1,
+        format="World Climbing: 2 routes", league_round_id=1,
     )
     repo.upsert_round_result(
         competition_id=comp, category_round_id=cr, athlete_id=athlete,

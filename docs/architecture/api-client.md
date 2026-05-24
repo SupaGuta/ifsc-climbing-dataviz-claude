@@ -1,6 +1,6 @@
 # API client
 
-`src/ifsc_data/api/client.py` — a thin streaming HTTP client over `requests`.
+`src/wcl_data/api/client.py` — a thin streaming HTTP client over `requests`.
 Its only job is to fetch a batch of paths concurrently and yield each result
 as soon as it arrives, so the caller can commit to disk immediately rather
 than waiting for the whole batch.
@@ -44,7 +44,7 @@ only the in-flight row, never the batch. See
 ## Concurrency
 
 `max_workers` (default 50, overridable per command with `--workers` or
-globally with `IFSC_MAX_WORKERS`) controls both:
+globally with `WCL_MAX_WORKERS`) controls both:
 
 1. **Thread pool size** — how many simultaneous `_fetch_one` calls.
 2. **urllib3 connection pool size** — the `HTTPAdapter` is mounted with
@@ -126,7 +126,7 @@ So one malformed row never aborts the batch.
   hardcoded constant is `API_BASE_URL`.
 - **It doesn't authenticate.** Credentials are baked into the session headers
   at construction from `Settings.api_headers`. Refreshing the CSRF token /
-  cookie is the `auth` CLI command's job (`src/ifsc_data/api/credentials.py`).
+  cookie is the `auth` CLI command's job (`src/wcl_data/api/credentials.py`).
 - **It doesn't rate-limit.** The IFSC API has never returned 429 in practice,
   so there's no client-side throttle. If it ever does, add a 429-aware
   predicate to `retry_on` rather than a global rate limiter.

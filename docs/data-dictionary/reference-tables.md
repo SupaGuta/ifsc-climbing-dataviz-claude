@@ -66,7 +66,7 @@ name.
 
 **Children:** `competitions.category_id` (nullable).
 
-**Gender extraction:** the regex in `src/ifsc_data/fetchers/season_leagues.py`
+**Gender extraction:** the regex in `src/wcl_data/fetchers/season_leagues.py`
 matches `\b(men|male|women|female)\b` (case-insensitive). Categories like
 `"Youth A Male"` match → gender = 0; `"AL1"` doesn't match → gender = NULL.
 
@@ -80,5 +80,5 @@ matches `\b(men|male|women|female)\b` (case-insensitive). Categories like
   a `CASE` in the SQL. If you query directly, expect the INTEGER encoding.
 - One historical category-name fix is hard-coded:
   `CATEGORY_NAME_FIXES = {"AL1": "Men AL1"}` for event 1462 in
-  `src/ifsc_data/fetchers/events.py`. This is a one-off API quirk patched at
+  `src/wcl_data/fetchers/events.py`. This is a one-off API quirk patched at
   ingestion.

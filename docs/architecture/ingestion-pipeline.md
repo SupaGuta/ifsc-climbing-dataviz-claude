@@ -1,9 +1,9 @@
 # Ingestion pipeline
 
-`ifsc_data` exposes three "modes" of ingestion at the CLI: `refresh`,
+`wcl_data` exposes three "modes" of ingestion at the CLI: `refresh`,
 `pull-new`, and `hydrate`. All three are thin compositions of the same two
 primitives — **discover** and **hydrate** — applied across the entity graph
-defined in `src/ifsc_data/fetchers/refresh.py`:
+defined in `src/wcl_data/fetchers/refresh.py`:
 
 ```python
 ENTITIES = ("seasons", "season_leagues", "events", "competitions", "athletes")
@@ -51,7 +51,7 @@ of the three CLI modes.
 ### `refresh` — standard cadence
 
 ```bash
-python -m ifsc_data refresh                  # uses IFSC_STALE_DAYS, default 30
+python -m wcl_data refresh                  # uses WCL_STALE_DAYS, default 30
 ```
 
 Calls `refresh_all(repo, client, stale_days=N)`. Walks all five entities in
@@ -69,7 +69,7 @@ gap `pull-new` fills.
 ### `pull-new` — catch new content cheaply
 
 ```bash
-python -m ifsc_data pull-new                 # ~30-60s on a steady-state warehouse
+python -m wcl_data pull-new                 # ~30-60s on a steady-state warehouse
 ```
 
 Calls `pull_new(repo, client)`. Runs `seasons.discover` first to probe for
@@ -83,7 +83,7 @@ The "ongoing" predicate is deterministic — see
 [ADR 0006](../decisions/0006-ongoing-only-pull-new.md) for the full table
 and rationale. In short: ended seasons never gain new leagues/events and
 ended events never gain new competitions, so re-fetching them is pure
-overhead. The 15-day grace period (configurable via `IFSC_GRACE_DAYS` /
+overhead. The 15-day grace period (configurable via `WCL_GRACE_DAYS` /
 `--grace-days`) catches late result corrections without re-fetching
 ancient data.
 
@@ -108,8 +108,8 @@ bypassing the staleness model entirely for these phases.
 ### `hydrate <entity>` — surgical
 
 ```bash
-python -m ifsc_data hydrate athletes
-python -m ifsc_data hydrate events --stale-days 0
+python -m wcl_data hydrate athletes
+python -m wcl_data hydrate events --stale-days 0
 ```
 
 Calls `hydrate_entity(repo, client, entity, stale_days=N)`. Runs just one
@@ -137,10 +137,10 @@ never call each other directly — they only read from / write to the DB.
 If the IFSC API ever exposes a new endpoint (e.g. `/judges/{id}`), the pattern
 is:
 
-1. Add a table + index to `src/ifsc_data/db/schema.py`.
+1. Add a table + index to `src/wcl_data/db/schema.py`.
 2. Add an `upsert_<entity>_skeleton` and `update_<entity>` to
-   `src/ifsc_data/db/repository.py`.
-3. Add `src/ifsc_data/fetchers/<entity>.py` with the same `hydrate(repo,
+   `src/wcl_data/db/repository.py`.
+3. Add `src/wcl_data/fetchers/<entity>.py` with the same `hydrate(repo,
    client, *, stale_days, limit)` signature as the existing ones.
 4. Add the entity to the `ENTITIES` tuple in `refresh.py` and wire it into
    `refresh_all`, `pull_new`, and `hydrate_entity`.

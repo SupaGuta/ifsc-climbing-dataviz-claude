@@ -5,9 +5,9 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from ifsc_data.api.client import Fetched
-from ifsc_data.db.repository import Repository
-from ifsc_data.fetchers import competitions as competitions_fetcher
+from wcl_data.api.client import Fetched
+from wcl_data.db.repository import Repository
+from wcl_data.fetchers import competitions as competitions_fetcher
 
 
 def _seed_competition(memory_db, *, discipline: str = "lead") -> tuple[Repository, int]:

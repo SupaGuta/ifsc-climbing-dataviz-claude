@@ -1,8 +1,8 @@
 # `seasons`
 
-Top of the entity tree. One row per calendar season the IFSC has indexed.
+Top of the entity tree. One row per calendar season the World Climbing has indexed.
 
-**Typical size:** ~38 rows (one per year of IFSC coverage). Grows by one
+**Typical size:** ~38 rows (one per year of World Climbing coverage). Grows by one
 each year.
 
 **Source endpoint:** `GET /seasons/{ifsc_id}` — returns the year, the list of
@@ -46,7 +46,7 @@ construction; once `seasons.hydrate` runs, the year is parsed from the API's
 
 ## Gotchas
 
-- IFSC season IDs are mostly contiguous but not guaranteed. The probe handles
+- World Climbing season IDs are mostly contiguous but not guaranteed. The probe handles
   small gaps via `lookahead=5`; bigger gaps would need a manual one-off probe
   with a different range.
 - The `year` column comes from the API's `"name"` field, not a separate

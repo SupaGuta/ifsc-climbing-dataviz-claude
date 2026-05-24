@@ -1,17 +1,17 @@
 # `APIClient`
 
 Streaming HTTP client over the IFSC API. Lives in
-[`src/ifsc_data/api/client.py`](https://github.com/SupaGuta/world-climbing-lab/blob/main/src/ifsc_data/api/client.py). For
+[`src/wcl_data/api/client.py`](https://github.com/SupaGuta/world-climbing-lab/blob/main/src/wcl_data/api/client.py). For
 the design (streaming generator, retry policy, urllib3 pool sizing) see
 [`../architecture/api-client.md`](../architecture/api-client.md).
 
 ## Constructing
 
 ```python
-from ifsc_data.config import load_settings
-from ifsc_data.api.client import APIClient
+from wcl_data.config import load_settings
+from wcl_data.api.client import APIClient
 
-settings = load_settings()                  # requires IFSC_CSRF_TOKEN + IFSC_SESSION_COOKIE
+settings = load_settings()                  # requires WCL_CSRF_TOKEN + WCL_SESSION_COOKIE
 client = APIClient(settings)
 ```
 
@@ -53,7 +53,7 @@ caller decides what to put in it.
 ## `Fetched[K]`
 
 ```python
-from ifsc_data.api.client import Fetched
+from wcl_data.api.client import Fetched
 
 # @dataclass(frozen=True)
 # class Fetched[K: Hashable]:
@@ -83,7 +83,7 @@ for fetched in client.stream("athletes", ids, max_retries=5, retry_delay=1.0):
 For a custom retry predicate (e.g. retry 429 once):
 
 ```python
-from ifsc_data.api.client import FetchError
+from wcl_data.api.client import FetchError
 
 def retry_on_429_too(exc: FetchError) -> bool:
     if exc.status_code is None:
@@ -100,7 +100,7 @@ errors have `status_code=None`.
 ## Concurrency
 
 Controlled by `settings.max_workers` (default 50, configurable via
-`IFSC_MAX_WORKERS` env var). The thread pool size *and* the urllib3
+`WCL_MAX_WORKERS` env var). The thread pool size *and* the urllib3
 connection pool size are both bound to this value at `APIClient`
 construction. Don't try to override per call — adjust at the `Settings`
 level:
@@ -115,7 +115,7 @@ client = APIClient(settings)
 ## Error handling
 
 ```python
-from ifsc_data.api.client import FetchError
+from wcl_data.api.client import FetchError
 
 try:
     for fetched in client.stream("athletes", ids):
@@ -129,7 +129,7 @@ except FetchError as exc:
 The retry loop absorbs all `FetchError`s. After `max_retries` exhausted,
 failing items are logged at ERROR and dropped from the generator's output
 — the caller never sees them as exceptions. To detect drops, compare the
-input count to the output count, or scan `logs/ifsc-data.log` for ERROR
+input count to the output count, or scan `logs/wcl-data.log` for ERROR
 lines.
 
 Parse exceptions inside the caller's loop are the caller's responsibility:
@@ -143,7 +143,7 @@ for fetched in client.stream("athletes", ids):
         continue
 ```
 
-This is exactly the pattern every fetcher in `src/ifsc_data/fetchers/`
+This is exactly the pattern every fetcher in `src/wcl_data/fetchers/`
 uses.
 
 ## Bypassing the streaming layer

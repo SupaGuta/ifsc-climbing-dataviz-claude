@@ -1,7 +1,7 @@
 # Data dictionary
 
-Per-table column reference for the SQLite warehouse at `data/ifsc.sqlite`. The
-schema's source of truth is [`src/ifsc_data/db/schema.py`](https://github.com/SupaGuta/world-climbing-lab/blob/main/src/ifsc_data/db/schema.py);
+Per-table column reference for the SQLite warehouse at `data/wcl.sqlite`. The
+schema's source of truth is [`src/wcl_data/db/schema.py`](https://github.com/SupaGuta/world-climbing-lab/blob/main/src/wcl_data/db/schema.py);
 this folder explains what each column *means*, what's in it, and what's
 missing.
 
@@ -44,7 +44,7 @@ on `ifsc_id` alone.
 
 ### Units
 
-- **`height`, `arm_span`** — centimetres (INTEGER). Self-reported on IFSC; see
+- **`height`, `arm_span`** — centimetres (INTEGER). Self-reported on World Climbing; see
   coverage caveats per table.
 - **`gender`** — INTEGER. `0` = male, `1` = female, NULL = unknown / not in
   the data.
@@ -74,7 +74,7 @@ The coverage percentages cited in each table page are accurate as of
 2026-05-23 but will drift. To recompute for any column:
 
 ```bash
-python -c "import sqlite3; c = sqlite3.connect('data/ifsc.sqlite'); \
+python -c "import sqlite3; c = sqlite3.connect('data/wcl.sqlite'); \
   total = c.execute('SELECT COUNT(*) FROM athletes WHERE last_fetched_at IS NOT NULL').fetchone()[0]; \
   populated = c.execute('SELECT COUNT(*) FROM athletes WHERE last_fetched_at IS NOT NULL AND birthday IS NOT NULL').fetchone()[0]; \
   print(f'{populated}/{total} = {100*populated/total:.1f}%')"

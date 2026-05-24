@@ -1,6 +1,6 @@
 # Documentation
 
-Docs for `ifsc_data`. The root [`README.md`](https://github.com/SupaGuta/world-climbing-lab/blob/main/README.md) is the *user*
+Docs for `wcl_data`. The root [`README.md`](https://github.com/SupaGuta/world-climbing-lab/blob/main/README.md) is the *user*
 guide (install, CLI reference, `.env` variables). What lives here is
 everything else — the **why** behind the design, the per-table data
 reference, recipes for common tasks, the Python API, and operational
@@ -59,7 +59,7 @@ docs/
 │   └── fetchers-and-orchestrator.md  ← refresh_all / pull_new / hydrate_entity + per-fetcher entry points
 └── operations/                       ← keep-it-healthy procedures
     ├── README.md
-    ├── auth.md                       ← IFSC credential rotation, what 401/403 mean
+    ├── auth.md                       ← World Climbing credential rotation, what 401/403 mean
     ├── logs.md                       ← log locations, levels, manual cleanup
     ├── recovery.md                   ← killed runs, partial ingest, schema reset
     └── backup.md                     ← SQLite snapshots, .env hygiene, CSV exports

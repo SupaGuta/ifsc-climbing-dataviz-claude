@@ -111,7 +111,7 @@ class Repository:
 
     # --------------------------------------------------------------- Ongoing-only
     # These power `pull-new`'s optimized scope. "Ongoing" means a row whose
-    # parent timeframe hasn't ended yet — i.e. one that the IFSC might still
+    # parent timeframe hasn't ended yet — i.e. one that the World Climbing might still
     # add structural children to. See ADR 0006.
 
     def find_ongoing_seasons(self) -> list[sqlite3.Row]:
@@ -361,9 +361,9 @@ class Repository:
         status_as_of: Optional[str] = None,
         league_round_id: Optional[int] = None,
     ) -> int:
-        # On conflict we intentionally do NOT touch `competition_id`: the IFSC
+        # On conflict we intentionally do NOT touch `competition_id`: the World Climbing
         # category_round_id is supposed to be globally unique, so a collision
-        # would mean either an IFSC quirk or our own bug — silently re-parenting
+        # would mean either an World Climbing quirk or our own bug — silently re-parenting
         # the row would corrupt joins for any pre-existing round_results /
         # round_stages of the original comp.
         row = self.conn.execute(
@@ -423,9 +423,9 @@ class Repository:
         category_round_id: int,
         name: Optional[str] = None,
     ) -> int:
-        # On conflict, preserve the existing `category_round_id` — IFSC route
+        # On conflict, preserve the existing `category_round_id` — World Climbing route
         # ids are globally unique on the API, so a collision means the row is
-        # either being re-seen from the same round (no-op) or there's an IFSC
+        # either being re-seen from the same round (no-op) or there's an World Climbing
         # quirk we should not silently re-parent.
         row = self.conn.execute(
             "INSERT INTO routes (ifsc_id, category_round_id, name) VALUES (?, ?, ?) "

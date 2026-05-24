@@ -9,9 +9,9 @@ python -m venv .venv          # 3.12+ required (PEP 695 generic syntax: `class F
 source .venv/bin/activate     # or .venv\Scripts\activate on Windows
 pip install -e ".[dev]"       # adds pytest + pytest-mock
 cp .env.example .env
-python -m ifsc_data auth      # fetch fresh CSRF + cookie into .env
-python -m ifsc_data init      # create data/ifsc.sqlite
-python -m ifsc_data pull-new  # populate it (~3–5 min)
+python -m wcl_data auth      # fetch fresh CSRF + cookie into .env
+python -m wcl_data init      # create data/wcl.sqlite
+python -m wcl_data pull-new  # populate it (~3–5 min)
 ```
 
 For notebook work add `pip install -e ".[notebook]"` (jupyterlab + pandas).
@@ -53,17 +53,17 @@ fixture whenever you add a fetcher — the test should not hit the live API.
 
 ## How to add a new fetcher
 
-This is the most common extension. Use `src/ifsc_data/fetchers/athletes.py`
+This is the most common extension. Use `src/wcl_data/fetchers/athletes.py`
 as the canonical example — it's the simplest of the five.
 
 The full checklist:
 
 1. **Schema** — add a `CREATE TABLE` + `CREATE INDEX idx_<table>_last_fetched`
-   to `src/ifsc_data/db/schema.py`. Use `INTEGER PRIMARY KEY` for the local
+   to `src/wcl_data/db/schema.py`. Use `INTEGER PRIMARY KEY` for the local
    ID and `INTEGER UNIQUE NOT NULL` for `ifsc_id`. Include
    `last_fetched_at TEXT` if the entity should be hydratable.
 
-2. **Repository** — add to `src/ifsc_data/db/repository.py`:
+2. **Repository** — add to `src/wcl_data/db/repository.py`:
    - `upsert_<entity>_skeleton(self, ifsc_id, **parent_ids) -> int` — for
      cascade discovery from the parent fetcher.
    - `update_<entity>(self, row_id, **fields) -> None` — uses the
@@ -72,7 +72,7 @@ The full checklist:
    - Add the table name to `HYDRATABLE_TABLES` or `ALL_TABLES` at the top
      of the file so `_validate_table` accepts it.
 
-3. **Fetcher** — create `src/ifsc_data/fetchers/<entity>.py`. The expected
+3. **Fetcher** — create `src/wcl_data/fetchers/<entity>.py`. The expected
    shape (mirrors `athletes.py`):
 
    ```python
@@ -97,12 +97,12 @@ The full checklist:
 4. **Parent cascade** — modify the parent fetcher to call
    `repo.upsert_<entity>_skeleton(...)` so the new table gets populated.
 
-5. **Orchestrator** — in `src/ifsc_data/fetchers/refresh.py`:
+5. **Orchestrator** — in `src/wcl_data/fetchers/refresh.py`:
    - Add the entity to the `ENTITIES` tuple.
    - Import the new module and add it to `refresh_all`, `pull_new`, and
      `hydrate_entity`.
 
-6. **CLI** — `src/ifsc_data/cli.py`'s `hydrate` subcommand reads its
+6. **CLI** — `src/wcl_data/cli.py`'s `hydrate` subcommand reads its
    `choices` from `ENTITIES`, so it picks up the new entity automatically.
 
 7. **Tests** — add a `tests/test_fetchers/test_<entity>.py` with a
@@ -110,7 +110,7 @@ The full checklist:
    templates.
 
 8. **Export** (optional) — if the entity should appear in CSV dumps, add a
-   view to `src/ifsc_data/exporter.py`. Pre-join with parent rows so the
+   view to `src/wcl_data/exporter.py`. Pre-join with parent rows so the
    CSV is self-contained.
 
 9. **Docs** — update the table in
@@ -121,7 +121,7 @@ The full checklist:
 
 - **Console:** INFO and above, colored (via colorama). WARNING is hidden
   unless `-v` / `--verbose` is passed before the subcommand.
-- **File:** `logs/ifsc-data.log`, all levels including WARNING. Useful for
+- **File:** `logs/wcl-data.log`, all levels including WARNING. Useful for
   post-mortem on a `pull-new` that quietly dropped rows due to 4xx.
 
 ## Asking for help

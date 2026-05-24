@@ -1,4 +1,4 @@
-"""Command-line interface for the IFSC ingest layer."""
+"""Command-line interface for the World Climbing Lab ingest layer."""
 from __future__ import annotations
 
 import argparse
@@ -24,11 +24,11 @@ _NO_CREDS_COMMANDS = {"init", "status", "export", "auth"}
 
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
-        prog="ifsc-data",
-        description="Ingest the IFSC public API into a local SQLite warehouse.",
+        prog="wcl-data",
+        description="Ingest the World Climbing public API (at ifsc.results.info) into a local SQLite warehouse.",
     )
     p.add_argument("-v", "--verbose", action="store_true",
-                   help="Keep WARNINGs on the console (default: hidden, written to logs/ifsc-data.log).")
+                   help="Keep WARNINGs on the console (default: hidden, written to logs/wcl-data.log).")
     sub = p.add_subparsers(dest="command", required=True)
 
     sub.add_parser("init", help="Create the DB schema (idempotent).")
@@ -52,9 +52,9 @@ def build_parser() -> argparse.ArgumentParser:
     p_refresh.add_argument("--limit", type=int, default=None,
                            help="Cap the number of rows hydrated per entity (smoke testing).")
     p_refresh.add_argument("--stale-days", type=int, default=None,
-                           help="Override IFSC_STALE_DAYS for this run.")
+                           help="Override WCL_STALE_DAYS for this run.")
     p_refresh.add_argument("--workers", type=int, default=None,
-                           help="Override IFSC_MAX_WORKERS for this run (default 50; useful range 50-100).")
+                           help="Override WCL_MAX_WORKERS for this run (default 50; useful range 50-100).")
 
     p_pull = sub.add_parser(
         "pull-new",
@@ -63,9 +63,9 @@ def build_parser() -> argparse.ArgumentParser:
     p_pull.add_argument("--limit", type=int, default=None,
                         help="Cap rows per entity (smoke testing).")
     p_pull.add_argument("--workers", type=int, default=None,
-                        help="Override IFSC_MAX_WORKERS for this run.")
+                        help="Override WCL_MAX_WORKERS for this run.")
     p_pull.add_argument("--grace-days", type=int, default=None,
-                        help="Override IFSC_GRACE_DAYS for this run (default 15). "
+                        help="Override WCL_GRACE_DAYS for this run (default 15). "
                              "Days past an event's date_end during which it's still treated as ongoing.")
 
     p_hydrate = sub.add_parser("hydrate", help="Hydrate one entity only.")
@@ -73,7 +73,7 @@ def build_parser() -> argparse.ArgumentParser:
     p_hydrate.add_argument("--limit", type=int, default=None)
     p_hydrate.add_argument("--stale-days", type=int, default=None)
     p_hydrate.add_argument("--workers", type=int, default=None,
-                           help="Override IFSC_MAX_WORKERS for this run (default 50; useful range 50-100).")
+                           help="Override WCL_MAX_WORKERS for this run (default 50; useful range 50-100).")
 
     sub.add_parser("status", help="Print row counts and hydration coverage.")
 
@@ -141,8 +141,8 @@ def _cmd_auth(*, dry_run: bool, env_file: Optional[Path]) -> int:
     if dry_run:
         print()
         print("--dry-run: not writing to .env. Lines that would be written:")
-        print(f"  IFSC_CSRF_TOKEN={creds.csrf_token}")
-        print(f"  IFSC_SESSION_COOKIE={creds.session_cookie}")
+        print(f"  WCL_CSRF_TOKEN={creds.csrf_token}")
+        print(f"  WCL_SESSION_COOKIE={creds.session_cookie}")
         return 0
 
     target = env_file if env_file is not None else REPO_ROOT / ".env"

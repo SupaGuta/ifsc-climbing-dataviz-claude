@@ -3,14 +3,14 @@
 Drop-in SQL recipes for ad-hoc questions. Run them with either:
 
 ```bash
-sqlite3 data/ifsc.sqlite "<query>"
+sqlite3 data/wcl.sqlite "<query>"
 ```
 
 or in Python:
 
 ```python
 import sqlite3
-conn = sqlite3.connect("data/ifsc.sqlite")
+conn = sqlite3.connect("data/wcl.sqlite")
 for row in conn.execute("<query>"):
     print(row)
 ```

@@ -53,7 +53,7 @@ would indicate an API payload that's missing its `"season"` year or
 - The junction role: don't query `season_leagues` directly for analytics —
   this table only exists so the orchestrator knows which season-leagues to
   hydrate. Use `seasons` ⋈ `leagues` ⋈ `events` via the export views in
-  `src/ifsc_data/exporter.py`.
+  `src/wcl_data/exporter.py`.
 - Hydrating a season_league does **not** fully hydrate its events. Event
   skeletons are inserted with NULL `last_fetched_at`; they're picked up by
   the `events` phase that runs immediately after.

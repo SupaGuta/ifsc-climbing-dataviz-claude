@@ -19,7 +19,7 @@ for years, is pure overhead.
 [ADR 0004](0004-incremental-hydration-with-staleness.md) introduced
 `last_fetched_at` staleness as the model for "should we re-fetch this row?"
 That model is correct for athletes (whose profile data does change over
-time) but mismatched for structural containers. The IFSC publishes events
+time) but mismatched for structural containers. The World Climbing publishes events
 ahead of time, not retroactively — a season is structurally frozen once
 its calendar year is past.
 
@@ -43,7 +43,7 @@ invocation.
 
 The **15-day grace period** past `events.date_end` catches late result
 corrections (DSQs posted in the days after an event ends) without
-re-fetching ancient containers. Configurable via `IFSC_GRACE_DAYS` env
+re-fetching ancient containers. Configurable via `WCL_GRACE_DAYS` env
 var or `--grace-days N` flag.
 
 Implementation: four new `Repository.find_ongoing_*` methods; each
@@ -68,7 +68,7 @@ container fetcher's `hydrate()` gets an optional `rows=` parameter so
 
 **Negative**
 
-- A retroactive IFSC edit to an ended container (e.g. an event added to
+- A retroactive World Climbing edit to an ended container (e.g. an event added to
   a 2020 season, or a competition added to a 2024 event whose date_end
   is more than 15 days past) won't be picked up by `pull-new`. This
   basically never happens in practice. When it does, `refresh

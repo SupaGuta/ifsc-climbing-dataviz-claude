@@ -5,24 +5,24 @@ schema reset) see [`../operations/recovery.md`](../operations/recovery.md).
 
 ## Symptom: every request fails with 401 / 403
 
-**Cause:** the IFSC session cookie has expired. They typically last a few
+**Cause:** the World Climbing session cookie has expired. They typically last a few
 months.
 
 **Fix:**
 
 ```bash
-python -m ifsc_data auth
+python -m wcl_data auth
 ```
 
 This fetches a fresh CSRF token + session cookie and rewrites the two lines
 in `.env`. Re-run your command:
 
 ```bash
-python -m ifsc_data pull-new
+python -m wcl_data pull-new
 ```
 
 If `auth` itself fails with `RuntimeError: Could not find <meta
-name="csrf-token">`, the IFSC site layout has changed — open an issue.
+name="csrf-token">`, the World Climbing site layout has changed — open an issue.
 Full details in [`../operations/auth.md`](../operations/auth.md).
 
 ## Symptom: run is much slower than expected
@@ -32,14 +32,14 @@ Default is `--workers 50`. The useful range is 50–100.
 **Try higher concurrency:**
 
 ```bash
-python -m ifsc_data pull-new --workers 75
-python -m ifsc_data refresh --workers 100
+python -m wcl_data pull-new --workers 75
+python -m wcl_data refresh --workers 100
 ```
 
-Beyond ~100 the IFSC connection limits dominate; you won't see further
+Beyond ~100 the World Climbing connection limits dominate; you won't see further
 speedup and may start collecting 5xx retries.
 
-**Check for retry storms:** open `logs/ifsc-data.log` and grep for `Retry
+**Check for retry storms:** open `logs/wcl-data.log` and grep for `Retry
 attempt`. Many retry attempts → upstream is degraded; back off `--workers`
 or wait it out.
 
@@ -53,13 +53,13 @@ surprising.
 **Confirm:**
 
 ```bash
-grep WARNING logs/ifsc-data.log | tail -20
+grep WARNING logs/wcl-data.log | tail -20
 ```
 
 You'll see lines like:
 
 ```
-WARNING ifsc_data.api.client: Fetch failed for /athletes/12334: HTTP 404 Not Found
+WARNING wcl_data.api.client: Fetch failed for /athletes/12334: HTTP 404 Not Found
 ```
 
 For the one known permanent 404 (athlete `ifsc_id = 12334`), this is
@@ -69,13 +69,13 @@ been deleted or merged on their side.
 **To re-attempt a previously-dropped row:** there isn't a built-in retry
 command. Either:
 
-- Run `python -m ifsc_data hydrate <entity> --stale-days 0` to re-attempt
+- Run `python -m wcl_data hydrate <entity> --stale-days 0` to re-attempt
   everything in that entity (including the previously-dropped row if its
   skeleton still exists).
 - Or delete the skeleton manually:
 
   ```bash
-  sqlite3 data/ifsc.sqlite "DELETE FROM athletes WHERE ifsc_id = 12334;"
+  sqlite3 data/wcl.sqlite "DELETE FROM athletes WHERE ifsc_id = 12334;"
   ```
 
   Note: this also deletes the row's `results` rows via cascade. Only do
@@ -84,7 +84,7 @@ command. Either:
 ## Symptom: a parse failure in the logs
 
 Look for `log.exception("Failed to parse /...")` traceback in
-`logs/ifsc-data.log`. The fetcher caught the exception, incremented the
+`logs/wcl-data.log`. The fetcher caught the exception, incremented the
 `fail` counter, and continued — the rest of the batch was unaffected.
 
 **Diagnose:**
@@ -93,7 +93,7 @@ Look for `log.exception("Failed to parse /...")` traceback in
 2. Fetch the raw JSON yourself:
 
    ```bash
-   python -c "from ifsc_data.config import load_settings; from ifsc_data.api.client import APIClient; s = load_settings(); c = APIClient(s); print(next(iter(c.stream('events', [1462]))).data)"
+   python -c "from wcl_data.config import load_settings; from wcl_data.api.client import APIClient; s = load_settings(); c = APIClient(s); print(next(iter(c.stream('events', [1462]))).data)"
    ```
 
    On Windows the default console codepage is `cp1252` and `print()` will
@@ -113,7 +113,7 @@ regression test before patching.
 Two possibilities:
 
 1. **Nothing was actually new on the IFSC side** since your last run. Check
-   the timestamps in `data/exports/` or `logs/ifsc-data.log`.
+   the timestamps in `data/exports/` or `logs/wcl-data.log`.
 2. **You ran `pull-new` instead of `refresh`** and were expecting stale-row
    updates. `pull-new` only re-hydrates the **container** entities and
    discovers new children — existing athlete profiles aren't touched. For a
@@ -125,7 +125,7 @@ The run was killed before that table finished hydrating. Skeletons exist;
 profiles don't. **Just re-run:**
 
 ```bash
-python -m ifsc_data refresh           # or pull-new
+python -m wcl_data refresh           # or pull-new
 ```
 
 Streaming writes mean previously-hydrated rows stay hydrated; the gap is

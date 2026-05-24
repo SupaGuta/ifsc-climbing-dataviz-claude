@@ -9,7 +9,7 @@ guarantees behind them.
 **Procedure:** re-run the same command.
 
 ```bash
-python -m ifsc_data pull-new          # was killed → just run it again
+python -m wcl_data pull-new          # was killed → just run it again
 ```
 
 **Why this works:** every successful row commits before the next request
@@ -45,18 +45,18 @@ The fetcher caught the exception, incremented the counter, and continued
 
 **Procedure:**
 
-1. Find the failing row in `logs/ifsc-data.log`:
+1. Find the failing row in `logs/wcl-data.log`:
 
    ```bash
-   grep -A 5 "Failed to parse" logs/ifsc-data.log | tail -30
+   grep -A 5 "Failed to parse" logs/wcl-data.log | tail -30
    ```
 
 2. The traceback identifies the path (`/events/1462`, etc.). Fetch that
    payload manually to inspect:
 
    ```python
-   from ifsc_data.config import load_settings
-   from ifsc_data.api.client import APIClient
+   from wcl_data.config import load_settings
+   from wcl_data.api.client import APIClient
    c = APIClient(load_settings())
    print(next(iter(c.stream("events", [1462]))).data)
    ```
@@ -85,15 +85,15 @@ finishes with 0 failures but a `status` showing hydration coverage well
 below total → check the log for WARNING-level 4xx drops:
 
 ```bash
-grep "HTTP 4" logs/ifsc-data.log | tail
+grep "HTTP 4" logs/wcl-data.log | tail
 ```
 
 Patterns:
 
-- **One ID returning 404 every run:** likely a permanently deleted IFSC
+- **One ID returning 404 every run:** likely a permanently deleted World Climbing
   row. Known case: athlete `ifsc_id = 12334`. Document and ignore.
 - **A burst of 401 / 403:** the session cookie expired. Run
-  `python -m ifsc_data auth` ([auth.md](auth.md)) and re-run.
+  `python -m wcl_data auth` ([auth.md](auth.md)) and re-run.
 - **A range of contiguous 404s during seasons probe:** the lookahead
   walked into unallocated IDs. Expected — no action needed.
 
@@ -103,7 +103,7 @@ The schema is rebuilt idempotently on every `open_db` via
 `apply_schema()`. Missing tables or indexes can be restored by running:
 
 ```bash
-python -m ifsc_data init
+python -m wcl_data init
 ```
 
 If you've manually edited the schema, your edits may conflict with the
@@ -112,7 +112,7 @@ script's `CREATE TABLE IF NOT EXISTS` (silently skipped) or
 — so adding columns by hand will leave them in place but they won't be
 populated.
 
-For a real schema change, edit `src/ifsc_data/db/schema.py`, increment
+For a real schema change, edit `src/wcl_data/db/schema.py`, increment
 `CURRENT_VERSION`, and (eventually) add a migrations folder. As of now
 there's no migration framework — see
 [`../architecture/database-and-schema.md`](../architecture/database-and-schema.md).
@@ -124,17 +124,17 @@ To start completely fresh:
 **PowerShell (Windows):**
 
 ```powershell
-Remove-Item data\ifsc.sqlite
-python -m ifsc_data init
-python -m ifsc_data pull-new
+Remove-Item data\wcl.sqlite
+python -m wcl_data init
+python -m wcl_data pull-new
 ```
 
 **bash:**
 
 ```bash
-rm data/ifsc.sqlite
-python -m ifsc_data init
-python -m ifsc_data pull-new
+rm data/wcl.sqlite
+python -m wcl_data init
+python -m wcl_data pull-new
 ```
 
 This rebuilds the warehouse from scratch (~5 min). Use only when you
@@ -150,6 +150,6 @@ sure.
 - **The IFSC API changing structure.** No recovery procedure — the
   parser will start throwing parse failures (see "Run finished but
   failed count > 0" above). Patch the fetcher.
-- **`.env` lost or corrupted.** Re-run `python -m ifsc_data auth` to
-  regenerate the credential lines. Other variables (`IFSC_DB_PATH`,
-  `IFSC_MAX_WORKERS`, …) can be re-copied from `.env.example`.
+- **`.env` lost or corrupted.** Re-run `python -m wcl_data auth` to
+  regenerate the credential lines. Other variables (`WCL_DB_PATH`,
+  `WCL_MAX_WORKERS`, …) can be re-copied from `.env.example`.

@@ -1,7 +1,7 @@
 # Fetchers and orchestrator
 
 The orchestrator in
-[`src/ifsc_data/fetchers/refresh.py`](https://github.com/SupaGuta/world-climbing-lab/blob/main/src/ifsc_data/fetchers/refresh.py)
+[`src/wcl_data/fetchers/refresh.py`](https://github.com/SupaGuta/world-climbing-lab/blob/main/src/wcl_data/fetchers/refresh.py)
 is what the CLI's `refresh`, `pull-new`, and `hydrate` subcommands call
 under the hood. You can call it directly from Python when you need finer
 control. The individual fetcher modules also expose their `hydrate()`
@@ -15,11 +15,11 @@ For the design (discover-vs-hydrate, three CLI modes) see
 Every snippet below assumes:
 
 ```python
-from ifsc_data.config import load_settings
-from ifsc_data.db.schema import open_db
-from ifsc_data.db.repository import Repository
-from ifsc_data.api.client import APIClient
-from ifsc_data.fetchers import refresh
+from wcl_data.config import load_settings
+from wcl_data.db.schema import open_db
+from wcl_data.db.repository import Repository
+from wcl_data.api.client import APIClient
+from wcl_data.fetchers import refresh
 
 settings = load_settings()
 conn = open_db(settings.db_path)
@@ -56,7 +56,7 @@ NULL `last_fetched_at` matches). The everyday "catch new content cheaply"
 entry point. See [ADR 0006](../decisions/0006-ongoing-only-pull-new.md).
 
 `grace_days` defaults to 15. The CLI surface (`--grace-days`) and env var
-(`IFSC_GRACE_DAYS`) plumb through to this argument.
+(`WCL_GRACE_DAYS`) plumb through to this argument.
 
 ### `hydrate_entity`
 
@@ -87,7 +87,7 @@ ongoing containers; `refresh` / `hydrate_entity` use `stale_days=`.
 `find_stale` with the NULL-only trick.
 
 ```python
-from ifsc_data.fetchers import seasons, season_leagues, events, competitions, athletes
+from wcl_data.fetchers import seasons, season_leagues, events, competitions, athletes
 
 # Probe for new seasons past MAX(ifsc_id)
 seasons.discover(repo, client, lookahead=10)
@@ -109,7 +109,7 @@ The fetchers' `hydrate` functions read their work list from
 client + repo directly:
 
 ```python
-from ifsc_data.api.client import APIClient
+from wcl_data.api.client import APIClient
 
 target_ifsc_ids = [1234, 5678, 9012]
 ifsc_to_id = {ifsc: repo.upsert_athlete_skeleton(ifsc) for ifsc in target_ifsc_ids}
@@ -129,12 +129,12 @@ for fetched in client.stream("athletes", ifsc_to_id.keys()):
 ```
 
 This is essentially what `athletes.hydrate` does — copy its loop body
-from [`src/ifsc_data/fetchers/athletes.py`](https://github.com/SupaGuta/world-climbing-lab/blob/main/src/ifsc_data/fetchers/athletes.py)
+from [`src/wcl_data/fetchers/athletes.py`](https://github.com/SupaGuta/world-climbing-lab/blob/main/src/wcl_data/fetchers/athletes.py)
 when you need a starting template.
 
 ## Summary printing
 
-The CLI's `_print_summary` from `src/ifsc_data/cli.py` is a one-liner
+The CLI's `_print_summary` from `src/wcl_data/cli.py` is a one-liner
 worth lifting if you want the same formatted output:
 
 ```python
@@ -149,5 +149,5 @@ def print_summary(summary: dict[str, tuple[int, int]]) -> None:
 If the IFSC API exposes a new endpoint (e.g. `/judges/{id}`), don't
 ad-hoc it — follow the pattern. The full checklist is in
 [`../contributing.md`](../contributing.md). Use
-[`src/ifsc_data/fetchers/athletes.py`](https://github.com/SupaGuta/world-climbing-lab/blob/main/src/ifsc_data/fetchers/athletes.py)
+[`src/wcl_data/fetchers/athletes.py`](https://github.com/SupaGuta/world-climbing-lab/blob/main/src/wcl_data/fetchers/athletes.py)
 as the canonical template: it's the simplest of the five.

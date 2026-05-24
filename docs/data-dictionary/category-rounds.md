@@ -23,12 +23,12 @@ side effect of the parent competition's hydrate.
 | Column              | Type    | Nullable | Meaning                                                |
 |---------------------|---------|:--------:|--------------------------------------------------------|
 | `id`                | INTEGER |          | Local row PK. Used by FKs from `round_stages`, `routes`, `round_results`. |
-| `ifsc_id`           | INTEGER |          | IFSC `category_round_id`. Globally unique across the API. |
+| `ifsc_id`           | INTEGER |          | IFSC `category_round_id` from the API payload. Globally unique. |
 | `competition_id`    | INTEGER |          | FK → `competitions.id`. NOT NULL.                     |
 | `kind`              | TEXT    |    ✓     | `"lead"` / `"speed"` / `"boulder"` / `"boulder&lead"` (combined). |
 | `name`              | TEXT    |    ✓     | `"Qualification"` / `"Semi-final"` / `"Semi-Final"` / `"Final"`. API capitalization varies. |
 | `category`          | TEXT    |    ✓     | `"Men"` / `"Women"` / `"U19 Men"` etc. Redundant with `competitions.category_id`. |
-| `format`            | TEXT    |    ✓     | Human-readable: `"IFSC: 2 routes"`, `"IFSC 2025: Qualification"`. |
+| `format`            | TEXT    |    ✓     | Human-readable: `"IFSC: 2 routes"`, `"IFSC 2025: Qualification"` (raw API string). |
 | `format_identifier` | TEXT    |    ✓     | Machine-readable variant, parallel to `format`.        |
 | `status`            | TEXT    |    ✓     | `"finished"` / `"scheduled"` / `"running"`.            |
 | `status_as_of`      | TEXT    |    ✓     | Raw timestamp from the API.                            |

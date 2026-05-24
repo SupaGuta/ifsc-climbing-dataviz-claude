@@ -9,9 +9,9 @@ from __future__ import annotations
 from datetime import datetime, timedelta, timezone
 from unittest.mock import MagicMock
 
-from ifsc_data.api.client import Fetched
-from ifsc_data.db.repository import Repository
-from ifsc_data.fetchers import refresh as refresh_orchestrator
+from wcl_data.api.client import Fetched
+from wcl_data.db.repository import Repository
+from wcl_data.fetchers import refresh as refresh_orchestrator
 
 
 def _stub_client(*, current_year: int):

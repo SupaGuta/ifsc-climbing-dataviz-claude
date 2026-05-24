@@ -1,7 +1,7 @@
 # `Repository`
 
 Typed CRUD wrappers around the SQLite warehouse. Lives in
-[`src/ifsc_data/db/repository.py`](https://github.com/SupaGuta/world-climbing-lab/blob/main/src/ifsc_data/db/repository.py).
+[`src/wcl_data/db/repository.py`](https://github.com/SupaGuta/world-climbing-lab/blob/main/src/wcl_data/db/repository.py).
 Every method commits before returning unless wrapped in `with
 repo.transaction():`. For the *why* see
 [`../architecture/database-and-schema.md`](../architecture/database-and-schema.md)
@@ -10,9 +10,9 @@ and [ADR 0002](../decisions/0002-streaming-writes.md).
 ## Constructing
 
 ```python
-from ifsc_data.config import load_settings
-from ifsc_data.db.schema import open_db
-from ifsc_data.db.repository import Repository
+from wcl_data.config import load_settings
+from wcl_data.db.schema import open_db
+from wcl_data.db.repository import Repository
 
 settings = load_settings(require_credentials=False)
 conn = open_db(settings.db_path)            # creates schema if missing
@@ -81,7 +81,7 @@ to pass the result into the matching fetcher's `hydrate(rows=...)`
 parameter, e.g.:
 
 ```python
-from ifsc_data.fetchers import events as events_fetcher
+from wcl_data.fetchers import events as events_fetcher
 events_fetcher.hydrate(repo, client, rows=repo.find_ongoing_events())
 ```
 
@@ -180,7 +180,7 @@ number of rows affected.
 ## Constants
 
 ```python
-from ifsc_data.db.repository import HYDRATABLE_TABLES, ALL_TABLES, TS_FMT, utcnow
+from wcl_data.db.repository import HYDRATABLE_TABLES, ALL_TABLES, TS_FMT, utcnow
 
 HYDRATABLE_TABLES       # ("seasons", "season_leagues", "events", "competitions", "athletes")
 ALL_TABLES              # HYDRATABLE_TABLES + ("leagues", "disciplines", "categories", "results")

@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import pytest
 
-from ifsc_data.parsers.event_location import parse_city_country
+from wcl_data.parsers.event_location import parse_city_country
 
 
 @pytest.mark.parametrize("name,city,country", [
@@ -34,5 +34,5 @@ def test_us_state_suffix_stripped_only_when_country_is_usa():
 
 
 def test_discipline_block_does_not_confuse_country_extraction():
-    city, country = parse_city_country("IFSC Worldcup (B,L) - Innsbruck (AUT) 2024")
+    city, country = parse_city_country("World Climbing Worldcup (B,L) - Innsbruck (AUT) 2024")
     assert (city, country) == ("Innsbruck", "AUT")

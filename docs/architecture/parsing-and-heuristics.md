@@ -10,7 +10,7 @@ The guiding rule is **"return NULL rather than wrong."** Downstream consumers
 can detect NULL and decide what to do; they can't detect a quietly-misparsed
 value.
 
-## Event city + country (`src/ifsc_data/parsers/event_location.py`)
+## Event city + country (`src/wcl_data/parsers/event_location.py`)
 
 Many older events don't carry city/country fields — the location lives in
 the event *name*, e.g. `"IFSC Climbing World Cup - Chamonix (FRA) 2019"`.
@@ -56,7 +56,7 @@ the same lookup against existing DB rows after the batch completes. This
 recovers most events whose city was parsed from the name but whose country
 anchor was missing.
 
-## Athlete paraclimbing status (`src/ifsc_data/fetchers/athletes.py`)
+## Athlete paraclimbing status (`src/wcl_data/fetchers/athletes.py`)
 
 The `is_paraclimbing` flag on athletes is a heuristic:
 
@@ -74,7 +74,7 @@ against `events.is_paraclimbing` (which comes from the API's
 `is_paraclimbing_event` field on the *event*, not the athlete). The README
 documents this caveat under "Notes / known limits."
 
-## Athlete gender (`src/ifsc_data/fetchers/athletes.py`)
+## Athlete gender (`src/wcl_data/fetchers/athletes.py`)
 
 The API returns `"male"` / `"female"` as a string. The repository stores it
 as INTEGER for consistency with the categories table:
@@ -87,7 +87,7 @@ gender = 0 if gender_str == "male" else (1 if gender_str == "female" else None)
 Anything else (empty, unknown, future values) stores NULL. There is no third
 category in the current data.
 
-## Category gender (`src/ifsc_data/fetchers/season_leagues.py`)
+## Category gender (`src/wcl_data/fetchers/season_leagues.py`)
 
 The API only labels categories as `"Lead Men"`, `"Boulder Women"`,
 `"Youth A Male"`, etc. — gender is embedded in the name. The fetcher

@@ -30,8 +30,8 @@ The file ships with sensible defaults for everything except the two
 credential lines:
 
 ```
-IFSC_CSRF_TOKEN=
-IFSC_SESSION_COOKIE=
+WCL_CSRF_TOKEN=
+WCL_SESSION_COOKIE=
 ```
 
 Leave those blank and let the `auth` command fill them in.
@@ -39,7 +39,7 @@ Leave those blank and let the `auth` command fill them in.
 ## 3. Fetch credentials
 
 ```bash
-python -m ifsc_data auth
+python -m wcl_data auth
 ```
 
 This makes a single plain GET to `https://ifsc.results.info`, parses the
@@ -49,7 +49,7 @@ CSRF meta tag and session cookie out of the response, and writes them to
 Want to inspect before writing? Pass `--dry-run`:
 
 ```bash
-python -m ifsc_data auth --dry-run
+python -m wcl_data auth --dry-run
 ```
 
 For deeper details (cadence, what failures look like, alternate `.env`
@@ -58,18 +58,18 @@ paths) see [`../operations/auth.md`](../operations/auth.md).
 ## 4. Create the database
 
 ```bash
-python -m ifsc_data init
+python -m wcl_data init
 ```
 
-Creates `data/ifsc.sqlite` with the schema from
-[`src/ifsc_data/db/schema.py`](https://github.com/SupaGuta/world-climbing-lab/blob/main/src/ifsc_data/db/schema.py).
+Creates `data/wcl.sqlite` with the schema from
+[`src/wcl_data/db/schema.py`](https://github.com/SupaGuta/world-climbing-lab/blob/main/src/wcl_data/db/schema.py).
 Idempotent — running it on an existing DB verifies tables/indexes exist but
 never deletes data.
 
 ## 5. Populate
 
 ```bash
-python -m ifsc_data pull-new
+python -m wcl_data pull-new
 ```
 
 Walks the entity graph (seasons → season_leagues → events → competitions →
@@ -80,22 +80,22 @@ Watch the console: each phase prints its row count and progress. Logs at
 WARNING level are hidden from console by default; add `-v` to see them:
 
 ```bash
-python -m ifsc_data -v pull-new
+python -m wcl_data -v pull-new
 ```
 
-Either way, all WARNINGs go to `logs/ifsc-data.log` for post-mortem.
+Either way, all WARNINGs go to `logs/wcl-data.log` for post-mortem.
 
 ## 6. Verify
 
 ```bash
-python -m ifsc_data status
+python -m wcl_data status
 ```
 
 Should print row counts close to the data-dictionary's "typical size"
 numbers:
 
 ```
-DB: .../data/ifsc.sqlite
+DB: .../data/wcl.sqlite
 table                      rows   hydrated
 seasons                      38         38
 leagues                      15          -

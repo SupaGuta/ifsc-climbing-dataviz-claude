@@ -1,6 +1,6 @@
 """Logging setup.
 
-- File log at logs/ifsc-data.log captures everything WARNING and above (plain format).
+- File log at logs/wcl-data.log captures everything WARNING and above (plain format).
 - Console captures INFO/ERROR/CRITICAL but DROPS warnings — the file is the place to inspect those.
 - Console output is colored by level (green INFO, red ERROR, …) via colorama,
   which falls back gracefully when stdout is piped or redirected.
@@ -14,7 +14,7 @@ from colorama import Fore, Style, init as colorama_init
 from .config import REPO_ROOT
 
 LOG_DIR = REPO_ROOT / "logs"
-LOG_FILE = LOG_DIR / "ifsc-data.log"
+LOG_FILE = LOG_DIR / "wcl-data.log"
 
 colorama_init()
 
@@ -34,10 +34,10 @@ class _ColorFormatter(logging.Formatter):
     def format(self, record: logging.LogRecord) -> str:
         ts = self.formatTime(record, "%H:%M:%S")
         short_name = record.name
-        if short_name.startswith("ifsc_data."):
-            short_name = short_name[len("ifsc_data."):]
-        elif short_name == "ifsc_data":
-            short_name = "ifsc_data"
+        if short_name.startswith("wcl_data."):
+            short_name = short_name[len("wcl_data."):]
+        elif short_name == "wcl_data":
+            short_name = "wcl_data"
         color = _LEVEL_COLOR.get(record.levelno, "")
         return (
             f"{Style.DIM}{ts}{Style.RESET_ALL}  "

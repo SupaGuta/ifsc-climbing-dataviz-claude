@@ -28,7 +28,7 @@ parent competition's hydrate.
 | `id`                | INTEGER |          | Local row PK. Used by FK from `ascents`.            |
 | `ifsc_id`           | INTEGER |          | IFSC route id. Globally unique on the API.          |
 | `category_round_id` | INTEGER |          | FK → `category_rounds.id`. NOT NULL.                |
-| `name`              | TEXT    |    ✓     | `"1"`, `"2"`, `"A"`, `"B"`, `"M1"` — IFSC's per-round label. |
+| `name`              | TEXT    |    ✓     | `"1"`, `"2"`, `"A"`, `"B"`, `"M1"` — the API's per-round label. |
 | `last_fetched_at`   | TEXT    |    ✓     | ISO-8601 UTC. Set by `competitions.hydrate`.        |
 
 **Indexes:**
@@ -54,7 +54,7 @@ parent competition's hydrate.
   derivable from `ifsc_id`. Removing them keeps the table narrow and avoids
   denormalization drift.
 - **Re-hydration upserts; it does not delete.** If a route ever vanishes from
-  the API on a re-fetch (extremely rare — IFSC doesn't unpublish completed
+  the API on a re-fetch (extremely rare — World Climbing doesn't unpublish completed
   rounds), the orphan row remains. The orphan has zero ascents pointing at it,
   so it's statistically invisible. Accept-list this trade-off, documented in
   [ADR 0007](../decisions/0007-per-round-ingestion.md).

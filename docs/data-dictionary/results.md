@@ -2,7 +2,7 @@
 
 The join table. One row per (competition × athlete) with the athlete's
 **final overall** rank in that competition — the top-level `rank` from the
-IFSC payload. For per-round ranks (qualif / semi / final) see
+World Climbing payload. For per-round ranks (qualif / semi / final) see
 [`round-results`](round-results.md); for per-route ascent detail see
 [`ascents`](ascents.md).
 
@@ -46,7 +46,7 @@ is therefore inherited from the parent competition's `last_fetched_at`.
 ## Gotchas
 
 - **Re-hydrating a competition wipes its results first.** The pattern in
-  `src/ifsc_data/fetchers/competitions.py`:
+  `src/wcl_data/fetchers/competitions.py`:
 
   ```python
   with repo.transaction():
@@ -62,8 +62,8 @@ is therefore inherited from the parent competition's `last_fetched_at`.
   for the design rationale.
 - **`rank` is NULL for non-finishers.** If you're computing leaderboards,
   filter `WHERE rank IS NOT NULL`. If you're computing participation, don't.
-- **The big denormalized view in `src/ifsc_data/exporter.py` ("results")**
+- **The big denormalized view in `src/wcl_data/exporter.py` ("results")**
   pre-joins through `competitions`, `events`, `seasons`, `leagues`,
   `disciplines`, `categories`, and `athletes` — 14 columns of context per
-  result row. Use it directly via `python -m ifsc_data export results` when
+  result row. Use it directly via `python -m wcl_data export results` when
   you want a single self-contained CSV.

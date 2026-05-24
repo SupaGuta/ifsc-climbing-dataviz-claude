@@ -12,14 +12,14 @@ dashboards, and an eventual ML pipeline — all of which run on the same
 machine as the ingestion process for the foreseeable future.
 
 The data volume (tens of MB) is well within SQLite's comfort zone. There is
-no concurrent-writer requirement: only one `python -m ifsc_data <cmd>` runs
+no concurrent-writer requirement: only one `python -m wcl_data <cmd>` runs
 at a time.
 
 ## Decision
 
-Store all warehouse data in a **single SQLite file** at `data/ifsc.sqlite`
-(overridable via `IFSC_DB_PATH`). Schema defined in
-`src/ifsc_data/db/schema.py` and applied idempotently via
+Store all warehouse data in a **single SQLite file** at `data/wcl.sqlite`
+(overridable via `WCL_DB_PATH`). Schema defined in
+`src/wcl_data/db/schema.py` and applied idempotently via
 `apply_schema()` on every connection open. No migrations framework yet — a
 `schema_version` table exists for future use.
 
@@ -31,7 +31,7 @@ Store all warehouse data in a **single SQLite file** at `data/ifsc.sqlite`
   Contributors can `git clone` and `init` and have a working warehouse in
   one minute.
 - The whole warehouse is one portable file — easy to share, snapshot, back
-  up (`cp data/ifsc.sqlite data/snapshot.sqlite`), or ship with the repo
+  up (`cp data/wcl.sqlite data/snapshot.sqlite`), or ship with the repo
   in CI fixtures.
 - Notebooks open it directly with `sqlite3.connect(...)` or
   `pandas.read_sql(...)`. No driver install.

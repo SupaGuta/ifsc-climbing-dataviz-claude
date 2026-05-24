@@ -1,6 +1,6 @@
 # Backup
 
-The warehouse is **one file** — `data/ifsc.sqlite`. Backing it up is a
+The warehouse is **one file** — `data/wcl.sqlite`. Backing it up is a
 copy. Restoring is a copy back.
 
 ## Snapshot before risky operations
@@ -8,7 +8,7 @@ copy. Restoring is a copy back.
 Before any of:
 
 - `refresh --stale-days 0` (~30 min, touches everything)
-- Schema-level changes (editing `src/ifsc_data/db/schema.py`)
+- Schema-level changes (editing `src/wcl_data/db/schema.py`)
 - Bulk SQL operations against the warehouse
 - Testing a new fetcher against the live API
 
@@ -17,19 +17,19 @@ Before any of:
 **PowerShell (Windows):**
 
 ```powershell
-Copy-Item data\ifsc.sqlite data\ifsc.$(Get-Date -Format 'yyyyMMdd').sqlite
+Copy-Item data\wcl.sqlite data\ifsc.$(Get-Date -Format 'yyyyMMdd').sqlite
 ```
 
 **bash / zsh:**
 
 ```bash
-cp data/ifsc.sqlite data/ifsc.$(date +%Y%m%d).sqlite
+cp data/wcl.sqlite data/ifsc.$(date +%Y%m%d).sqlite
 ```
 
 Restore by copying back:
 
 ```bash
-cp data/ifsc.20260523.sqlite data/ifsc.sqlite
+cp data/ifsc.20260523.sqlite data/wcl.sqlite
 ```
 
 Snapshots in `data/` are **not** gitignored by default — only `data/exports/`,
@@ -49,7 +49,7 @@ project's `.gitignore` excludes it. Things that are easy to get wrong:
   proper secrets channel — not the repo.
 
 If credentials are accidentally exposed (committed by mistake, pasted
-publicly): rotate them by re-running `python -m ifsc_data auth`. The new
+publicly): rotate them by re-running `python -m wcl_data auth`. The new
 session cookie invalidates the old one.
 
 ## CSV exports as a portable secondary backup
@@ -58,7 +58,7 @@ If you want a backup that's readable without SQLite (or that survives
 SQLite-version changes), export to CSV:
 
 ```bash
-python -m ifsc_data export
+python -m wcl_data export
 ```
 
 Writes six CSVs to `data/exports/` with timestamped filenames. The
@@ -95,9 +95,9 @@ If everything's lost (machine wipe, repo re-clone, etc.):
 1. `git clone <repo>`
 2. `pip install -e ".[dev]"`
 3. `cp .env.example .env`
-4. `python -m ifsc_data auth` → fills in fresh credentials
-5. `python -m ifsc_data init` → recreates schema
-6. `python -m ifsc_data pull-new` → repopulates from the live API (~5 min)
+4. `python -m wcl_data auth` → fills in fresh credentials
+5. `python -m wcl_data init` → recreates schema
+6. `python -m wcl_data pull-new` → repopulates from the live API (~5 min)
 
 Total time from zero: under 10 minutes. The IFSC API is the source of
 truth; the local warehouse is reproducible.

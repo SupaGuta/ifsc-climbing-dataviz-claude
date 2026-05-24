@@ -19,6 +19,12 @@ dist/
 *.log
 logs/
 
+# Local SQLite warehouse (built by `wcl-data init` / `refresh`)
+data/*.sqlite
+data/*.sqlite-journal
+data/*.sqlite-wal
+data/*.sqlite-shm
+
 # CSV exports (timestamped, regenerable)
 data/exports/
 

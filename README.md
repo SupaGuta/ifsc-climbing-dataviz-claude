@@ -2,7 +2,7 @@
 
 The data ingestion layer for a personal World Climbing analytics project: a small Python package that ingests the public competition API at [ifsc.results.info](https://ifsc.results.info) into a single local SQLite warehouse. Downstream consumers (notebooks, future analytics, future ML) read from the warehouse — they never talk to the API directly.
 
-> The international climbing federation rebranded from **IFSC** (International Federation of Sport Climbing) to **World Climbing** in 2026. The technical API endpoint and historical naming inside the code still use "IFSC" — both terms refer to the same federation and the same data.
+> The international climbing federation rebranded from **World Climbing** (International Federation of Sport Climbing) to **World Climbing** in 2026. The technical API endpoint and historical naming inside the code still use "World Climbing" — both terms refer to the same federation and the same data.
 
 > For contributor & architecture documentation (the **why** behind the design), see [`docs/`](docs/).
 
@@ -21,7 +21,7 @@ Requires **Python 3.12+** (the package uses PEP 695 generic syntax).
 ```bash
 pip install -e ".[dev]"
 cp .env.example .env
-python -m ifsc_data auth        # auto-populate IFSC_CSRF_TOKEN + IFSC_SESSION_COOKIE
+python -m wcl_data auth        # auto-populate WCL_CSRF_TOKEN + WCL_SESSION_COOKIE
 ```
 
 The `auth` command fetches a fresh CSRF token + session cookie from ifsc.results.info and writes them to `.env`. Re-run it whenever the API starts returning 401/403. (You can also paste credentials manually from DevTools if you prefer.)
@@ -36,7 +36,7 @@ The other no-credentials commands are `init`, `status`, and `export` — they do
 |-----------|-----|
 | Populate `.env` with fresh credentials | `auth` |
 | First-time DB setup | `init` then `pull-new` |
-| Catch newly-published IFSC content | `pull-new` |
+| Catch newly-published World Climbing content | `pull-new` |
 | Refresh stale rows on the 30-day cadence | `refresh` |
 | Force-refresh everything from scratch | `refresh --stale-days 0` |
 | Touch one entity only | `hydrate <entity>` |
@@ -47,16 +47,16 @@ The other no-credentials commands are `init`, `status`, and `export` — they do
 
 | Flag | Description |
 |------|-------------|
-| `-v`, `--verbose` | Keep WARNING-level log lines on the console. Default behaviour hides them (they always go to `logs/ifsc-data.log`). Place before the subcommand: `python -m ifsc_data -v refresh`. |
+| `-v`, `--verbose` | Keep WARNING-level log lines on the console. Default behaviour hides them (they always go to `logs/wcl-data.log`). Place before the subcommand: `python -m wcl_data -v refresh`. |
 
 ## Commands
 
 ### `init`
 
-Create the SQLite warehouse schema at `data/ifsc.sqlite`. Idempotent — running it on an existing DB verifies the tables/indexes exist but never deletes data.
+Create the SQLite warehouse schema at `data/wcl.sqlite`. Idempotent — running it on an existing DB verifies the tables/indexes exist but never deletes data.
 
 ```bash
-python -m ifsc_data init
+python -m wcl_data init
 ```
 
 No arguments, no options. Use it once per machine.
@@ -68,7 +68,7 @@ No arguments, no options. Use it once per machine.
 Fetch a fresh CSRF token + session cookie from `https://ifsc.results.info` and write them into `.env`. No DevTools, no manual copy-paste.
 
 ```bash
-python -m ifsc_data auth [--dry-run] [--env-file PATH]
+python -m wcl_data auth [--dry-run] [--env-file PATH]
 ```
 
 **Options:**
@@ -78,17 +78,17 @@ python -m ifsc_data auth [--dry-run] [--env-file PATH]
 | `--dry-run` | flag | off | Print the fetched values without writing `.env`. Tokens shown in full so you can copy-paste. |
 | `--env-file PATH` | path | `<repo>/.env` | Target file for the update. |
 
-**Behaviour:** preserves every other line in `.env` (comments, other variables, ordering). Only the `IFSC_CSRF_TOKEN` and `IFSC_SESSION_COOKIE` lines are replaced in place. If either key is missing, it's appended.
+**Behaviour:** preserves every other line in `.env` (comments, other variables, ordering). Only the `WCL_CSRF_TOKEN` and `WCL_SESSION_COOKIE` lines are replaced in place. If either key is missing, it's appended.
 
 **Examples:**
 
 ```bash
-python -m ifsc_data auth                 # fetch + write to .env
-python -m ifsc_data auth --dry-run       # just print, don't touch .env
-python -m ifsc_data auth --env-file /tmp/alt.env
+python -m wcl_data auth                 # fetch + write to .env
+python -m wcl_data auth --dry-run       # just print, don't touch .env
+python -m wcl_data auth --env-file /tmp/alt.env
 ```
 
-**When to use:** first-time setup, or whenever `refresh` / `pull-new` / `hydrate` start failing with 401/403. The IFSC session cookie typically lasts a few months.
+**When to use:** first-time setup, or whenever `refresh` / `pull-new` / `hydrate` start failing with 401/403. The World Climbing session cookie typically lasts a few months.
 
 ---
 
@@ -97,7 +97,7 @@ python -m ifsc_data auth --env-file /tmp/alt.env
 Discover new entities (probes for new seasons) then hydrate stale rows across the whole entity graph: seasons → season_leagues → events → competitions → athletes. The everyday command.
 
 ```bash
-python -m ifsc_data refresh [--limit N] [--stale-days N] [--workers N]
+python -m wcl_data refresh [--limit N] [--stale-days N] [--workers N]
 ```
 
 **Options:**
@@ -105,16 +105,16 @@ python -m ifsc_data refresh [--limit N] [--stale-days N] [--workers N]
 | Flag | Type | Default | Description |
 |------|------|---------|-------------|
 | `--limit N` | int | unlimited | Cap the number of rows hydrated **per entity**. Useful for smoke tests. |
-| `--stale-days N` | int | `IFSC_STALE_DAYS` (env, default 30) | Re-fetch rows whose `last_fetched_at` is NULL or older than N days. `0` forces a re-fetch of everything. |
-| `--workers N` | int | `IFSC_MAX_WORKERS` (env, default 50) | Concurrent HTTP workers. Useful range: 50–100. |
+| `--stale-days N` | int | `WCL_STALE_DAYS` (env, default 30) | Re-fetch rows whose `last_fetched_at` is NULL or older than N days. `0` forces a re-fetch of everything. |
+| `--workers N` | int | `WCL_MAX_WORKERS` (env, default 50) | Concurrent HTTP workers. Useful range: 50–100. |
 
 **Examples:**
 
 ```bash
-python -m ifsc_data refresh                   # standard cadence: anything stale (>30 days)
-python -m ifsc_data refresh --limit 20        # smoke-test: 20 rows per entity
-python -m ifsc_data refresh --stale-days 0    # nuclear: force-refresh everything (~30 min)
-python -m ifsc_data refresh --workers 100     # push concurrency higher
+python -m wcl_data refresh                   # standard cadence: anything stale (>30 days)
+python -m wcl_data refresh --limit 20        # smoke-test: 20 rows per entity
+python -m wcl_data refresh --stale-days 0    # nuclear: force-refresh everything (~30 min)
+python -m wcl_data refresh --workers 100     # push concurrency higher
 ```
 
 **Limitation:** `refresh` won't re-discover children of recently-fetched parents (a new event added to a season hydrated yesterday won't appear for another 29 days). Use `pull-new` to catch those.
@@ -123,10 +123,10 @@ python -m ifsc_data refresh --workers 100     # push concurrency higher
 
 ### `pull-new`
 
-Catch all newly-published IFSC content (new events, competitions, athletes appearing in recent results) without re-fetching ancient containers or re-hydrating the ~15k existing athlete profiles. Only **ongoing** containers (current-year seasons, events within 15 days of `date_end`, plus their descendants) are re-fetched; only newly-discovered athlete skeletons get hydrated.
+Catch all newly-published World Climbing content (new events, competitions, athletes appearing in recent results) without re-fetching ancient containers or re-hydrating the ~15k existing athlete profiles. Only **ongoing** containers (current-year seasons, events within 15 days of `date_end`, plus their descendants) are re-fetched; only newly-discovered athlete skeletons get hydrated.
 
 ```bash
-python -m ifsc_data pull-new [--limit N] [--workers N] [--grace-days N]
+python -m wcl_data pull-new [--limit N] [--workers N] [--grace-days N]
 ```
 
 **Options:**
@@ -134,16 +134,16 @@ python -m ifsc_data pull-new [--limit N] [--workers N] [--grace-days N]
 | Flag | Type | Default | Description |
 |------|------|---------|-------------|
 | `--limit N` | int | unlimited | Cap rows touched per entity. |
-| `--workers N` | int | `IFSC_MAX_WORKERS` (default 50) | Concurrent worker count override. |
-| `--grace-days N` | int | `IFSC_GRACE_DAYS` (default 15) | Days past an event's `date_end` during which it's still re-fetched. `0` = strict (ended = frozen). |
+| `--workers N` | int | `WCL_MAX_WORKERS` (default 50) | Concurrent worker count override. |
+| `--grace-days N` | int | `WCL_GRACE_DAYS` (default 15) | Days past an event's `date_end` during which it's still re-fetched. `0` = strict (ended = frozen). |
 
 **Examples:**
 
 ```bash
-python -m ifsc_data pull-new                # catch all new content (~30-60s on a steady-state warehouse)
-python -m ifsc_data pull-new --workers 75   # push concurrency
-python -m ifsc_data pull-new --limit 10     # smoke test
-python -m ifsc_data pull-new --grace-days 30   # more forgiving for late corrections
+python -m wcl_data pull-new                # catch all new content (~30-60s on a steady-state warehouse)
+python -m wcl_data pull-new --workers 75   # push concurrency
+python -m wcl_data pull-new --limit 10     # smoke test
+python -m wcl_data pull-new --grace-days 30   # more forgiving for late corrections
 ```
 
 **Why this exists:** `refresh --stale-days 0` would also catch new content but takes ~30 min because it re-fetches every athlete profile *and* every historical container. Athlete profile data almost never changes; ended seasons/events never gain new structural children. `pull-new` skips both kinds of waste. See [docs/decisions/0006-ongoing-only-pull-new.md](docs/decisions/0006-ongoing-only-pull-new.md) for the design rationale.
@@ -155,7 +155,7 @@ python -m ifsc_data pull-new --grace-days 30   # more forgiving for late correct
 Hydrate one entity only. Same staleness logic as `refresh`, but scoped to a single table.
 
 ```bash
-python -m ifsc_data hydrate <entity> [--limit N] [--stale-days N] [--workers N]
+python -m wcl_data hydrate <entity> [--limit N] [--stale-days N] [--workers N]
 ```
 
 **Positional argument:**
@@ -169,9 +169,9 @@ python -m ifsc_data hydrate <entity> [--limit N] [--stale-days N] [--workers N]
 **Examples:**
 
 ```bash
-python -m ifsc_data hydrate athletes                       # refresh stale athlete profiles
-python -m ifsc_data hydrate competitions --stale-days 0    # re-fetch every competition's rankings
-python -m ifsc_data hydrate seasons --limit 5              # smoke test
+python -m wcl_data hydrate athletes                       # refresh stale athlete profiles
+python -m wcl_data hydrate competitions --stale-days 0    # re-fetch every competition's rankings
+python -m wcl_data hydrate seasons --limit 5              # smoke test
 ```
 
 **Discovery note:** `hydrate <entity>` doesn't *discover* new entities of that type — it only refreshes rows that already exist. Discovery happens by hydrating the parent (e.g. new athletes appear when you hydrate competitions). The lone exception is `hydrate seasons`, which also runs the seasons-probe discovery as a side effect of going through `refresh_orchestrator.hydrate_entity`.
@@ -183,13 +183,13 @@ python -m ifsc_data hydrate seasons --limit 5              # smoke test
 Print row counts and hydration coverage for every table. Doesn't hit the API.
 
 ```bash
-python -m ifsc_data status
+python -m wcl_data status
 ```
 
 **Output shape:**
 
 ```
-DB: /path/to/data/ifsc.sqlite
+DB: /path/to/data/wcl.sqlite
 table                      rows   hydrated
 seasons                      38         38
 leagues                      15          -
@@ -206,7 +206,7 @@ season_leagues              450        450
 Dump pre-joined SQL views to timestamped CSV files in `data/exports/`. Each CSV is self-contained — no need to follow foreign keys.
 
 ```bash
-python -m ifsc_data export [view] [--output-dir PATH]
+python -m wcl_data export [view] [--output-dir PATH]
 ```
 
 **Positional argument:**
@@ -226,9 +226,9 @@ python -m ifsc_data export [view] [--output-dir PATH]
 **Examples:**
 
 ```bash
-python -m ifsc_data export                         # all six views to data/exports/
-python -m ifsc_data export results                 # only the big denormalized view
-python -m ifsc_data export athletes --output-dir /tmp/csv
+python -m wcl_data export                         # all six views to data/exports/
+python -m wcl_data export results                 # only the big denormalized view
+python -m wcl_data export athletes --output-dir /tmp/csv
 ```
 
 **Views:**
@@ -246,18 +246,18 @@ python -m ifsc_data export athletes --output-dir /tmp/csv
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `IFSC_CSRF_TOKEN` | (required) | `X-Csrf-Token` header from ifsc.results.info DevTools. |
-| `IFSC_SESSION_COOKIE` | (required) | `Cookie` header value. |
-| `IFSC_REFERER` | `https://ifsc.results.info` | Sent as `Referer` header. |
-| `IFSC_MAX_WORKERS` | `50` | Default concurrent worker count. Overridable per-command with `--workers`. |
-| `IFSC_REQUEST_TIMEOUT` | `120` | Per-request timeout in seconds. |
-| `IFSC_DB_PATH` | `data/ifsc.sqlite` | Where the warehouse lives. Relative paths resolve against the repo root. |
-| `IFSC_STALE_DAYS` | `30` | Default staleness threshold for `refresh` / `hydrate`. Overridable with `--stale-days`. |
-| `IFSC_GRACE_DAYS` | `15` | Days past an event's `date_end` during which `pull-new` still treats it as ongoing. Catches late result corrections. Overridable with `--grace-days`. |
+| `WCL_CSRF_TOKEN` | (required) | `X-Csrf-Token` header from ifsc.results.info DevTools. |
+| `WCL_SESSION_COOKIE` | (required) | `Cookie` header value. |
+| `WCL_REFERER` | `https://ifsc.results.info` | Sent as `Referer` header. |
+| `WCL_MAX_WORKERS` | `50` | Default concurrent worker count. Overridable per-command with `--workers`. |
+| `WCL_REQUEST_TIMEOUT` | `120` | Per-request timeout in seconds. |
+| `WCL_DB_PATH` | `data/wcl.sqlite` | Where the warehouse lives. Relative paths resolve against the repo root. |
+| `WCL_STALE_DAYS` | `30` | Default staleness threshold for `refresh` / `hydrate`. Overridable with `--stale-days`. |
+| `WCL_GRACE_DAYS` | `15` | Days past an event's `date_end` during which `pull-new` still treats it as ongoing. Catches late result corrections. Overridable with `--grace-days`. |
 
 ## Data model
 
-Single SQLite file at `data/ifsc.sqlite`, schema defined in `src/ifsc_data/db/schema.py`:
+Single SQLite file at `data/wcl.sqlite`, schema defined in `src/wcl_data/db/schema.py`:
 
 | Table          | Purpose                                                  | Hydratable |
 |----------------|----------------------------------------------------------|:----------:|
@@ -276,7 +276,7 @@ Single SQLite file at `data/ifsc.sqlite`, schema defined in `src/ifsc_data/db/sc
 ## Project layout
 
 ```
-src/ifsc_data/
+src/wcl_data/
 ├── api/client.py            # Streaming HTTP client (concurrent + selective retry)
 ├── db/
 │   ├── schema.py            # DDL + apply_schema()

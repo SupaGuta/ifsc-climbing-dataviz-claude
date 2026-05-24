@@ -5,7 +5,7 @@ from datetime import datetime, timedelta, timezone
 
 import pytest
 
-from ifsc_data.db.repository import Repository, TS_FMT
+from wcl_data.db.repository import Repository, TS_FMT
 
 
 def test_upsert_season_is_idempotent(memory_db):
@@ -252,7 +252,7 @@ def test_upsert_category_round_coalesce_preserves_values(memory_db):
 
 
 def test_upsert_route_preserves_original_category_round_id(memory_db):
-    """Route IFSC ids are globally unique on the API — a collision under a
+    """Route World Climbing ids are globally unique on the API — a collision under a
     different category_round must not silently re-parent the route (which would
     corrupt existing ascents). The conflict resolution preserves the original
     parent and only updates COALESCE'd fields. See code review tier-A fix."""

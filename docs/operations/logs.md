@@ -1,7 +1,7 @@
 # Logs
 
 Logging setup lives in
-[`src/ifsc_data/logging_setup.py`](https://github.com/SupaGuta/world-climbing-lab/blob/main/src/ifsc_data/logging_setup.py).
+[`src/wcl_data/logging_setup.py`](https://github.com/SupaGuta/world-climbing-lab/blob/main/src/wcl_data/logging_setup.py).
 Two sinks, configured once per process by `logging_setup.configure()`:
 
 ## What goes where
@@ -9,14 +9,14 @@ Two sinks, configured once per process by `logging_setup.configure()`:
 | Sink | Level | Format | Where |
 |---|---|---|---|
 | Console | INFO + above, with WARNING **hidden** unless `-v` | Colored (`HH:MM:SS LEVEL logger: msg`) | stdout |
-| File | WARNING + above | Plain (`asctime levelname name: msg`) | `logs/ifsc-data.log` |
+| File | WARNING + above | Plain (`asctime levelname name: msg`) | `logs/wcl-data.log` |
 
 The console deliberately suppresses WARNING by default so the run output
 stays readable. Pass `-v` / `--verbose` *before* the subcommand to keep
 warnings on screen:
 
 ```bash
-python -m ifsc_data -v pull-new
+python -m wcl_data -v pull-new
 ```
 
 The file log catches them regardless, so a post-mortem is always possible.
@@ -30,10 +30,10 @@ The file log catches them regardless, so a post-mortem is always possible.
 
 ```bash
 # Last 20 warnings
-tail -n 20 logs/ifsc-data.log
+tail -n 20 logs/wcl-data.log
 
 # Just 4xx drops (likely auth issues)
-grep '4[0-9][0-9]' logs/ifsc-data.log | tail
+grep '4[0-9][0-9]' logs/wcl-data.log | tail
 ```
 
 ## No automatic rotation
@@ -46,23 +46,23 @@ grow into the tens of MB.
 
 ### Manual cleanup recipe
 
-When `logs/ifsc-data.log` gets uncomfortably large, delete or rotate it
+When `logs/wcl-data.log` gets uncomfortably large, delete or rotate it
 manually. The next CLI invocation will recreate it:
 
 **PowerShell (Windows):**
 
 ```powershell
-Remove-Item logs\ifsc-data.log
+Remove-Item logs\wcl-data.log
 # Or: rotate, keep the last entry
-Move-Item logs\ifsc-data.log logs\ifsc-data.$(Get-Date -Format 'yyyyMMdd').log
+Move-Item logs\wcl-data.log logs\wcl-data.$(Get-Date -Format 'yyyyMMdd').log
 ```
 
 **bash / zsh (macOS / Linux):**
 
 ```bash
-rm logs/ifsc-data.log
+rm logs/wcl-data.log
 # Or: rotate
-mv logs/ifsc-data.log logs/ifsc-data.$(date +%Y%m%d).log
+mv logs/wcl-data.log logs/wcl-data.$(date +%Y%m%d).log
 ```
 
 **Periodic via Task Scheduler (Windows) / cron (Unix):**
@@ -75,7 +75,7 @@ log data."
 
 The standard library provides `logging.handlers.RotatingFileHandler`
 (size-based) and `TimedRotatingFileHandler` (time-based). Swapping the
-plain `FileHandler` in `src/ifsc_data/logging_setup.py:configure()` for
+plain `FileHandler` in `src/wcl_data/logging_setup.py:configure()` for
 one of those would add rotation. This isn't done by default because:
 
 1. The volume is small enough in practice to not warrant the moving
@@ -84,7 +84,7 @@ one of those would add rotation. This isn't done by default because:
    retention?).
 
 If you decide you want it, the change is a few lines and could be
-exposed via an env var (e.g. `IFSC_LOG_ROTATE=size:10MB:5`). Open an issue
+exposed via an env var (e.g. `WCL_LOG_ROTATE=size:10MB:5`). Open an issue
 to discuss before patching.
 
 ## Log levels in the codebase
@@ -111,7 +111,7 @@ function**:
 
 ```python
 import logging
-from ifsc_data import logging_setup
+from wcl_data import logging_setup
 
 logging_setup.configure(level=logging.DEBUG, verbose=True)
 ```

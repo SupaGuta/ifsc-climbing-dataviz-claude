@@ -1,20 +1,20 @@
 # Authentication
 
 The IFSC public API requires a CSRF token and a session cookie. Both are
-stored in `.env` (gitignored) as `IFSC_CSRF_TOKEN` and
-`IFSC_SESSION_COOKIE`.
+stored in `.env` (gitignored) as `WCL_CSRF_TOKEN` and
+`WCL_SESSION_COOKIE`.
 
-**They rotate.** Expect to refresh every few months — sooner if the IFSC
+**They rotate.** Expect to refresh every few months — sooner if the World Climbing
 changes its session policy.
 
 ## When to refresh
 
 Whenever `refresh` / `pull-new` / `hydrate` starts failing with
 `HTTP 401 Unauthorized` or `HTTP 403 Forbidden`. Look in
-`logs/ifsc-data.log` for lines like:
+`logs/wcl-data.log` for lines like:
 
 ```
-WARNING ifsc_data.api.client: Fetch failed for /athletes/1234: HTTP 401 Unauthorized
+WARNING wcl_data.api.client: Fetch failed for /athletes/1234: HTTP 401 Unauthorized
 ```
 
 Because the API client treats 4xx as permanent (see
@@ -26,17 +26,17 @@ total counts.
 ## How to refresh
 
 ```bash
-python -m ifsc_data auth
+python -m wcl_data auth
 ```
 
 What this does, from
-[`src/ifsc_data/api/credentials.py`](https://github.com/SupaGuta/world-climbing-lab/blob/main/src/ifsc_data/api/credentials.py):
+[`src/wcl_data/api/credentials.py`](https://github.com/SupaGuta/world-climbing-lab/blob/main/src/wcl_data/api/credentials.py):
 
 1. Plain GET to `https://ifsc.results.info`.
 2. Regex-extracts the `<meta name="csrf-token" content="...">` value.
 3. Picks up the session cookie from the response's `Set-Cookie` header
    (any cookie whose name contains `session`).
-4. Rewrites `IFSC_CSRF_TOKEN=` and `IFSC_SESSION_COOKIE=` in `.env`,
+4. Rewrites `WCL_CSRF_TOKEN=` and `WCL_SESSION_COOKIE=` in `.env`,
    preserving every other line, comment, and ordering. Appends either
    key if missing.
 
@@ -50,7 +50,7 @@ needed to authenticated subsequent API calls.
 Print what would be written, don't touch `.env`:
 
 ```bash
-python -m ifsc_data auth --dry-run
+python -m wcl_data auth --dry-run
 ```
 
 Output shape:
@@ -61,8 +61,8 @@ Fetched fresh credentials from https://ifsc.results.info
   Session cookie: _ifsc_results_session=... (123 chars)
 
 --dry-run: not writing to .env. Lines that would be written:
-  IFSC_CSRF_TOKEN=<full token>
-  IFSC_SESSION_COOKIE=<full cookie>
+  WCL_CSRF_TOKEN=<full token>
+  WCL_SESSION_COOKIE=<full cookie>
 ```
 
 Useful for verifying that fetch works before committing to a rewrite, or
@@ -73,7 +73,7 @@ when you want to paste credentials into a different file.
 Target a non-default `.env`:
 
 ```bash
-python -m ifsc_data auth --env-file /tmp/alt.env
+python -m wcl_data auth --env-file /tmp/alt.env
 ```
 
 Useful when running against multiple deployments or when scripting auth
@@ -84,7 +84,7 @@ refresh outside the repo.
 Re-run whatever was failing:
 
 ```bash
-python -m ifsc_data pull-new
+python -m wcl_data pull-new
 ```
 
 The new credentials are picked up on the next `load_settings()` call
@@ -96,22 +96,22 @@ Two failure modes:
 
 ### `RuntimeError: Could not find <meta name="csrf-token">`
 
-The IFSC site layout has changed. The CSRF meta tag is no longer at the
+The World Climbing site layout has changed. The CSRF meta tag is no longer at the
 expected location.
 
 **Workaround:** paste credentials manually. Open
 `https://ifsc.results.info` in a browser, open DevTools → Network, refresh
 the page, find the request to `/api/v1/...`, copy:
 
-- `X-Csrf-Token` request header → `IFSC_CSRF_TOKEN`
-- `Cookie` request header value → `IFSC_SESSION_COOKIE`
+- `X-Csrf-Token` request header → `WCL_CSRF_TOKEN`
+- `Cookie` request header value → `WCL_SESSION_COOKIE`
 
 Paste into `.env` (overwrite the two lines). Then open an issue so the
-`_CSRF_META_RE` regex in `src/ifsc_data/api/credentials.py` can be updated.
+`_CSRF_META_RE` regex in `src/wcl_data/api/credentials.py` can be updated.
 
 ### `RuntimeError: No session-like cookie returned`
 
-The IFSC stopped naming its session cookie with `session` in the name.
+The World Climbing stopped naming its session cookie with `session` in the name.
 
 **Workaround:** same DevTools paste. Then open an issue to update the
 cookie-name match.

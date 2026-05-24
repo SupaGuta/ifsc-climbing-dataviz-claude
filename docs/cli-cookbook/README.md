@@ -1,6 +1,6 @@
 # CLI cookbook
 
-Task-oriented recipes for the `python -m ifsc_data` CLI. Grouped by intent —
+Task-oriented recipes for the `python -m wcl_data` CLI. Grouped by intent —
 find the section that matches what you're trying to do.
 
 For the CLI reference (all flags, all options) see the root
@@ -25,7 +25,7 @@ behavior, see [`../architecture/`](../architecture/overview.md) and the
 | Want to … | See |
 |-----------|-----|
 | Get started from a fresh clone | [setup.md](setup.md) |
-| Catch new IFSC content | [daily-use.md](daily-use.md) (`pull-new`) |
+| Catch new World Climbing content | [daily-use.md](daily-use.md) (`pull-new`) |
 | Refresh stale rows on the 30-day cadence | [daily-use.md](daily-use.md) (`refresh`) |
 | Force-refresh everything | [daily-use.md](daily-use.md) (`refresh --stale-days 0`) |
 | Export data to CSV | [exports.md](exports.md) |

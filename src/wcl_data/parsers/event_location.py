@@ -1,4 +1,4 @@
-"""Extract (city, country_iso3) from IFSC event names.
+"""Extract (city, country_iso3) from World Climbing event names.
 
 Conservative heuristics:
   * Country as "(FRA)" or " CHN)" (broken parenthesis) → ISO3

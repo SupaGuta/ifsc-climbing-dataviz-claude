@@ -3,9 +3,9 @@ from __future__ import annotations
 
 from unittest.mock import MagicMock
 
-from ifsc_data.api.client import Fetched
-from ifsc_data.db.repository import Repository
-from ifsc_data.fetchers import events as events_fetcher
+from wcl_data.api.client import Fetched
+from wcl_data.db.repository import Repository
+from wcl_data.fetchers import events as events_fetcher
 
 
 def _stub_client_one(ifsc_id: int, data: dict) -> MagicMock:

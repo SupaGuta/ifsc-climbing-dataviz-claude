@@ -1,8 +1,8 @@
 # Database & schema
 
-A single SQLite file at `data/ifsc.sqlite` (or wherever `IFSC_DB_PATH` points).
+A single SQLite file at `data/wcl.sqlite` (or wherever `WCL_DB_PATH` points).
 No migrations framework, no ORM, no external DB server. The schema is defined
-in `src/ifsc_data/db/schema.py` as one `CREATE TABLE IF NOT EXISTS` script
+in `src/wcl_data/db/schema.py` as one `CREATE TABLE IF NOT EXISTS` script
 that runs on every connection open via `apply_schema()`. The rationale for
 the single-file SQLite choice is in
 [ADR 0001](../decisions/0001-single-sqlite-warehouse.md).
@@ -43,7 +43,7 @@ Every entity has two IDs:
 - **`ifsc_id` INTEGER UNIQUE** — the IFSC API's ID, used to build URLs like
   `/seasons/{ifsc_id}`. Always populated; that's how rows are first inserted.
 
-The split exists because the IFSC `ifsc_id` is not always sufficient as a PK:
+The split exists because the upstream `ifsc_id` is not always sufficient as a PK:
 `competitions.ifsc_id` is *not* globally unique (the API uses the same comp
 ID across multiple events), which is why the competitions table uses
 `UNIQUE (event_id, ifsc_id)` instead.
@@ -152,7 +152,7 @@ Four repo methods take a table name argument: `count`, `count_hydrated`,
 f-string, which is normally a SQL-injection risk. The guard is
 `_validate_table(table, allowed)` which checks against the
 `HYDRATABLE_TABLES` / `ALL_TABLES` tuples at the top of
-`src/ifsc_data/db/repository.py` and raises `ValueError` for anything else.
+`src/wcl_data/db/repository.py` and raises `ValueError` for anything else.
 The CLI never passes user input directly into these; the only callers are the
 fetcher modules with hardcoded strings.
 

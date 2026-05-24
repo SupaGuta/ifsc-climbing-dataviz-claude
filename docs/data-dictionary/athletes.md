@@ -1,6 +1,6 @@
 # `athletes`
 
-Climber profiles. One row per athlete the IFSC has ever indexed in a result.
+Climber profiles. One row per athlete the World Climbing has ever indexed in a result.
 
 **Typical size:** ~14,900 rows.
 
@@ -20,7 +20,7 @@ populates during `athletes.hydrate`.
 | `firstname`        | TEXT    |    ✓     | Given name. From API `firstname`.                                    |
 | `lastname`         | TEXT    |    ✓     | Family name. From API `lastname`.                                    |
 | `gender`           | INTEGER |    ✓     | `0` = male, `1` = female, NULL = unknown. Parsed from API `"male"`/`"female"` string. |
-| `height`           | INTEGER |    ✓     | Centimetres. Self-reported on IFSC; usually NULL.                    |
+| `height`           | INTEGER |    ✓     | Centimetres. Self-reported on World Climbing; usually NULL.                    |
 | `arm_span`         | INTEGER |    ✓     | Centimetres. Self-reported; usually NULL.                            |
 | `birthday`         | TEXT    |    ✓     | `YYYY-MM-DD`. Often NULL for older athletes or privacy reasons.      |
 | `city`             | TEXT    |    ✓     | Free-text city. NULL if API didn't have it.                          |
@@ -78,7 +78,7 @@ column here.
 - **One known permanent 404:** athlete `ifsc_id = 12334`. This row exists as
   a skeleton forever and surfaces in logs as a 404 WARNING during
   `athletes.hydrate`. Silent drop, no action needed; it's documented as a
-  known IFSC-side artifact.
+  known World Climbing-side artifact.
 - **`city` here is free-text from the API**, not parsed. It's not normalized
   and shouldn't be treated as authoritative — same city often appears with
   different spellings ("Saint-Petersburg" vs "St. Petersburg").

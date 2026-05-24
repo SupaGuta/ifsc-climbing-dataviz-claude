@@ -66,38 +66,38 @@ def fetch_credentials(url: str = REFERER_URL, *, timeout: int = 30) -> FetchedCr
 
 
 def update_env_file(env_path: Path, csrf: str, cookie: str) -> None:
-    """Update `IFSC_CSRF_TOKEN` and `IFSC_SESSION_COOKIE` in `env_path`.
+    """Update `WCL_CSRF_TOKEN` and `WCL_SESSION_COOKIE` in `env_path`.
 
     - If the file doesn't exist: create with just the two lines.
-    - If it exists: replace the existing IFSC_CSRF_TOKEN / IFSC_SESSION_COOKIE
+    - If it exists: replace the existing WCL_CSRF_TOKEN / WCL_SESSION_COOKIE
       lines in place; preserve every other line, comment, and ordering. Append
       either key if it's missing.
     """
     if not env_path.exists():
         env_path.write_text(
-            f"IFSC_CSRF_TOKEN={csrf}\n"
-            f"IFSC_SESSION_COOKIE={cookie}\n",
+            f"WCL_CSRF_TOKEN={csrf}\n"
+            f"WCL_SESSION_COOKIE={cookie}\n",
             encoding="utf-8",
         )
         return
 
     original = env_path.read_text(encoding="utf-8").splitlines()
     new_lines: list[str] = []
-    seen = {"IFSC_CSRF_TOKEN": False, "IFSC_SESSION_COOKIE": False}
+    seen = {"WCL_CSRF_TOKEN": False, "WCL_SESSION_COOKIE": False}
 
     for line in original:
-        if line.startswith("IFSC_CSRF_TOKEN="):
-            new_lines.append(f"IFSC_CSRF_TOKEN={csrf}")
-            seen["IFSC_CSRF_TOKEN"] = True
-        elif line.startswith("IFSC_SESSION_COOKIE="):
-            new_lines.append(f"IFSC_SESSION_COOKIE={cookie}")
-            seen["IFSC_SESSION_COOKIE"] = True
+        if line.startswith("WCL_CSRF_TOKEN="):
+            new_lines.append(f"WCL_CSRF_TOKEN={csrf}")
+            seen["WCL_CSRF_TOKEN"] = True
+        elif line.startswith("WCL_SESSION_COOKIE="):
+            new_lines.append(f"WCL_SESSION_COOKIE={cookie}")
+            seen["WCL_SESSION_COOKIE"] = True
         else:
             new_lines.append(line)
 
-    if not seen["IFSC_CSRF_TOKEN"]:
-        new_lines.append(f"IFSC_CSRF_TOKEN={csrf}")
-    if not seen["IFSC_SESSION_COOKIE"]:
-        new_lines.append(f"IFSC_SESSION_COOKIE={cookie}")
+    if not seen["WCL_CSRF_TOKEN"]:
+        new_lines.append(f"WCL_CSRF_TOKEN={csrf}")
+    if not seen["WCL_SESSION_COOKIE"]:
+        new_lines.append(f"WCL_SESSION_COOKIE={cookie}")
 
     env_path.write_text("\n".join(new_lines) + "\n", encoding="utf-8")

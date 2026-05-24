@@ -68,8 +68,8 @@ populates only the subset of columns that the source ascent payload had.
   `"confirmed"`. Treat as a string, not as a boolean alias.
 - **The table is excluded from `export_all` by default.** Default exports
   generate ~6 CSVs at ~200 MB combined; including `ascents` would push that
-  past 500 MB. Run `python -m ifsc_data export ascents` to generate it on
-  demand. See [`exporter.py`](https://github.com/SupaGuta/world-climbing-lab/blob/main/src/ifsc_data/exporter.py)'s
+  past 500 MB. Run `python -m wcl_data export ascents` to generate it on
+  demand. See [`exporter.py`](https://github.com/SupaGuta/world-climbing-lab/blob/main/src/wcl_data/exporter.py)'s
   `DEFAULT_EXPORT_VIEWS`.
 - **Re-hydrating a competition wipes its ascents first** (along with
   `round_results`, `stage_results`, `round_stages`). Inside the per-competition

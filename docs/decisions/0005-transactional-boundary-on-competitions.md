@@ -49,7 +49,7 @@ for fetched in client.stream_paths(items):
         fail += 1
 ```
 
-The `transaction()` context (`src/ifsc_data/db/repository.py:transaction`)
+The `transaction()` context (`src/wcl_data/db/repository.py:transaction`)
 suppresses per-call commits while active and commits once on clean exit /
 rolls back on exception. Nested transactions are flattened: only the
 outermost commits.

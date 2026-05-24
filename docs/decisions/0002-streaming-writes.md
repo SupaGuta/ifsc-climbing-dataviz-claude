@@ -18,7 +18,7 @@ race ahead.
 
 ## Decision
 
-The API client (`src/ifsc_data/api/client.py`) exposes its results as a
+The API client (`src/wcl_data/api/client.py`) exposes its results as a
 **generator** that yields each `Fetched` the instant its future resolves
 inside `as_completed(futures)`. Per-entity fetchers iterate the generator
 and call the repository between iterations. The repository commits per

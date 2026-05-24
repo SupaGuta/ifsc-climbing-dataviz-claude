@@ -1,11 +1,11 @@
-# Notebooks — an educational tour of `ifsc_data`
+# Notebooks — an educational tour of `wcl_data`
 
-A four-part, runnable walkthrough of the IFSC ingestion package. Each
+A four-part, runnable walkthrough of the World Climbing ingestion package. Each
 notebook is a chapter; read them in order, top to bottom, and you'll go
 from an empty clone to a populated SQLite warehouse you can query with
 pandas.
 
-> "Run All" is safe on every notebook. The first one will hit the IFSC
+> "Run All" is safe on every notebook. The first one will hit the World Climbing
 > API (so make sure you have internet and that `.env` is set up). The
 > later ones read from the local DB only.
 
@@ -38,6 +38,6 @@ exploration in these notebooks.
   re-applies the schema (no-op), and only fetches newly-published content
   via `pull-new`.
 - Notebooks **01–03** read only; running them again is always safe.
-- If you change source code under `src/ifsc_data/` and want the notebooks
+- If you change source code under `src/wcl_data/` and want the notebooks
   to pick it up, restart the kernel (the editable install means no
   `pip` reinstall is needed).

@@ -6,7 +6,7 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from ifsc_data.api.credentials import (
+from wcl_data.api.credentials import (
     FetchedCredentials,
     fetch_credentials,
     update_env_file,
@@ -39,7 +39,7 @@ def test_fetch_credentials_parses_csrf_and_cookie(monkeypatch):
         </head></html>
     """
     monkeypatch.setattr(
-        "ifsc_data.api.credentials.requests.get",
+        "wcl_data.api.credentials.requests.get",
         lambda url, timeout: _stub_response(
             body=html,
             cookies=[("_ifsc_resultservice_session", "cookieValue123")],
@@ -53,7 +53,7 @@ def test_fetch_credentials_parses_csrf_and_cookie(monkeypatch):
 
 def test_fetch_credentials_raises_when_meta_missing(monkeypatch):
     monkeypatch.setattr(
-        "ifsc_data.api.credentials.requests.get",
+        "wcl_data.api.credentials.requests.get",
         lambda url, timeout: _stub_response(
             body="<html>no meta tag</html>",
             cookies=[("session", "x")],
@@ -65,7 +65,7 @@ def test_fetch_credentials_raises_when_meta_missing(monkeypatch):
 
 def test_fetch_credentials_raises_when_no_session_cookie(monkeypatch):
     monkeypatch.setattr(
-        "ifsc_data.api.credentials.requests.get",
+        "wcl_data.api.credentials.requests.get",
         lambda url, timeout: _stub_response(
             body='<meta name="csrf-token" content="x" />',
             cookies=[("unrelated_cookie", "y")],
@@ -84,18 +84,18 @@ def test_update_env_file_creates_when_missing(tmp_path):
     update_env_file(env, "csrf123", "name=value")
 
     text = env.read_text(encoding="utf-8")
-    assert "IFSC_CSRF_TOKEN=csrf123" in text
-    assert "IFSC_SESSION_COOKIE=name=value" in text
+    assert "WCL_CSRF_TOKEN=csrf123" in text
+    assert "WCL_SESSION_COOKIE=name=value" in text
 
 
 def test_update_env_file_replaces_existing_keys_in_place(tmp_path):
     env = tmp_path / ".env"
     env.write_text(
         "# IFSC API session\n"
-        "IFSC_CSRF_TOKEN=oldtoken\n"
-        "IFSC_SESSION_COOKIE=oldcookie\n"
-        "IFSC_MAX_WORKERS=50\n"
-        "IFSC_DB_PATH=data/ifsc.sqlite\n",
+        "WCL_CSRF_TOKEN=oldtoken\n"
+        "WCL_SESSION_COOKIE=oldcookie\n"
+        "WCL_MAX_WORKERS=50\n"
+        "WCL_DB_PATH=data/wcl.sqlite\n",
         encoding="utf-8",
     )
 
@@ -104,19 +104,19 @@ def test_update_env_file_replaces_existing_keys_in_place(tmp_path):
     lines = env.read_text(encoding="utf-8").splitlines()
     # Order preserved, other keys untouched.
     assert lines[0] == "# IFSC API session"
-    assert lines[1] == "IFSC_CSRF_TOKEN=newtoken"
-    assert lines[2] == "IFSC_SESSION_COOKIE=name=newcookieval"
-    assert lines[3] == "IFSC_MAX_WORKERS=50"
-    assert lines[4] == "IFSC_DB_PATH=data/ifsc.sqlite"
+    assert lines[1] == "WCL_CSRF_TOKEN=newtoken"
+    assert lines[2] == "WCL_SESSION_COOKIE=name=newcookieval"
+    assert lines[3] == "WCL_MAX_WORKERS=50"
+    assert lines[4] == "WCL_DB_PATH=data/wcl.sqlite"
 
 
 def test_update_env_file_appends_missing_keys(tmp_path):
     env = tmp_path / ".env"
-    env.write_text("IFSC_MAX_WORKERS=50\n", encoding="utf-8")
+    env.write_text("WCL_MAX_WORKERS=50\n", encoding="utf-8")
 
     update_env_file(env, "csrfX", "name=valueX")
 
     text = env.read_text(encoding="utf-8")
-    assert "IFSC_MAX_WORKERS=50" in text
-    assert "IFSC_CSRF_TOKEN=csrfX" in text
-    assert "IFSC_SESSION_COOKIE=name=valueX" in text
+    assert "WCL_MAX_WORKERS=50" in text
+    assert "WCL_CSRF_TOKEN=csrfX" in text
+    assert "WCL_SESSION_COOKIE=name=valueX" in text

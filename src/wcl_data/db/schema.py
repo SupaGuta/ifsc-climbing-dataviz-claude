@@ -1,4 +1,4 @@
-"""SQLite schema for the IFSC warehouse.
+"""SQLite schema for the World Climbing warehouse.
 
 Every entity table that maps 1:1 to an API endpoint has a `last_fetched_at`
 column so the hydrate step can re-fetch only stale or new rows.

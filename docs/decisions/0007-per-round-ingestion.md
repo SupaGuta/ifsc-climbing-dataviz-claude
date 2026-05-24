@@ -6,7 +6,7 @@
 ## Context
 
 The `results` table only stored final overall rank per (competition, athlete).
-The IFSC payload at `/events/{event}/result/{comp}` carries far richer
+The World Climbing payload at `/events/{event}/result/{comp}` carries far richer
 information: each competition's phase structure (qualif / semi / final), each
 athlete's rank and score *within each phase*, and each ascent route-by-route.
 None of this was ingested.
@@ -83,7 +83,7 @@ startlist-hydration state.
   Disk goes from ~150 MB to ~600 MB. Backfill via
   `refresh --stale-days 0` takes ~45-90 min on a modern laptop.
 - `ascents` was excluded from `export_all` (~200 MB CSV otherwise). Users who
-  want it must `python -m ifsc_data export ascents` explicitly.
+  want it must `python -m wcl_data export ascents` explicitly.
 - `stage_results` is redundant with `round_results` for simple rounds. Cost:
   ~440k extra rows of nearly-duplicated data. The redundancy lets downstream
   queries always join through `round_stage_id` uniformly — a worthwhile

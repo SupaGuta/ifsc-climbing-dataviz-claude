@@ -9,7 +9,7 @@ Filenames carry a UTC timestamp (`<view>_YYYY-MM-DDTHHMMSSZ.csv`) so multiple
 exports don't overwrite each other.
 
 `ascents` is registered but excluded from `export_all` (size: ~900k rows of
-22 columns ≈ 200 MB+). Run `python -m ifsc_data export ascents` explicitly
+22 columns ≈ 200 MB+). Run `python -m wcl_data export ascents` explicitly
 when needed.
 """
 from __future__ import annotations

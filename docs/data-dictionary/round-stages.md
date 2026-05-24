@@ -30,7 +30,7 @@ parent competition's hydration; structural state, not fetched independently.
 | `name`                   | TEXT    |    ✓     | `"Boulder"` / `"Lead"` (combined); `"1/8"` / `"1/4"` / `"1/2"` / `"Small Final"` / `"Final"` (speed). NULL for the default stage. |
 | `kind`                   | TEXT    |    ✓     | `"boulder"` / `"lead"` for combined sub-stages; NULL otherwise. |
 | `heat_id`                | INTEGER |    ✓     | IFSC heat id for speed-final stages; NULL otherwise. Globally stable. |
-| `combined_stage_ifsc_id` | INTEGER |    ✓     | IFSC `combined_stages[].id` for combined sub-stages; NULL otherwise. |
+| `combined_stage_ifsc_id` | INTEGER |    ✓     | `combined_stages[].id` from the API payload, for combined sub-stages; NULL otherwise. |
 
 **Indexes:**
 - `idx_round_stages_round ON category_round_id`
@@ -49,7 +49,7 @@ parent competition's hydration; structural state, not fetched independently.
 - **`seq` semantics vary by discipline** — same column, different meanings:
   - **Default stage** (Lead/Boulder/Speed-qualif): `seq = 0`, single row per round.
   - **Combined sub-stages**: `seq = enumerate index` of the sub-discipline within `category_rounds[*].combined_stages[]` (typically 0=Boulder, 1=Lead for modern combined). The semantic linkage uses `kind` (set on the same row), not seq.
-  - **Speed-final heats**: `seq = heat_id` (the IFSC heat identifier, monotonically allocated). One row per physical heat — eight 1/8 heats, four 1/4 heats, etc. heat_ids are large integers (e.g. 77865), so seq values for speed-final are much bigger than for other disciplines. Order by seq still yields chronological bracket order because IFSC allocates heat_ids in time order.
+  - **Speed-final heats**: `seq = heat_id` (the IFSC heat identifier, monotonically allocated). One row per physical heat — eight 1/8 heats, four 1/4 heats, etc. heat_ids are large integers (e.g. 77865), so seq values for speed-final are much bigger than for other disciplines. Order by seq still yields chronological bracket order because World Climbing allocates heat_ids in time order.
 - **The `seq == heat_id` convention for speed-final** preserves per-heat granularity. Before this convention (fixed during the post-merge code-review), multiple physical heats sharing a bracket name collapsed into one row and the bracket structure was lost.
 - **Legacy / unknown speed heat names** that arrive without a `heat_id` fall back to `_speed_seq(name)` from `SPEED_HEAT_SEQ` (`{"1/8": 0, "1/4": 1, "1/2": 2, "Small Final": 3, "Final": 4}`, default 999). A warning is logged when this happens. Audit periodically with:
   ```sql

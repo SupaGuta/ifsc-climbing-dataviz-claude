@@ -1,6 +1,6 @@
 # Architecture overview
 
-`ifsc_data` is **Layer 0** of a larger project: it ingests the IFSC public API
+`wcl_data` is **Layer 0** of a larger project: it ingests the IFSC public API
 into a single local SQLite warehouse. Downstream consumers (dashboards,
 notebooks, ML pipelines) read from the warehouse — they never talk to the API
 directly. This isolates one of the messier parts of the project (a public,
@@ -27,24 +27,24 @@ contract: a SQLite file with documented tables.
 │   selective retry)             transaction() context)                  │
 │                                     │                                  │
 │                                     ▼                                  │
-│                          db/schema.py  →  data/ifsc.sqlite             │
+│                          db/schema.py  →  data/wcl.sqlite             │
 └────────────────────────────────────────────────────────────────────────┘
 ```
 
-- **CLI** (`src/ifsc_data/cli.py`) is a thin argparse wrapper that wires up
+- **CLI** (`src/wcl_data/cli.py`) is a thin argparse wrapper that wires up
   `Settings`, opens the DB, and delegates to the orchestrator.
-- **Orchestrator** (`src/ifsc_data/fetchers/refresh.py`) decides *what* to do
+- **Orchestrator** (`src/wcl_data/fetchers/refresh.py`) decides *what* to do
   (`refresh_all`, `pull_new`, `hydrate_entity`) and walks the entity graph in a
   fixed topological order.
-- **Per-entity fetchers** (`src/ifsc_data/fetchers/{seasons,season_leagues,events,competitions,athletes}.py`)
+- **Per-entity fetchers** (`src/wcl_data/fetchers/{seasons,season_leagues,events,competitions,athletes}.py`)
   own the parse logic for one API endpoint each. They call the HTTP client to
   stream rows in and the repository to write rows out.
-- **HTTP client** (`src/ifsc_data/api/client.py`) does concurrent, streaming
+- **HTTP client** (`src/wcl_data/api/client.py`) does concurrent, streaming
   fetches with selective retry. See [api-client.md](api-client.md).
-- **Repository** (`src/ifsc_data/db/repository.py`) is the only thing that
+- **Repository** (`src/wcl_data/db/repository.py`) is the only thing that
   writes SQL. Every method commits per-row unless wrapped in
   `with repo.transaction():`. See [database-and-schema.md](database-and-schema.md).
-- **Schema** (`src/ifsc_data/db/schema.py`) is the single source of truth for
+- **Schema** (`src/wcl_data/db/schema.py`) is the single source of truth for
   table layout. Idempotent — `apply_schema()` runs on every DB open.
 
 ## The entity graph
@@ -67,7 +67,7 @@ rewritten on every parent hydration; `results` doesn't need staleness because
 it's wiped + reinserted as part of competition hydration (see
 [ADR 0005](../decisions/0005-transactional-boundary-on-competitions.md)).
 
-Hydration order is **fixed** in `src/ifsc_data/fetchers/refresh.py`:
+Hydration order is **fixed** in `src/wcl_data/fetchers/refresh.py`:
 
 ```python
 ENTITIES = ("seasons", "season_leagues", "events", "competitions", "athletes")

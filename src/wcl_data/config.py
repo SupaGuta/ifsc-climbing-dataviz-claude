@@ -39,25 +39,25 @@ def load_settings(*, require_credentials: bool = True) -> Settings:
     With `require_credentials=False` the credentials default to empty strings,
     which is fine for commands that don't hit the API (init / status / export).
     """
-    csrf = os.getenv("IFSC_CSRF_TOKEN", "").strip()
-    cookie = os.getenv("IFSC_SESSION_COOKIE", "").strip()
+    csrf = os.getenv("WCL_CSRF_TOKEN", "").strip()
+    cookie = os.getenv("WCL_SESSION_COOKIE", "").strip()
     if require_credentials and (not csrf or not cookie):
         raise RuntimeError(
-            "Missing IFSC_CSRF_TOKEN or IFSC_SESSION_COOKIE. "
+            "Missing WCL_CSRF_TOKEN or WCL_SESSION_COOKIE. "
             "Copy .env.example to .env and fill in credentials from DevTools on ifsc.results.info."
         )
 
-    db_path = Path(os.getenv("IFSC_DB_PATH", "data/ifsc.sqlite"))
+    db_path = Path(os.getenv("WCL_DB_PATH", "data/wcl.sqlite"))
     if not db_path.is_absolute():
         db_path = REPO_ROOT / db_path
 
     return Settings(
         csrf_token=csrf,
         session_cookie=cookie,
-        referer=os.getenv("IFSC_REFERER", "https://ifsc.results.info"),
-        max_workers=int(os.getenv("IFSC_MAX_WORKERS", "50")),
-        request_timeout=int(os.getenv("IFSC_REQUEST_TIMEOUT", "120")),
+        referer=os.getenv("WCL_REFERER", "https://ifsc.results.info"),
+        max_workers=int(os.getenv("WCL_MAX_WORKERS", "50")),
+        request_timeout=int(os.getenv("WCL_REQUEST_TIMEOUT", "120")),
         db_path=db_path,
-        stale_days=int(os.getenv("IFSC_STALE_DAYS", "30")),
-        grace_days=int(os.getenv("IFSC_GRACE_DAYS", "15")),
+        stale_days=int(os.getenv("WCL_STALE_DAYS", "30")),
+        grace_days=int(os.getenv("WCL_GRACE_DAYS", "15")),
     )

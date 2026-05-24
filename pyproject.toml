@@ -3,9 +3,9 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "ifsc-data"
+name = "wcl-data"
 version = "0.1.0"
-description = "Layer 0: ingest the IFSC public API into a local SQLite warehouse."
+description = "Layer 0 of the World Climbing Lab: ingest the public competition API (ifsc.results.info) into a local SQLite warehouse."
 requires-python = ">=3.12"
 dependencies = [
     "requests>=2.31",
@@ -29,7 +29,7 @@ docs = [
 ]
 
 [project.scripts]
-ifsc-data = "ifsc_data.cli:main"
+wcl-data = "wcl_data.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
