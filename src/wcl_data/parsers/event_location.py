@@ -140,6 +140,50 @@ def to_iso3(country_code: Optional[str]) -> Optional[str]:
     return IFSC_TO_ISO3.get(country_code, country_code)
 
 
+# Fallback city → ISO3 for events whose name yields no country anchor and
+# whose API payload also has no country. Covers a handful of historical UIAA
+# Worldcup rows from the early '90s where the API stored only a city. All
+# entries are unambiguous, well-known competition venues — no geopolitically
+# loaded cases (Crimea stays out deliberately). Lookup is case-insensitive;
+# match is exact (no substring), so noisy city extractions like
+# "RC Eidechsli Chur" don't match — they stay NULL.
+CITY_TO_COUNTRY = {
+    # France
+    "lyon": "FRA",
+    "aix-les-bains": "FRA",
+    "toulon": "FRA",
+    "l'argentier": "FRA",
+    # Germany
+    "frankfurt": "DEU",
+    # Italy
+    "clusone": "ITA",
+    "madonna di campiglio": "ITA",
+    # Switzerland
+    "genève": "CHE",
+    "geneva": "CHE",
+    "basel": "CHE",
+    "chur": "CHE",
+    "küblis": "CHE",
+    # Austria
+    "villach": "AUT",
+    # Spain
+    "ainsa": "ESP",
+    # Japan
+    "kobe": "JPN",
+    "tokyo": "JPN",
+    "tokio": "JPN",   # historical misspelling in '91 events
+    # South Korea
+    "busan": "KOR",
+}
+
+
+def city_to_iso3(city: Optional[str]) -> Optional[str]:
+    """Return the ISO3 for a known unambiguous competition venue, or None."""
+    if not city:
+        return None
+    return CITY_TO_COUNTRY.get(city.strip().lower())
+
+
 EVENT_KEYWORDS = [
     "world championship", "world championships",
     "continental championship", "continental championships",

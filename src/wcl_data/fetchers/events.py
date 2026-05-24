@@ -57,6 +57,11 @@ def hydrate(
                     city = loc.strip().split(",")[0]
             if not country:
                 country = data.get("country")
+            if not country and city:
+                # Final fallback: known-unambiguous-city dictionary for the
+                # handful of historical UIAA rows where the API has only a
+                # city and the name carries no country anchor.
+                country = event_location.city_to_iso3(city)
 
             if city and not country:
                 cities_missing_country[ev_row_id] = city

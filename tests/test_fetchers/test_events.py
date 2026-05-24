@@ -57,3 +57,48 @@ def test_hydrate_populates_country_iso3(memory_db, fixture):
     ).fetchone()
     assert row["country"] == "GER"
     assert row["country_iso3"] == "DEU"
+
+
+def test_city_dictionary_fallback_fires_when_other_paths_fail(memory_db, fixture):
+    """City → ISO3 fallback covers historical UIAA rows where the name has no
+    country anchor and the API payload has no country, but the city is a
+    known unambiguous venue (e.g. Lyon → FRA)."""
+    repo = Repository(memory_db)
+    data = dict(fixture("events-id"))
+    data["name"] = "Weltcup, Lyon 1990"   # no parens, no ISO3 anchor
+    data["country"] = None                # API has nothing
+    data["location"] = "Lyon"             # but city is recoverable from the dict
+    repo.upsert_event_skeleton(int(data.get("id") or 1))
+    ev_ifsc = memory_db.execute("SELECT ifsc_id FROM events").fetchone()["ifsc_id"]
+
+    client = _stub_client_one(ev_ifsc, data)
+    events_fetcher.hydrate(repo, client, stale_days=0)
+
+    row = memory_db.execute(
+        "SELECT city, country, country_iso3 FROM events WHERE ifsc_id = ?",
+        (ev_ifsc,),
+    ).fetchone()
+    assert row["city"] == "Lyon"
+    assert row["country"] == "FRA"
+    assert row["country_iso3"] == "FRA"
+
+
+def test_city_dictionary_fallback_does_not_invent_for_unknown_city(memory_db, fixture):
+    """City fallback must stay quiet when the city isn't in the dict (don't
+    invent countries for noisy / unrecognized city values)."""
+    repo = Repository(memory_db)
+    data = dict(fixture("events-id"))
+    data["name"] = "Some Event 1992"
+    data["country"] = None
+    data["location"] = "Nowheresville"   # not in the dict
+    repo.upsert_event_skeleton(int(data.get("id") or 1))
+    ev_ifsc = memory_db.execute("SELECT ifsc_id FROM events").fetchone()["ifsc_id"]
+
+    client = _stub_client_one(ev_ifsc, data)
+    events_fetcher.hydrate(repo, client, stale_days=0)
+
+    row = memory_db.execute(
+        "SELECT country, country_iso3 FROM events WHERE ifsc_id = ?", (ev_ifsc,)
+    ).fetchone()
+    assert row["country"] is None
+    assert row["country_iso3"] is None
