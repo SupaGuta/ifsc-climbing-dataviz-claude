@@ -28,6 +28,12 @@ docs = [
     "mkdocs-material>=9.5",
 ]
 
+[project.urls]
+Homepage = "https://github.com/SupaGuta/world-climbing-lab"
+Documentation = "https://supaguta.github.io/world-climbing-lab/"
+Repository = "https://github.com/SupaGuta/world-climbing-lab"
+Issues = "https://github.com/SupaGuta/world-climbing-lab/issues"
+
 [project.scripts]
 wcl-data = "wcl_data.cli:main"
 
