@@ -51,13 +51,15 @@ from `athletes.last_fetched_at`.
 
 ## Gotchas
 
-- **Empty-string discipline (`""`)**. Some entries (observed on European
-  Cup payloads, e.g. "IFSC-Europe Climbing European Cup 2022 - Lead")
-  carry their ranking under a JSON key with no name rather than under
-  `"lead"`/`"boulder"`. The fetcher preserves this verbatim. Downstream
-  queries pivoting on `discipline` should either filter `""` or bucket
-  it by inspecting `cup_name`. The `d_cat_id` column is the reliable
-  alternative key.
+- **European Cup discipline backfill.** European Cup payloads ship
+  their ranking under an empty-string JSON key and put the discipline
+  in the cup name itself (e.g. `"IFSC-Europe Climbing European Cup 2022 - Lead"`
+  or `"IFSC-Europe Climbing European Cup Lead 2024"`). The fetcher
+  recovers the label from the cup name and writes it to `discipline`,
+  so on a freshly-hydrated DB you should not see `discipline = ""` for
+  any current European Cup row. If you do encounter `""`, it means the
+  upstream cup name didn't match the expected suffix patterns — fall
+  back to `cup_name` parsing or `d_cat_id` and please open a follow-up.
 - **Not a competition-level ranking.** A `rank = 1` in `cup_rankings`
   means "1st in the overall season standings of this cup", not "1st in
   any single event". For event-level ranks see `results.rank`.

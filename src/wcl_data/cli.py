@@ -163,7 +163,7 @@ def _cmd_status(settings) -> int:
             "seasons", "leagues", "season_leagues", "disciplines",
             "categories", "events", "competitions", "athletes", "results",
             "category_rounds", "round_stages", "routes",
-            "round_results", "stage_results", "ascents",
+            "round_results", "stage_results", "ascents", "cup_rankings",
         ):
             total = repo.count(table)
             hydrated = "-"

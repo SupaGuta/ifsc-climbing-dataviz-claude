@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import logging
+import re
 from typing import Optional
 
 from ..api.client import APIClient
@@ -12,6 +13,34 @@ log = logging.getLogger(__name__)
 
 # Keys on a `cup_rankings[]` entry that are NOT a discipline sub-object.
 _CUP_META_KEYS = {"name", "id", "season"}
+
+# European Cup payloads use an empty-string discipline key and put the
+# discipline in the cup name itself, in one of two layouts:
+#   "IFSC-Europe Climbing European Cup 2022 - Lead"   (suffix)
+#   "IFSC-Europe Climbing European Cup Lead 2024"     (inline, year-suffix)
+# Verified to recover 21/21 distinct names and 5540/5540 rows in prod.
+_CUP_NAME_DISCIPLINE_RE = re.compile(
+    r" (Lead|Boulder|Speed|Combined|B&L)(?: \d{4})?$",
+    re.IGNORECASE,
+)
+_DISCIPLINE_LABEL = {
+    "lead": "lead", "boulder": "boulder", "speed": "speed",
+    "combined": "combined", "b&l": "boulder&lead",
+}
+
+
+def _discipline_from_cup_name(name: Optional[str]) -> Optional[str]:
+    """Recover the cup-rankings discipline from `name` when the API key is empty.
+
+    Returns the canonical lowercase discipline (matching the IFSC labels used
+    by World Cup payloads) or None if `name` doesn't carry a discipline suffix.
+    """
+    if not name:
+        return None
+    m = _CUP_NAME_DISCIPLINE_RE.search(name)
+    if not m:
+        return None
+    return _DISCIPLINE_LABEL[m.group(1).lower()]
 
 
 def hydrate(
@@ -74,15 +103,19 @@ def hydrate(
                     cup_ifsc_id = cup.get("id")
                     if cup_ifsc_id is None:
                         continue
+                    cup_name = cup.get("name")
                     for disc_key, disc_obj in cup.items():
                         if disc_key in _CUP_META_KEYS or not isinstance(disc_obj, dict):
                             continue
+                        # European Cup payloads ship an empty discipline
+                        # key — recover the label from the cup name.
+                        discipline = disc_key or _discipline_from_cup_name(cup_name) or disc_key
                         repo.upsert_cup_ranking(
                             athlete_id=ath_row_id,
                             cup_ifsc_id=cup_ifsc_id,
-                            cup_name=cup.get("name"),
+                            cup_name=cup_name,
                             season=cup.get("season"),
-                            discipline=disc_key,
+                            discipline=discipline,
                             d_cat_id=disc_obj.get("d_cat_id"),
                             rank=disc_obj.get("rank"),
                         )

@@ -104,6 +104,47 @@ def test_hydrate_populates_cup_rankings(memory_db, fixture):
     assert by_season_disc[("2010", "lead")]["rank"] == 3
 
 
+def test_european_cup_discipline_backfilled_from_cup_name(memory_db, fixture):
+    """European Cup payloads ship discipline="" with the label in cup_name;
+    the fetcher recovers it (suffix and inline-year layouts both work)."""
+    repo = Repository(memory_db)
+    repo.upsert_athlete_skeleton(1364)
+    ondra = fixture("athletes-id")
+    client = _stub_client(ondra)
+    athletes_fetcher.hydrate(repo, client, stale_days=0)
+
+    # Ondra's 2022 European Cup rows: one lead, one boulder (both arrive
+    # from the API with discipline="" + cup_name carrying the discipline).
+    by_name = {
+        r["cup_name"]: r["discipline"]
+        for r in memory_db.execute(
+            "SELECT cup_name, discipline FROM cup_rankings "
+            "WHERE cup_name LIKE 'IFSC-Europe%'"
+        )
+    }
+    assert by_name["IFSC-Europe Climbing European Cup 2022 - Lead"] == "lead"
+    assert by_name["IFSC-Europe Climbing European Cup 2022 - Boulder"] == "boulder"
+
+    # And no row should still carry the empty-string discipline.
+    leftovers = memory_db.execute(
+        "SELECT COUNT(*) FROM cup_rankings WHERE discipline = ''"
+    ).fetchone()[0]
+    assert leftovers == 0
+
+
+def test_discipline_from_cup_name_handles_both_layouts():
+    """Suffix ('... - Lead') and inline-year ('... Lead 2024') both decode,
+    and B&L normalizes to the IFSC-canonical 'boulder&lead'."""
+    f = athletes_fetcher._discipline_from_cup_name
+    assert f("IFSC-Europe Climbing European Cup 2022 - Lead") == "lead"
+    assert f("IFSC-Europe Climbing European Cup Boulder 2024") == "boulder"
+    assert f("IFSC-Europe Climbing European Cup Speed 2025") == "speed"
+    assert f("WIP: IFSC-Europe Climbing European Youth Cup B&L 2024") == "boulder&lead"
+    assert f("Random cup with no discipline") is None
+    assert f(None) is None
+    assert f("") is None
+
+
 def test_hydrate_cup_rankings_is_idempotent(memory_db, fixture):
     """Re-hydrating the same athlete wipes prior cup_rankings instead of duplicating."""
     repo = Repository(memory_db)

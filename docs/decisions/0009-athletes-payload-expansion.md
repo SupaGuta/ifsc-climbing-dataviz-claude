@@ -3,6 +3,15 @@
 **Status:** Accepted
 **Date:** 2026-05-25
 
+> **Note (2026-05-25):** Same-day amendment — the fetcher now backfills
+> `cup_rankings.discipline` from `cup_name` when the API ships an
+> empty-string discipline key (European Cup payloads). The decision to
+> *capture* the discipline value remains the original ADR; only the
+> source of the label changes (API key when available, name-regex
+> fallback otherwise). The unicity-on-`d_cat_id` choice below still
+> holds and remains the safe pivot key if the regex ever misses a
+> future naming convention.
+
 ## Context
 
 The World Climbing public API's `GET /athletes/{ifsc_id}` endpoint
@@ -100,9 +109,12 @@ CREATE TABLE cup_rankings (
 One row per (athlete × cup × discipline). The API payload nests
 disciplines as keys under each cup-rankings entry (Ondra's 2010 World
 Cup has sibling `lead`/`boulder`/`combined` blocks), so a single
-fixture athlete expands to ~30-40 rows. The empty-string discipline key
-(observed on European Cup entries) is preserved as `""` rather than
-filtered, so the data is faithful to the source.
+fixture athlete expands to ~30-40 rows. European Cup entries ship the
+discipline as an empty-string key with the label embedded in the cup
+name; the fetcher reconstructs the label via a regex on `cup_name`
+(see the 2026-05-25 amendment above and
+[`_discipline_from_cup_name`](https://github.com/SupaGuta/world-climbing-lab/blob/main/src/wcl_data/fetchers/athletes.py)
+in the fetcher).
 
 Unicity is on `d_cat_id` rather than `discipline` because the discipline
 key labelling can drift (the empty-string case) while `d_cat_id` is a
