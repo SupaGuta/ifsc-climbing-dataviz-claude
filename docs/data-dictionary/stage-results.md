@@ -8,6 +8,11 @@ that `round_results` can't represent.
 **Typical size:** ~440,000+ rows after full backfill — slightly more than
 `round_results` because speed-finals and combined rounds multiply rows.
 
+**Coverage caveat:** populated only for competitions that the API exposes
+`category_rounds[]` for — i.e. mostly ≥2018. See
+[category-rounds.md#gotchas](category-rounds.md#gotchas) for the full
+pre-2018 sparsity note.
+
 **Source endpoint:** populated by `competitions.hydrate`.
 
 **Not hydratable:** no `last_fetched_at`. Delete-and-reinsert per competition.

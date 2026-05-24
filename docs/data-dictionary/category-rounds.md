@@ -50,6 +50,17 @@ side effect of the parent competition's hydrate.
 
 ## Gotchas
 
+- **Pre-2018 sparsity.** ~1,566 hydrated competitions (~27% of the 5,825 total)
+  carry **zero** rows in `category_rounds`. Of those, 1,504 (96%) are pre-2018:
+  the World Climbing API returns `category_rounds: []` for early competitions
+  and only the overall `results.rank` is preserved — no per-phase breakdown,
+  no `round_stages` / `routes` / `round_results` / `stage_results` / `ascents`
+  for these competitions either. The remaining ~60 are mostly promo or
+  paraclimbing events from 2018+ where the upstream payload is also sparse.
+  **Implication for analytics:** any query over per-round tables should either
+  filter `WHERE event.date_start >= '2018-01-01'` (or join on `category_rounds`
+  with `INNER JOIN`) or LEFT-JOIN and handle the NULL case explicitly. The
+  parent `results.rank` is still populated for these competitions.
 - **`kind` is plain TEXT, not a FK to `disciplines`.** For combined events
   the round-level `kind` (`"boulder&lead"`) doesn't match
   `competitions.discipline_id` (which is `"combined"` or the resolved discipline).

@@ -6,6 +6,11 @@ ranking of the whole competition.
 
 **Typical size:** ~440,000 rows after full backfill.
 
+**Coverage caveat:** populated only for competitions that the API exposes
+`category_rounds[]` for — i.e. mostly ≥2018. The parent `results.rank` is
+still populated for pre-2018 competitions. See
+[category-rounds.md#gotchas](category-rounds.md#gotchas) for details.
+
 **Source endpoint:** populated by `competitions.hydrate` from the per-athlete
 `ranking[*].rounds[]` array.
 

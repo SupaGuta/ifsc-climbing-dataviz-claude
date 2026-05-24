@@ -12,6 +12,11 @@ stage** (seq=0); two cases create multiple stages:
 **Typical size:** ~20,000 rows after full backfill (one default per round +
 extra rows for speed-finals and combined sub-stages).
 
+**Coverage caveat:** populated only for competitions that the API exposes
+`category_rounds[]` for — i.e. mostly ≥2018. See
+[category-rounds.md#gotchas](category-rounds.md#gotchas) for the full
+pre-2018 sparsity note.
+
 **Source endpoint:** populated by `competitions.hydrate`. Default stages are
 created lazily on first use; combined sub-stages are pre-created from
 `category_rounds[*].combined_stages[]`; speed-final heats are discovered
