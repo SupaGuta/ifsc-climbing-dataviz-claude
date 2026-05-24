@@ -2,7 +2,7 @@
 
 The data ingestion layer for a personal World Climbing analytics project: a small Python package that ingests the public competition API at [ifsc.results.info](https://ifsc.results.info) into a single local SQLite warehouse. Downstream consumers (notebooks, future analytics, future ML) read from the warehouse — they never talk to the API directly.
 
-> The international climbing federation rebranded from **World Climbing** (International Federation of Sport Climbing) to **World Climbing** in 2026. The technical API endpoint and historical naming inside the code still use "World Climbing" — both terms refer to the same federation and the same data.
+> The international climbing federation rebranded from **IFSC** (International Federation of Sport Climbing) to **World Climbing** in 2026. The technical API endpoint and historical naming inside the code still use "IFSC" — both terms refer to the same federation and the same data.
 
 > For contributor & architecture documentation (the **why** behind the design), see [`docs/`](docs/).
 
