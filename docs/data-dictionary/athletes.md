@@ -90,3 +90,18 @@ column here.
   whichever fits your audience — IFSC podium-style summaries use `country`,
   joins to external ISO3-keyed datasets use `country_iso3`. See
   [ADR 0008](../decisions/0008-country-iso3-sibling-column.md).
+- **`ifsc_id` is reassigned across athletes over time** — confirmed during
+  a Wikidata cross-match (2026-05-24): of 572 climbers with an IFSC ID on
+  Wikidata, 257 (46%) had the same ID as one of our athletes but pointed
+  to a completely different person. Best-known example: `ifsc_id = 6487`
+  is Pierre MASSCHELEIN in our warehouse but was David Lama (deceased
+  2019) on Wikidata. When the IFSC deletes an inactive/deceased athlete's
+  profile, the ID may later be recycled for a new athlete. **Implications:**
+  (a) any future enrichment layer that matches on `ifsc_id` alone *must*
+  verify by name before writing — otherwise it'll silently graft Lama's
+  height onto Masschelein's row; (b) our own historical results for the
+  prior occupant of a reused ID are at risk of contamination if the IFSC
+  reassigns mid-season — not observed yet but worth monitoring; (c) cross-
+  references to athlete profiles in external tools (Wikipedia, Wikidata,
+  national federation sites) should be assumed stale unless cross-checked
+  by name + birthday.
