@@ -89,21 +89,37 @@ ORDER BY d.name, wins DESC;
 
 ## Country breakdowns
 
+Both `events` and `athletes` carry **two** country columns: `country` (raw
+federation code — mixes ISO3 with IFSC variants like `GER`, `SUI`, `INA`,
+`IRI`, `MAS`, `SIN`) and `country_iso3` (canonical ISO 3166-1 alpha-3).
+For aggregations, **prefer `country_iso3`** — otherwise Germany splits
+across `GER` (IFSC) and `DEU` (ISO3), Indonesia across `INA` and `IDN`,
+etc. See [ADR 0008](../../decisions/0008-country-iso3-sibling-column.md).
+
 ```sql
--- Number of athletes per country (top 20)
+-- Number of athletes per country (top 20) — ISO3-clean
+SELECT country_iso3, COUNT(*) AS n
+FROM athletes
+WHERE country_iso3 IS NOT NULL
+GROUP BY country_iso3
+ORDER BY n DESC
+LIMIT 20;
+
+-- Number of events hosted per country — ISO3-clean
+SELECT country_iso3, COUNT(*) AS event_count
+FROM events
+WHERE country_iso3 IS NOT NULL
+GROUP BY country_iso3
+ORDER BY event_count DESC
+LIMIT 20;
+
+-- Federation-of-record view (useful for IFSC-style podium summaries) —
+-- preserves GER/SUI/INA/...
 SELECT country, COUNT(*) AS n
 FROM athletes
 WHERE country IS NOT NULL
 GROUP BY country
 ORDER BY n DESC
-LIMIT 20;
-
--- Number of events hosted per country
-SELECT country, COUNT(*) AS event_count
-FROM events
-WHERE country IS NOT NULL
-GROUP BY country
-ORDER BY event_count DESC
 LIMIT 20;
 ```
 

@@ -17,20 +17,46 @@ the event *name*, e.g. `"IFSC Climbing World Cup - Chamonix (FRA) 2019"`.
 `parse_city_country(event_name) -> (city, iso3)` extracts both with
 conservative regex.
 
-The four anchors it looks for, in priority order:
+The five anchors it looks for, in priority order:
 
-1. **`(XXX)` ISO3 in parentheses** — `(FRA)`, `(USA)`, `(JPN)`. Highest
-   confidence.
-2. **`XXX)` broken parenthesis** — `" CHN)"` (missing opening paren). The
-   ISO3 is still distinctive enough to anchor.
+1. **`(XXX)` ISO3 in parentheses** — `(FRA)`, `(USA)`, `(JPN)`. Validated
+   against `pycountry` + a `FALLBACK_ISO3_CODES` set (so IFSC/IOC variants
+   like `GER`, `SUI`, `NED`, `INA`, `IRI`, `MAS`, `SIN`, `KSA`, `GUA` are
+   accepted). Unknown 3-letter codes — like the historical typo `(CMA)`
+   in event ifsc_id=511 — are **rejected** rather than written verbatim.
+   The matcher iterates all `(XXX)` matches and picks the last known one,
+   so a leading garbage paren can't anchor over a trailing valid code.
+2. **`XXX)` broken parenthesis** — `" CHN)"` (missing opening paren). Same
+   validation as above.
 3. **`(Country Name)`** — `"(France)"`, `"(New Caledonia)"`. Validated via
    `pycountry.countries.lookup` with a small override map for known aliases
-   (`"china"` → `"CHN"`, `"hong kong"` → `"HKG"`, etc.).
-4. **Country token before a year** — `"..., USA 1997"`. Last resort.
+   (`"china"` → `"CHN"`, `"hong kong"` → `"HKG"`, `"republic of korea"` →
+   `"KOR"`, `"macau"` → `"MAC"`, `"russia"` → `"RUS"`).
+4. **Country token before a year** — `"..., USA 1997"`. Last resort within
+   the year branch.
+5. **"\<event keyword> - \<country name>" with no parens and no year** —
+   `"Asian Indoor Games - Macau"` → `MAC`, `"Oceanian Championship -
+   New Zealand"` → `NZL`. Conservative: only fires when the trailing
+   segment after the last separator resolves via `country_name_to_iso3_safe`;
+   never invents a city.
 
 If no anchor matches, the function returns `(None, None)`. The caller
-(`fetchers/events.py`) then falls back to the API's own `location` and
-`country` fields if present.
+(`fetchers/events.py`) then walks a four-step fallback chain: API's own
+`location` for city, API's own `country` for country, then the
+`CITY_TO_COUNTRY` dictionary lookup for unambiguous historical venues
+(Frankfurt → DEU, Lyon → FRA, Basel → CHE, Genève → CHE, Tokio → JPN, …),
+then the cross-row sibling backfill described below.
+
+### `country_iso3` sibling column (ADR 0008)
+
+The raw `country` value preserves whatever the API or parser produced
+— including IFSC/IOC variants (`GER`, `SUI`, `INA`, `IRI`, …). For
+ISO 3166-1 alpha-3-only aggregations and joins to non-IFSC datasets,
+events and athletes also carry `country_iso3`, derived by
+`to_iso3(country)` via the static `IFSC_TO_ISO3` map. Codes already
+matching ISO3 pass through unchanged. See
+[ADR 0008](../decisions/0008-country-iso3-sibling-column.md) for the
+dual-column rationale.
 
 The city half is a *segment-based* extraction: once an anchor is found, take
 the text to the left, split on `,` / ` - `, and walk segments right-to-left
@@ -113,7 +139,9 @@ collapses `"Lead"` / `"lead"` / `"LEAD"` into one row.
   returns garbage, we store garbage. Don't add cleanup that could mask an
   upstream change.
 - **Athlete country** — the API has a clean country field (~99.99% coverage).
-  No heuristic needed.
+  No heuristic needed. The `country_iso3` sibling column normalizes IFSC
+  variants (GER, SUI, INA, …) to standard ISO3 (DEU, CHE, IDN, …) via the
+  same `to_iso3()` lookup used for events.
 - **Event dates** — `local_start_date` / `local_end_date` are clean.
 
 ## Where the data is genuinely lossy (upstream side)
@@ -126,7 +154,7 @@ Recorded in the project notes for context, not bugs:
 | `photo_url`       | ~15%     | Many athletes never had a photo uploaded.                |
 | `height`          | ~9%      | Self-reported field, mostly empty.                       |
 | `arm_span`        | very low | Same as height.                                          |
-| `events.country`  | ~96%     | Older events store location only in the name; backfilled from sibling rows where possible. |
+| `events.country`  | ~98.1%   | Older events store location only in the name; recovered via the parser's 5 anchors, the API `country` field, the `CITY_TO_COUNTRY` dict for ~17 historical venues, and cross-row sibling backfill. The remaining ~2% are generic names like "Latin American Championship" with no recoverable location, plus 1 Crimea row deliberately left NULL. |
 
 If you find a `NULL` in production, it's almost always real, not a parse bug.
 A regression test that asserts on coverage rates would be brittle for the

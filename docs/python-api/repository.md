@@ -121,17 +121,32 @@ for the pattern.
 ```python
 repo.update_event(event_row_id,
                   name="IFSC World Cup - Chamonix (FRA) 2024",
-                  city="Chamonix", country="FRA",
+                  city="Chamonix", country="FRA", country_iso3="FRA",
                   date_start="2024-07-12", date_end="2024-07-14",
                   is_paraclimbing=0)
 
 repo.update_athlete(athlete_id,
                     firstname="Janja", lastname="Garnbret",
-                    gender=1, country="SLO", birthday="1999-03-12")
+                    gender=1, country="SLO", country_iso3="SVN",
+                    birthday="1999-03-12")
 ```
 
 `update_*` methods use a whitelist of allowed field names; unknown keys are
 silently ignored. Calling with no recognized fields is a no-op.
+
+The allowed fields are:
+
+- **`update_event`** — `name`, `city`, `country`, `country_iso3`,
+  `date_start`, `date_end`, `is_paraclimbing`.
+- **`update_athlete`** — `firstname`, `lastname`, `gender`, `height`,
+  `arm_span`, `birthday`, `city`, `country`, `country_iso3`, `photo_url`,
+  `is_paraclimbing`.
+
+`country_iso3` is the canonical ISO 3166-1 alpha-3 sibling of `country`
+(see [ADR 0008](../decisions/0008-country-iso3-sibling-column.md)). The
+fetchers compute it via `wcl_data.parsers.event_location.to_iso3(country)`
+— if you're writing your own fetcher or repair script, do the same so the
+two columns stay in sync.
 
 ## Results
 
@@ -168,14 +183,15 @@ per-call commits everywhere else.
 ## Backfill helpers
 
 ```python
-repo.backfill_event_country_for_row(event_id, "FRA")            # single row
-affected = repo.backfill_event_country_from_siblings()           # cross-batch
+repo.backfill_event_country_for_row(event_id, "FRA", country_iso3="FRA")  # single row
+affected = repo.backfill_event_country_from_siblings()                     # cross-batch
 ```
 
 The cross-batch backfill fills NULL country on events whose city appears
-on a sibling row with a known country. One SQL pass; uses `MAX()` to pick
-deterministically when multiple sibling countries exist. Returns the
-number of rows affected.
+on a sibling row with a known country. One SQL pass per column; uses
+`MAX()` to pick deterministically when multiple sibling countries exist.
+`country_iso3` is filled in a parallel pass so the two columns stay in
+sync. Returns the number of rows affected on the `country` pass.
 
 ## Constants
 

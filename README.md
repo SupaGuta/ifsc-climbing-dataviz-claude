@@ -320,7 +320,7 @@ tests/
 pytest -q
 ```
 
-69 tests covering: the event-location parser, the streaming API client (mocked transport, retry policy, give-up semantics, retry non-duplication), the repository (upsert idempotency, transaction commit/rollback, stale-detection boundary, table-name validation, country backfill), the per-fetcher parse logic (athletes, events, competitions including per-round transactional rollback and the four discipline shapes — lead / speed / boulder / combined), the `pull-new` ongoing-only filter, and the CSV exporter (all views, join correctness, filename format, edge cases).
+123 tests covering: the event-location parser (incl. ISO3 validation, IFSC/IOC variant acceptance, the "Event - Country" no-paren fallback, the city dictionary fallback for historical UIAA rows, and the `to_iso3` IFSC→ISO3 normalization), the streaming API client (mocked transport, retry policy, give-up semantics, retry non-duplication), the repository (upsert idempotency, transaction commit/rollback, stale-detection boundary, table-name validation, country backfill), the per-fetcher parse logic (athletes, events, competitions including per-round transactional rollback and the four discipline shapes — lead / speed / boulder / combined), the `pull-new` ongoing-only filter, and the CSV exporter (all views, join correctness, `country_iso3` columns, filename format, edge cases).
 
 ## Notes / known limits
 

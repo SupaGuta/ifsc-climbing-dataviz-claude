@@ -19,9 +19,9 @@ The schema mirrors the API entity tree. Fifteen tables total, plus a
 | `season_leagues`  | `seasons.hydrate` (skeleton) + `season_leagues.hydrate` | ✓ | Join row between season × league                            |
 | `disciplines`     | `season_leagues.hydrate`                 |            | Reference data, name-unique (lowercase)                     |
 | `categories`      | `season_leagues.hydrate`                 |            | Reference data; `gender` is 0=men, 1=women, NULL=other      |
-| `events`          | `seasons.hydrate` / `season_leagues.hydrate` (skeleton) + `events.hydrate` | ✓ | City + country from `parsers.event_location` + API field    |
+| `events`          | `seasons.hydrate` / `season_leagues.hydrate` (skeleton) + `events.hydrate` | ✓ | City + country from `parsers.event_location` + API field + `CITY_TO_COUNTRY` dict + sibling backfill. Carries `country_iso3` sibling (ADR 0008). |
 | `competitions`    | `events.hydrate` (skeleton) + `competitions.hydrate` | ✓ | UNIQUE on `(event_id, ifsc_id)`, not on `ifsc_id` alone     |
-| `athletes`        | `competitions.hydrate` (skeleton) + `athletes.hydrate` | ✓ | `is_paraclimbing` is heuristic; see parsing-and-heuristics |
+| `athletes`        | `competitions.hydrate` (skeleton) + `athletes.hydrate` | ✓ | `is_paraclimbing` is heuristic; see parsing-and-heuristics. Carries `country_iso3` sibling (ADR 0008). |
 | `results`         | `competitions.hydrate`                   |            | Derived: wiped + reinserted per competition. Final overall rank only. |
 | `category_rounds` | `competitions.hydrate`                   |     ✓      | Phases of a competition (qualif / semi / final). `last_fetched_at` reserved for future startlist work. |
 | `round_stages`    | `competitions.hydrate`                   |            | Sub-stages of a round (speed-final heats, combined sub-disciplines). |
