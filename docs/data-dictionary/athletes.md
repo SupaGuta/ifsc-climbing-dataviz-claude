@@ -50,30 +50,49 @@ populates during `athletes.hydrate`.
 
 ## Coverage
 
-Measured 2026-05-23 on hydrated rows only (14,922 athletes), for the
-columns that pre-date [ADR 0009](../decisions/0009-athletes-payload-expansion.md).
-Coverage for the columns added in v4 (`federation_*`, `paraclimbing_sport_class`,
-`sport_class_*`, `speed_pb_*`) is not yet measured — re-run the recompute
-snippet from the [README](README.md#recomputing-coverage) after the first
-full `wcl-data refresh`.
+Measured 2026-05-25 on hydrated rows only (14,922 athletes), after the
+post-ADR-0009 full re-hydrate.
 
-| Column            | Coverage |
-|-------------------|----------|
-| `firstname`       | 100.0%   |
-| `lastname`        | 100.0%   |
-| `gender`          | 100.0%   |
-| `country`         | 100.0%   |
-| `country_iso3`    | 100.0%   |
-| `city`            | 70.6%    |
-| `birthday`        | 52.0%    |
-| `photo_url`       | 14.3%    |
-| `height`          | 9.1%     |
-| `arm_span`        | 4.1%     |
+| Column                       | Coverage |
+|------------------------------|----------|
+| `firstname`                  | 100.0%   |
+| `lastname`                   | 100.0%   |
+| `gender`                     | 100.0%   |
+| `country`                    | 100.0%   |
+| `country_iso3`               | 100.0%   |
+| `federation_id`              | 100.0%   |
+| `federation_name`            | 100.0%   |
+| `federation_abbreviation`    |  99.6%   |
+| `federation_url`             |  71.9%   |
+| `city`                       |  70.6%   |
+| `birthday`                   |  52.0%   |
+| `speed_pb_time`              |  18.1%   |
+| `speed_pb_date`              |  18.1%   |
+| `speed_pb_event_name`        |  18.1%   |
+| `speed_pb_round_name`        |  18.1%   |
+| `photo_url`                  |  14.3%   |
+| `height`                     |   9.1%   |
+| `arm_span`                   |   4.1%   |
+| `paraclimbing_sport_class`   |   3.8%   |
+| `sport_class_status`         |   3.8%   |
+| `sport_class_review_date`    |   0.0%   |
 
 These percentages drift slowly as new athletes are added. **The NULLs are
 real** — the World Climbing API genuinely doesn't have most heights, arm spans, or
 photos. They're not parser bugs. The README's recompute snippet works on any
 column here.
+
+A few specifics worth knowing:
+- **`speed_pb_*` ≈ 18%** corresponds to the ~2.7k athletes who've ever
+  contested a speed round at IFSC level — the rest never raced speed.
+- **`paraclimbing_sport_class` and `sport_class_status` track each other
+  perfectly (both 3.8% = 569 rows)**: an athlete either has both or
+  neither.
+- **`sport_class_review_date` is 0%** — the API exposes the field but
+  never populates it in current data. Don't treat NULL as "no review";
+  treat the field as not-yet-available upstream.
+- **`federation_*` is essentially complete** because the IFSC requires
+  every licensed athlete to be tied to a member federation.
 
 ## Gotchas
 
