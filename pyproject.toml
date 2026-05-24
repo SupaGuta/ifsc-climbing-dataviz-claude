@@ -5,7 +5,8 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "wcl-data"
 version = "0.1.0"
-description = "Layer 0 of the World Climbing Lab: ingest the public competition API (ifsc.results.info) into a local SQLite warehouse."
+description = "World Climbing Lab — a personal climbing-competition analytics project. This package (wcl-data) is the ingestion layer: it pulls the public competition API (ifsc.results.info) into a local SQLite warehouse for downstream analytics and ML."
+keywords = ["climbing", "sport-climbing", "ifsc", "world-climbing", "competition-data", "data-ingestion", "sqlite"]
 requires-python = ">=3.12"
 dependencies = [
     "requests>=2.31",
