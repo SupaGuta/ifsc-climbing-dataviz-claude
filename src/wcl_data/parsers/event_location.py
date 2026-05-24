@@ -60,15 +60,22 @@ US_STATE_NAMES = {
     "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming",
 }
 
-# Fallback ISO3 list to avoid hard dependency on pycountry.
+# Fallback set of codes accepted as country identifiers when pycountry isn't
+# available. Mixes ISO 3166-1 alpha-3 with the IOC / IFSC variants the federation
+# also uses (BUL/CRO/GER/GRE/NED/POR/SUI/SLO and friends). Extended over time
+# with codes seen in real event payloads; missing codes get rejected by
+# `_is_known_iso3`, which is desirable for typos like the historical `(CMA)`
+# in event 511. The primary path is `pycountry.countries.get(alpha_3=...)`,
+# which covers every standard ISO3 — this set is only consulted when
+# pycountry is unavailable.
 FALLBACK_ISO3_CODES = {
-    "ARG", "AUS", "AUT", "AZE", "BEL", "BUL", "CAN", "CHI", "CHN", "CMA",
+    "ARG", "AUS", "AUT", "AZE", "BEL", "BRA", "BUL", "CAN", "CHI", "CHN",
     "COL", "CRO", "CYP", "CZE", "ECU", "ESP", "FIN", "FRA", "GBR", "GER",
-    "GRE", "HKG", "HUN", "IDN", "INA", "IND", "IRI", "IRN", "ITA", "JOR",
-    "JPN", "KAZ", "KOR", "LTU", "MAS", "MEX", "MKD", "MYS", "NCL", "NED",
-    "NOR", "NZL", "PER", "PHI", "POL", "POR", "PRK", "QAT", "RSA", "RUS",
-    "SGP", "SIN", "SLO", "SRB", "SUI", "SVK", "SWE", "THA", "TPE", "UKR",
-    "USA", "VEN",
+    "GRE", "GUA", "HKG", "HUN", "IDN", "INA", "IND", "IRI", "IRN", "ITA",
+    "JOR", "JPN", "KAZ", "KOR", "KSA", "LTU", "MAC", "MAR", "MAS", "MEX",
+    "MGL", "MKD", "MYS", "NCL", "NED", "NOR", "NZL", "PER", "PHI", "POL",
+    "POR", "PRK", "QAT", "ROU", "RSA", "RUS", "SGP", "SIN", "SLO", "SRB",
+    "SUI", "SVK", "SWE", "THA", "TPE", "UKR", "USA", "VEN",
 }
 
 COUNTRY_NAME_OVERRIDES = {
@@ -77,10 +84,12 @@ COUNTRY_NAME_OVERRIDES = {
     "hong kong": "HKG",
     "indonesia": "IDN",
     "iran": "IRN",
+    "macau": "MAC",         # pycountry uses "Macao"
     "malaysia": "MYS",
     "new caledonia": "NCL",
     "peru": "PER",
     "republic of korea": "KOR",
+    "russia": "RUS",         # pycountry uses "Russian Federation"
 }
 
 
@@ -179,8 +188,12 @@ def country_name_to_iso3_safe(name: str) -> Optional[str]:
 
 
 def _is_known_iso3(code: str) -> bool:
-    if pycountry is not None:
-        return pycountry.countries.get(alpha_3=code) is not None
+    # OR both sources so IFSC/IOC variants (IRI, SIN, INA, GER, SUI, NED, ...)
+    # that pycountry doesn't recognize still get accepted via FALLBACK. Without
+    # the OR, enabling validation on the well-formed-paren regex would silently
+    # drop ~200 events with non-ISO3 federation codes in their names.
+    if pycountry is not None and pycountry.countries.get(alpha_3=code) is not None:
+        return True
     return code in FALLBACK_ISO3_CODES
 
 
@@ -439,11 +452,15 @@ def parse_city_country(event_name: str) -> Tuple[Optional[str], Optional[str]]:
     anchor: Optional[tuple[int, int]] = None
     country: Optional[str] = None
 
-    m_iso = _last_match(COUNTRY_ISO3_PAREN_RE, s)
-    if m_iso:
-        country = m_iso.group(1)
-        anchor = (m_iso.start(), m_iso.end())
-    else:
+    # Well-formed `(XXX)` parens — pick the last *known* ISO3 match so a
+    # leading garbage paren doesn't anchor us, and an unknown 3-letter code
+    # (e.g. the historical typo `(CMA)` for China) falls through to the
+    # API-side country field instead of being saved verbatim.
+    for match in COUNTRY_ISO3_PAREN_RE.finditer(s):
+        if _is_known_iso3(match.group(1)):
+            country = match.group(1)
+            anchor = (match.start(), match.end())
+    if anchor is None:
         m_iso2 = _last_match(COUNTRY_ISO3_RPAREN_RE, s)
         if m_iso2:
             iso = m_iso2.group(1)
@@ -495,5 +512,19 @@ def parse_city_country(event_name: str) -> Tuple[Optional[str], Optional[str]]:
                 return finalize_city(city_part, None, s), None
 
             return finalize_city(after, None, s), None
+
+    # No parens, no year — last fallback: "<event keyword> - <country name>"
+    # pattern (e.g. "Oceanian Championship - New Zealand",
+    # "Asian Indoor Games - Macau"). Strict: only fires if the trailing
+    # segment after the last separator resolves to a known country via
+    # `country_name_to_iso3_safe`; no city extraction (these names rarely
+    # carry one).
+    sep_matches = list(SEP_RE.finditer(s))
+    if sep_matches:
+        after = s[sep_matches[-1].end():].strip().strip(" ,;:-")
+        if after:
+            iso3 = country_name_to_iso3_safe(after)
+            if iso3:
+                return None, iso3
 
     return None, None

@@ -36,3 +36,71 @@ def test_us_state_suffix_stripped_only_when_country_is_usa():
 def test_discipline_block_does_not_confuse_country_extraction():
     city, country = parse_city_country("World Climbing Worldcup (B,L) - Innsbruck (AUT) 2024")
     assert (city, country) == ("Innsbruck", "AUT")
+
+
+# --- A2: validate (XXX) parens against the known ISO3/IOC set --------------
+
+@pytest.mark.parametrize("name", [
+    # `(CMA)` is a known typo for `(CHN)` in event ifsc_id=511; the parser
+    # should reject it and let the fetcher fall through to the API field.
+    "Promo Event (L+S) Asia Cup - Changsha (CMA)",
+    # Fully fabricated unknown code — must not pollute the country column.
+    "Climbing Cup - Springfield (XYZ) 2024",
+])
+def test_unknown_iso3_in_parens_is_rejected(name):
+    _, country = parse_city_country(name)
+    assert country is None
+
+
+def test_last_known_iso3_wins_over_earlier_unknown():
+    # If a stray unknown code appears earlier and a known code later, the
+    # later known code should anchor (and the earlier garbage should not).
+    _, country = parse_city_country("Cup (XYZ) - Chamonix (FRA) 2020")
+    assert country == "FRA"
+
+
+@pytest.mark.parametrize("code", [
+    # IFSC/IOC federation codes that pycountry doesn't recognize as ISO3 but
+    # are nevertheless real anchors in event names. Without these in FALLBACK,
+    # the post-A2 validation drops ~200 events worth of country signal.
+    "IRI",  # Iran (IFSC)
+    "SIN",  # Singapore (IFSC)
+    "INA",  # Indonesia (IFSC)
+    "GER",  # Germany (IFSC)
+    "SUI",  # Switzerland (IFSC)
+    "NED",  # Netherlands (IFSC)
+    "POR",  # Portugal (IFSC)
+    "SLO",  # Slovenia (IFSC)
+    "BUL",  # Bulgaria (IFSC)
+    "KSA",  # Saudi Arabia (IOC)
+    "GUA",  # Guatemala (IOC)
+])
+def test_ifsc_and_ioc_variants_are_accepted(code):
+    _, country = parse_city_country(f"Climbing Cup - City ({code}) 2020")
+    assert country == code
+
+
+# --- C: "Event - Country" fallback (no parens, no year) --------------------
+
+@pytest.mark.parametrize("name,country", [
+    ("Oceanian Championship - New Zealand", "NZL"),
+    ("Asian Indoor Games - Macau", "MAC"),
+    ("UIAA Worldcup - Russia", "RUS"),
+])
+def test_trailing_country_name_after_separator(name, country):
+    city, got_country = parse_city_country(name)
+    assert got_country == country
+    # These names don't carry a city in a recoverable position; do not
+    # invent one.
+    assert city is None
+
+
+@pytest.mark.parametrize("name", [
+    # Trailing non-country word — must not match.
+    "Centre and South American Continental Championship Sport Climbing - Senior",
+    # No separator at all — must not match.
+    "Asian Continental Championship",
+])
+def test_trailing_non_country_does_not_match(name):
+    city, country = parse_city_country(name)
+    assert (city, country) == (None, None)
