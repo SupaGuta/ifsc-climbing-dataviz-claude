@@ -36,8 +36,9 @@ fixture whenever you add a fetcher — the test should not hit the live API.
 
 ## Code conventions
 
-- **Python 3.11+ syntax.** PEP 695 generics (`def stream[K](...) -> Iterator[Fetched[K]]`)
-  are used in `api/client.py`; keep them where they fit, don't backport for its own sake.
+- **Python 3.12+ syntax.** PEP 695 generics (`def stream[K](...) -> Iterator[Fetched[K]]`)
+  are used in `api/client.py`; that's why `pyproject.toml` pins `requires-python = ">=3.12"`.
+  Keep them where they fit, don't backport for its own sake.
 - **`from __future__ import annotations`** at the top of every module that
   uses forward references. The existing files all do this; copy the pattern.
 - **`log = logging.getLogger(__name__)`** at module level, not inside

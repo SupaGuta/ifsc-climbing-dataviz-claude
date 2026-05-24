@@ -28,9 +28,9 @@ exploration in these notebooks.
 | # | Notebook | What it covers | Hits the API? |
 |---|----------|----------------|:-------------:|
 | 0 | [`00_setup_and_first_crawl.ipynb`](00_setup_and_first_crawl.ipynb) | Install, write `.env`, run `auth` → `init` → `pull-new` → `status`. From zero to a populated warehouse. | ✓ |
-| 1 | [`01_the_data_model.ipynb`](01_the_data_model.ipynb) | The 9 tables, the hydration pattern, the entity graph, your first SQL query. | |
+| 1 | [`01_the_data_model.ipynb`](01_the_data_model.ipynb) | The 9 base tables (plus 6 per-round tables from ADR 0007), the hydration pattern, the entity graph, your first SQL query. | |
 | 2 | [`02_the_python_api.ipynb`](02_the_python_api.ipynb) | Use the package as a library: `Settings`, `Repository`, `APIClient`, retry semantics, the location parser. | ✓ (small) |
-| 3 | [`03_querying_and_exporting.ipynb`](03_querying_and_exporting.ipynb) | Three real queries with pandas, the 6 denormalized export views, reading exports back. | |
+| 3 | [`03_querying_and_exporting.ipynb`](03_querying_and_exporting.ipynb) | Three real queries with pandas, the 7 default denormalized export views (plus opt-in `ascents`), reading exports back. | |
 
 ## Re-running
 

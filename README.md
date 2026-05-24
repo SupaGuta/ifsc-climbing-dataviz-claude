@@ -35,7 +35,7 @@ The other no-credentials commands are `init`, `status`, and `export` — they do
 | Want to … | Run |
 |-----------|-----|
 | Populate `.env` with fresh credentials | `auth` |
-| First-time DB setup | `init` then `pull-new` |
+| First-time DB setup (full backfill) | `init` then `refresh` |
 | Catch newly-published World Climbing content | `pull-new` |
 | Refresh stale rows on the 30-day cadence | `refresh` |
 | Force-refresh everything from scratch | `refresh --stale-days 0` |
@@ -113,7 +113,7 @@ python -m wcl_data refresh [--limit N] [--stale-days N] [--workers N]
 ```bash
 python -m wcl_data refresh                   # standard cadence: anything stale (>30 days)
 python -m wcl_data refresh --limit 20        # smoke-test: 20 rows per entity
-python -m wcl_data refresh --stale-days 0    # nuclear: force-refresh everything (~30 min)
+python -m wcl_data refresh --stale-days 0    # nuclear: force-refresh everything (~45-90 min)
 python -m wcl_data refresh --workers 100     # push concurrency higher
 ```
 
@@ -146,7 +146,7 @@ python -m wcl_data pull-new --limit 10     # smoke test
 python -m wcl_data pull-new --grace-days 30   # more forgiving for late corrections
 ```
 
-**Why this exists:** `refresh --stale-days 0` would also catch new content but takes ~30 min because it re-fetches every athlete profile *and* every historical container. Athlete profile data almost never changes; ended seasons/events never gain new structural children. `pull-new` skips both kinds of waste. See [docs/decisions/0006-ongoing-only-pull-new.md](docs/decisions/0006-ongoing-only-pull-new.md) for the design rationale.
+**Why this exists:** `refresh --stale-days 0` would also catch new content but takes ~45-90 min because it re-fetches every athlete profile *and* every historical container (including all per-round data introduced in ADR 0007). Athlete profile data almost never changes; ended seasons/events never gain new structural children. `pull-new` skips both kinds of waste. See [docs/decisions/0006-ongoing-only-pull-new.md](docs/decisions/0006-ongoing-only-pull-new.md) for the design rationale.
 
 ---
 
@@ -213,7 +213,7 @@ python -m wcl_data export [view] [--output-dir PATH]
 
 | Name | Choices | Default |
 |------|---------|---------|
-| `view` | `seasons`, `leagues`, `events`, `competitions`, `athletes`, `results` | (omit to export all six) |
+| `view` | `seasons`, `leagues`, `events`, `competitions`, `athletes`, `results`, `round_results`, `ascents` | (omit to export the 7 non-bulky views — `ascents` is opt-in) |
 
 **Options:**
 
@@ -226,21 +226,24 @@ python -m wcl_data export [view] [--output-dir PATH]
 **Examples:**
 
 ```bash
-python -m wcl_data export                         # all six views to data/exports/
+python -m wcl_data export                         # all seven default views to data/exports/
 python -m wcl_data export results                 # only the big denormalized view
+python -m wcl_data export ascents                 # opt-in: ~900k rows × 31 columns (~200 MB)
 python -m wcl_data export athletes --output-dir /tmp/csv
 ```
 
 **Views:**
 
-| View | What's in it |
-|------|--------------|
-| `seasons` | `season_ifsc_id`, `year`, `last_fetched_at` |
-| `leagues` | `league_id`, `name` |
-| `events` | event details with `season_year`, `league_name`, `city`, `country`, `date_start`, `date_end`, `is_paraclimbing` |
-| `competitions` | one row per (event × discipline × category) with `discipline`, `category`, `gender` resolved to names |
-| `athletes` | one row per athlete with `firstname`, `lastname`, `gender` (as `"male"`/`"female"`), `height`, `arm_span`, `birthday`, `city`, `country`, `is_paraclimbing` |
-| `results` | **the big one** — one row per (athlete × competition) with `event_name`, `season_year`, `league_name`, `event_city`, `event_country`, `event_date`, `discipline`, `category`, `gender`, athlete name/country, `rank` — everything pre-joined |
+| View | Default? | What's in it |
+|------|:--------:|--------------|
+| `seasons` | ✓ | `season_ifsc_id`, `year`, `last_fetched_at` |
+| `leagues` | ✓ | `league_id`, `name` |
+| `events` | ✓ | event details with `season_year`, `league_name`, `city`, `country`, `date_start`, `date_end`, `is_paraclimbing` |
+| `competitions` | ✓ | one row per (event × discipline × category) with `discipline`, `category`, `gender` resolved to names |
+| `athletes` | ✓ | one row per athlete with `firstname`, `lastname`, `gender` (as `"male"`/`"female"`), `height`, `arm_span`, `birthday`, `city`, `country`, `is_paraclimbing` |
+| `results` | ✓ | one row per (athlete × competition) with `event_name`, `season_year`, `league_name`, `event_city`, `event_country`, `event_date`, `discipline`, `category`, `gender`, athlete name/country, `rank` — everything pre-joined |
+| `round_results` | ✓ | per-round breakdown: one row per (athlete × round) with `round_name`, `round_kind`, `round_format`, `round_rank`, `round_score`, `starting_group` plus the same event/discipline context as `results` |
+| `ascents` | opt-in | **the big one** — one row per (athlete × route × stage) with all discipline-specific columns (`top`/`plus`/`time_ms`/`zone`/`points` …). ~900k rows, ~200 MB CSV; pass explicitly. |
 
 ## Environment variables (`.env`)
 
@@ -259,6 +262,8 @@ python -m wcl_data export athletes --output-dir /tmp/csv
 
 Single SQLite file at `data/wcl.sqlite`, schema defined in `src/wcl_data/db/schema.py`:
 
+**Base tables (9):**
+
 | Table          | Purpose                                                  | Hydratable |
 |----------------|----------------------------------------------------------|:----------:|
 | `seasons`      | Year + ifsc_id                                           |     ✓      |
@@ -270,6 +275,17 @@ Single SQLite file at `data/wcl.sqlite`, schema defined in `src/wcl_data/db/sche
 | `competitions` | (event × discipline × category) triples                  |     ✓      |
 | `athletes`     | Athlete profiles (name, country, height, birthday, …)    |     ✓      |
 | `results`      | (competition × athlete × rank) — derived from competitions hydration | |
+
+**Per-round tables (6, added in ADR 0007 — populated as a side effect of `competitions` hydration):**
+
+| Table             | Purpose                                                            | Hydratable |
+|-------------------|--------------------------------------------------------------------|:----------:|
+| `category_rounds` | One row per round (qualif / semi / final) inside a competition.    |     ✓      |
+| `round_stages`    | Sub-divisions of a round: combined sub-stages, speed-final heats; `seq=0` default stage for simple rounds. | |
+| `routes`          | One row per (round, route). Speed-final lanes reuse routes — keyed by IFSC route id. |     ✓      |
+| `round_results`   | One row per (round, athlete) with `rank` / `score` / `starting_group`. | |
+| `stage_results`   | One row per (stage, athlete). Mirrors `round_results` for simple rounds; distinct for combined / speed-final. | |
+| `ascents`         | Wide table: one row per (stage × athlete × route) with discipline-specific columns (`top`, `plus`, `time_ms`, `zone`, `points`, …). | |
 
 "Hydratable" tables carry a `last_fetched_at` column. Run `hydrate <entity>` or `refresh` to refresh stale rows.
 
@@ -304,7 +320,7 @@ tests/
 pytest -q
 ```
 
-36 tests covering: the event-location parser, the streaming API client (mocked transport, retry policy, give-up semantics, retry non-duplication), the repository (upsert idempotency, transaction commit/rollback, stale-detection boundary, table-name validation, country backfill), the per-fetcher parse logic (athletes, events, competitions including transactional rollback), and the CSV exporter (all views, join correctness, filename format, edge cases).
+69 tests covering: the event-location parser, the streaming API client (mocked transport, retry policy, give-up semantics, retry non-duplication), the repository (upsert idempotency, transaction commit/rollback, stale-detection boundary, table-name validation, country backfill), the per-fetcher parse logic (athletes, events, competitions including per-round transactional rollback and the four discipline shapes — lead / speed / boulder / combined), the `pull-new` ongoing-only filter, and the CSV exporter (all views, join correctness, filename format, edge cases).
 
 ## Notes / known limits
 

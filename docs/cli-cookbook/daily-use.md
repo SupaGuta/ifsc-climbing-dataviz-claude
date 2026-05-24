@@ -44,7 +44,7 @@ Override the threshold per run:
 
 ```bash
 python -m wcl_data refresh --stale-days 7      # weekly cadence
-python -m wcl_data refresh --stale-days 0      # force everything (~30 min)
+python -m wcl_data refresh --stale-days 0      # force everything (~45-90 min)
 ```
 
 ## Force-refresh everything from scratch

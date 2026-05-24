@@ -41,7 +41,8 @@ athletes) in order, hydrating anything stale or NULL. Returns per-entity
 (ok, fail) counts.
 
 This is what the CLI's `refresh` runs. `stale_days=0` re-fetches
-everything (~30 min); `stale_days=30` is the standard cadence.
+everything (~45-90 min, including all per-round data from ADR 0007);
+`stale_days=30` is the standard cadence.
 
 ### `pull_new`
 

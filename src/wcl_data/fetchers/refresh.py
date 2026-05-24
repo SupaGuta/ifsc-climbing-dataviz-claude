@@ -31,9 +31,9 @@ def pull_new(
     Athletes are unchanged: only brand-new skeletons (NULL `last_fetched_at`)
     discovered during this run get hydrated.
 
-    Order of magnitude: ~30-60s on a steady-state warehouse, vs ~30+ for
-    `refresh --stale-days 0`. The `refresh` command remains the escape hatch
-    for catching retroactive World Climbing edits to ended containers.
+    Order of magnitude: ~30-60s on a steady-state warehouse, vs ~45-90 min
+    for `refresh --stale-days 0`. The `refresh` command remains the escape
+    hatch for catching retroactive World Climbing edits to ended containers.
     """
     summary: dict[str, tuple[int, int]] = {}
 

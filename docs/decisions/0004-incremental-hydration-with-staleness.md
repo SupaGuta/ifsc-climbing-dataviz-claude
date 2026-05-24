@@ -10,6 +10,12 @@ day-to-day: athlete birthdays, historical competition rankings, and
 2017-season events are immutable. Re-fetching everything on every run is
 wasteful (~30 minutes, ~150k API calls).
 
+> **Note (2026-05-24):** Post-ADR 0007 the warehouse is now ~1.1M rows
+> across 15 tables and a full re-fetch is closer to 45-90 minutes. The
+> staleness model below scales without change — it operates per-row
+> regardless of the row count.
+
+
 But *some* rows change: the current season gets new events, new events get
 new competitions, new competitions discover new athletes. We need a way to
 say "refresh only what's stale or new" without hand-curating a refresh
@@ -71,9 +77,9 @@ This single column drives the three CLI modes:
 
 ## Alternatives considered
 
-- **Change-data-capture via ETags or Last-Modified headers** — the IFSC
-  API doesn't reliably set these. Rejected.
-- **Polling a `/changes` endpoint** — doesn't exist on the IFSC API.
+- **Change-data-capture via ETags or Last-Modified headers** — the World
+  Climbing API doesn't reliably set these. Rejected.
+- **Polling a `/changes` endpoint** — doesn't exist on the World Climbing API.
 - **Full refresh every run, accept the 30 minutes** — what the predecessor
   did. The slow turnaround discouraged frequent ingestion, which meant
   the warehouse drifted out of date for weeks at a time. Rejected.

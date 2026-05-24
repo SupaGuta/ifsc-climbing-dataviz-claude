@@ -80,7 +80,7 @@ COUNTRY_NAME_OVERRIDES = {
     "malaysia": "MYS",
     "new caledonia": "NCL",
     "peru": "PER",
-    "republic of korea": "PRK",
+    "republic of korea": "KOR",
 }
 
 

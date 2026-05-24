@@ -108,8 +108,8 @@ def main(argv: list[str] | None = None) -> int:
     settings = load_settings(require_credentials=args.command not in _NO_CREDS_COMMANDS)
 
     if args.command == "init":
-        with open_db(settings.db_path) as _:
-            pass
+        conn = open_db(settings.db_path)
+        conn.close()
         log.info("DB initialised at %s", settings.db_path)
         return 0
 
@@ -155,21 +155,23 @@ def _cmd_status(settings) -> int:
     from .db.repository import HYDRATABLE_TABLES
 
     conn = open_db(settings.db_path)
-    repo = Repository(conn)
-    print(f"DB: {settings.db_path}")
-    print(f"{'table':<20} {'rows':>10} {'hydrated':>10}")
-    for table in (
-        "seasons", "leagues", "season_leagues", "disciplines",
-        "categories", "events", "competitions", "athletes", "results",
-        "category_rounds", "round_stages", "routes",
-        "round_results", "stage_results", "ascents",
-    ):
-        total = repo.count(table)
-        hydrated = "-"
-        if table in HYDRATABLE_TABLES:
-            hydrated = str(repo.count_hydrated(table))
-        print(f"{table:<20} {total:>10} {hydrated:>10}")
-    conn.close()
+    try:
+        repo = Repository(conn)
+        print(f"DB: {settings.db_path}")
+        print(f"{'table':<20} {'rows':>10} {'hydrated':>10}")
+        for table in (
+            "seasons", "leagues", "season_leagues", "disciplines",
+            "categories", "events", "competitions", "athletes", "results",
+            "category_rounds", "round_stages", "routes",
+            "round_results", "stage_results", "ascents",
+        ):
+            total = repo.count(table)
+            hydrated = "-"
+            if table in HYDRATABLE_TABLES:
+                hydrated = str(repo.count_hydrated(table))
+            print(f"{table:<20} {total:>10} {hydrated:>10}")
+    finally:
+        conn.close()
     return 0
 
 
@@ -178,11 +180,13 @@ def _cmd_refresh(settings, *, limit, stale_days, workers) -> int:
         settings = replace(settings, max_workers=workers)
     stale = stale_days if stale_days is not None else settings.stale_days
     conn = open_db(settings.db_path)
-    repo = Repository(conn)
-    client = APIClient(settings)
-    summary = refresh_orchestrator.refresh_all(repo, client, stale_days=stale, limit=limit)
-    _print_summary(summary)
-    conn.close()
+    try:
+        repo = Repository(conn)
+        client = APIClient(settings)
+        summary = refresh_orchestrator.refresh_all(repo, client, stale_days=stale, limit=limit)
+        _print_summary(summary)
+    finally:
+        conn.close()
     return 0
 
 
@@ -191,11 +195,13 @@ def _cmd_pull_new(settings, *, limit, workers, grace_days) -> int:
         settings = replace(settings, max_workers=workers)
     grace = grace_days if grace_days is not None else settings.grace_days
     conn = open_db(settings.db_path)
-    repo = Repository(conn)
-    client = APIClient(settings)
-    summary = refresh_orchestrator.pull_new(repo, client, limit=limit, grace_days=grace)
-    _print_summary(summary)
-    conn.close()
+    try:
+        repo = Repository(conn)
+        client = APIClient(settings)
+        summary = refresh_orchestrator.pull_new(repo, client, limit=limit, grace_days=grace)
+        _print_summary(summary)
+    finally:
+        conn.close()
     return 0
 
 
@@ -204,13 +210,15 @@ def _cmd_hydrate(settings, entity, *, limit, stale_days, workers) -> int:
         settings = replace(settings, max_workers=workers)
     stale = stale_days if stale_days is not None else settings.stale_days
     conn = open_db(settings.db_path)
-    repo = Repository(conn)
-    client = APIClient(settings)
-    ok, fail = refresh_orchestrator.hydrate_entity(
-        repo, client, entity, stale_days=stale, limit=limit
-    )
-    print(f"{entity}: {ok} hydrated, {fail} failed.")
-    conn.close()
+    try:
+        repo = Repository(conn)
+        client = APIClient(settings)
+        ok, fail = refresh_orchestrator.hydrate_entity(
+            repo, client, entity, stale_days=stale, limit=limit
+        )
+        print(f"{entity}: {ok} hydrated, {fail} failed.")
+    finally:
+        conn.close()
     return 0
 
 

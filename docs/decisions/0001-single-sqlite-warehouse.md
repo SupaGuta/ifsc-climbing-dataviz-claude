@@ -7,7 +7,12 @@
 
 The package needs persistent storage for ~150k rows across nine tables
 (seasons → results), with single-writer access from a CLI invoked
-interactively and from notebooks. Downstream consumers are notebooks,
+interactively and from notebooks.
+
+> **Note (2026-05-24):** Table count grew to 15 once ADR 0007 added the
+> per-round tables. This ADR's reasoning about file-based storage,
+> single-writer access, and operational simplicity is unchanged.
+ Downstream consumers are notebooks,
 dashboards, and an eventual ML pipeline — all of which run on the same
 machine as the ingestion process for the foreseeable future.
 

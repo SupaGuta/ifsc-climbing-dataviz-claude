@@ -7,7 +7,7 @@ copy. Restoring is a copy back.
 
 Before any of:
 
-- `refresh --stale-days 0` (~30 min, touches everything)
+- `refresh --stale-days 0` (~45-90 min, touches everything)
 - Schema-level changes (editing `src/wcl_data/db/schema.py`)
 - Bulk SQL operations against the warehouse
 - Testing a new fetcher against the live API

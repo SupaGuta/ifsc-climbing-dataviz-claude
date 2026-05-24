@@ -59,7 +59,8 @@ order, hydrating anything stale (>N days) or never-hydrated. Athlete profiles
 get re-fetched too — that's the slow part.
 
 **Use it for:** periodic maintenance on the 30-day cadence, or one-shot
-`--stale-days 0` to nuke everything (~30 min).
+`--stale-days 0` to nuke everything (~45-90 min — the per-round tables
+from ADR 0007 are the bulk of the work).
 
 **Limitation:** `refresh` won't re-discover children of recently-fetched
 parents. If you ran `refresh` yesterday and a new event was added to a season
@@ -88,8 +89,8 @@ overhead. The 15-day grace period (configurable via `WCL_GRACE_DAYS` /
 ancient data.
 
 **Why this exists:** `refresh --stale-days 0` would also catch new content
-but takes ~30 min because it re-fetches every athlete profile AND every
-historical container. Athlete profile fields (`height`, `birthday`, …)
+but takes ~45-90 min because it re-fetches every athlete profile AND every
+historical container (including all per-round data from ADR 0007). Athlete profile fields (`height`, `birthday`, …)
 almost never change, and historical containers literally cannot change
 structurally, so `pull-new` skips both kinds of waste.
 

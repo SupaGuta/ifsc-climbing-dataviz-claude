@@ -81,7 +81,11 @@ def update_env_file(env_path: Path, csrf: str, cookie: str) -> None:
         )
         return
 
-    original = env_path.read_text(encoding="utf-8").splitlines()
+    raw = env_path.read_text(encoding="utf-8")
+    # Preserve the file's existing line ending (CRLF on Windows-checked-out
+    # .env files, LF on POSIX) so this command doesn't silently normalize it.
+    newline = "\r\n" if "\r\n" in raw else "\n"
+    original = raw.splitlines()
     new_lines: list[str] = []
     seen = {"WCL_CSRF_TOKEN": False, "WCL_SESSION_COOKIE": False}
 
@@ -100,4 +104,4 @@ def update_env_file(env_path: Path, csrf: str, cookie: str) -> None:
     if not seen["WCL_SESSION_COOKIE"]:
         new_lines.append(f"WCL_SESSION_COOKIE={cookie}")
 
-    env_path.write_text("\n".join(new_lines) + "\n", encoding="utf-8")
+    env_path.write_text(newline.join(new_lines) + newline, encoding="utf-8")
