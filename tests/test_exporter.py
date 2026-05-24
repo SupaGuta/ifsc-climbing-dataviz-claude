@@ -11,16 +11,21 @@ from wcl_data.exporter import DEFAULT_EXPORT_VIEWS, VIEW_NAMES, export_all, expo
 
 
 def _seed(memory_db) -> None:
-    """Seed a minimal season → league → event → competition → athlete → result chain."""
+    """Seed a minimal season → league → event → competition → athlete → result chain.
+
+    Uses Germany (IFSC code GER, ISO3 DEU) for both event and athlete so the
+    country / country_iso3 split is observable in the export tests.
+    """
     repo = Repository(memory_db)
     season_id = repo.upsert_season(2024, year=2024)
     league_id = repo.upsert_league("World Cup")
     event_id = repo.upsert_event_skeleton(100, season_id=season_id, league_id=league_id)
     repo.update_event(
         event_id,
-        name="IFSC World Cup - Innsbruck (AUT) 2024",
-        city="Innsbruck",
-        country="AUT",
+        name="IFSC World Cup - Munich (GER) 2024",
+        city="Munich",
+        country="GER",
+        country_iso3="DEU",
         date_start="2024-06-01",
         date_end="2024-06-03",
         is_paraclimbing=0,
@@ -37,7 +42,8 @@ def _seed(memory_db) -> None:
         firstname="Adam",
         lastname="ONDRA",
         gender=0,
-        country="CZE",
+        country="GER",
+        country_iso3="DEU",
         height=186,
         birthday="1993-02-05",
         is_paraclimbing=0,
@@ -107,7 +113,10 @@ def test_export_results_joins_everything(memory_db, tmp_path):
     row = rows[0]
     assert row["athlete_firstname"] == "Adam"
     assert row["athlete_lastname"] == "ONDRA"
-    assert row["athlete_country"] == "CZE"
+    assert row["athlete_country"] == "GER"
+    assert row["athlete_country_iso3"] == "DEU"
+    assert row["event_country"] == "GER"
+    assert row["event_country_iso3"] == "DEU"
     assert row["event_name"].startswith("IFSC World Cup")
     assert row["season_year"] == "2024"
     assert row["league_name"] == "World Cup"
@@ -123,6 +132,24 @@ def test_export_athletes_translates_gender_to_string(memory_db, tmp_path):
     with path.open("r", encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
     assert rows[0]["gender"] == "male"  # not "0"
+
+
+def test_export_events_and_athletes_carry_country_iso3(memory_db, tmp_path):
+    """ADR 0008: both the events and athletes default views surface the
+    raw federation `country` and the normalized `country_iso3` side by side."""
+    _seed(memory_db)
+
+    e_path = export_view(memory_db, "events", output_dir=tmp_path)
+    with e_path.open("r", encoding="utf-8") as f:
+        e_rows = list(csv.DictReader(f))
+    assert e_rows[0]["country"] == "GER"
+    assert e_rows[0]["country_iso3"] == "DEU"
+
+    a_path = export_view(memory_db, "athletes", output_dir=tmp_path)
+    with a_path.open("r", encoding="utf-8") as f:
+        a_rows = list(csv.DictReader(f))
+    assert a_rows[0]["country"] == "GER"
+    assert a_rows[0]["country_iso3"] == "DEU"
 
 
 def test_export_filename_carries_utc_timestamp(memory_db, tmp_path):

@@ -6,6 +6,7 @@ from typing import Optional
 
 from ..api.client import APIClient
 from ..db.repository import Repository
+from ..parsers.event_location import to_iso3
 
 log = logging.getLogger(__name__)
 
@@ -35,6 +36,7 @@ def hydrate(
             gender_str = (data.get("gender") or "").lower()
             gender = 0 if gender_str == "male" else (1 if gender_str == "female" else None)
 
+            country = data.get("country")
             repo.update_athlete(
                 ath_row_id,
                 firstname=data.get("firstname"),
@@ -44,7 +46,8 @@ def hydrate(
                 arm_span=data.get("arm_span"),
                 birthday=data.get("birthday"),
                 city=data.get("city"),
-                country=data.get("country"),
+                country=country,
+                country_iso3=to_iso3(country),
                 photo_url=data.get("photo_url"),
                 is_paraclimbing=1 if data.get("paraclimbing_sport_class") is not None else 0,
             )

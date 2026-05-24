@@ -248,7 +248,7 @@ class Repository:
         return row[0]
 
     def update_event(self, row_id: int, **fields: Any) -> None:
-        allowed = {"name", "city", "country", "date_start", "date_end", "is_paraclimbing"}
+        allowed = {"name", "city", "country", "country_iso3", "date_start", "date_end", "is_paraclimbing"}
         cols = [k for k in fields if k in allowed]
         if not cols:
             return
@@ -257,18 +257,23 @@ class Repository:
         self.conn.execute(f"UPDATE events SET {sets} WHERE id = ?", values)
         self._maybe_commit()
 
-    def backfill_event_country_for_row(self, row_id: int, country: str) -> None:
+    def backfill_event_country_for_row(
+        self, row_id: int, country: str, *, country_iso3: Optional[str] = None
+    ) -> None:
         self.conn.execute(
-            "UPDATE events SET country = ? WHERE id = ? AND country IS NULL",
-            (country, row_id),
+            "UPDATE events SET country = ?, country_iso3 = ? "
+            "WHERE id = ? AND country IS NULL",
+            (country, country_iso3, row_id),
         )
         self._maybe_commit()
 
     def backfill_event_country_from_siblings(self) -> int:
-        """Fill NULL country on any event whose city matches a sibling row with a country.
+        """Fill NULL country (and country_iso3) on any event whose city matches a sibling row.
 
-        One SQL pass; uses MAX() to deterministically pick when multiple sibling
-        countries exist (rare; alphabetical winner). Returns number of rows affected.
+        One SQL pass per column; uses MAX() to deterministically pick when
+        multiple sibling countries exist (rare; alphabetical winner). Returns
+        the number of rows touched on the `country` pass — `country_iso3` is
+        kept in sync but its rowcount is not separately reported.
         """
         cur = self.conn.execute(
             "UPDATE events SET country = ("
@@ -278,6 +283,13 @@ class Repository:
             "WHERE country IS NULL AND city IS NOT NULL"
         )
         affected = cur.rowcount
+        self.conn.execute(
+            "UPDATE events SET country_iso3 = ("
+            "  SELECT MAX(e2.country_iso3) FROM events e2 "
+            "  WHERE e2.city = events.city AND e2.country_iso3 IS NOT NULL"
+            ") "
+            "WHERE country_iso3 IS NULL AND city IS NOT NULL"
+        )
         self._maybe_commit()
         return affected
 
@@ -318,7 +330,7 @@ class Repository:
     def update_athlete(self, row_id: int, **fields: Any) -> None:
         allowed = {
             "firstname", "lastname", "gender", "height", "arm_span",
-            "birthday", "city", "country", "photo_url", "is_paraclimbing",
+            "birthday", "city", "country", "country_iso3", "photo_url", "is_paraclimbing",
         }
         cols = [k for k in fields if k in allowed]
         if not cols:

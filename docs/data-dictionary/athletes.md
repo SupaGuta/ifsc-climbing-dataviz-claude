@@ -24,7 +24,8 @@ populates during `athletes.hydrate`.
 | `arm_span`         | INTEGER |    ✓     | Centimetres. Self-reported; usually NULL.                            |
 | `birthday`         | TEXT    |    ✓     | `YYYY-MM-DD`. Often NULL for older athletes or privacy reasons.      |
 | `city`             | TEXT    |    ✓     | Free-text city. NULL if API didn't have it.                          |
-| `country`          | TEXT    |    ✓     | ISO 3166-1 alpha-3 from the API's `country` field.                   |
+| `country`          | TEXT    |    ✓     | Raw federation code from the API — mix of ISO 3166-1 alpha-3 and IFSC/IOC variants (GER, SUI, NED, INA, IRI, MAS, SIN, …). For ISO3-only aggregation, use `country_iso3`. |
+| `country_iso3`     | TEXT    |    ✓     | Canonical ISO 3166-1 alpha-3, derived from `country` via the static IFSC→ISO3 map in `parsers/event_location.py`. NULL iff `country` is NULL. See [ADR 0008](../decisions/0008-country-iso3-sibling-column.md). |
 | `photo_url`        | TEXT    |    ✓     | URL to a profile photo. Most athletes don't have one.                |
 | `is_paraclimbing`  | INTEGER |    ✓     | `0` / `1`. **Heuristic** — see gotcha below.                         |
 | `last_fetched_at`  | TEXT    |    ✓     | ISO-8601 UTC. NULL = skeleton, not yet hydrated.                     |
@@ -46,6 +47,7 @@ Measured 2026-05-23 on hydrated rows only (14,922 athletes):
 | `lastname`        | 100.0%   |
 | `gender`          | 100.0%   |
 | `country`         | 100.0%   |
+| `country_iso3`    | 100.0%   |
 | `city`            | 70.6%    |
 | `birthday`        | 52.0%    |
 | `photo_url`       | 14.3%    |
@@ -82,3 +84,9 @@ column here.
 - **`city` here is free-text from the API**, not parsed. It's not normalized
   and shouldn't be treated as authoritative — same city often appears with
   different spellings ("Saint-Petersburg" vs "St. Petersburg").
+- **`country` vs `country_iso3`:** the raw `country` mirrors the
+  federation's own code (Switzerland shows as `SUI`, Indonesia as `INA`,
+  etc.); `country_iso3` is the canonical ISO3 form (CHE / IDN). Group by
+  whichever fits your audience — IFSC podium-style summaries use `country`,
+  joins to external ISO3-keyed datasets use `country_iso3`. See
+  [ADR 0008](../decisions/0008-country-iso3-sibling-column.md).

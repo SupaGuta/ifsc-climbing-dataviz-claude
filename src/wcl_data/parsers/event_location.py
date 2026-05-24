@@ -92,6 +92,53 @@ COUNTRY_NAME_OVERRIDES = {
     "russia": "RUS",         # pycountry uses "Russian Federation"
 }
 
+# IFSC / IOC variant codes → canonical ISO 3166-1 alpha-3.
+#
+# The raw `country` column preserves the federation's own code (what athletes
+# wear at competitions); this map produces a sibling `country_iso3` value
+# suitable for joining with non-IFSC datasets (Olympics, geo-coded city
+# lookups, country demographics, …). Codes already matching ISO3 are absent
+# from the map — `to_iso3()` returns them as-is. See ADR 0008.
+#
+# `CFR` (IFSC's historical code for the Russian Climbing Federation, seen on
+# 2 Moscow 2021 events) and `CMA` (a known typo of `(CHN)` in event
+# ifsc_id=511) are normalized to RUS and CHN respectively to keep
+# aggregations whole.
+IFSC_TO_ISO3 = {
+    "BUL": "BGR",  # Bulgaria
+    "CFR": "RUS",  # IFSC Russian Climbing Federation
+    "CHI": "CHL",  # Chile
+    "CMA": "CHN",  # Typo in event ifsc_id=511
+    "CRO": "HRV",  # Croatia
+    "GER": "DEU",  # Germany
+    "GRE": "GRC",  # Greece
+    "GUA": "GTM",  # Guatemala
+    "INA": "IDN",  # Indonesia
+    "IRI": "IRN",  # Iran
+    "KSA": "SAU",  # Saudi Arabia
+    "MAS": "MYS",  # Malaysia
+    "NED": "NLD",  # Netherlands
+    "PHI": "PHL",  # Philippines
+    "POR": "PRT",  # Portugal
+    "RSA": "ZAF",  # South Africa
+    "SIN": "SGP",  # Singapore
+    "SLO": "SVN",  # Slovenia
+    "SUI": "CHE",  # Switzerland
+    "TPE": "TWN",  # Chinese Taipei → Taiwan
+}
+
+
+def to_iso3(country_code: Optional[str]) -> Optional[str]:
+    """Normalize an IFSC/IOC federation code to ISO 3166-1 alpha-3.
+
+    Returns the input unchanged when it's already ISO3 (or empty). Does not
+    validate against `pycountry` — the goal is to consolidate aggregations,
+    not to gate writes. See ADR 0008 for the rationale.
+    """
+    if not country_code:
+        return None
+    return IFSC_TO_ISO3.get(country_code, country_code)
+
 
 EVENT_KEYWORDS = [
     "world championship", "world championships",

@@ -68,6 +68,7 @@ def hydrate(
                 name=name,
                 city=city,
                 country=country,
+                country_iso3=event_location.to_iso3(country),
                 date_start=data.get("local_start_date"),
                 date_end=data.get("local_end_date"),
                 is_paraclimbing=1 if data.get("is_paraclimbing_event") else 0,
@@ -106,7 +107,9 @@ def hydrate(
     for ev_row_id, city in cities_missing_country.items():
         country = city_to_country.get(city)
         if country:
-            repo.backfill_event_country_for_row(ev_row_id, country)
+            repo.backfill_event_country_for_row(
+                ev_row_id, country, country_iso3=event_location.to_iso3(country)
+            )
 
     # Cross-batch backfill: any remaining country-NULL event whose city appears
     # on a sibling row in the DB (from a prior run) inherits that country.

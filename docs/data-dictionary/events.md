@@ -24,7 +24,8 @@ in if either parent surfaced this event.
 | `league_id`        | INTEGER |    ✓     | FK → `leagues.id`. Populated if surfaced via a season_league.      |
 | `name`             | TEXT    |    ✓     | Full event name, e.g. `"IFSC Climbing World Cup - Chamonix (FRA) 2019"`. |
 | `city`             | TEXT    |    ✓     | Title-cased city. Parsed from `name` first, then API `location` field. |
-| `country`          | TEXT    |    ✓     | ISO 3166-1 alpha-3. Parsed from `name` first, then API `country` field. Sibling backfill recovers many NULLs. |
+| `country`          | TEXT    |    ✓     | Raw federation code — mix of ISO 3166-1 alpha-3 (FRA, JPN, USA …) and IFSC/IOC variants (GER, SUI, NED, INA, IRI, MAS, SIN, …). Parsed from `name` first, then API `country` field. Sibling backfill recovers many NULLs. For ISO3-only aggregation, use `country_iso3`. |
+| `country_iso3`     | TEXT    |    ✓     | Canonical ISO 3166-1 alpha-3, derived from `country` via the static IFSC→ISO3 map in `parsers/event_location.py`. Codes already ISO3 pass through unchanged. NULL iff `country` is NULL. See [ADR 0008](../decisions/0008-country-iso3-sibling-column.md). |
 | `date_start`       | TEXT    |    ✓     | `YYYY-MM-DD`, local date (no timezone). From API `local_start_date`. |
 | `date_end`         | TEXT    |    ✓     | `YYYY-MM-DD`, local date. From API `local_end_date`.               |
 | `is_paraclimbing`  | INTEGER |    ✓     | `0` / `1`. From API `is_paraclimbing_event`. Authoritative — *not* the heuristic that lives on `athletes`. |
@@ -50,7 +51,8 @@ Measured 2026-05-23 on hydrated rows only:
 | `date_start`      | 100.0%   |
 | `is_paraclimbing` | 100.0%   |
 | `city`            | 99.4%    |
-| `country`         | 96.2%    |
+| `country`         | 96.3%    |
+| `country_iso3`    | 96.3%    |
 
 The remaining city/country NULLs are events whose name doesn't match any of
 the city/country parser anchors and whose API fields are blank. See
@@ -80,4 +82,11 @@ for the parser's rules and why it returns NULL rather than guessing.
 - **Sibling backfill:** an event with a city but no country can inherit the
   country from a sibling event in the same city (cross-batch backfill runs
   after every events hydration). This is the main reason `country` coverage
-  beats raw parser output.
+  beats raw parser output. The backfill keeps `country_iso3` in sync via a
+  parallel `UPDATE` on the same join.
+- **`country` vs `country_iso3`:** group by `country` to see the
+  federation's own labels (Switzerland shows as `SUI` etc.); group by
+  `country_iso3` for ISO3-clean aggregations (Switzerland becomes `CHE`).
+  Joining to external ISO3-keyed datasets should always use `country_iso3`.
+  See [ADR 0008](../decisions/0008-country-iso3-sibling-column.md) for the
+  rationale and the full IFSC→ISO3 mapping.

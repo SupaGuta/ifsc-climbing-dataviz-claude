@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import pytest
 
-from wcl_data.parsers.event_location import parse_city_country
+from wcl_data.parsers.event_location import parse_city_country, to_iso3
 
 
 @pytest.mark.parametrize("name,city,country", [
@@ -78,6 +78,29 @@ def test_last_known_iso3_wins_over_earlier_unknown():
 def test_ifsc_and_ioc_variants_are_accepted(code):
     _, country = parse_city_country(f"Climbing Cup - City ({code}) 2020")
     assert country == code
+
+
+# --- to_iso3 normalization (ADR 0008) --------------------------------------
+
+@pytest.mark.parametrize("raw,iso3", [
+    # IFSC variants → canonical ISO3
+    ("GER", "DEU"), ("SUI", "CHE"), ("NED", "NLD"), ("POR", "PRT"),
+    ("SLO", "SVN"), ("BUL", "BGR"), ("CRO", "HRV"), ("GRE", "GRC"),
+    ("RSA", "ZAF"), ("PHI", "PHL"),
+    ("INA", "IDN"), ("IRI", "IRN"), ("MAS", "MYS"), ("SIN", "SGP"),
+    # IOC-only variants
+    ("KSA", "SAU"), ("GUA", "GTM"), ("CHI", "CHL"), ("TPE", "TWN"),
+    # IFSC-internal oddities folded to the right ISO3
+    ("CFR", "RUS"),  # historical RusClim federation code
+    ("CMA", "CHN"),  # typo in event ifsc_id=511
+    # Already-ISO3 codes pass through unchanged
+    ("FRA", "FRA"), ("JPN", "JPN"), ("USA", "USA"), ("CHN", "CHN"),
+    ("BRA", "BRA"), ("MAC", "MAC"), ("KOR", "KOR"),
+    # Empty / None
+    (None, None), ("", None),
+])
+def test_to_iso3_normalization(raw, iso3):
+    assert to_iso3(raw) == iso3
 
 
 # --- C: "Event - Country" fallback (no parens, no year) --------------------

@@ -58,3 +58,37 @@ def test_paraclimbing_flag_set_when_sport_class_present(memory_db, fixture):
     athletes_fetcher.hydrate(repo, client, stale_days=0)
     row = memory_db.execute("SELECT is_paraclimbing FROM athletes WHERE ifsc_id = 9999").fetchone()
     assert row["is_paraclimbing"] == 1
+
+
+def test_country_iso3_normalized_from_ifsc_variant(memory_db, fixture):
+    """ADR 0008: athletes whose API country is an IFSC variant (GER, SUI, INA, …)
+    get a canonical ISO3 written to the sibling country_iso3 column."""
+    repo = Repository(memory_db)
+    repo.upsert_athlete_skeleton(7777)
+
+    data = dict(fixture("athletes-id"))
+    data["country"] = "GER"  # IFSC variant for Germany; ISO3 is DEU
+    client = _stub_client(data)
+
+    athletes_fetcher.hydrate(repo, client, stale_days=0)
+    row = memory_db.execute(
+        "SELECT country, country_iso3 FROM athletes WHERE ifsc_id = 7777"
+    ).fetchone()
+    assert row["country"] == "GER"
+    assert row["country_iso3"] == "DEU"
+
+
+def test_country_iso3_passes_through_when_already_iso3(memory_db, fixture):
+    repo = Repository(memory_db)
+    repo.upsert_athlete_skeleton(8888)
+
+    data = dict(fixture("athletes-id"))
+    data["country"] = "FRA"
+    client = _stub_client(data)
+
+    athletes_fetcher.hydrate(repo, client, stale_days=0)
+    row = memory_db.execute(
+        "SELECT country, country_iso3 FROM athletes WHERE ifsc_id = 8888"
+    ).fetchone()
+    assert row["country"] == "FRA"
+    assert row["country_iso3"] == "FRA"

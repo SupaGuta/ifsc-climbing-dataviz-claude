@@ -8,7 +8,7 @@ from __future__ import annotations
 import sqlite3
 from pathlib import Path
 
-CURRENT_VERSION = 2
+CURRENT_VERSION = 3
 
 DDL = """
 CREATE TABLE IF NOT EXISTS schema_version (
@@ -58,6 +58,7 @@ CREATE TABLE IF NOT EXISTS events (
     name TEXT,
     city TEXT,
     country TEXT,
+    country_iso3 TEXT,
     date_start TEXT,
     date_end TEXT,
     is_paraclimbing INTEGER,
@@ -89,6 +90,7 @@ CREATE TABLE IF NOT EXISTS athletes (
     birthday TEXT,
     city TEXT,
     country TEXT,
+    country_iso3 TEXT,
     photo_url TEXT,
     is_paraclimbing INTEGER,
     last_fetched_at TEXT
@@ -207,13 +209,28 @@ CREATE INDEX IF NOT EXISTS idx_ascents_competition ON ascents(competition_id);
 
 
 def apply_schema(conn: sqlite3.Connection) -> None:
-    """Create all tables and indexes. Idempotent."""
+    """Create all tables and indexes. Idempotent.
+
+    For DBs created before `country_iso3` existed (schema v1/v2), the
+    column is added via ALTER TABLE — guarded by a PRAGMA table_info check
+    so the call stays idempotent.
+    """
     conn.executescript(DDL)
+    _add_missing_column(conn, "events", "country_iso3", "TEXT")
+    _add_missing_column(conn, "athletes", "country_iso3", "TEXT")
     conn.execute(
         "INSERT OR IGNORE INTO schema_version (version) VALUES (?)",
         (CURRENT_VERSION,),
     )
     conn.commit()
+
+
+def _add_missing_column(
+    conn: sqlite3.Connection, table: str, column: str, sql_type: str
+) -> None:
+    cols = {row[1] for row in conn.execute(f"PRAGMA table_info({table})")}
+    if column not in cols:
+        conn.execute(f"ALTER TABLE {table} ADD COLUMN {column} {sql_type}")
 
 
 def open_db(path: Path) -> sqlite3.Connection:

@@ -54,8 +54,17 @@ on `ifsc_id` alone.
   literal `Z`). Lexicographically sortable.
 - **Booleans (`is_paraclimbing`)** — INTEGER `0` / `1`. SQLite has no native
   bool.
-- **Country** — TEXT, ISO 3166-1 alpha-3 code (`"FRA"`, `"USA"`, `"JPN"`),
-  uppercase. NULL when undetermined.
+- **Country** — every table with a country carries two columns:
+  - `country` — raw federation code (mix of ISO3 like `FRA`/`USA`/`JPN` and
+    IFSC/IOC variants like `GER`/`SUI`/`NED`/`INA`/`IRI`/`MAS`/`SIN`).
+    Source of truth for "what the federation said".
+  - `country_iso3` — canonical ISO 3166-1 alpha-3 only, derived via the
+    static IFSC→ISO3 map. Use this for joins with external datasets
+    (Olympics rosters, geo-coded city tables, country demographics, …).
+    NULL iff `country` is NULL.
+
+  See [ADR 0008](../decisions/0008-country-iso3-sibling-column.md) for the
+  dual-column rationale and the full mapping.
 
 ### NULL semantics
 

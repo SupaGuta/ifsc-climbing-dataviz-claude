@@ -50,6 +50,7 @@ VIEWS: dict[str, str] = {
             l.name AS league_name,
             e.city,
             e.country,
+            e.country_iso3,
             e.date_start,
             e.date_end,
             e.is_paraclimbing
@@ -86,6 +87,7 @@ VIEWS: dict[str, str] = {
             birthday,
             city,
             country,
+            country_iso3,
             is_paraclimbing
         FROM athletes
         ORDER BY ifsc_id
@@ -98,6 +100,7 @@ VIEWS: dict[str, str] = {
             l.name AS league_name,
             e.city AS event_city,
             e.country AS event_country,
+            e.country_iso3 AS event_country_iso3,
             e.date_start AS event_date,
             d.name AS discipline,
             cat.name AS category,
@@ -106,6 +109,7 @@ VIEWS: dict[str, str] = {
             a.firstname AS athlete_firstname,
             a.lastname AS athlete_lastname,
             a.country AS athlete_country,
+            a.country_iso3 AS athlete_country_iso3,
             r.rank
         FROM results r
         JOIN competitions c ON r.competition_id = c.id
@@ -125,6 +129,7 @@ VIEWS: dict[str, str] = {
             l.name AS league_name,
             e.city AS event_city,
             e.country AS event_country,
+            e.country_iso3 AS event_country_iso3,
             e.date_start AS event_date,
             d.name AS discipline,
             cat.name AS category,
@@ -138,6 +143,7 @@ VIEWS: dict[str, str] = {
             a.firstname AS athlete_firstname,
             a.lastname AS athlete_lastname,
             a.country AS athlete_country,
+            a.country_iso3 AS athlete_country_iso3,
             rr.rank AS round_rank,
             rr.score AS round_score,
             rr.starting_group
@@ -169,6 +175,7 @@ VIEWS: dict[str, str] = {
             a.firstname AS athlete_firstname,
             a.lastname AS athlete_lastname,
             a.country AS athlete_country,
+            a.country_iso3 AS athlete_country_iso3,
             asc_.rank AS ascent_rank,
             asc_.score AS ascent_score,
             asc_.top,

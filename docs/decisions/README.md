@@ -75,3 +75,4 @@ bullets is fine.
 - [0005 — Transactional boundary on competitions](0005-transactional-boundary-on-competitions.md)
 - [0006 — Scope `pull-new` to ongoing containers only](0006-ongoing-only-pull-new.md)
 - [0007 — Per-round ingestion: rounds, stages, ascents](0007-per-round-ingestion.md)
+- [0008 — `country_iso3` sibling column on events and athletes](0008-country-iso3-sibling-column.md)
