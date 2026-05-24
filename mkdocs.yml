@@ -1,0 +1,124 @@
+site_name: IFSC Climbing Data Layer
+site_description: Documentation for the IFSC public API ingestion layer (SQLite warehouse).
+site_url: https://supaguta.github.io/ifsc-climbing-dataviz-claude/
+repo_url: https://github.com/SupaGuta/ifsc-climbing-dataviz-claude
+repo_name: SupaGuta/ifsc-climbing-dataviz-claude
+edit_uri: edit/main/docs/
+copyright: Layer 0 of an IFSC analytics project — open documentation.
+
+docs_dir: docs
+site_dir: site
+
+theme:
+  name: material
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.indexes
+    - toc.follow
+    - content.code.copy
+    - content.code.annotate
+    - content.action.edit
+    - content.action.view
+    - search.suggest
+    - search.highlight
+    - search.share
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+  icon:
+    repo: fontawesome/brands/github
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+plugins:
+  - search
+
+nav:
+  - Home: README.md
+  - Contributing: contributing.md
+  - Architecture:
+      - Overview: architecture/overview.md
+      - Ingestion pipeline: architecture/ingestion-pipeline.md
+      - API client: architecture/api-client.md
+      - Database & schema: architecture/database-and-schema.md
+      - Parsing & heuristics: architecture/parsing-and-heuristics.md
+  - Decisions (ADRs):
+      - Index: decisions/README.md
+      - 0001 — Single SQLite warehouse: decisions/0001-single-sqlite-warehouse.md
+      - 0002 — Streaming writes: decisions/0002-streaming-writes.md
+      - 0003 — Selective 4xx-skip retry: decisions/0003-selective-4xx-skip-retry.md
+      - 0004 — Incremental hydration with staleness: decisions/0004-incremental-hydration-with-staleness.md
+      - 0005 — Transactional boundary on competitions: decisions/0005-transactional-boundary-on-competitions.md
+      - 0006 — Ongoing-only pull-new: decisions/0006-ongoing-only-pull-new.md
+      - 0007 — Per-round ingestion: decisions/0007-per-round-ingestion.md
+  - Data dictionary:
+      - Index: data-dictionary/README.md
+      - seasons: data-dictionary/seasons.md
+      - season-leagues: data-dictionary/season-leagues.md
+      - events: data-dictionary/events.md
+      - competitions: data-dictionary/competitions.md
+      - athletes: data-dictionary/athletes.md
+      - results: data-dictionary/results.md
+      - category-rounds: data-dictionary/category-rounds.md
+      - round-stages: data-dictionary/round-stages.md
+      - routes: data-dictionary/routes.md
+      - round-results: data-dictionary/round-results.md
+      - stage-results: data-dictionary/stage-results.md
+      - ascents: data-dictionary/ascents.md
+      - reference tables: data-dictionary/reference-tables.md
+  - CLI cookbook:
+      - Index: cli-cookbook/README.md
+      - Setup: cli-cookbook/setup.md
+      - Daily use: cli-cookbook/daily-use.md
+      - Exports: cli-cookbook/exports.md
+      - Custom queries: cli-cookbook/custom-queries.md
+      - Troubleshooting: cli-cookbook/troubleshooting.md
+  - Python API:
+      - Index: python-api/README.md
+      - Repository: python-api/repository.md
+      - APIClient: python-api/client.md
+      - Fetchers & orchestrator: python-api/fetchers-and-orchestrator.md
+  - Operations:
+      - Index: operations/README.md
+      - Auth: operations/auth.md
+      - Logs: operations/logs.md
+      - Recovery: operations/recovery.md
+      - Backup: operations/backup.md

@@ -5,12 +5,12 @@ when the CLI's task model doesn't fit — e.g. ingesting only a specific list
 of athletes, embedding a hydration step in a larger pipeline, or driving
 custom exports.
 
-For interactive walkthroughs see [`notebooks/`](../../notebooks/),
+For interactive walkthroughs see [`notebooks/`](https://github.com/SupaGuta/ifsc-climbing-dataviz-claude/tree/main/notebooks),
 particularly:
 
-- [`02_the_python_api.ipynb`](../../notebooks/02_the_python_api.ipynb) — the
+- [`02_the_python_api.ipynb`](https://github.com/SupaGuta/ifsc-climbing-dataviz-claude/blob/main/notebooks/02_the_python_api.ipynb) — the
   ground-up tour
-- [`03_querying_and_exporting.ipynb`](../../notebooks/03_querying_and_exporting.ipynb)
+- [`03_querying_and_exporting.ipynb`](https://github.com/SupaGuta/ifsc-climbing-dataviz-claude/blob/main/notebooks/03_querying_and_exporting.ipynb)
   — read-mostly use of the warehouse
 
 This folder is a **reference**, not a tutorial. Each page documents one
@@ -62,5 +62,5 @@ settings = load_settings(require_credentials=False)
 ```
 
 For the *why* behind the package's shape see
-[`../architecture/`](../architecture/) and the
-[ADRs](../decisions/).
+[`../architecture/`](../architecture/overview.md) and the
+[ADRs](../decisions/README.md).

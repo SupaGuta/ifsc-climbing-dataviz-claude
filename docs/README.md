@@ -1,6 +1,6 @@
 # Documentation
 
-Docs for `ifsc_data`. The root [`README.md`](../README.md) is the *user*
+Docs for `ifsc_data`. The root [`README.md`](https://github.com/SupaGuta/ifsc-climbing-dataviz-claude/blob/main/README.md) is the *user*
 guide (install, CLI reference, `.env` variables). What lives here is
 everything else — the **why** behind the design, the per-table data
 reference, recipes for common tasks, the Python API, and operational
@@ -73,7 +73,7 @@ docs/
   to query the data, jump to
   [cli-cookbook/exports.md](cli-cookbook/exports.md) or
   [cli-cookbook/custom-queries.md](cli-cookbook/custom-queries.md).
-- **"What's in the database?"** [data-dictionary/](data-dictionary/) —
+- **"What's in the database?"** [data-dictionary/](data-dictionary/README.md) —
   one file per table, with coverage stats and gotchas.
 - **"I want to script against it."** [python-api/README.md](python-api/README.md)
   → the three reference pages.
@@ -82,13 +82,13 @@ docs/
   "I ran X and got Y," [operations/recovery.md](operations/recovery.md)
   for procedure-level recovery.
 - **"How do I keep credentials / logs / backups healthy?"**
-  [operations/](operations/) — one page per topic.
+  [operations/](operations/README.md) — one page per topic.
 - **"I want to extend the code."** [contributing.md](contributing.md)
   → [architecture/overview.md](architecture/overview.md) → the relevant
   architecture page → the relevant ADR.
 - **"Why is it shaped this way?"**
-  [architecture/](architecture/) for the design,
-  [decisions/](decisions/) for the trade-offs each design choice locked
+  [architecture/](architecture/overview.md) for the design,
+  [decisions/](decisions/README.md) for the trade-offs each design choice locked
   in.
 
 ## Where to start by role
@@ -106,11 +106,11 @@ docs/
   [architecture/api-client.md](architecture/api-client.md) + ADR
   [0003](decisions/0003-selective-4xx-skip-retry.md)
 - **Downstream consumer (notebooks, ML pipeline):**
-  [data-dictionary/](data-dictionary/) →
+  [data-dictionary/](data-dictionary/README.md) →
   [python-api/README.md](python-api/README.md)
 
 ## Other resources
 
-- [`README.md`](../README.md) — user guide / CLI reference
-- [`notebooks/`](../notebooks/) — four-part interactive walkthrough (setup → data model → Python API → querying/exporting)
+- [`README.md`](https://github.com/SupaGuta/ifsc-climbing-dataviz-claude/blob/main/README.md) — user guide / CLI reference
+- [`notebooks/`](https://github.com/SupaGuta/ifsc-climbing-dataviz-claude/tree/main/notebooks) — four-part interactive walkthrough (setup → data model → Python API → querying/exporting)
 - Module docstrings — every `.py` opens with one

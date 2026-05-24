@@ -15,7 +15,7 @@ for row in conn.execute("<query>"):
     print(row)
 ```
 
-For schema reference see [`../data-dictionary/`](../data-dictionary/).
+For schema reference see [`../data-dictionary/`](../data-dictionary/README.md).
 For pre-joined CSV exports of common views see [exports.md](exports.md).
 
 ## Row counts and coverage

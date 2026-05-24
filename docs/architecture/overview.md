@@ -112,4 +112,4 @@ discovered along the way, and finishes in 3–5 minutes.
 - [api-client.md](api-client.md) — streaming, retry, concurrency
 - [database-and-schema.md](database-and-schema.md) — table-by-table reference and the transactional boundary
 - [parsing-and-heuristics.md](parsing-and-heuristics.md) — where the package guesses, and where it gives up rather than guess
-- [../decisions/](../decisions/) — the *why* behind the design choices above
+- [../decisions/](../decisions/README.md) — the *why* behind the design choices above

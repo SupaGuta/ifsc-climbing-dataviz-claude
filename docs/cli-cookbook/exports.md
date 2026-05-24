@@ -45,7 +45,7 @@ python -m ifsc_data export ascents --output-dir /tmp/csv
 
 Choices: `seasons`, `leagues`, `events`, `competitions`, `athletes`,
 `results`, `round_results`, `ascents`. View definitions live in
-[`src/ifsc_data/exporter.py`](../../src/ifsc_data/exporter.py).
+[`src/ifsc_data/exporter.py`](https://github.com/SupaGuta/ifsc-climbing-dataviz-claude/blob/main/src/ifsc_data/exporter.py).
 
 ---
 

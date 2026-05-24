@@ -60,7 +60,7 @@ for the parser's rules and why it returns NULL rather than guessing.
 ## Gotchas
 
 - **City/country provenance:** the parser in
-  [`src/ifsc_data/parsers/event_location.py`](../../src/ifsc_data/parsers/event_location.py)
+  [`src/ifsc_data/parsers/event_location.py`](https://github.com/SupaGuta/ifsc-climbing-dataviz-claude/blob/main/src/ifsc_data/parsers/event_location.py)
   runs *first*; the API's own `location` / `country` fields are fallback.
   This is because older events store the location only in the name.
 - **`is_paraclimbing` here is authoritative**, unlike the same-named field on

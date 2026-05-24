@@ -4,9 +4,9 @@ Task-oriented recipes for the `python -m ifsc_data` CLI. Grouped by intent —
 find the section that matches what you're trying to do.
 
 For the CLI reference (all flags, all options) see the root
-[`README.md`](../../README.md). For the *why* behind each command's
-behavior, see [`../architecture/`](../architecture/) and the
-[ADRs](../decisions/).
+[`README.md`](https://github.com/SupaGuta/ifsc-climbing-dataviz-claude/blob/main/README.md). For the *why* behind each command's
+behavior, see [`../architecture/`](../architecture/overview.md) and the
+[ADRs](../decisions/README.md).
 
 ## Sections
 

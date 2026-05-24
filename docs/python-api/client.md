@@ -1,7 +1,7 @@
 # `APIClient`
 
 Streaming HTTP client over the IFSC API. Lives in
-[`src/ifsc_data/api/client.py`](../../src/ifsc_data/api/client.py). For
+[`src/ifsc_data/api/client.py`](https://github.com/SupaGuta/ifsc-climbing-dataviz-claude/blob/main/src/ifsc_data/api/client.py). For
 the design (streaming generator, retry policy, urllib3 pool sizing) see
 [`../architecture/api-client.md`](../architecture/api-client.md).
 

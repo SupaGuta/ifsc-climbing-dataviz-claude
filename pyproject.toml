@@ -23,6 +23,10 @@ notebook = [
     "jupyterlab>=4.0",
     "pandas>=2.0",
 ]
+docs = [
+    "mkdocs>=1.6",
+    "mkdocs-material>=9.5",
+]
 
 [project.scripts]
 ifsc-data = "ifsc_data.cli:main"

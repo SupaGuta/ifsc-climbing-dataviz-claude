@@ -27,3 +27,6 @@ data/exports/
 
 # Claude Code local settings
 .claude/
+
+# mkdocs build output
+site/

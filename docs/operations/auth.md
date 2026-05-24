@@ -30,7 +30,7 @@ python -m ifsc_data auth
 ```
 
 What this does, from
-[`src/ifsc_data/api/credentials.py`](../../src/ifsc_data/api/credentials.py):
+[`src/ifsc_data/api/credentials.py`](https://github.com/SupaGuta/ifsc-climbing-dataviz-claude/blob/main/src/ifsc_data/api/credentials.py):
 
 1. Plain GET to `https://ifsc.results.info`.
 2. Regex-extracts the `<meta name="csrf-token" content="...">` value.

@@ -62,7 +62,7 @@ python -m ifsc_data init
 ```
 
 Creates `data/ifsc.sqlite` with the schema from
-[`src/ifsc_data/db/schema.py`](../../src/ifsc_data/db/schema.py).
+[`src/ifsc_data/db/schema.py`](https://github.com/SupaGuta/ifsc-climbing-dataviz-claude/blob/main/src/ifsc_data/db/schema.py).
 Idempotent — running it on an existing DB verifies tables/indexes exist but
 never deletes data.
 
