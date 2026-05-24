@@ -90,7 +90,7 @@ logged at ERROR. After the final attempt, surviving failures are dropped —
 the caller never sees them.
 
 **Why 4xx is permanent:** seasons discovery probes IDs that may not exist
-(`/seasons/47` when the highest is 42). The IFSC API returns 404 for those.
+(`/seasons/47` when the highest is 42). The World Climbing API returns 404 for those.
 Retrying each 404 twice with a 2-second sleep would burn ~6 seconds per
 non-existent ID on every `pull-new`. Treating 4xx as permanent makes the
 probe nearly free.
@@ -127,7 +127,7 @@ So one malformed row never aborts the batch.
 - **It doesn't authenticate.** Credentials are baked into the session headers
   at construction from `Settings.api_headers`. Refreshing the CSRF token /
   cookie is the `auth` CLI command's job (`src/wcl_data/api/credentials.py`).
-- **It doesn't rate-limit.** The IFSC API has never returned 429 in practice,
+- **It doesn't rate-limit.** The World Climbing API has never returned 429 in practice,
   so there's no client-side throttle. If it ever does, add a 429-aware
   predicate to `retry_on` rather than a global rate limiter.
 - **It doesn't deduplicate.** Callers must pass unique IDs. The current

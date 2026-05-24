@@ -147,7 +147,7 @@ sure.
 - **Corrupted SQLite file** (machine crash mid-write). SQLite's WAL
   recovery handles most of this automatically; for the rest, restore
   from a backup.
-- **The IFSC API changing structure.** No recovery procedure — the
+- **The World Climbing API changing structure.** No recovery procedure — the
   parser will start throwing parse failures (see "Run finished but
   failed count > 0" above). Patch the fetcher.
 - **`.env` lost or corrupted.** Re-run `python -m wcl_data auth` to

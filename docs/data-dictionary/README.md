@@ -65,7 +65,7 @@ inserted by a parent fetcher but never filled in. The next `hydrate` /
 `refresh` / `pull-new` will pick it up.
 
 For non-identity fields (height, birthday, photo_url, city, country): NULL
-almost always means *the IFSC API doesn't have it either*, not that the
+almost always means *the World Climbing API doesn't have it either*, not that the
 parser dropped it. See the per-table pages for coverage stats.
 
 ### Recomputing coverage
@@ -92,5 +92,5 @@ denominator.
   `routes.last_fetched_at` are reserved for future startlist hydration.
 - **Judge / route-setter data.** Not consumed.
 - **Live ranking deltas.** Each competition stores its final ranking only.
-- **Anything older than IFSC's API coverage.** The earliest seasons date from
+- **Anything older than World Climbing's API coverage.** The earliest seasons date from
   the late 1990s; pre-API archive results aren't here.

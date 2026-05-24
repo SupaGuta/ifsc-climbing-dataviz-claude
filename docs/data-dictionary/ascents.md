@@ -1,7 +1,7 @@
 # `ascents`
 
 One row per (athlete × route × stage): the full per-route performance detail
-that the IFSC API exposes for every climb. This is the most granular and
+that the World Climbing API exposes for every climb. This is the most granular and
 biggest table in the warehouse.
 
 **Typical size:** ~880,000 rows after full backfill.

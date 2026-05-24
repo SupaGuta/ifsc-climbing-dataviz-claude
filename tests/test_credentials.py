@@ -91,7 +91,7 @@ def test_update_env_file_creates_when_missing(tmp_path):
 def test_update_env_file_replaces_existing_keys_in_place(tmp_path):
     env = tmp_path / ".env"
     env.write_text(
-        "# IFSC API session\n"
+        "# World Climbing API session\n"
         "WCL_CSRF_TOKEN=oldtoken\n"
         "WCL_SESSION_COOKIE=oldcookie\n"
         "WCL_MAX_WORKERS=50\n"
@@ -103,7 +103,7 @@ def test_update_env_file_replaces_existing_keys_in_place(tmp_path):
 
     lines = env.read_text(encoding="utf-8").splitlines()
     # Order preserved, other keys untouched.
-    assert lines[0] == "# IFSC API session"
+    assert lines[0] == "# World Climbing API session"
     assert lines[1] == "WCL_CSRF_TOKEN=newtoken"
     assert lines[2] == "WCL_SESSION_COOKIE=name=newcookieval"
     assert lines[3] == "WCL_MAX_WORKERS=50"

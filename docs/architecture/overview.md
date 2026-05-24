@@ -1,6 +1,6 @@
 # Architecture overview
 
-`wcl_data` is **Layer 0** of a larger project: it ingests the IFSC public API
+`wcl_data` is **Layer 0** of a larger project: it ingests the World Climbing public API
 into a single local SQLite warehouse. Downstream consumers (dashboards,
 notebooks, ML pipelines) read from the warehouse — they never talk to the API
 directly. This isolates one of the messier parts of the project (a public,

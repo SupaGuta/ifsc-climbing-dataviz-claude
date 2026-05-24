@@ -63,7 +63,7 @@ WARNING wcl_data.api.client: Fetch failed for /athletes/12334: HTTP 404 Not Foun
 ```
 
 For the one known permanent 404 (athlete `ifsc_id = 12334`), this is
-expected and recurring. For others, investigate — the IFSC ID may have
+expected and recurring. For others, investigate — the upstream ID may have
 been deleted or merged on their side.
 
 **To re-attempt a previously-dropped row:** there isn't a built-in retry
@@ -112,7 +112,7 @@ regression test before patching.
 
 Two possibilities:
 
-1. **Nothing was actually new on the IFSC side** since your last run. Check
+1. **Nothing was actually new on the upstream side** since your last run. Check
    the timestamps in `data/exports/` or `logs/wcl-data.log`.
 2. **You ran `pull-new` instead of `refresh`** and were expecting stale-row
    updates. `pull-new` only re-hydrates the **container** entities and

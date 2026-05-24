@@ -49,7 +49,7 @@ A NULL discipline or category would indicate an event with a malformed
 
 ## Gotchas
 
-- **`ifsc_id` is NOT globally unique.** The IFSC API reuses competition IDs
+- **`ifsc_id` is NOT globally unique.** The World Climbing API reuses competition IDs
   across different events. That's why the table uses `UNIQUE (event_id,
   ifsc_id)` instead of a unique constraint on `ifsc_id` alone. Queries that
   identify a competition by ifsc_id alone are wrong; always pair it with

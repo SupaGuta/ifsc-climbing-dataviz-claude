@@ -1,6 +1,6 @@
 # `seasons`
 
-Top of the entity tree. One row per calendar season the World Climbing has indexed.
+Top of the entity tree. One row per calendar season World Climbing has indexed.
 
 **Typical size:** ~38 rows (one per year of World Climbing coverage). Grows by one
 each year.

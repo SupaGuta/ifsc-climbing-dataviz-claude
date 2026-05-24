@@ -17,19 +17,19 @@ Before any of:
 **PowerShell (Windows):**
 
 ```powershell
-Copy-Item data\wcl.sqlite data\ifsc.$(Get-Date -Format 'yyyyMMdd').sqlite
+Copy-Item data\wcl.sqlite data\wcl.$(Get-Date -Format 'yyyyMMdd').sqlite
 ```
 
 **bash / zsh:**
 
 ```bash
-cp data/wcl.sqlite data/ifsc.$(date +%Y%m%d).sqlite
+cp data/wcl.sqlite data/wcl.$(date +%Y%m%d).sqlite
 ```
 
 Restore by copying back:
 
 ```bash
-cp data/ifsc.20260523.sqlite data/wcl.sqlite
+cp data/wcl.20260523.sqlite data/wcl.sqlite
 ```
 
 Snapshots in `data/` are **not** gitignored by default — only `data/exports/`,
@@ -99,7 +99,7 @@ If everything's lost (machine wipe, repo re-clone, etc.):
 5. `python -m wcl_data init` → recreates schema
 6. `python -m wcl_data pull-new` → repopulates from the live API (~5 min)
 
-Total time from zero: under 10 minutes. The IFSC API is the source of
+Total time from zero: under 10 minutes. The World Climbing API is the source of
 truth; the local warehouse is reproducible.
 
 Snapshots and CSV exports are conveniences, not load-bearing.

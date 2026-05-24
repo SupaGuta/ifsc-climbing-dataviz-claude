@@ -1,10 +1,10 @@
 # Authentication
 
-The IFSC public API requires a CSRF token and a session cookie. Both are
+The World Climbing public API requires a CSRF token and a session cookie. Both are
 stored in `.env` (gitignored) as `WCL_CSRF_TOKEN` and
 `WCL_SESSION_COOKIE`.
 
-**They rotate.** Expect to refresh every few months — sooner if the World Climbing
+**They rotate.** Expect to refresh every few months — sooner if World Climbing
 changes its session policy.
 
 ## When to refresh
@@ -40,8 +40,8 @@ What this does, from
    preserving every other line, comment, and ordering. Appends either
    key if missing.
 
-No JS execution, no login flow. The IFSC landing page exposes everything
-needed to authenticated subsequent API calls.
+No JS execution, no login flow. The World Climbing landing page exposes everything
+needed to authenticate subsequent API calls.
 
 ## Useful flags
 
@@ -111,7 +111,7 @@ Paste into `.env` (overwrite the two lines). Then open an issue so the
 
 ### `RuntimeError: No session-like cookie returned`
 
-The World Climbing stopped naming its session cookie with `session` in the name.
+World Climbing stopped naming its session cookie with `session` in the name.
 
 **Workaround:** same DevTools paste. Then open an issue to update the
 cookie-name match.
@@ -124,5 +124,5 @@ cookie-name match.
 - **The `--dry-run` output prints the full token to stdout**, so don't
   pipe it to a shared log when debugging.
 - **No multi-user model.** The CSRF token is tied to a single anonymous
-  session; there's no per-user auth on the IFSC public API. Multiple
+  session; there's no per-user auth on the World Climbing public API. Multiple
   developers can use independent `.env` files without conflict.

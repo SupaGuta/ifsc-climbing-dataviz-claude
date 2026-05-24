@@ -1,6 +1,6 @@
 # Parsing & heuristics
 
-The IFSC API exposes some data cleanly (athlete `firstname`, event
+The World Climbing API exposes some data cleanly (athlete `firstname`, event
 `local_start_date`) and some data only via free-text event names, ambiguous
 field semantics, or fields whose meaning has drifted over years of API
 evolution. This file is the list of places where the package guesses, and
@@ -116,7 +116,7 @@ collapses `"Lead"` / `"lead"` / `"LEAD"` into one row.
   No heuristic needed.
 - **Event dates** — `local_start_date` / `local_end_date` are clean.
 
-## Where the data is genuinely lossy (IFSC side)
+## Where the data is genuinely lossy (upstream side)
 
 Recorded in the project notes for context, not bugs:
 

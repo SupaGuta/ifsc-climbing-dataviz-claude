@@ -1,6 +1,6 @@
 # `APIClient`
 
-Streaming HTTP client over the IFSC API. Lives in
+Streaming HTTP client over the World Climbing API. Lives in
 [`src/wcl_data/api/client.py`](https://github.com/SupaGuta/world-climbing-lab/blob/main/src/wcl_data/api/client.py). For
 the design (streaming generator, retry policy, urllib3 pool sizing) see
 [`../architecture/api-client.md`](../architecture/api-client.md).

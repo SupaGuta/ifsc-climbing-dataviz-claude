@@ -134,7 +134,7 @@ never call each other directly — they only read from / write to the DB.
 
 ## Where to add a new entity
 
-If the IFSC API ever exposes a new endpoint (e.g. `/judges/{id}`), the pattern
+If the World Climbing API ever exposes a new endpoint (e.g. `/judges/{id}`), the pattern
 is:
 
 1. Add a table + index to `src/wcl_data/db/schema.py`.

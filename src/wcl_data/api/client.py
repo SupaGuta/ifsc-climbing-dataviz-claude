@@ -1,4 +1,4 @@
-"""HTTP client for the IFSC public API.
+"""HTTP client for the World Climbing public API.
 
 Streams responses as they arrive instead of collecting the whole batch before
 yielding control — callers can write to the DB after every fetch, so an

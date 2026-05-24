@@ -1,6 +1,6 @@
-"""Auto-fetch IFSC API credentials (CSRF token + session cookie).
+"""Auto-fetch World Climbing API credentials (CSRF token + session cookie).
 
-A single plain GET to the IFSC landing page surfaces both pieces:
+A single plain GET to the World Climbing landing page surfaces both pieces:
   - the Rails CSRF token in a `<meta name="csrf-token" content="...">` tag
   - the session cookie in the `Set-Cookie` response header
 
@@ -33,7 +33,7 @@ class FetchedCredentials:
 
 
 def fetch_credentials(url: str = REFERER_URL, *, timeout: int = 30) -> FetchedCredentials:
-    """Fetch a fresh CSRF token + session cookie from the IFSC landing page.
+    """Fetch a fresh CSRF token + session cookie from the World Climbing landing page.
 
     Raises RuntimeError if either piece can't be parsed out of the response.
     """

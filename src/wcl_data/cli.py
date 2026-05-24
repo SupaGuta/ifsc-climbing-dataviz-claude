@@ -18,7 +18,7 @@ from .fetchers.refresh import ENTITIES
 
 log = logging.getLogger(__name__)
 
-# Commands that don't need IFSC API credentials.
+# Commands that don't need World Climbing API credentials.
 _NO_CREDS_COMMANDS = {"init", "status", "export", "auth"}
 
 

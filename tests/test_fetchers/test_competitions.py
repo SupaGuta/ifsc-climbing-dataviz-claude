@@ -245,7 +245,7 @@ def test_per_round_transaction_rolls_back_on_failure(fixture, memory_db, monkeyp
 
 
 def test_hydrate_skips_none_items_in_lists(memory_db):
-    """The IFSC API occasionally returns None entries inside `ranking[*].rounds[]`
+    """The World Climbing API occasionally returns None entries inside `ranking[*].rounds[]`
     (paraclimbing categories at events 1223+) and possibly in other arrays.
     The fetcher must skip None gracefully instead of crashing on `.get()`."""
     repo, comp_id = _seed_competition(memory_db)

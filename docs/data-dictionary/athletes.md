@@ -53,7 +53,7 @@ Measured 2026-05-23 on hydrated rows only (14,922 athletes):
 | `arm_span`        | 4.1%     |
 
 These percentages drift slowly as new athletes are added. **The NULLs are
-real** — the IFSC API genuinely doesn't have most heights, arm spans, or
+real** — the World Climbing API genuinely doesn't have most heights, arm spans, or
 photos. They're not parser bugs. The README's recompute snippet works on any
 column here.
 
