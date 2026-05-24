@@ -244,6 +244,111 @@ def test_per_round_transaction_rolls_back_on_failure(fixture, memory_db, monkeyp
         assert n == 0, f"{tbl} should be empty after rollback, got {n}"
 
 
+def test_hydrate_skips_none_items_in_lists(memory_db):
+    """The IFSC API occasionally returns None entries inside `ranking[*].rounds[]`
+    (paraclimbing categories at events 1223+) and possibly in other arrays.
+    The fetcher must skip None gracefully instead of crashing on `.get()`."""
+    repo, comp_id = _seed_competition(memory_db)
+    payload = {
+        "event": "robust event",
+        "dcat": "LEAD Men",
+        "category_rounds": [
+            None,  # malformed top-level entry
+            {
+                "category_round_id": 100,
+                "kind": "lead",
+                "name": "Qualification",
+                "routes": [None, {"id": 555, "name": "1"}],
+                "starting_groups": [None],
+                "combined_stages": [None],
+            },
+        ],
+        "ranking": [
+            None,  # malformed ranking entry
+            {
+                "athlete_id": 42,
+                "rank": 1,
+                "rounds": [
+                    None,  # this is the actual case observed
+                    {
+                        "category_round_id": 100,
+                        "round_name": "Qualification",
+                        "rank": 1,
+                        "score": "TOP",
+                        "ascents": [None, {"route_id": 555, "route_name": "1", "top": True}],
+                    },
+                ],
+            },
+        ],
+    }
+    client = _stub_client_payload(payload)
+    ok, fail = competitions_fetcher.hydrate(repo, client, stale_days=0)
+    assert (ok, fail) == (1, 0)
+    # One valid ascent landed.
+    assert memory_db.execute(
+        "SELECT COUNT(*) FROM ascents WHERE competition_id = ?", (comp_id,)
+    ).fetchone()[0] == 1
+
+
+def test_old_payload_speed_elimination_stages_as_dict(memory_db):
+    """Pre-2018 events return `speed_elimination_stages` as a dict (not a list)
+    with the per-athlete ascents nested under `ascents[]`. The fetcher must
+    not crash trying to iterate the dict's string keys."""
+    repo, comp_id = _seed_competition(memory_db, discipline="speed")
+    payload = {
+        "event": "old event",
+        "dcat": "SPEED Men",
+        "category_rounds": [
+            {
+                "category_round_id": 850,
+                "kind": "speed",
+                "name": "Qualification",
+                "routes": [
+                    {"id": 2386, "name": "1"},
+                    {"id": 2387, "name": "2"},
+                ],
+            }
+        ],
+        "ranking": [
+            {
+                "athlete_id": 12345,
+                "rank": 1,
+                "rounds": [
+                    {
+                        "category_round_id": 850,
+                        "round_name": "Qualification",
+                        "rank": 1,
+                        "score": "10.5",
+                        # Old format: dict instead of list-of-heats.
+                        "speed_elimination_stages": {
+                            "ascent": None,
+                            "ascents": [
+                                {"route_id": 2386, "route_name": "1", "time_ms": 5234, "dnf": False, "dns": False},
+                                {"route_id": 2387, "route_name": "2", "time_ms": 5189, "dnf": False, "dns": False},
+                            ],
+                            "group_name": "A",
+                            "route_ranks": {"2386": 1, "2387": 1},
+                        },
+                    }
+                ],
+            }
+        ],
+    }
+    client = _stub_client_payload(payload)
+    ok, fail = competitions_fetcher.hydrate(repo, client, stale_days=0)
+    assert (ok, fail) == (1, 0)
+
+    # Ascents from the nested dict.ascents[] should land on the default stage.
+    rows = memory_db.execute(
+        "SELECT time_ms, dnf, dns FROM ascents WHERE competition_id = ? ORDER BY time_ms",
+        (comp_id,),
+    ).fetchall()
+    assert len(rows) == 2
+    assert rows[0]["time_ms"] == 5189
+    assert rows[0]["dnf"] == 0
+    assert rows[0]["dns"] == 0
+
+
 def test_speed_final_route_reuse_does_not_violate_unique(fixture, memory_db):
     """The same athlete climbs the same route across multiple speed-final heats.
     UNIQUE (round_stage_id, athlete_id, route_id) must allow this."""

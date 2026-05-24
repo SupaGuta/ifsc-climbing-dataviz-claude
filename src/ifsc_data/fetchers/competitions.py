@@ -90,6 +90,8 @@ def _ingest_ascents(
 ) -> None:
     """Upsert each ascent; create the route on the fly if it wasn't pre-seen."""
     for ascent in ascents:
+        if not isinstance(ascent, dict):
+            continue
         rt_ifsc = ascent.get("route_id")
         if rt_ifsc is None:
             continue
@@ -130,6 +132,8 @@ def _process_category_rounds(
     stage_local_by_round: dict[int, dict[int, int]] = {}
 
     for cr in cr_payload:
+        if not isinstance(cr, dict):
+            continue
         cr_ifsc = cr.get("category_round_id")
         if cr_ifsc is None:
             continue
@@ -152,6 +156,8 @@ def _process_category_rounds(
 
         def _collect_routes(routes: list[dict[str, Any]]) -> None:
             for rt in routes:
+                if not isinstance(rt, dict):
+                    continue
                 rt_ifsc = rt.get("id")
                 if rt_ifsc is None or int(rt_ifsc) in seen_route_ifsc:
                     continue
@@ -165,8 +171,12 @@ def _process_category_rounds(
 
         _collect_routes(cr.get("routes") or [])
         for sg in cr.get("starting_groups") or []:
+            if not isinstance(sg, dict):
+                continue
             _collect_routes(sg.get("routes") or [])
         for cs in cr.get("combined_stages") or []:
+            if not isinstance(cs, dict):
+                continue
             _collect_routes(cs.get("routes") or [])
 
         # Create round_stages: one per combined_stage if present, else a single
@@ -175,6 +185,8 @@ def _process_category_rounds(
         combined_stages = cr.get("combined_stages") or []
         if combined_stages:
             for seq, cs in enumerate(combined_stages):
+                if not isinstance(cs, dict):
+                    continue
                 cs_kind = cs.get("kind")
                 stage_local = repo.upsert_round_stage(
                     category_round_id=cr_local,
@@ -284,6 +296,8 @@ def hydrate(
 
                 # Phase B: per-athlete results.
                 for entry in data.get("ranking") or []:
+                    if not isinstance(entry, dict):
+                        continue
                     athlete_ifsc = entry.get("athlete_id")
                     if athlete_ifsc is None:
                         continue
@@ -295,6 +309,8 @@ def hydrate(
                     )
 
                     for rnd in entry.get("rounds") or []:
+                        if not isinstance(rnd, dict):
+                            continue
                         cr_ifsc = rnd.get("category_round_id")
                         if cr_ifsc is None:
                             continue
@@ -327,8 +343,26 @@ def hydrate(
                         combined_stages = rnd.get("combined_stages")
                         ascents = rnd.get("ascents")
 
+                        # Old API payloads (pre-2018 events ~500-1100) use a
+                        # dict instead of a list for `speed_elimination_stages`,
+                        # holding the per-athlete ascents under `ascents[]` plus
+                        # some legacy metadata (group_name, route_ranks, …).
+                        # Unwrap to feed the default ascents branch.
+                        if isinstance(elim_stages, dict):
+                            if ascents is None:
+                                ascents = elim_stages.get("ascents")
+                            elim_stages = None
+                        # Same defensive normalization for combined_stages,
+                        # in case the API ever returns a dict there too.
+                        if isinstance(combined_stages, dict):
+                            if ascents is None:
+                                ascents = combined_stages.get("ascents")
+                            combined_stages = None
+
                         if elim_stages:
                             for heat in elim_stages:
+                                if not isinstance(heat, dict):
+                                    continue
                                 stage_local = _ensure_speed_stage(
                                     repo,
                                     cr_local=cr_local,
@@ -355,6 +389,8 @@ def hydrate(
                                 )
                         elif combined_stages:
                             for seq, stage in enumerate(combined_stages):
+                                if not isinstance(stage, dict):
+                                    continue
                                 # Combined sub-stages were pre-created in phase A
                                 # by index. If we somehow don't have one, create
                                 # it now.
