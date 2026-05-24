@@ -1,10 +1,10 @@
-site_name: IFSC Climbing Data Layer
-site_description: Documentation for the IFSC public API ingestion layer (SQLite warehouse).
-site_url: https://supaguta.github.io/ifsc-climbing-dataviz-claude/
-repo_url: https://github.com/SupaGuta/ifsc-climbing-dataviz-claude
-repo_name: SupaGuta/ifsc-climbing-dataviz-claude
+site_name: World Climbing Lab
+site_description: Ingestion + analytics base for the World Climbing (formerly IFSC) competition data.
+site_url: https://supaguta.github.io/world-climbing-lab/
+repo_url: https://github.com/SupaGuta/world-climbing-lab
+repo_name: SupaGuta/world-climbing-lab
 edit_uri: edit/main/docs/
-copyright: Layer 0 of an IFSC analytics project — open documentation.
+copyright: Layer 0 of a World Climbing analytics project — open documentation.
 
 docs_dir: docs
 site_dir: site

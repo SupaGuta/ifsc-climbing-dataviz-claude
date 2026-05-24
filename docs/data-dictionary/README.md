@@ -1,7 +1,7 @@
 # Data dictionary
 
 Per-table column reference for the SQLite warehouse at `data/ifsc.sqlite`. The
-schema's source of truth is [`src/ifsc_data/db/schema.py`](https://github.com/SupaGuta/ifsc-climbing-dataviz-claude/blob/main/src/ifsc_data/db/schema.py);
+schema's source of truth is [`src/ifsc_data/db/schema.py`](https://github.com/SupaGuta/world-climbing-lab/blob/main/src/ifsc_data/db/schema.py);
 this folder explains what each column *means*, what's in it, and what's
 missing.
 

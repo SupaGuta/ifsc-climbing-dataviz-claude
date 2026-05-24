@@ -4,7 +4,7 @@
 
 ```bash
 git clone <repo>
-cd ifsc-climbing-dataviz-claude
+cd world-climbing-lab
 python -m venv .venv          # 3.12+ required (PEP 695 generic syntax: `class Fetched[K: Hashable]:`)
 source .venv/bin/activate     # or .venv\Scripts\activate on Windows
 pip install -e ".[dev]"       # adds pytest + pytest-mock

@@ -1,7 +1,7 @@
 # `Repository`
 
 Typed CRUD wrappers around the SQLite warehouse. Lives in
-[`src/ifsc_data/db/repository.py`](https://github.com/SupaGuta/ifsc-climbing-dataviz-claude/blob/main/src/ifsc_data/db/repository.py).
+[`src/ifsc_data/db/repository.py`](https://github.com/SupaGuta/world-climbing-lab/blob/main/src/ifsc_data/db/repository.py).
 Every method commits before returning unless wrapped in `with
 repo.transaction():`. For the *why* see
 [`../architecture/database-and-schema.md`](../architecture/database-and-schema.md)

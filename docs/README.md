@@ -1,6 +1,6 @@
 # Documentation
 
-Docs for `ifsc_data`. The root [`README.md`](https://github.com/SupaGuta/ifsc-climbing-dataviz-claude/blob/main/README.md) is the *user*
+Docs for `ifsc_data`. The root [`README.md`](https://github.com/SupaGuta/world-climbing-lab/blob/main/README.md) is the *user*
 guide (install, CLI reference, `.env` variables). What lives here is
 everything else — the **why** behind the design, the per-table data
 reference, recipes for common tasks, the Python API, and operational
@@ -111,6 +111,6 @@ docs/
 
 ## Other resources
 
-- [`README.md`](https://github.com/SupaGuta/ifsc-climbing-dataviz-claude/blob/main/README.md) — user guide / CLI reference
-- [`notebooks/`](https://github.com/SupaGuta/ifsc-climbing-dataviz-claude/tree/main/notebooks) — four-part interactive walkthrough (setup → data model → Python API → querying/exporting)
+- [`README.md`](https://github.com/SupaGuta/world-climbing-lab/blob/main/README.md) — user guide / CLI reference
+- [`notebooks/`](https://github.com/SupaGuta/world-climbing-lab/tree/main/notebooks) — four-part interactive walkthrough (setup → data model → Python API → querying/exporting)
 - Module docstrings — every `.py` opens with one

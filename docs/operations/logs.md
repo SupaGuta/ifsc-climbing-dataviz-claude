@@ -1,7 +1,7 @@
 # Logs
 
 Logging setup lives in
-[`src/ifsc_data/logging_setup.py`](https://github.com/SupaGuta/ifsc-climbing-dataviz-claude/blob/main/src/ifsc_data/logging_setup.py).
+[`src/ifsc_data/logging_setup.py`](https://github.com/SupaGuta/world-climbing-lab/blob/main/src/ifsc_data/logging_setup.py).
 Two sinks, configured once per process by `logging_setup.configure()`:
 
 ## What goes where

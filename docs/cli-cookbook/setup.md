@@ -8,7 +8,7 @@ Python 3.12+ required.
 
 ```bash
 git clone <repo>
-cd ifsc-climbing-dataviz-claude
+cd world-climbing-lab
 python -m venv .venv
 source .venv/bin/activate           # Windows: .venv\Scripts\activate
 pip install -e ".[dev]"
@@ -62,7 +62,7 @@ python -m ifsc_data init
 ```
 
 Creates `data/ifsc.sqlite` with the schema from
-[`src/ifsc_data/db/schema.py`](https://github.com/SupaGuta/ifsc-climbing-dataviz-claude/blob/main/src/ifsc_data/db/schema.py).
+[`src/ifsc_data/db/schema.py`](https://github.com/SupaGuta/world-climbing-lab/blob/main/src/ifsc_data/db/schema.py).
 Idempotent — running it on an existing DB verifies tables/indexes exist but
 never deletes data.
 

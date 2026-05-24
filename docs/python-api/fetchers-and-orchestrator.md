@@ -1,7 +1,7 @@
 # Fetchers and orchestrator
 
 The orchestrator in
-[`src/ifsc_data/fetchers/refresh.py`](https://github.com/SupaGuta/ifsc-climbing-dataviz-claude/blob/main/src/ifsc_data/fetchers/refresh.py)
+[`src/ifsc_data/fetchers/refresh.py`](https://github.com/SupaGuta/world-climbing-lab/blob/main/src/ifsc_data/fetchers/refresh.py)
 is what the CLI's `refresh`, `pull-new`, and `hydrate` subcommands call
 under the hood. You can call it directly from Python when you need finer
 control. The individual fetcher modules also expose their `hydrate()`
@@ -129,7 +129,7 @@ for fetched in client.stream("athletes", ifsc_to_id.keys()):
 ```
 
 This is essentially what `athletes.hydrate` does — copy its loop body
-from [`src/ifsc_data/fetchers/athletes.py`](https://github.com/SupaGuta/ifsc-climbing-dataviz-claude/blob/main/src/ifsc_data/fetchers/athletes.py)
+from [`src/ifsc_data/fetchers/athletes.py`](https://github.com/SupaGuta/world-climbing-lab/blob/main/src/ifsc_data/fetchers/athletes.py)
 when you need a starting template.
 
 ## Summary printing
@@ -149,5 +149,5 @@ def print_summary(summary: dict[str, tuple[int, int]]) -> None:
 If the IFSC API exposes a new endpoint (e.g. `/judges/{id}`), don't
 ad-hoc it — follow the pattern. The full checklist is in
 [`../contributing.md`](../contributing.md). Use
-[`src/ifsc_data/fetchers/athletes.py`](https://github.com/SupaGuta/ifsc-climbing-dataviz-claude/blob/main/src/ifsc_data/fetchers/athletes.py)
+[`src/ifsc_data/fetchers/athletes.py`](https://github.com/SupaGuta/world-climbing-lab/blob/main/src/ifsc_data/fetchers/athletes.py)
 as the canonical template: it's the simplest of the five.
