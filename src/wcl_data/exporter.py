@@ -88,9 +88,36 @@ VIEWS: dict[str, str] = {
             city,
             country,
             country_iso3,
-            is_paraclimbing
+            federation_id,
+            federation_name,
+            federation_abbreviation,
+            federation_url,
+            paraclimbing_sport_class,
+            sport_class_status,
+            sport_class_review_date,
+            speed_pb_time,
+            speed_pb_date,
+            speed_pb_event_name,
+            speed_pb_round_name
         FROM athletes
         ORDER BY ifsc_id
+    """,
+    "cup_rankings": """
+        SELECT
+            a.ifsc_id AS athlete_ifsc_id,
+            a.firstname AS athlete_firstname,
+            a.lastname AS athlete_lastname,
+            a.country AS athlete_country,
+            a.country_iso3 AS athlete_country_iso3,
+            cr.cup_ifsc_id,
+            cr.cup_name,
+            cr.season,
+            cr.discipline,
+            cr.d_cat_id,
+            cr.rank
+        FROM cup_rankings cr
+        JOIN athletes a ON cr.athlete_id = a.id
+        ORDER BY cr.season DESC, cr.cup_ifsc_id, cr.discipline, cr.rank
     """,
     "results": """
         SELECT

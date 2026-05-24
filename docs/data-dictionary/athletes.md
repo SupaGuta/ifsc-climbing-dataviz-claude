@@ -13,33 +13,49 @@ populates during `athletes.hydrate`.
 
 ## Columns
 
-| Column             | Type    | Nullable | Meaning                                                              |
-|--------------------|---------|:--------:|----------------------------------------------------------------------|
-| `id`               | INTEGER |          | Local row PK. Used by FKs from `results`.                            |
-| `ifsc_id`          | INTEGER |          | IFSC API ID. Path component for `/athletes/{ifsc_id}`. UNIQUE.       |
-| `firstname`        | TEXT    |    ✓     | Given name. From API `firstname`.                                    |
-| `lastname`         | TEXT    |    ✓     | Family name. From API `lastname`.                                    |
-| `gender`           | INTEGER |    ✓     | `0` = male, `1` = female, NULL = unknown. Parsed from API `"male"`/`"female"` string. |
-| `height`           | INTEGER |    ✓     | Centimetres. Self-reported on World Climbing; usually NULL.                    |
-| `arm_span`         | INTEGER |    ✓     | Centimetres. Self-reported; usually NULL.                            |
-| `birthday`         | TEXT    |    ✓     | `YYYY-MM-DD`. Often NULL for older athletes or privacy reasons.      |
-| `city`             | TEXT    |    ✓     | Free-text city. NULL if API didn't have it.                          |
-| `country`          | TEXT    |    ✓     | Raw federation code from the API — mix of ISO 3166-1 alpha-3 and IFSC/IOC variants (GER, SUI, NED, INA, IRI, MAS, SIN, …). For ISO3-only aggregation, use `country_iso3`. |
-| `country_iso3`     | TEXT    |    ✓     | Canonical ISO 3166-1 alpha-3, derived from `country` via the static IFSC→ISO3 map in `parsers/event_location.py`. NULL iff `country` is NULL. See [ADR 0008](../decisions/0008-country-iso3-sibling-column.md). |
-| `photo_url`        | TEXT    |    ✓     | URL to a profile photo. Most athletes don't have one.                |
-| `is_paraclimbing`  | INTEGER |    ✓     | `0` / `1`. **Heuristic** — see gotcha below.                         |
-| `last_fetched_at`  | TEXT    |    ✓     | ISO-8601 UTC. NULL = skeleton, not yet hydrated.                     |
+| Column                       | Type    | Nullable | Meaning                                                              |
+|------------------------------|---------|:--------:|----------------------------------------------------------------------|
+| `id`                         | INTEGER |          | Local row PK. Used by FKs from `results`.                            |
+| `ifsc_id`                    | INTEGER |          | IFSC API ID. Path component for `/athletes/{ifsc_id}`. UNIQUE.       |
+| `firstname`                  | TEXT    |    ✓     | Given name. From API `firstname`.                                    |
+| `lastname`                   | TEXT    |    ✓     | Family name. From API `lastname`.                                    |
+| `gender`                     | INTEGER |    ✓     | `0` = male, `1` = female, NULL = unknown. Parsed from API `"male"`/`"female"` string. |
+| `height`                     | INTEGER |    ✓     | Centimetres. Self-reported on World Climbing; usually NULL.          |
+| `arm_span`                   | INTEGER |    ✓     | Centimetres. Self-reported; usually NULL.                            |
+| `birthday`                   | TEXT    |    ✓     | `YYYY-MM-DD`. Often NULL for older athletes or privacy reasons.      |
+| `city`                       | TEXT    |    ✓     | Free-text city. NULL if API didn't have it.                          |
+| `country`                    | TEXT    |    ✓     | Raw federation code from the API — mix of ISO 3166-1 alpha-3 and IFSC/IOC variants (GER, SUI, NED, INA, IRI, MAS, SIN, …). For ISO3-only aggregation, use `country_iso3`. |
+| `country_iso3`               | TEXT    |    ✓     | Canonical ISO 3166-1 alpha-3, derived from `country` via the static IFSC→ISO3 map in `parsers/event_location.py`. NULL iff `country` is NULL. See [ADR 0008](../decisions/0008-country-iso3-sibling-column.md). |
+| `photo_url`                  | TEXT    |    ✓     | URL to a profile photo. Most athletes don't have one.                |
+| `federation_id`              | INTEGER |    ✓     | IFSC federation ID. The federation that licenses the athlete — distinct from `country`. |
+| `federation_name`            | TEXT    |    ✓     | Federation display name (e.g. `"Cesky Horolezecky Svaz"`).           |
+| `federation_abbreviation`    | TEXT    |    ✓     | Federation abbreviation (e.g. `"CHS"`).                              |
+| `federation_url`             | TEXT    |    ✓     | Federation home page URL.                                            |
+| `paraclimbing_sport_class`   | TEXT    |    ✓     | Raw IFSC paraclimbing sport class (e.g. `"AL-1"`, `"B2"`). NULL for non-paraclimbing athletes — use `IS NOT NULL` as the paraclimbing flag. See [ADR 0009](../decisions/0009-athletes-payload-expansion.md). |
+| `sport_class_status`         | TEXT    |    ✓     | Status of the sport-class assignment (e.g. `"Confirmed"`, `"Review"`). |
+| `sport_class_review_date`    | TEXT    |    ✓     | Date of the next sport-class review, `YYYY-MM-DD` or NULL.           |
+| `speed_pb_time`              | TEXT    |    ✓     | Speed personal best, as the API string (`"6.86"`). TEXT — the API does not render this as a number. |
+| `speed_pb_date`              | TEXT    |    ✓     | Date of the speed PB, `YYYY-MM-DD`.                                  |
+| `speed_pb_event_name`        | TEXT    |    ✓     | Event where the speed PB was set.                                    |
+| `speed_pb_round_name`        | TEXT    |    ✓     | Round name within that event (e.g. `"Final"`).                       |
+| `last_fetched_at`            | TEXT    |    ✓     | ISO-8601 UTC. NULL = skeleton, not yet hydrated.                     |
 
 **Indexes:** `idx_athletes_last_fetched ON last_fetched_at`.
 
 ## Relationships
 
 - **Parents:** none.
-- **Children:** `results.athlete_id → athletes.id`.
+- **Children:** `results.athlete_id → athletes.id`,
+  `cup_rankings.athlete_id → athletes.id` (see [cup-rankings](cup-rankings.md)).
 
 ## Coverage
 
-Measured 2026-05-23 on hydrated rows only (14,922 athletes):
+Measured 2026-05-23 on hydrated rows only (14,922 athletes), for the
+columns that pre-date [ADR 0009](../decisions/0009-athletes-payload-expansion.md).
+Coverage for the columns added in v4 (`federation_*`, `paraclimbing_sport_class`,
+`sport_class_*`, `speed_pb_*`) is not yet measured — re-run the recompute
+snippet from the [README](README.md#recomputing-coverage) after the first
+full `wcl-data refresh`.
 
 | Column            | Coverage |
 |-------------------|----------|
@@ -61,17 +77,14 @@ column here.
 
 ## Gotchas
 
-- **`is_paraclimbing` is a heuristic**, not authoritative. It's set as:
-
-  ```python
-  is_paraclimbing=1 if data.get("paraclimbing_sport_class") is not None else 0
-  ```
-
-  i.e. an athlete is "paraclimbing" iff they have an assigned sport class.
-  This matches the API's modelling but is lossy: a paraclimbing athlete
-  without a sport-class assignment (rare, but happens) is flagged 0. If you
-  need authoritative status, join `results` → `competitions` → `events` and
-  read [`events.is_paraclimbing`](events.md), which comes from the
+- **Paraclimbing status:** the v3 `is_paraclimbing` bool was dropped in
+  v4 (see [ADR 0009](../decisions/0009-athletes-payload-expansion.md)).
+  For the paraclimbing flag, use `paraclimbing_sport_class IS NOT NULL`.
+  Even that remains a heuristic on the athlete level — a paraclimbing
+  athlete without a sport-class assignment (rare, but happens) reads as
+  NULL. For *authoritative* per-competition status, join `results` →
+  `competitions` → `events` and read
+  [`events.is_paraclimbing`](events.md), which comes from the
   unambiguous `is_paraclimbing_event` API field. See
   [`../architecture/parsing-and-heuristics.md`](../architecture/parsing-and-heuristics.md).
 - **Gender is INTEGER, not TEXT**, for consistency with the `categories.gender`

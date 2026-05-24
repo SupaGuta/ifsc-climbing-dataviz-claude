@@ -140,7 +140,12 @@ The allowed fields are:
   `date_start`, `date_end`, `is_paraclimbing`.
 - **`update_athlete`** — `firstname`, `lastname`, `gender`, `height`,
   `arm_span`, `birthday`, `city`, `country`, `country_iso3`, `photo_url`,
-  `is_paraclimbing`.
+  `federation_id`, `federation_name`, `federation_abbreviation`,
+  `federation_url`, `paraclimbing_sport_class`, `sport_class_status`,
+  `sport_class_review_date`, `speed_pb_time`, `speed_pb_date`,
+  `speed_pb_event_name`, `speed_pb_round_name`. (The v3-era
+  `is_paraclimbing` kwarg was dropped in v4 — see
+  [ADR 0009](../decisions/0009-athletes-payload-expansion.md).)
 
 `country_iso3` is the canonical ISO 3166-1 alpha-3 sibling of `country`
 (see [ADR 0008](../decisions/0008-country-iso3-sibling-column.md)). The

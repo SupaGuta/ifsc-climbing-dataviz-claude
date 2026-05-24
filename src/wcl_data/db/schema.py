@@ -8,7 +8,7 @@ from __future__ import annotations
 import sqlite3
 from pathlib import Path
 
-CURRENT_VERSION = 3
+CURRENT_VERSION = 4
 
 DDL = """
 CREATE TABLE IF NOT EXISTS schema_version (
@@ -92,10 +92,34 @@ CREATE TABLE IF NOT EXISTS athletes (
     country TEXT,
     country_iso3 TEXT,
     photo_url TEXT,
-    is_paraclimbing INTEGER,
+    federation_id INTEGER,
+    federation_name TEXT,
+    federation_abbreviation TEXT,
+    federation_url TEXT,
+    paraclimbing_sport_class TEXT,
+    sport_class_status TEXT,
+    sport_class_review_date TEXT,
+    speed_pb_time TEXT,
+    speed_pb_date TEXT,
+    speed_pb_event_name TEXT,
+    speed_pb_round_name TEXT,
     last_fetched_at TEXT
 );
 CREATE INDEX IF NOT EXISTS idx_athletes_last_fetched ON athletes(last_fetched_at);
+
+CREATE TABLE IF NOT EXISTS cup_rankings (
+    id INTEGER PRIMARY KEY,
+    athlete_id INTEGER NOT NULL REFERENCES athletes(id),
+    cup_ifsc_id INTEGER NOT NULL,
+    cup_name TEXT,
+    season TEXT,
+    discipline TEXT,
+    d_cat_id INTEGER,
+    rank INTEGER,
+    UNIQUE (athlete_id, cup_ifsc_id, d_cat_id)
+);
+CREATE INDEX IF NOT EXISTS idx_cup_rankings_athlete ON cup_rankings(athlete_id);
+CREATE INDEX IF NOT EXISTS idx_cup_rankings_cup ON cup_rankings(cup_ifsc_id);
 
 CREATE TABLE IF NOT EXISTS results (
     id INTEGER PRIMARY KEY,
@@ -211,13 +235,30 @@ CREATE INDEX IF NOT EXISTS idx_ascents_competition ON ascents(competition_id);
 def apply_schema(conn: sqlite3.Connection) -> None:
     """Create all tables and indexes. Idempotent.
 
-    For DBs created before `country_iso3` existed (schema v1/v2), the
-    column is added via ALTER TABLE — guarded by a PRAGMA table_info check
-    so the call stays idempotent.
+    For DBs created before a column existed, missing columns are added via
+    ALTER TABLE — guarded by a PRAGMA table_info check so the call stays
+    idempotent. Symmetric `_drop_column_if_exists` handles removals (e.g.
+    schema v3 → v4 dropped `athletes.is_paraclimbing` in favour of the
+    raw `paraclimbing_sport_class`).
     """
     conn.executescript(DDL)
     _add_missing_column(conn, "events", "country_iso3", "TEXT")
     _add_missing_column(conn, "athletes", "country_iso3", "TEXT")
+    for col, sql_type in (
+        ("federation_id", "INTEGER"),
+        ("federation_name", "TEXT"),
+        ("federation_abbreviation", "TEXT"),
+        ("federation_url", "TEXT"),
+        ("paraclimbing_sport_class", "TEXT"),
+        ("sport_class_status", "TEXT"),
+        ("sport_class_review_date", "TEXT"),
+        ("speed_pb_time", "TEXT"),
+        ("speed_pb_date", "TEXT"),
+        ("speed_pb_event_name", "TEXT"),
+        ("speed_pb_round_name", "TEXT"),
+    ):
+        _add_missing_column(conn, "athletes", col, sql_type)
+    _drop_column_if_exists(conn, "athletes", "is_paraclimbing")
     conn.execute(
         "INSERT OR IGNORE INTO schema_version (version) VALUES (?)",
         (CURRENT_VERSION,),
@@ -231,6 +272,14 @@ def _add_missing_column(
     cols = {row[1] for row in conn.execute(f"PRAGMA table_info({table})")}
     if column not in cols:
         conn.execute(f"ALTER TABLE {table} ADD COLUMN {column} {sql_type}")
+
+
+def _drop_column_if_exists(
+    conn: sqlite3.Connection, table: str, column: str
+) -> None:
+    cols = {row[1] for row in conn.execute(f"PRAGMA table_info({table})")}
+    if column in cols:
+        conn.execute(f"ALTER TABLE {table} DROP COLUMN {column}")
 
 
 def open_db(path: Path) -> sqlite3.Connection:

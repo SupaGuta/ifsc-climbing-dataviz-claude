@@ -46,7 +46,6 @@ def _seed(memory_db) -> None:
         country_iso3="DEU",
         height=186,
         birthday="1993-02-05",
-        is_paraclimbing=0,
     )
     repo.upsert_result(competition_id=comp_id, athlete_id=athlete_id, rank=1)
 

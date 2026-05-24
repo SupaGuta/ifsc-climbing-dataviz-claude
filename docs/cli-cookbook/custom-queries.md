@@ -177,10 +177,12 @@ GROUP BY cat.id
 ORDER BY result_count DESC;
 ```
 
-**Note:** for paraclimbing, prefer `events.is_paraclimbing` over
-`athletes.is_paraclimbing` — the athlete-level field is heuristic, the
-event-level field is authoritative. See
-[athletes.md](../data-dictionary/athletes.md).
+**Note:** for paraclimbing, `events.is_paraclimbing` is the authoritative
+flag (use it for any per-competition or per-result filter). The
+athletes-level proxy is `athletes.paraclimbing_sport_class IS NOT NULL`
+— still heuristic, but the only signal on the athlete row itself. See
+[athletes.md](../data-dictionary/athletes.md) and
+[ADR 0009](../decisions/0009-athletes-payload-expansion.md).
 
 ## Tips
 

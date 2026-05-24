@@ -24,6 +24,7 @@ and the relevant ADRs.
 - [round-results](round-results.md) — (round × athlete) per-phase rank + score
 - [stage-results](stage-results.md) — (stage × athlete) per-stage detail
 - [ascents](ascents.md) — (route × athlete × stage) per-route performance detail
+- [cup-rankings](cup-rankings.md) — (athlete × cup × discipline) season-end overall standings
 - [reference-tables](reference-tables.md) — `leagues`, `disciplines`, `categories`
 
 ## Conventions
@@ -52,8 +53,10 @@ on `ifsc_id` alone.
 - **`date_start`, `date_end`** — TEXT in `YYYY-MM-DD`. No time component.
 - **`last_fetched_at`** — TEXT in `YYYY-MM-DDTHH:MM:SSZ` (ISO-8601 UTC with
   literal `Z`). Lexicographically sortable.
-- **Booleans (`is_paraclimbing`)** — INTEGER `0` / `1`. SQLite has no native
-  bool.
+- **Booleans (`events.is_paraclimbing`)** — INTEGER `0` / `1`. SQLite has
+  no native bool. (The v3-era `athletes.is_paraclimbing` was dropped in v4;
+  use `athletes.paraclimbing_sport_class IS NOT NULL` instead. See
+  [ADR 0009](../decisions/0009-athletes-payload-expansion.md).)
 - **Country** — every table with a country carries two columns:
   - `country` — raw federation code (mix of ISO3 like `FRA`/`USA`/`JPN` and
     IFSC/IOC variants like `GER`/`SUI`/`NED`/`INA`/`IRI`/`MAS`/`SIN`).

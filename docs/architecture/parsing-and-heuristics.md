@@ -84,16 +84,18 @@ anchor was missing.
 
 ## Athlete paraclimbing status (`src/wcl_data/fetchers/athletes.py`)
 
-The `is_paraclimbing` flag on athletes is a heuristic:
+There is no dedicated paraclimbing flag on `athletes`. The proxy is:
 
-```python
-is_paraclimbing=1 if data.get("paraclimbing_sport_class") is not None else 0,
+```sql
+WHERE paraclimbing_sport_class IS NOT NULL
 ```
 
-I.e. an athlete is "paraclimbing" iff they have a sport-class field. This
-matches the API's modelling but it's lossy: a paraclimbing athlete who
-hasn't had a sport class assigned (rare, but happens) will be flagged as
-non-paraclimbing.
+I.e. an athlete is treated as a paraclimber iff they carry an IFSC
+sport-class assignment. This is the same heuristic the v3 schema baked
+into a separate `is_paraclimbing` bool column; ADR 0009 dropped that
+column as strictly redundant. The heuristic is lossy in the same way —
+a paraclimbing athlete who hasn't had a sport class assigned (rare, but
+happens) will read as NULL.
 
 If your downstream code needs authoritative paraclimbing status, cross-check
 against `events.is_paraclimbing` (which comes from the API's

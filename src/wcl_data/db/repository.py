@@ -24,6 +24,7 @@ ALL_TABLES = (
     *HYDRATABLE_TABLES,
     "leagues", "disciplines", "categories", "results",
     "round_stages", "round_results", "stage_results", "ascents",
+    "cup_rankings",
 )
 
 # ISO-8601 with explicit Z so downstream consumers never have to guess UTC.
@@ -330,7 +331,10 @@ class Repository:
     def update_athlete(self, row_id: int, **fields: Any) -> None:
         allowed = {
             "firstname", "lastname", "gender", "height", "arm_span",
-            "birthday", "city", "country", "country_iso3", "photo_url", "is_paraclimbing",
+            "birthday", "city", "country", "country_iso3", "photo_url",
+            "federation_id", "federation_name", "federation_abbreviation", "federation_url",
+            "paraclimbing_sport_class", "sport_class_status", "sport_class_review_date",
+            "speed_pb_time", "speed_pb_date", "speed_pb_event_name", "speed_pb_round_name",
         }
         cols = [k for k in fields if k in allowed]
         if not cols:
@@ -338,6 +342,34 @@ class Repository:
         sets = ", ".join(f"{c} = ?" for c in cols)
         values = [fields[c] for c in cols] + [row_id]
         self.conn.execute(f"UPDATE athletes SET {sets} WHERE id = ?", values)
+        self._maybe_commit()
+
+    # ----------------------------------------------------------- Cup rankings
+
+    def upsert_cup_ranking(
+        self,
+        *,
+        athlete_id: int,
+        cup_ifsc_id: int,
+        cup_name: Optional[str] = None,
+        season: Optional[str] = None,
+        discipline: Optional[str] = None,
+        d_cat_id: Optional[int] = None,
+        rank: Optional[int] = None,
+    ) -> None:
+        self.conn.execute(
+            "INSERT OR REPLACE INTO cup_rankings "
+            "(athlete_id, cup_ifsc_id, cup_name, season, discipline, d_cat_id, rank) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?)",
+            (athlete_id, cup_ifsc_id, cup_name, season, discipline, d_cat_id, rank),
+        )
+        self._maybe_commit()
+
+    def delete_cup_rankings_for_athlete(self, athlete_id: int) -> None:
+        """Wipe cup_rankings for an athlete before re-hydration (idempotent re-runs)."""
+        self.conn.execute(
+            "DELETE FROM cup_rankings WHERE athlete_id = ?", (athlete_id,)
+        )
         self._maybe_commit()
 
     # ----------------------------------------------------------------- Results

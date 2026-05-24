@@ -105,7 +105,10 @@ Notes: discipline names are lowercased in the warehouse (see
 [reference-tables.md](../data-dictionary/reference-tables.md)).
 `cat.gender = 1` means women (see
 [athletes.md](../data-dictionary/athletes.md) for the gender encoding).
-`e.is_paraclimbing` is authoritative — the per-athlete flag is heuristic.
+`e.is_paraclimbing` is authoritative. (The athletes table no longer carries
+a same-named flag — see [ADR 0009](../decisions/0009-athletes-payload-expansion.md);
+use `athletes.paraclimbing_sport_class IS NOT NULL` as an athlete-level
+proxy if needed.)
 
 ---
 
@@ -161,8 +164,9 @@ SQL
 
 ## Recipe: paraclimbing events only
 
-The authoritative flag is `events.is_paraclimbing` (NOT the heuristic field
-on `athletes`).
+The authoritative flag is `events.is_paraclimbing`. (The athletes table
+no longer carries a same-named heuristic field — see
+[ADR 0009](../decisions/0009-athletes-payload-expansion.md).)
 
 **Pandas:**
 

@@ -21,7 +21,8 @@ The schema mirrors the API entity tree. Fifteen tables total, plus a
 | `categories`      | `season_leagues.hydrate`                 |            | Reference data; `gender` is 0=men, 1=women, NULL=other      |
 | `events`          | `seasons.hydrate` / `season_leagues.hydrate` (skeleton) + `events.hydrate` | ✓ | City + country from `parsers.event_location` + API field + `CITY_TO_COUNTRY` dict + sibling backfill. Carries `country_iso3` sibling (ADR 0008). |
 | `competitions`    | `events.hydrate` (skeleton) + `competitions.hydrate` | ✓ | UNIQUE on `(event_id, ifsc_id)`, not on `ifsc_id` alone     |
-| `athletes`        | `competitions.hydrate` (skeleton) + `athletes.hydrate` | ✓ | `is_paraclimbing` is heuristic; see parsing-and-heuristics. Carries `country_iso3` sibling (ADR 0008). |
+| `athletes`        | `competitions.hydrate` (skeleton) + `athletes.hydrate` | ✓ | Carries `country_iso3` sibling (ADR 0008) and federation / sport-class / speed-PB fields (ADR 0009). Paraclimbing proxy is `paraclimbing_sport_class IS NOT NULL` (heuristic); authoritative flag is on `events`. |
+| `cup_rankings`    | `athletes.hydrate`                        |            | Derived: wiped + reinserted per athlete. Season-end overall standing per (cup × discipline). |
 | `results`         | `competitions.hydrate`                   |            | Derived: wiped + reinserted per competition. Final overall rank only. |
 | `category_rounds` | `competitions.hydrate`                   |     ✓      | Phases of a competition (qualif / semi / final). `last_fetched_at` reserved for future startlist work. |
 | `round_stages`    | `competitions.hydrate`                   |            | Sub-stages of a round (speed-final heats, combined sub-disciplines). |

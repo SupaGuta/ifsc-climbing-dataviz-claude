@@ -10,6 +10,9 @@ from ..parsers.event_location import to_iso3
 
 log = logging.getLogger(__name__)
 
+# Keys on a `cup_rankings[]` entry that are NOT a discipline sub-object.
+_CUP_META_KEYS = {"name", "id", "season"}
+
 
 def hydrate(
     repo: Repository,
@@ -37,21 +40,54 @@ def hydrate(
             gender = 0 if gender_str == "male" else (1 if gender_str == "female" else None)
 
             country = data.get("country")
-            repo.update_athlete(
-                ath_row_id,
-                firstname=data.get("firstname"),
-                lastname=data.get("lastname"),
-                gender=gender,
-                height=data.get("height"),
-                arm_span=data.get("arm_span"),
-                birthday=data.get("birthday"),
-                city=data.get("city"),
-                country=country,
-                country_iso3=to_iso3(country),
-                photo_url=data.get("photo_url"),
-                is_paraclimbing=1 if data.get("paraclimbing_sport_class") is not None else 0,
-            )
-            repo.mark_fetched("athletes", ath_row_id)
+            federation = data.get("federation") or {}
+            speed_pb = data.get("speed_personal_best") or {}
+
+            with repo.transaction():
+                repo.update_athlete(
+                    ath_row_id,
+                    firstname=data.get("firstname"),
+                    lastname=data.get("lastname"),
+                    gender=gender,
+                    height=data.get("height"),
+                    arm_span=data.get("arm_span"),
+                    birthday=data.get("birthday"),
+                    city=data.get("city"),
+                    country=country,
+                    country_iso3=to_iso3(country),
+                    photo_url=data.get("photo_url"),
+                    federation_id=federation.get("id"),
+                    federation_name=federation.get("name"),
+                    federation_abbreviation=federation.get("abbreviation"),
+                    federation_url=federation.get("url"),
+                    paraclimbing_sport_class=data.get("paraclimbing_sport_class"),
+                    sport_class_status=data.get("sport_class_status"),
+                    sport_class_review_date=data.get("sport_class_review_date"),
+                    speed_pb_time=speed_pb.get("time"),
+                    speed_pb_date=speed_pb.get("date"),
+                    speed_pb_event_name=speed_pb.get("event_name"),
+                    speed_pb_round_name=speed_pb.get("round_name"),
+                )
+
+                repo.delete_cup_rankings_for_athlete(ath_row_id)
+                for cup in data.get("cup_rankings") or []:
+                    cup_ifsc_id = cup.get("id")
+                    if cup_ifsc_id is None:
+                        continue
+                    for disc_key, disc_obj in cup.items():
+                        if disc_key in _CUP_META_KEYS or not isinstance(disc_obj, dict):
+                            continue
+                        repo.upsert_cup_ranking(
+                            athlete_id=ath_row_id,
+                            cup_ifsc_id=cup_ifsc_id,
+                            cup_name=cup.get("name"),
+                            season=cup.get("season"),
+                            discipline=disc_key,
+                            d_cat_id=disc_obj.get("d_cat_id"),
+                            rank=disc_obj.get("rank"),
+                        )
+
+                repo.mark_fetched("athletes", ath_row_id)
             ok += 1
         except Exception as exc:
             log.exception("Failed to parse /athletes/%s: %s", ath_ifsc, exc)

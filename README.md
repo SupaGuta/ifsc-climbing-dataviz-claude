@@ -240,7 +240,8 @@ python -m wcl_data export athletes --output-dir /tmp/csv
 | `leagues` | ✓ | `league_id`, `name` |
 | `events` | ✓ | event details with `season_year`, `league_name`, `city`, `country`, `date_start`, `date_end`, `is_paraclimbing` |
 | `competitions` | ✓ | one row per (event × discipline × category) with `discipline`, `category`, `gender` resolved to names |
-| `athletes` | ✓ | one row per athlete with `firstname`, `lastname`, `gender` (as `"male"`/`"female"`), `height`, `arm_span`, `birthday`, `city`, `country`, `is_paraclimbing` |
+| `athletes` | ✓ | one row per athlete with `firstname`, `lastname`, `gender` (as `"male"`/`"female"`), `height`, `arm_span`, `birthday`, `city`, `country`, `country_iso3`, federation fields, `paraclimbing_sport_class` + status + review date, speed-PB fields |
+| `cup_rankings` | ✓ | one row per (athlete × cup × discipline) with `cup_name`, `season`, `discipline`, `rank` — season-end overall standings |
 | `results` | ✓ | one row per (athlete × competition) with `event_name`, `season_year`, `league_name`, `event_city`, `event_country`, `event_date`, `discipline`, `category`, `gender`, athlete name/country, `rank` — everything pre-joined |
 | `round_results` | ✓ | per-round breakdown: one row per (athlete × round) with `round_name`, `round_kind`, `round_format`, `round_rank`, `round_score`, `starting_group` plus the same event/discipline context as `results` |
 | `ascents` | opt-in | **the big one** — one row per (athlete × route × stage) with all discipline-specific columns (`top`/`plus`/`time_ms`/`zone`/`points` …). ~900k rows, ~200 MB CSV; pass explicitly. |
@@ -262,7 +263,7 @@ python -m wcl_data export athletes --output-dir /tmp/csv
 
 Single SQLite file at `data/wcl.sqlite`, schema defined in `src/wcl_data/db/schema.py`:
 
-**Base tables (9):**
+**Base tables (10):**
 
 | Table          | Purpose                                                  | Hydratable |
 |----------------|----------------------------------------------------------|:----------:|
@@ -275,6 +276,7 @@ Single SQLite file at `data/wcl.sqlite`, schema defined in `src/wcl_data/db/sche
 | `competitions` | (event × discipline × category) triples                  |     ✓      |
 | `athletes`     | Athlete profiles (name, country, height, birthday, …)    |     ✓      |
 | `results`      | (competition × athlete × rank) — derived from competitions hydration | |
+| `cup_rankings` | (athlete × cup × discipline × rank) — derived from athletes hydration (ADR 0009) | |
 
 **Per-round tables (6, added in ADR 0007 — populated as a side effect of `competitions` hydration):**
 
@@ -320,9 +322,9 @@ tests/
 pytest -q
 ```
 
-123 tests covering: the event-location parser (incl. ISO3 validation, IFSC/IOC variant acceptance, the "Event - Country" no-paren fallback, the city dictionary fallback for historical UIAA rows, and the `to_iso3` IFSC→ISO3 normalization), the streaming API client (mocked transport, retry policy, give-up semantics, retry non-duplication), the repository (upsert idempotency, transaction commit/rollback, stale-detection boundary, table-name validation, country backfill), the per-fetcher parse logic (athletes, events, competitions including per-round transactional rollback and the four discipline shapes — lead / speed / boulder / combined), the `pull-new` ongoing-only filter, and the CSV exporter (all views, join correctness, `country_iso3` columns, filename format, edge cases).
+125 tests covering: the event-location parser (incl. ISO3 validation, IFSC/IOC variant acceptance, the "Event - Country" no-paren fallback, the city dictionary fallback for historical UIAA rows, and the `to_iso3` IFSC→ISO3 normalization), the streaming API client (mocked transport, retry policy, give-up semantics, retry non-duplication), the repository (upsert idempotency, transaction commit/rollback, stale-detection boundary, table-name validation, country backfill), the per-fetcher parse logic (athletes — including federation, speed-PB, paraclimbing sport-class, and cup-rankings expansion; events; competitions including per-round transactional rollback and the four discipline shapes — lead / speed / boulder / combined), the `pull-new` ongoing-only filter, and the CSV exporter (all views, join correctness, `country_iso3` columns, filename format, edge cases).
 
 ## Notes / known limits
 
-- `is_paraclimbing` on athletes is a heuristic (`paraclimbing_sport_class IS NOT NULL`). If your downstream code needs authoritative paraclimbing status, cross-check against `events.is_paraclimbing` via the results join.
+- The athletes-level paraclimbing flag is `paraclimbing_sport_class IS NOT NULL` (heuristic — a paraclimber without a sport-class assignment reads as NULL). For authoritative per-competition status, cross-check against `events.is_paraclimbing` via the results join. The v3-era `athletes.is_paraclimbing` bool was dropped in v4 (ADR 0009).
 - The session cookie in `.env` is not refreshed automatically; refresh manually when the API starts 401-ing.

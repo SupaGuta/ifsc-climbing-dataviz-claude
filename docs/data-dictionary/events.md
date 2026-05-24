@@ -28,7 +28,7 @@ in if either parent surfaced this event.
 | `country_iso3`     | TEXT    |    ✓     | Canonical ISO 3166-1 alpha-3, derived from `country` via the static IFSC→ISO3 map in `parsers/event_location.py`. Codes already ISO3 pass through unchanged. NULL iff `country` is NULL. See [ADR 0008](../decisions/0008-country-iso3-sibling-column.md). |
 | `date_start`       | TEXT    |    ✓     | `YYYY-MM-DD`, local date (no timezone). From API `local_start_date`. |
 | `date_end`         | TEXT    |    ✓     | `YYYY-MM-DD`, local date. From API `local_end_date`.               |
-| `is_paraclimbing`  | INTEGER |    ✓     | `0` / `1`. From API `is_paraclimbing_event`. Authoritative — *not* the heuristic that lives on `athletes`. |
+| `is_paraclimbing`  | INTEGER |    ✓     | `0` / `1`. From API `is_paraclimbing_event`. Authoritative. For an athlete-level proxy, use `athletes.paraclimbing_sport_class IS NOT NULL` (still heuristic; see [ADR 0009](../decisions/0009-athletes-payload-expansion.md)). |
 | `last_fetched_at`  | TEXT    |    ✓     | ISO-8601 UTC. NULL = skeleton, not yet hydrated.                   |
 
 **Indexes:**
@@ -65,10 +65,13 @@ for the parser's rules and why it returns NULL rather than guessing.
   [`src/wcl_data/parsers/event_location.py`](https://github.com/SupaGuta/world-climbing-lab/blob/main/src/wcl_data/parsers/event_location.py)
   runs *first*; the API's own `location` / `country` fields are fallback.
   This is because older events store the location only in the name.
-- **`is_paraclimbing` here is authoritative**, unlike the same-named field on
-  `athletes` (which is heuristic — see [athletes.md](athletes.md)). For a
+- **`is_paraclimbing` here is authoritative.** The athletes table used to
+  carry a same-named heuristic column; it was dropped in schema v4 (see
+  [ADR 0009](../decisions/0009-athletes-payload-expansion.md)). For a
   reliable paraclimbing flag at the result level, join `results` →
-  `competitions` → `events` and read `events.is_paraclimbing`.
+  `competitions` → `events` and read `events.is_paraclimbing`. For an
+  athlete-level proxy, `athletes.paraclimbing_sport_class IS NOT NULL`
+  is the new heuristic.
 - **Date fields are local to the event** — no timezone info, no time of day.
   If you need UTC dates, you'll need an external mapping from event country
   to timezone.

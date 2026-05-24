@@ -29,7 +29,9 @@ docs/
 │   ├── 0004-incremental-hydration-with-staleness.md
 │   ├── 0005-transactional-boundary-on-competitions.md
 │   ├── 0006-ongoing-only-pull-new.md
-│   └── 0007-per-round-ingestion.md
+│   ├── 0007-per-round-ingestion.md
+│   ├── 0008-country-iso3-sibling-column.md
+│   └── 0009-athletes-payload-expansion.md
 ├── data-dictionary/                  ← per-table column reference (units, ranges, coverage)
 │   ├── README.md                     ← conventions, units, recompute-coverage snippet
 │   ├── seasons.md
@@ -44,6 +46,7 @@ docs/
 │   ├── round-results.md              ← per-round rank + score
 │   ├── stage-results.md              ← per-stage detail
 │   ├── ascents.md                    ← per-route performance detail
+│   ├── cup-rankings.md               ← season-end overall standings per cup × discipline
 │   └── reference-tables.md           ← leagues, disciplines, categories
 ├── cli-cookbook/                     ← task-oriented recipes
 │   ├── README.md
