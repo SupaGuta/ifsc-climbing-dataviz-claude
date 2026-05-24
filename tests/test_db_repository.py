@@ -251,17 +251,43 @@ def test_upsert_category_round_coalesce_preserves_values(memory_db):
     assert row["name"] == "Qualification"
 
 
-def test_upsert_route_relinks_to_new_round(memory_db):
+def test_upsert_route_preserves_original_category_round_id(memory_db):
+    """Route IFSC ids are globally unique on the API — a collision under a
+    different category_round must not silently re-parent the route (which would
+    corrupt existing ascents). The conflict resolution preserves the original
+    parent and only updates COALESCE'd fields. See code review tier-A fix."""
     repo, comp_id = _seed_competition_minimal(memory_db)
     cr1 = repo.upsert_category_round(100, competition_id=comp_id, name="Qualif")
     cr2 = repo.upsert_category_round(101, competition_id=comp_id, name="Final")
     rt = repo.upsert_route(500, category_round_id=cr1, name="A")
-    # Re-upsert moves the route to cr2; name is preserved by COALESCE.
-    rt2 = repo.upsert_route(500, category_round_id=cr2)
+    rt2 = repo.upsert_route(500, category_round_id=cr2, name=None)
     assert rt == rt2
     row = memory_db.execute("SELECT category_round_id, name FROM routes WHERE id = ?", (rt,)).fetchone()
-    assert row["category_round_id"] == cr2
+    assert row["category_round_id"] == cr1, "route must keep its original cr"
     assert row["name"] == "A"
+
+
+def test_upsert_category_round_preserves_original_competition_id(memory_db):
+    """IFSC category_round_id is globally unique — re-upsert under a different
+    competition must not flip competition_id. See code review tier-A fix."""
+    repo, comp_a = _seed_competition_minimal(memory_db)
+    # Seed a second competition under the same event.
+    sid = repo.upsert_season(2025, year=2025)
+    eid = repo.upsert_event_skeleton(2, season_id=sid)
+    did = repo.upsert_discipline("lead")
+    cid = repo.upsert_category("Men", gender=0)
+    comp_b = repo.upsert_competition(
+        event_id=eid, ifsc_id=2, discipline_id=did, category_id=cid
+    )
+
+    cr_a = repo.upsert_category_round(777, competition_id=comp_a, name="Qualif")
+    cr_b = repo.upsert_category_round(777, competition_id=comp_b, name=None)
+    assert cr_a == cr_b
+    row = memory_db.execute(
+        "SELECT competition_id, name FROM category_rounds WHERE id = ?", (cr_a,)
+    ).fetchone()
+    assert row["competition_id"] == comp_a, "category_round must keep its original comp"
+    assert row["name"] == "Qualif"
 
 
 def test_upsert_round_stage_unique_on_round_seq(memory_db):

@@ -26,7 +26,7 @@ parent competition's hydration; structural state, not fetched independently.
 |--------------------------|---------|:--------:|----------------------------------------------------|
 | `id`                     | INTEGER |          | Local row PK. Used by FKs from `stage_results`, `ascents`. |
 | `category_round_id`      | INTEGER |          | FK → `category_rounds.id`. NOT NULL.              |
-| `seq`                    | INTEGER |          | Order within the round (0 = default). NOT NULL.   |
+| `seq`                    | INTEGER |          | Within-round identifier. NOT NULL. Semantics vary by discipline (see Gotchas). |
 | `name`                   | TEXT    |    ✓     | `"Boulder"` / `"Lead"` (combined); `"1/8"` / `"1/4"` / `"1/2"` / `"Small Final"` / `"Final"` (speed). NULL for the default stage. |
 | `kind`                   | TEXT    |    ✓     | `"boulder"` / `"lead"` for combined sub-stages; NULL otherwise. |
 | `heat_id`                | INTEGER |    ✓     | IFSC heat id for speed-final stages; NULL otherwise. Globally stable. |
@@ -46,20 +46,15 @@ parent competition's hydration; structural state, not fetched independently.
 
 ## Gotchas
 
-- **Default stages (seq=0, name=NULL) are created lazily.** A round with no
-  athletes will have zero stages. Joins from `category_rounds` to `round_stages`
-  via LEFT JOIN, not INNER JOIN, when you want to count empty rounds.
-- **Speed heat naming** is mapped via `SPEED_HEAT_SEQ` in
-  `src/ifsc_data/fetchers/competitions.py`:
-  `{"1/8": 0, "1/4": 1, "1/2": 2, "Small Final": 3, "Final": 4}`. Unknown
-  heat names get `seq = 999` (preserves the data without losing it but breaks
-  bracket ordering). Audit periodically with:
+- **`seq` semantics vary by discipline** — same column, different meanings:
+  - **Default stage** (Lead/Boulder/Speed-qualif): `seq = 0`, single row per round.
+  - **Combined sub-stages**: `seq = enumerate index` of the sub-discipline within `category_rounds[*].combined_stages[]` (typically 0=Boulder, 1=Lead for modern combined). The semantic linkage uses `kind` (set on the same row), not seq.
+  - **Speed-final heats**: `seq = heat_id` (the IFSC heat identifier, monotonically allocated). One row per physical heat — eight 1/8 heats, four 1/4 heats, etc. heat_ids are large integers (e.g. 77865), so seq values for speed-final are much bigger than for other disciplines. Order by seq still yields chronological bracket order because IFSC allocates heat_ids in time order.
+- **The `seq == heat_id` convention for speed-final** preserves per-heat granularity. Before this convention (fixed during the post-merge code-review), multiple physical heats sharing a bracket name collapsed into one row and the bracket structure was lost.
+- **Legacy / unknown speed heat names** that arrive without a `heat_id` fall back to `_speed_seq(name)` from `SPEED_HEAT_SEQ` (`{"1/8": 0, "1/4": 1, "1/2": 2, "Small Final": 3, "Final": 4}`, default 999). A warning is logged when this happens. Audit periodically with:
   ```sql
-  SELECT DISTINCT name FROM round_stages WHERE heat_id IS NOT NULL;
+  SELECT DISTINCT name FROM round_stages WHERE heat_id IS NULL AND name IS NOT NULL;
   ```
-- **`seq` is not globally meaningful** — it's an in-round ordering. Stage 0
-  in round X is unrelated to stage 0 in round Y.
-- **For combined Olympic events with three sub-disciplines (Speed+Boulder+Lead)**,
-  `seq` will go 0/1/2 in the parsing order. Paris 2024 is two stages (Boulder+Lead).
-  Tokyo 2020-style three-stage combined was not observed in our fixtures but
-  should fit naturally.
+- **Default stages (seq=0, name=NULL) are created lazily.** A round with no athletes will have zero stages. Use LEFT JOIN from `category_rounds` to `round_stages` when you want to count empty rounds.
+- **`seq` is not globally meaningful** — it's an in-round identifier. Stage 0 in round X is unrelated to stage 0 in round Y.
+- **For combined events with three sub-disciplines (Speed+Boulder+Lead)** (Tokyo-2020-style), `seq` will go 0/1/2 in the parsing order. Paris 2024 only has two sub-stages (Boulder+Lead).

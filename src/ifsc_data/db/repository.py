@@ -361,13 +361,17 @@ class Repository:
         status_as_of: Optional[str] = None,
         league_round_id: Optional[int] = None,
     ) -> int:
+        # On conflict we intentionally do NOT touch `competition_id`: the IFSC
+        # category_round_id is supposed to be globally unique, so a collision
+        # would mean either an IFSC quirk or our own bug — silently re-parenting
+        # the row would corrupt joins for any pre-existing round_results /
+        # round_stages of the original comp.
         row = self.conn.execute(
             "INSERT INTO category_rounds "
             "(ifsc_id, competition_id, kind, name, category, format, format_identifier, "
             " status, status_as_of, league_round_id) "
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) "
             "ON CONFLICT(ifsc_id) DO UPDATE SET "
-            "  competition_id = excluded.competition_id, "
             "  kind = COALESCE(excluded.kind, category_rounds.kind), "
             "  name = COALESCE(excluded.name, category_rounds.name), "
             "  category = COALESCE(excluded.category, category_rounds.category), "
@@ -419,10 +423,13 @@ class Repository:
         category_round_id: int,
         name: Optional[str] = None,
     ) -> int:
+        # On conflict, preserve the existing `category_round_id` — IFSC route
+        # ids are globally unique on the API, so a collision means the row is
+        # either being re-seen from the same round (no-op) or there's an IFSC
+        # quirk we should not silently re-parent.
         row = self.conn.execute(
             "INSERT INTO routes (ifsc_id, category_round_id, name) VALUES (?, ?, ?) "
             "ON CONFLICT(ifsc_id) DO UPDATE SET "
-            "  category_round_id = excluded.category_round_id, "
             "  name = COALESCE(excluded.name, routes.name) "
             "RETURNING id",
             (ifsc_id, category_round_id, name),

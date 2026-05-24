@@ -22,8 +22,10 @@ if TYPE_CHECKING:
 
 log = logging.getLogger(__name__)
 
-# Speed-final heat ordering (canonical bracket). Unknown names fall back to a
-# stable but-out-of-band 999 so we still ingest the data without losing it.
+# Canonical bracket ordering for speed-final heat NAMES. Used only as a
+# fallback when a heat has no `heat_id` (legacy payloads); modern payloads
+# always carry heat_id and seq is set to heat_id directly so each physical
+# heat gets its own round_stages row.
 SPEED_HEAT_SEQ: dict[str, int] = {
     "1/8": 0,
     "1/4": 1,
@@ -117,7 +119,12 @@ def _process_category_rounds(
     *,
     comp_id: int,
     cr_payload: list[dict[str, Any]],
-) -> tuple[dict[int, int], dict[int, int], dict[int, dict[int, int]]]:
+) -> tuple[
+    dict[int, int],
+    dict[int, int],
+    dict[int, dict[int, int]],
+    dict[int, dict[str, int]],
+]:
     """Phase A: upsert category_rounds + routes + the structural stages we can
     discover at this level (default stage for simple rounds, one stage per
     combined_stage for combined rounds).
@@ -126,10 +133,14 @@ def _process_category_rounds(
         round_id_by_ifsc: category_round IFSC id -> local id
         route_id_by_ifsc: route IFSC id -> local id
         stage_local_by_round: category_round local id -> {seq -> stage local id}
+        combined_stage_by_kind: category_round local id -> {lower(kind) -> stage local id};
+            used by phase B to resolve per-athlete combined sub-stages by name/kind
+            instead of by position (positions can diverge across athletes).
     """
     round_id_by_ifsc: dict[int, int] = {}
     route_id_by_ifsc: dict[int, int] = {}
     stage_local_by_round: dict[int, dict[int, int]] = {}
+    combined_stage_by_kind: dict[int, dict[str, int]] = {}
 
     for cr in cr_payload:
         if not isinstance(cr, dict):
@@ -182,6 +193,7 @@ def _process_category_rounds(
         # Create round_stages: one per combined_stage if present, else a single
         # default stage. Speed-final heats are discovered lazily in phase B.
         stages_for_round: dict[int, int] = {}
+        kind_index: dict[str, int] = {}
         combined_stages = cr.get("combined_stages") or []
         if combined_stages:
             for seq, cs in enumerate(combined_stages):
@@ -196,13 +208,17 @@ def _process_category_rounds(
                     combined_stage_ifsc_id=cs.get("id"),
                 )
                 stages_for_round[seq] = stage_local
+                if cs_kind:
+                    kind_index[cs_kind.lower()] = stage_local
         else:
             # Default stage seq=0; populated lazily on first use in phase B
             # (we avoid creating it for empty rounds with no athletes).
             pass
         stage_local_by_round[cr_local] = stages_for_round
+        if kind_index:
+            combined_stage_by_kind[cr_local] = kind_index
 
-    return round_id_by_ifsc, route_id_by_ifsc, stage_local_by_round
+    return round_id_by_ifsc, route_id_by_ifsc, stage_local_by_round, combined_stage_by_kind
 
 
 def _ensure_default_stage(
@@ -225,15 +241,34 @@ def _ensure_speed_stage(
     heat: dict[str, Any],
     stage_local_by_round: dict[int, dict[int, int]],
 ) -> int:
-    """Get-or-create a speed-final heat stage."""
-    seq = _speed_seq(heat.get("name"))
+    """Get-or-create a speed-final heat stage.
+
+    One round_stages row per physical heat: keyed by `heat_id` when present,
+    so multiple heats sharing a bracket name (e.g. eight 1/8 heats) each get
+    their own row. `seq` is set to `heat_id` directly — heat ids are
+    monotonically allocated by the IFSC, so ORDER BY seq preserves chronology.
+
+    If `heat_id` is absent (very old payloads), fall back to the bracket name
+    via SPEED_HEAT_SEQ — accepting that multiple unnamed heats would collapse,
+    but logging a warning so the gap is visible.
+    """
+    heat_id = heat.get("heat_id")
+    if heat_id is not None:
+        seq = int(heat_id)
+    else:
+        seq = _speed_seq(heat.get("name"))
+        log.warning(
+            "Speed heat without heat_id (cr_local=%s, name=%r) — falling back "
+            "to name-based seq; co-located heats with the same name will collapse",
+            cr_local, heat.get("name"),
+        )
     stages = stage_local_by_round.setdefault(cr_local, {})
     if seq not in stages:
         stages[seq] = repo.upsert_round_stage(
             category_round_id=cr_local,
             seq=seq,
             name=heat.get("name"),
-            heat_id=heat.get("heat_id"),
+            heat_id=heat_id,
         )
     return stages[seq]
 
@@ -286,12 +321,15 @@ def hydrate(
                 repo.delete_results_for_competition(comp_id)
 
                 # Phase A: top-level structure (rounds, routes, stages).
-                round_id_by_ifsc, route_id_by_ifsc, stage_local_by_round = (
-                    _process_category_rounds(
-                        repo,
-                        comp_id=comp_id,
-                        cr_payload=data.get("category_rounds") or [],
-                    )
+                (
+                    round_id_by_ifsc,
+                    route_id_by_ifsc,
+                    stage_local_by_round,
+                    combined_stage_by_kind,
+                ) = _process_category_rounds(
+                    repo,
+                    comp_id=comp_id,
+                    cr_payload=data.get("category_rounds") or [],
                 )
 
                 # Phase B: per-athlete results.
@@ -388,20 +426,33 @@ def hydrate(
                                     category_round_id=cr_local,
                                 )
                         elif combined_stages:
-                            for seq, stage in enumerate(combined_stages):
+                            for stage in combined_stages:
                                 if not isinstance(stage, dict):
                                     continue
-                                # Combined sub-stages were pre-created in phase A
-                                # by index. If we somehow don't have one, create
-                                # it now.
+                                # Match per-athlete sub-stages to the structural
+                                # stages by `stage_name` ↔ `kind` (case-insensitive)
+                                # rather than by enumerate position — positions can
+                                # diverge if an athlete only competed in some of
+                                # the sub-stages.
+                                stage_name = stage.get("stage_name")
+                                kind_key = stage_name.lower() if stage_name else None
+                                kind_index = combined_stage_by_kind.get(cr_local) or {}
                                 stages = stage_local_by_round.setdefault(cr_local, {})
-                                if seq not in stages:
-                                    stages[seq] = repo.upsert_round_stage(
+                                stage_local = kind_index.get(kind_key) if kind_key else None
+                                if stage_local is None:
+                                    # True fallback: structural stage missing
+                                    # (e.g. round was lazy-created from ranking).
+                                    # Allocate a fresh seq and write kind too.
+                                    next_seq = max(stages, default=-1) + 1
+                                    stage_local = repo.upsert_round_stage(
                                         category_round_id=cr_local,
-                                        seq=seq,
-                                        name=stage.get("stage_name"),
+                                        seq=next_seq,
+                                        name=stage_name,
+                                        kind=kind_key,
                                     )
-                                stage_local = stages[seq]
+                                    stages[next_seq] = stage_local
+                                    if kind_key:
+                                        combined_stage_by_kind.setdefault(cr_local, {})[kind_key] = stage_local
                                 repo.upsert_stage_result(
                                     competition_id=comp_id,
                                     round_stage_id=stage_local,

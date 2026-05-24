@@ -77,14 +77,19 @@ def build_parser() -> argparse.ArgumentParser:
 
     sub.add_parser("status", help="Print row counts and hydration coverage.")
 
-    from .exporter import VIEW_NAMES as _EXPORT_VIEW_NAMES
+    from .exporter import DEFAULT_EXPORT_VIEWS, VIEW_NAMES as _EXPORT_VIEW_NAMES
+    _opt_in_views = tuple(v for v in _EXPORT_VIEW_NAMES if v not in DEFAULT_EXPORT_VIEWS)
     p_export = sub.add_parser(
         "export",
         help="Export denormalized views to timestamped CSV files in data/exports/.",
     )
     p_export.add_argument(
         "view", nargs="?", default=None,
-        help=f"Optional view name (default: export all). Available: {', '.join(_EXPORT_VIEW_NAMES)}.",
+        help=(
+            f"Optional view name. Default (no arg): export the {len(DEFAULT_EXPORT_VIEWS)} non-bulky views "
+            f"({', '.join(DEFAULT_EXPORT_VIEWS)}). "
+            f"Opt-in (excluded from default, pass explicitly): {', '.join(_opt_in_views) or 'none'}."
+        ),
     )
     p_export.add_argument(
         "--output-dir", type=Path, default=None,
@@ -147,15 +152,21 @@ def _cmd_auth(*, dry_run: bool, env_file: Optional[Path]) -> int:
 
 
 def _cmd_status(settings) -> int:
+    from .db.repository import HYDRATABLE_TABLES
+
     conn = open_db(settings.db_path)
     repo = Repository(conn)
     print(f"DB: {settings.db_path}")
     print(f"{'table':<20} {'rows':>10} {'hydrated':>10}")
-    for table in ("seasons", "leagues", "season_leagues", "disciplines",
-                  "categories", "events", "competitions", "athletes", "results"):
+    for table in (
+        "seasons", "leagues", "season_leagues", "disciplines",
+        "categories", "events", "competitions", "athletes", "results",
+        "category_rounds", "round_stages", "routes",
+        "round_results", "stage_results", "ascents",
+    ):
         total = repo.count(table)
         hydrated = "-"
-        if table in ("seasons", "season_leagues", "events", "competitions", "athletes"):
+        if table in HYDRATABLE_TABLES:
             hydrated = str(repo.count_hydrated(table))
         print(f"{table:<20} {total:>10} {hydrated:>10}")
     conn.close()

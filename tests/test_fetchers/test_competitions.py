@@ -349,6 +349,162 @@ def test_old_payload_speed_elimination_stages_as_dict(memory_db):
     assert rows[0]["dns"] == 0
 
 
+def test_speed_final_creates_one_stage_per_heat(fixture, memory_db):
+    """Speed-final has multiple physical heats per bracket name (e.g. eight 1/8
+    heats with distinct heat_ids). Each must materialize a distinct round_stages
+    row, not collapse to a single row keyed by bracket name. Tier-A fix."""
+    payload = fixture("events-id-result-id-speed")
+    repo, comp_id = _seed_competition(memory_db, discipline="speed")
+    client = _stub_client_payload(payload)
+    ok, fail = competitions_fetcher.hydrate(repo, client, stale_days=0)
+    assert (ok, fail) == (1, 0)
+
+    # Count distinct heat_ids in the source payload and in the DB; they must match.
+    payload_heat_ids: set[int] = set()
+    for entry in payload["ranking"]:
+        for rnd in entry.get("rounds") or []:
+            for heat in rnd.get("speed_elimination_stages") or []:
+                hid = heat.get("heat_id")
+                if hid is not None:
+                    payload_heat_ids.add(int(hid))
+
+    db_heat_ids = {
+        row[0]
+        for row in memory_db.execute(
+            "SELECT DISTINCT rs.heat_id FROM round_stages rs "
+            "JOIN category_rounds cr ON rs.category_round_id = cr.id "
+            "WHERE cr.competition_id = ? AND rs.heat_id IS NOT NULL",
+            (comp_id,),
+        ).fetchall()
+    }
+
+    assert len(payload_heat_ids) > 1, "fixture sanity: expected multiple heats"
+    assert db_heat_ids == payload_heat_ids, (
+        f"DB lost heats: payload had {len(payload_heat_ids)} distinct heat_ids, "
+        f"DB has {len(db_heat_ids)}. Diff: payload-only={payload_heat_ids - db_heat_ids}, "
+        f"db-only={db_heat_ids - payload_heat_ids}"
+    )
+
+
+def test_combined_stages_misaligned_order_matches_by_kind(memory_db):
+    """If an athlete's per-round combined_stages arrives in a different order
+    (or is partial) compared to the top-level structural array, the athlete's
+    stage_results must still land on the correctly-typed sub-stage — matched
+    by stage_name/kind, not by position. Tier-B fix."""
+    repo, comp_id = _seed_competition(memory_db, discipline="boulder&lead")
+    payload = {
+        "event": "combined test",
+        "dcat": "BOULDER&LEAD Men",
+        "category_rounds": [
+            {
+                "category_round_id": 9000,
+                "kind": "boulder&lead",
+                "name": "Final",
+                "combined_stages": [
+                    {"id": 100, "kind": "boulder", "routes": [{"id": 5001, "name": "B1"}]},
+                    {"id": 200, "kind": "lead", "routes": [{"id": 5002, "name": "L1"}]},
+                ],
+            }
+        ],
+        "ranking": [
+            {
+                "athlete_id": 42,
+                "rank": 1,
+                "rounds": [
+                    {
+                        "category_round_id": 9000,
+                        "round_name": "Final",
+                        "rank": 1,
+                        "score": "100",
+                        # Per-athlete sends Lead FIRST then Boulder (reverse order).
+                        "combined_stages": [
+                            {
+                                "stage_name": "Lead",
+                                "stage_rank": 1,
+                                "stage_score": "TOP",
+                                "ascents": [{"route_id": 5002, "route_name": "L1", "top": True}],
+                            },
+                            {
+                                "stage_name": "Boulder",
+                                "stage_rank": 2,
+                                "stage_score": "50",
+                                "ascents": [{"route_id": 5001, "route_name": "B1", "top": True}],
+                            },
+                        ],
+                    }
+                ],
+            }
+        ],
+    }
+    client = _stub_client_payload(payload)
+    ok, fail = competitions_fetcher.hydrate(repo, client, stale_days=0)
+    assert (ok, fail) == (1, 0)
+
+    # The Lead stage_result (rank=1, score=TOP) must land on the BOULDER&LEAD stage
+    # tagged kind='lead', not the kind='boulder' one. Same for Boulder data.
+    rows = dict(memory_db.execute(
+        "SELECT rs.kind, sr.score FROM stage_results sr "
+        "JOIN round_stages rs ON sr.round_stage_id = rs.id "
+        "WHERE sr.competition_id = ?", (comp_id,),
+    ).fetchall())
+    assert rows.get("lead") == "TOP", f"Lead score mis-attributed: {rows}"
+    assert rows.get("boulder") == "50", f"Boulder score mis-attributed: {rows}"
+
+
+def test_lazy_combined_fallback_writes_kind(memory_db):
+    """When a combined round is referenced from ranking but missing from the
+    top-level category_rounds (skeleton fallback path), the on-the-fly
+    round_stages must still set `kind` (derived from stage_name) so the
+    exporter's ascents view doesn't return stage_kind=NULL. Tier-B fix."""
+    repo, comp_id = _seed_competition(memory_db, discipline="boulder&lead")
+    payload = {
+        "event": "lazy fallback test",
+        "dcat": "BOULDER&LEAD Men",
+        # Top-level deliberately empty so phase A creates nothing structural.
+        "category_rounds": [],
+        "ranking": [
+            {
+                "athlete_id": 42,
+                "rank": 1,
+                "rounds": [
+                    {
+                        "category_round_id": 9999,  # not in category_rounds → skeleton
+                        "round_name": "Final",
+                        "rank": 1,
+                        "score": "100",
+                        "combined_stages": [
+                            {
+                                "stage_name": "Boulder",
+                                "stage_rank": 1,
+                                "stage_score": "50",
+                                "ascents": [],
+                            },
+                            {
+                                "stage_name": "Lead",
+                                "stage_rank": 2,
+                                "stage_score": "TOP",
+                                "ascents": [],
+                            },
+                        ],
+                    }
+                ],
+            }
+        ],
+    }
+    client = _stub_client_payload(payload)
+    ok, fail = competitions_fetcher.hydrate(repo, client, stale_days=0)
+    assert (ok, fail) == (1, 0)
+
+    kinds = {
+        row[0] for row in memory_db.execute(
+            "SELECT rs.kind FROM round_stages rs "
+            "JOIN category_rounds cr ON rs.category_round_id = cr.id "
+            "WHERE cr.competition_id = ? AND rs.kind IS NOT NULL", (comp_id,),
+        ).fetchall()
+    }
+    assert kinds == {"boulder", "lead"}, f"expected both kinds, got {kinds}"
+
+
 def test_speed_final_route_reuse_does_not_violate_unique(fixture, memory_db):
     """The same athlete climbs the same route across multiple speed-final heats.
     UNIQUE (round_stage_id, athlete_id, route_id) must allow this."""

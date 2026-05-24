@@ -115,3 +115,44 @@ startlist-hydration state.
   explicit request ("Je veux qu'on en profite pour tout faire tout de
   suite"). Verified upfront against speed/boulder/combined fixtures
   downloaded during Phase 0 exploration.
+
+## Post-merge corrections (code review on commit f1afd0c)
+
+A multi-angle code review surfaced seven defects after the initial backfill.
+Tier-A (3 silent data-correctness bugs + 2 user-visible CLI gaps) and Tier-B
+(2 robustness gaps observable on plausible payload shapes) were addressed
+together. Tier-C/D findings were intentionally deferred until a real trigger
+materializes.
+
+- **Speed-final heat collapse.** `_speed_seq` mapped every heat with the same
+  bracket name (e.g. eight `"1/8"` heats) to `seq = 0`, collapsing them into a
+  single `round_stages` row and overwriting `heat_id` via COALESCE. Fix:
+  `_ensure_speed_stage` now uses `heat_id` as both the cache key and the `seq`
+  value, so each physical heat owns its own row. See `round-stages.md`.
+- **`upsert_route` and `upsert_category_round` would silently re-parent.**
+  Their `ON CONFLICT` clauses unconditionally set the parent FK (
+  `category_round_id` and `competition_id`, respectively) from `excluded`.
+  Any IFSC id reused under a different parent would re-parent the existing
+  row, corrupting joins for the original comp's children. Fix: drop the
+  parent FK from the SET clause so the original assignment is preserved.
+- **`_cmd_status` hardcoded a 9-table list and missed the 6 new tables.**
+  Fix: extend the list and derive the "hydrated" column from
+  `HYDRATABLE_TABLES`.
+- **`export --help` advertised "default: export all" while `export_all`
+  silently excluded `ascents`.** Fix: import `DEFAULT_EXPORT_VIEWS` in the
+  CLI and rephrase the help text to describe default vs opt-in.
+- **Combined sub-stage matching by position was fragile.** Phase A enumerated
+  `cr["combined_stages"]`, phase B enumerated `rnd["combined_stages"]`
+  independently — any divergence in order or length would cross-link an
+  athlete's data to the wrong sub-discipline. Fix: phase A also records
+  `combined_stage_by_kind` (lowercased kind → stage id); phase B looks up by
+  kind instead of by position.
+- **Lazy combined fallback dropped `kind`.** When phase B materializes a
+  combined sub-stage on the fly (round missing from top-level), the fix
+  derives `kind` from `stage_name.lower()` so the exporter's `stage_kind`
+  column is no longer NULL for these rows.
+
+Post-fix backfill scope: only Speed competitions needed re-hydration to pick
+up per-heat granularity. The other six fixes either don't change the on-disk
+shape (CLI plumbing) or only trigger on payload shapes that weren't observed
+in the live data.
