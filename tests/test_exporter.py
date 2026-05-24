@@ -7,7 +7,7 @@ import re
 import pytest
 
 from ifsc_data.db.repository import Repository
-from ifsc_data.exporter import VIEW_NAMES, export_all, export_view
+from ifsc_data.exporter import DEFAULT_EXPORT_VIEWS, VIEW_NAMES, export_all, export_view
 
 
 def _seed(memory_db) -> None:
@@ -45,15 +45,54 @@ def _seed(memory_db) -> None:
     repo.upsert_result(competition_id=comp_id, athlete_id=athlete_id, rank=1)
 
 
-def test_export_all_writes_all_views(memory_db, tmp_path):
+def test_export_all_writes_default_views_only(memory_db, tmp_path):
+    """`export_all` writes every default view; `ascents` is registered but opt-in."""
     _seed(memory_db)
     paths = export_all(memory_db, output_dir=tmp_path)
 
-    assert set(paths.keys()) == set(VIEW_NAMES)
+    assert set(paths.keys()) == set(DEFAULT_EXPORT_VIEWS)
+    assert "ascents" in VIEW_NAMES
+    assert "ascents" not in DEFAULT_EXPORT_VIEWS
     for path in paths.values():
         assert path.exists()
         assert path.suffix == ".csv"
         assert path.parent == tmp_path
+
+
+def test_export_ascents_works_on_demand(memory_db, tmp_path):
+    """`ascents` is excluded from export_all but can still be exported explicitly."""
+    _seed(memory_db)
+    path = export_view(memory_db, "ascents", output_dir=tmp_path)
+    assert path.exists()
+
+
+def test_export_round_results_joins_through_to_athletes(memory_db, tmp_path):
+    """The 'round_results' view should pre-join down to round_name, athlete, etc."""
+    _seed(memory_db)
+    # Add a category_round + round_result on top of the seed data.
+    repo = Repository(memory_db)
+    comp = memory_db.execute("SELECT id FROM competitions").fetchone()[0]
+    athlete = memory_db.execute("SELECT id FROM athletes").fetchone()[0]
+    cr = repo.upsert_category_round(
+        9999, competition_id=comp, kind="lead", name="Qualification",
+        format="IFSC: 2 routes", league_round_id=1,
+    )
+    repo.upsert_round_result(
+        competition_id=comp, category_round_id=cr, athlete_id=athlete,
+        rank=1, score="7.75", starting_group=None,
+    )
+
+    path = export_view(memory_db, "round_results", output_dir=tmp_path)
+    with path.open("r", encoding="utf-8") as f:
+        rows = list(csv.DictReader(f))
+
+    assert len(rows) == 1
+    row = rows[0]
+    assert row["round_name"] == "Qualification"
+    assert row["round_kind"] == "lead"
+    assert row["round_rank"] == "1"
+    assert row["round_score"] == "7.75"
+    assert row["athlete_lastname"] == "ONDRA"
 
 
 def test_export_results_joins_everything(memory_db, tmp_path):

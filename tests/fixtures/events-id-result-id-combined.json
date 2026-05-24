@@ -1,0 +1,2830 @@
+{
+    "event": "Olympic Games Paris 2024",
+    "dcat": "BOULDER&LEAD Men",
+    "status": "finished",
+    "status_as_of": "2025-10-02 07:18:41 UTC",
+    "ranking_as_of": "2026-04-22 08:33:38 UTC",
+    "cutoff_rank": null,
+    "category_rounds": [
+        {
+            "category_round_id": 9181,
+            "kind": "boulder&lead",
+            "name": "Semi-Final",
+            "category": "Men",
+            "schedule": null,
+            "status": "finished",
+            "status_as_of": "2024-08-08 07:36:30 UTC",
+            "result_url": "/api/v1/category_rounds/9181/results",
+            "starting_groups": [],
+            "combined_stages": [
+                {
+                    "id": 935,
+                    "kind": "boulder",
+                    "schedule": null,
+                    "status": "finished",
+                    "status_as_of": "2024-08-08 07:36:30 UTC",
+                    "results": "/api/v1/combined_stages/935/results",
+                    "routes": [
+                        {
+                            "id": 13554,
+                            "name": "1",
+                            "startlist": "/api/v1/routes/13554/startlist"
+                        },
+                        {
+                            "id": 13555,
+                            "name": "2",
+                            "startlist": "/api/v1/routes/13555/startlist"
+                        },
+                        {
+                            "id": 13556,
+                            "name": "3",
+                            "startlist": "/api/v1/routes/13556/startlist"
+                        },
+                        {
+                            "id": 13557,
+                            "name": "4",
+                            "startlist": "/api/v1/routes/13557/startlist"
+                        }
+                    ]
+                },
+                {
+                    "id": 936,
+                    "kind": "lead",
+                    "schedule": null,
+                    "status": "finished",
+                    "status_as_of": "2024-08-08 07:36:30 UTC",
+                    "results": "/api/v1/combined_stages/936/results",
+                    "routes": [
+                        {
+                            "id": 13558,
+                            "name": "1",
+                            "startlist": "/api/v1/routes/13558/startlist",
+                            "ranking": "/api/v1/routes/13558/results"
+                        }
+                    ]
+                }
+            ],
+            "round": {
+                "league_round_id": 32
+            },
+            "format_identifier": "bl_qualification",
+            "format": "IFSC: Qualification",
+            "routes": []
+        },
+        {
+            "category_round_id": 9183,
+            "kind": "boulder&lead",
+            "name": "Final",
+            "category": "Men",
+            "schedule": null,
+            "status": "finished",
+            "status_as_of": "2024-08-09 11:30:06 UTC",
+            "result_url": "/api/v1/category_rounds/9183/results",
+            "starting_groups": [],
+            "combined_stages": [
+                {
+                    "id": 939,
+                    "kind": "boulder",
+                    "schedule": null,
+                    "status": "finished",
+                    "status_as_of": "2024-08-09 10:02:39 UTC",
+                    "results": "/api/v1/combined_stages/939/results",
+                    "routes": [
+                        {
+                            "id": 13564,
+                            "name": "1",
+                            "startlist": "/api/v1/routes/13564/startlist"
+                        },
+                        {
+                            "id": 13565,
+                            "name": "2",
+                            "startlist": "/api/v1/routes/13565/startlist"
+                        },
+                        {
+                            "id": 13566,
+                            "name": "3",
+                            "startlist": "/api/v1/routes/13566/startlist"
+                        },
+                        {
+                            "id": 13567,
+                            "name": "4",
+                            "startlist": "/api/v1/routes/13567/startlist"
+                        }
+                    ]
+                },
+                {
+                    "id": 940,
+                    "kind": "lead",
+                    "schedule": null,
+                    "status": "finished",
+                    "status_as_of": "2024-08-09 11:30:06 UTC",
+                    "results": "/api/v1/combined_stages/940/results",
+                    "routes": [
+                        {
+                            "id": 13568,
+                            "name": "1",
+                            "startlist": "/api/v1/routes/13568/startlist",
+                            "ranking": "/api/v1/routes/13568/results"
+                        }
+                    ]
+                }
+            ],
+            "round": {
+                "league_round_id": 33
+            },
+            "format_identifier": "bl_final",
+            "format": "IFSC: Finals",
+            "routes": []
+        }
+    ],
+    "ranking": [
+        {
+            "athlete_id": 11490,
+            "squad_id": null,
+            "rank": 1,
+            "name": "ROBERTS Toby",
+            "bib_number": null,
+            "firstname": "Toby",
+            "lastname": "ROBERTS",
+            "country": "GBR",
+            "organisation_id": 11,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/GBR.png",
+            "rounds": [
+                {
+                    "category_round_id": 9181,
+                    "round_name": "Semi-Final",
+                    "rank": 2,
+                    "score": "122.2",
+                    "combined_stages": [
+                        {
+                            "stage_name": "Boulder",
+                            "stage_score": 54.1,
+                            "stage_rank": 3,
+                            "ascents": [
+                                {
+                                    "route_id": 13554,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 3,
+                                    "low_zone": true,
+                                    "points": 9.8,
+                                    "low_zone_tries": 3,
+                                    "modified": "2024-08-05 09:39:47 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13555,
+                                    "route_name": "2",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 4,
+                                    "low_zone": true,
+                                    "points": 9.7,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 09:50:17 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13556,
+                                    "route_name": "3",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 2,
+                                    "low_zone": true,
+                                    "points": 9.9,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 10:00:47 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13557,
+                                    "route_name": "4",
+                                    "top": true,
+                                    "top_tries": 4,
+                                    "zone": true,
+                                    "zone_tries": 4,
+                                    "low_zone": true,
+                                    "points": 24.7,
+                                    "low_zone_tries": 2,
+                                    "modified": "2024-08-05 10:11:17 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        },
+                        {
+                            "stage_name": "Lead",
+                            "stage_score": 68.1,
+                            "stage_rank": 2,
+                            "ascents": [
+                                {
+                                    "route_id": 13558,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": null,
+                                    "score": "42+",
+                                    "plus": true,
+                                    "restarted": false,
+                                    "time_ms": 0,
+                                    "modified": "2024-08-07 09:43:09 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "category_round_id": 9183,
+                    "round_name": "Final",
+                    "rank": 1,
+                    "score": "155.2",
+                    "combined_stages": [
+                        {
+                            "stage_name": "Boulder",
+                            "stage_score": 63.1,
+                            "stage_rank": 3,
+                            "ascents": [
+                                {
+                                    "route_id": 13564,
+                                    "route_name": "1",
+                                    "top": true,
+                                    "top_tries": 7,
+                                    "zone": true,
+                                    "zone_tries": 7,
+                                    "low_zone": true,
+                                    "points": 24.4,
+                                    "low_zone_tries": 3,
+                                    "modified": "2024-08-09 08:54:51 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13565,
+                                    "route_name": "2",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 11,
+                                    "low_zone": true,
+                                    "points": 9.0,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-09 09:12:40 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13566,
+                                    "route_name": "3",
+                                    "top": true,
+                                    "top_tries": 3,
+                                    "zone": true,
+                                    "zone_tries": 3,
+                                    "low_zone": true,
+                                    "points": 24.8,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-09 09:30:30 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13567,
+                                    "route_name": "4",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": false,
+                                    "zone_tries": 0,
+                                    "low_zone": true,
+                                    "points": 4.9,
+                                    "low_zone_tries": 2,
+                                    "modified": "2024-08-09 09:47:52 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        },
+                        {
+                            "stage_name": "Lead",
+                            "stage_score": 92.1,
+                            "stage_rank": 3,
+                            "ascents": [
+                                {
+                                    "route_id": 13568,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": null,
+                                    "score": "47+",
+                                    "plus": true,
+                                    "restarted": false,
+                                    "time_ms": 0,
+                                    "modified": "2024-08-09 11:19:35 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 13040,
+            "squad_id": null,
+            "rank": 2,
+            "name": "ANRAKU Sorato",
+            "bib_number": null,
+            "firstname": "Sorato",
+            "lastname": "ANRAKU",
+            "country": "JPN",
+            "organisation_id": 25,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/JPN.png",
+            "rounds": [
+                {
+                    "category_round_id": 9181,
+                    "round_name": "Semi-Final",
+                    "rank": 1,
+                    "score": "137.0",
+                    "combined_stages": [
+                        {
+                            "stage_name": "Boulder",
+                            "stage_score": 69.0,
+                            "stage_rank": 1,
+                            "ascents": [
+                                {
+                                    "route_id": 13554,
+                                    "route_name": "1",
+                                    "top": true,
+                                    "top_tries": 2,
+                                    "zone": true,
+                                    "zone_tries": 1,
+                                    "low_zone": true,
+                                    "points": 24.9,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 09:45:03 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13555,
+                                    "route_name": "2",
+                                    "top": true,
+                                    "top_tries": 1,
+                                    "zone": true,
+                                    "zone_tries": 1,
+                                    "low_zone": true,
+                                    "points": 25.0,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 09:55:32 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13556,
+                                    "route_name": "3",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 6,
+                                    "low_zone": true,
+                                    "points": 9.5,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 10:06:02 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13557,
+                                    "route_name": "4",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 5,
+                                    "low_zone": true,
+                                    "points": 9.6,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 10:16:13 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        },
+                        {
+                            "stage_name": "Lead",
+                            "stage_score": 68,
+                            "stage_rank": 4,
+                            "ascents": [
+                                {
+                                    "route_id": 13558,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": null,
+                                    "score": "42",
+                                    "plus": false,
+                                    "restarted": false,
+                                    "time_ms": 0,
+                                    "modified": "2024-08-07 09:51:05 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "category_round_id": 9183,
+                    "round_name": "Final",
+                    "rank": 2,
+                    "score": "145.4",
+                    "combined_stages": [
+                        {
+                            "stage_name": "Boulder",
+                            "stage_score": 69.3,
+                            "stage_rank": 1,
+                            "ascents": [
+                                {
+                                    "route_id": 13564,
+                                    "route_name": "1",
+                                    "top": true,
+                                    "top_tries": 1,
+                                    "zone": true,
+                                    "zone_tries": 1,
+                                    "low_zone": true,
+                                    "points": 25.0,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-09 08:59:33 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13565,
+                                    "route_name": "2",
+                                    "top": true,
+                                    "top_tries": 5,
+                                    "zone": true,
+                                    "zone_tries": 5,
+                                    "low_zone": true,
+                                    "points": 24.6,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-09 09:17:34 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13566,
+                                    "route_name": "3",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 2,
+                                    "low_zone": true,
+                                    "points": 9.9,
+                                    "low_zone_tries": 2,
+                                    "modified": "2024-08-09 09:35:11 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13567,
+                                    "route_name": "4",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 3,
+                                    "low_zone": true,
+                                    "points": 9.8,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-09 09:51:53 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        },
+                        {
+                            "stage_name": "Lead",
+                            "stage_score": 76.1,
+                            "stage_rank": 5,
+                            "ascents": [
+                                {
+                                    "route_id": 13568,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": null,
+                                    "score": "43+",
+                                    "plus": true,
+                                    "restarted": false,
+                                    "time_ms": 0,
+                                    "modified": "2024-08-09 11:26:49 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 1214,
+            "squad_id": null,
+            "rank": 3,
+            "name": "SCHUBERT Jakob",
+            "bib_number": null,
+            "firstname": "Jakob",
+            "lastname": "SCHUBERT",
+            "country": "AUT",
+            "organisation_id": 16,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/AUT.png",
+            "rounds": [
+                {
+                    "category_round_id": 9181,
+                    "round_name": "Semi-Final",
+                    "rank": 5,
+                    "score": "98.8",
+                    "combined_stages": [
+                        {
+                            "stage_name": "Boulder",
+                            "stage_score": 44.7,
+                            "stage_rank": 6,
+                            "ascents": [
+                                {
+                                    "route_id": 13554,
+                                    "route_name": "1",
+                                    "top": true,
+                                    "top_tries": 2,
+                                    "zone": true,
+                                    "zone_tries": 2,
+                                    "low_zone": true,
+                                    "points": 24.9,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 09:34:32 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13555,
+                                    "route_name": "2",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 2,
+                                    "low_zone": true,
+                                    "points": 9.9,
+                                    "low_zone_tries": 2,
+                                    "modified": "2024-08-05 09:45:03 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13556,
+                                    "route_name": "3",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": false,
+                                    "zone_tries": 0,
+                                    "low_zone": true,
+                                    "points": 5.0,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 09:55:32 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13557,
+                                    "route_name": "4",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": false,
+                                    "zone_tries": 0,
+                                    "low_zone": true,
+                                    "points": 4.9,
+                                    "low_zone_tries": 2,
+                                    "modified": "2024-08-05 10:06:02 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        },
+                        {
+                            "stage_name": "Lead",
+                            "stage_score": 54.1,
+                            "stage_rank": 6,
+                            "ascents": [
+                                {
+                                    "route_id": 13558,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": null,
+                                    "score": "38+",
+                                    "plus": true,
+                                    "restarted": false,
+                                    "time_ms": 0,
+                                    "modified": "2024-08-07 09:36:21 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "category_round_id": 9183,
+                    "round_name": "Final",
+                    "rank": 3,
+                    "score": "139.6",
+                    "combined_stages": [
+                        {
+                            "stage_name": "Boulder",
+                            "stage_score": 43.6,
+                            "stage_rank": 5,
+                            "ascents": [
+                                {
+                                    "route_id": 13564,
+                                    "route_name": "1",
+                                    "top": true,
+                                    "top_tries": 4,
+                                    "zone": true,
+                                    "zone_tries": 4,
+                                    "low_zone": true,
+                                    "points": 24.7,
+                                    "low_zone_tries": 3,
+                                    "modified": "2024-08-09 08:41:45 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13565,
+                                    "route_name": "2",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 8,
+                                    "low_zone": true,
+                                    "points": 9.3,
+                                    "low_zone_tries": 3,
+                                    "modified": "2024-08-09 08:59:33 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13566,
+                                    "route_name": "3",
+                                    "top": false,
+                                    "top_tries": 6,
+                                    "zone": false,
+                                    "zone_tries": 6,
+                                    "low_zone": false,
+                                    "points": 0.0,
+                                    "low_zone_tries": 6,
+                                    "modified": "2024-08-19 16:30:29 +00:00",
+                                    "status": "under_appeal"
+                                },
+                                {
+                                    "route_id": 13567,
+                                    "route_name": "4",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 5,
+                                    "low_zone": true,
+                                    "points": 9.6,
+                                    "low_zone_tries": 4,
+                                    "modified": "2024-08-09 09:35:11 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        },
+                        {
+                            "stage_name": "Lead",
+                            "stage_score": 96,
+                            "stage_rank": 1,
+                            "ascents": [
+                                {
+                                    "route_id": 13568,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": null,
+                                    "score": "48",
+                                    "plus": false,
+                                    "restarted": false,
+                                    "time_ms": 0,
+                                    "modified": "2024-08-09 10:57:52 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 1929,
+            "squad_id": null,
+            "rank": 4,
+            "name": "DUFFY Colin",
+            "bib_number": null,
+            "firstname": "Colin",
+            "lastname": "DUFFY",
+            "country": "USA",
+            "organisation_id": 20,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/USA.png",
+            "rounds": [
+                {
+                    "category_round_id": 9181,
+                    "round_name": "Semi-Final",
+                    "rank": 7,
+                    "score": "87.9",
+                    "combined_stages": [
+                        {
+                            "stage_name": "Boulder",
+                            "stage_score": 33.8,
+                            "stage_rank": 11,
+                            "ascents": [
+                                {
+                                    "route_id": 13554,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 1,
+                                    "low_zone": true,
+                                    "points": 10.0,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 09:18:47 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13555,
+                                    "route_name": "2",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 2,
+                                    "low_zone": true,
+                                    "points": 9.9,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 09:29:17 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13556,
+                                    "route_name": "3",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 10,
+                                    "low_zone": true,
+                                    "points": 9.1,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 09:39:47 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13557,
+                                    "route_name": "4",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": false,
+                                    "zone_tries": 0,
+                                    "low_zone": true,
+                                    "points": 4.8,
+                                    "low_zone_tries": 3,
+                                    "modified": "2024-08-05 09:50:17 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        },
+                        {
+                            "stage_name": "Lead",
+                            "stage_score": 54.1,
+                            "stage_rank": 6,
+                            "ascents": [
+                                {
+                                    "route_id": 13558,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": null,
+                                    "score": "38+",
+                                    "plus": true,
+                                    "restarted": false,
+                                    "time_ms": 0,
+                                    "modified": "2024-08-07 09:23:12 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "category_round_id": 9183,
+                    "round_name": "Final",
+                    "rank": 4,
+                    "score": "136.4",
+                    "combined_stages": [
+                        {
+                            "stage_name": "Boulder",
+                            "stage_score": 68.3,
+                            "stage_rank": 2,
+                            "ascents": [
+                                {
+                                    "route_id": 13564,
+                                    "route_name": "1",
+                                    "top": true,
+                                    "top_tries": 7,
+                                    "zone": true,
+                                    "zone_tries": 7,
+                                    "low_zone": true,
+                                    "points": 24.4,
+                                    "low_zone_tries": 7,
+                                    "modified": "2024-08-09 08:33:43 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13565,
+                                    "route_name": "2",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 5,
+                                    "low_zone": true,
+                                    "points": 9.6,
+                                    "low_zone_tries": 2,
+                                    "modified": "2024-08-09 08:50:30 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13566,
+                                    "route_name": "3",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 3,
+                                    "low_zone": true,
+                                    "points": 9.8,
+                                    "low_zone_tries": 2,
+                                    "modified": "2024-08-09 09:08:14 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13567,
+                                    "route_name": "4",
+                                    "top": true,
+                                    "top_tries": 6,
+                                    "zone": true,
+                                    "zone_tries": 1,
+                                    "low_zone": true,
+                                    "points": 24.5,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-09 09:26:06 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        },
+                        {
+                            "stage_name": "Lead",
+                            "stage_score": 68.1,
+                            "stage_rank": 7,
+                            "ascents": [
+                                {
+                                    "route_id": 13568,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": null,
+                                    "score": "41+",
+                                    "plus": true,
+                                    "restarted": false,
+                                    "time_ms": 0,
+                                    "modified": "2024-08-09 10:44:58 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 696,
+            "squad_id": null,
+            "rank": 5,
+            "name": "MCARTHUR Hamish",
+            "bib_number": null,
+            "firstname": "Hamish",
+            "lastname": "MCARTHUR",
+            "country": "GBR",
+            "organisation_id": 11,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/GBR.png",
+            "rounds": [
+                {
+                    "category_round_id": 9181,
+                    "round_name": "Semi-Final",
+                    "rank": 8,
+                    "score": "79.3",
+                    "combined_stages": [
+                        {
+                            "stage_name": "Boulder",
+                            "stage_score": 34.2,
+                            "stage_rank": 8,
+                            "ascents": [
+                                {
+                                    "route_id": 13554,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 2,
+                                    "low_zone": true,
+                                    "points": 9.9,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 08:15:48 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13555,
+                                    "route_name": "2",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 1,
+                                    "low_zone": true,
+                                    "points": 10.0,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 08:26:17 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13556,
+                                    "route_name": "3",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 8,
+                                    "low_zone": true,
+                                    "points": 9.3,
+                                    "low_zone_tries": 3,
+                                    "modified": "2024-08-05 08:36:46 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13557,
+                                    "route_name": "4",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": false,
+                                    "zone_tries": 0,
+                                    "low_zone": true,
+                                    "points": 5.0,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 08:47:17 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        },
+                        {
+                            "stage_name": "Lead",
+                            "stage_score": 45.1,
+                            "stage_rank": 8,
+                            "ascents": [
+                                {
+                                    "route_id": 13558,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": null,
+                                    "score": "35+",
+                                    "plus": true,
+                                    "restarted": false,
+                                    "time_ms": 0,
+                                    "modified": "2024-08-07 08:22:26 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "category_round_id": 9183,
+                    "round_name": "Final",
+                    "rank": 5,
+                    "score": "125.9",
+                    "combined_stages": [
+                        {
+                            "stage_name": "Boulder",
+                            "stage_score": 53.9,
+                            "stage_rank": 4,
+                            "ascents": [
+                                {
+                                    "route_id": 13564,
+                                    "route_name": "1",
+                                    "top": true,
+                                    "top_tries": 3,
+                                    "zone": true,
+                                    "zone_tries": 1,
+                                    "low_zone": true,
+                                    "points": 24.8,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-09 08:30:57 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13565,
+                                    "route_name": "2",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 3,
+                                    "low_zone": true,
+                                    "points": 9.8,
+                                    "low_zone_tries": 2,
+                                    "modified": "2024-08-09 08:46:04 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13566,
+                                    "route_name": "3",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 2,
+                                    "low_zone": true,
+                                    "points": 9.9,
+                                    "low_zone_tries": 2,
+                                    "modified": "2024-08-09 09:03:50 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13567,
+                                    "route_name": "4",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 7,
+                                    "low_zone": true,
+                                    "points": 9.4,
+                                    "low_zone_tries": 3,
+                                    "modified": "2024-08-09 09:21:55 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        },
+                        {
+                            "stage_name": "Lead",
+                            "stage_score": 72,
+                            "stage_rank": 6,
+                            "ascents": [
+                                {
+                                    "route_id": 13568,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": null,
+                                    "score": "42",
+                                    "plus": false,
+                                    "restarted": false,
+                                    "time_ms": 0,
+                                    "modified": "2024-08-09 10:39:21 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 1364,
+            "squad_id": null,
+            "rank": 6,
+            "name": "ONDRA Adam",
+            "bib_number": null,
+            "firstname": "Adam",
+            "lastname": "ONDRA",
+            "country": "CZE",
+            "organisation_id": 17,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CZE.png",
+            "rounds": [
+                {
+                    "category_round_id": 9181,
+                    "round_name": "Semi-Final",
+                    "rank": 3,
+                    "score": "116.8",
+                    "combined_stages": [
+                        {
+                            "stage_name": "Boulder",
+                            "stage_score": 48.7,
+                            "stage_rank": 5,
+                            "ascents": [
+                                {
+                                    "route_id": 13554,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 5,
+                                    "low_zone": true,
+                                    "points": 9.6,
+                                    "low_zone_tries": 5,
+                                    "modified": "2024-08-05 09:08:17 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13555,
+                                    "route_name": "2",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 5,
+                                    "low_zone": true,
+                                    "points": 9.6,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 09:18:47 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13556,
+                                    "route_name": "3",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": false,
+                                    "zone_tries": 0,
+                                    "low_zone": true,
+                                    "points": 4.7,
+                                    "low_zone_tries": 4,
+                                    "modified": "2024-08-05 09:29:17 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13557,
+                                    "route_name": "4",
+                                    "top": true,
+                                    "top_tries": 3,
+                                    "zone": true,
+                                    "zone_tries": 1,
+                                    "low_zone": true,
+                                    "points": 24.8,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 09:39:47 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        },
+                        {
+                            "stage_name": "Lead",
+                            "stage_score": 68.1,
+                            "stage_rank": 2,
+                            "ascents": [
+                                {
+                                    "route_id": 13558,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": null,
+                                    "score": "42+",
+                                    "plus": true,
+                                    "restarted": false,
+                                    "time_ms": 0,
+                                    "modified": "2024-08-07 09:12:32 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "category_round_id": 9183,
+                    "round_name": "Final",
+                    "rank": 6,
+                    "score": "120.1",
+                    "combined_stages": [
+                        {
+                            "stage_name": "Boulder",
+                            "stage_score": 24.1,
+                            "stage_rank": 7,
+                            "ascents": [
+                                {
+                                    "route_id": 13564,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 6,
+                                    "low_zone": true,
+                                    "points": 9.5,
+                                    "low_zone_tries": 3,
+                                    "modified": "2024-08-09 08:50:30 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13565,
+                                    "route_name": "2",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 3,
+                                    "low_zone": true,
+                                    "points": 9.8,
+                                    "low_zone_tries": 3,
+                                    "modified": "2024-08-09 09:08:14 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13566,
+                                    "route_name": "3",
+                                    "top": false,
+                                    "top_tries": 6,
+                                    "zone": false,
+                                    "zone_tries": 6,
+                                    "low_zone": false,
+                                    "points": 0.0,
+                                    "low_zone_tries": 6,
+                                    "modified": "2024-08-09 09:26:06 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13567,
+                                    "route_name": "4",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": false,
+                                    "zone_tries": 0,
+                                    "low_zone": true,
+                                    "points": 4.8,
+                                    "low_zone_tries": 3,
+                                    "modified": "2024-08-09 09:43:33 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        },
+                        {
+                            "stage_name": "Lead",
+                            "stage_score": 96,
+                            "stage_rank": 1,
+                            "ascents": [
+                                {
+                                    "route_id": 13568,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": null,
+                                    "score": "48",
+                                    "plus": false,
+                                    "restarted": false,
+                                    "time_ms": 0,
+                                    "modified": "2024-08-09 11:11:39 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 811,
+            "squad_id": null,
+            "rank": 7,
+            "name": "GINÉS LÓPEZ Alberto",
+            "bib_number": null,
+            "firstname": "Alberto",
+            "lastname": "GINÉS LÓPEZ",
+            "country": "ESP",
+            "organisation_id": 12,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/ESP.png",
+            "rounds": [
+                {
+                    "category_round_id": 9181,
+                    "round_name": "Semi-Final",
+                    "rank": 4,
+                    "score": "100.7",
+                    "combined_stages": [
+                        {
+                            "stage_name": "Boulder",
+                            "stage_score": 28.7,
+                            "stage_rank": 14,
+                            "ascents": [
+                                {
+                                    "route_id": 13554,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 2,
+                                    "low_zone": true,
+                                    "points": 9.9,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 08:42:02 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13555,
+                                    "route_name": "2",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 4,
+                                    "low_zone": true,
+                                    "points": 9.7,
+                                    "low_zone_tries": 3,
+                                    "modified": "2024-08-05 08:52:33 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13556,
+                                    "route_name": "3",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": false,
+                                    "zone_tries": 0,
+                                    "low_zone": true,
+                                    "points": 4.1,
+                                    "low_zone_tries": 10,
+                                    "modified": "2024-08-05 09:03:02 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13557,
+                                    "route_name": "4",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": false,
+                                    "zone_tries": 0,
+                                    "low_zone": true,
+                                    "points": 5.0,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 09:13:32 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        },
+                        {
+                            "stage_name": "Lead",
+                            "stage_score": 72,
+                            "stage_rank": 1,
+                            "ascents": [
+                                {
+                                    "route_id": 13558,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": null,
+                                    "score": "43",
+                                    "plus": false,
+                                    "restarted": false,
+                                    "time_ms": 0,
+                                    "modified": "2024-08-07 08:47:09 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "category_round_id": 9183,
+                    "round_name": "Final",
+                    "rank": 7,
+                    "score": "116.2",
+                    "combined_stages": [
+                        {
+                            "stage_name": "Boulder",
+                            "stage_score": 24.1,
+                            "stage_rank": 7,
+                            "ascents": [
+                                {
+                                    "route_id": 13564,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": 11,
+                                    "zone": false,
+                                    "zone_tries": 11,
+                                    "low_zone": false,
+                                    "points": 0.0,
+                                    "low_zone_tries": 11,
+                                    "modified": "2024-08-09 08:46:07 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13565,
+                                    "route_name": "2",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": false,
+                                    "zone_tries": 0,
+                                    "low_zone": true,
+                                    "points": 4.7,
+                                    "low_zone_tries": 4,
+                                    "modified": "2024-08-09 09:03:50 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13566,
+                                    "route_name": "3",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 3,
+                                    "low_zone": true,
+                                    "points": 9.8,
+                                    "low_zone_tries": 2,
+                                    "modified": "2024-08-09 09:21:55 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13567,
+                                    "route_name": "4",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 5,
+                                    "low_zone": true,
+                                    "points": 9.6,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-09 09:39:22 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        },
+                        {
+                            "stage_name": "Lead",
+                            "stage_score": 92.1,
+                            "stage_rank": 3,
+                            "ascents": [
+                                {
+                                    "route_id": 13568,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": null,
+                                    "score": "47+",
+                                    "plus": true,
+                                    "restarted": false,
+                                    "time_ms": 0,
+                                    "modified": "2024-08-09 11:05:08 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 547,
+            "squad_id": null,
+            "rank": 8,
+            "name": "JENFT Paul",
+            "bib_number": null,
+            "firstname": "Paul",
+            "lastname": "JENFT",
+            "country": "FRA",
+            "organisation_id": 10,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/FRA.png",
+            "rounds": [
+                {
+                    "category_round_id": 9181,
+                    "round_name": "Semi-Final",
+                    "rank": 6,
+                    "score": "91.1",
+                    "combined_stages": [
+                        {
+                            "stage_name": "Boulder",
+                            "stage_score": 34.1,
+                            "stage_rank": 9,
+                            "ascents": [
+                                {
+                                    "route_id": 13554,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": false,
+                                    "zone_tries": 0,
+                                    "low_zone": true,
+                                    "points": 4.9,
+                                    "low_zone_tries": 2,
+                                    "modified": "2024-08-05 08:47:17 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13555,
+                                    "route_name": "2",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 2,
+                                    "low_zone": true,
+                                    "points": 9.9,
+                                    "low_zone_tries": 2,
+                                    "modified": "2024-08-05 08:57:48 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13556,
+                                    "route_name": "3",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 3,
+                                    "low_zone": true,
+                                    "points": 9.8,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 09:08:17 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13557,
+                                    "route_name": "4",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 6,
+                                    "low_zone": true,
+                                    "points": 9.5,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 09:18:47 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        },
+                        {
+                            "stage_name": "Lead",
+                            "stage_score": 57,
+                            "stage_rank": 5,
+                            "ascents": [
+                                {
+                                    "route_id": 13558,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": null,
+                                    "score": "39",
+                                    "plus": false,
+                                    "restarted": false,
+                                    "time_ms": 0,
+                                    "modified": "2024-08-07 08:53:33 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "category_round_id": 9183,
+                    "round_name": "Final",
+                    "rank": 8,
+                    "score": "78.4",
+                    "combined_stages": [
+                        {
+                            "stage_name": "Boulder",
+                            "stage_score": 24.4,
+                            "stage_rank": 6,
+                            "ascents": [
+                                {
+                                    "route_id": 13564,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": false,
+                                    "zone_tries": 0,
+                                    "low_zone": true,
+                                    "points": 4.9,
+                                    "low_zone_tries": 2,
+                                    "modified": "2024-08-09 08:38:14 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13565,
+                                    "route_name": "2",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 4,
+                                    "low_zone": true,
+                                    "points": 9.7,
+                                    "low_zone_tries": 2,
+                                    "modified": "2024-08-09 08:54:51 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13566,
+                                    "route_name": "3",
+                                    "top": false,
+                                    "top_tries": 6,
+                                    "zone": false,
+                                    "zone_tries": 6,
+                                    "low_zone": false,
+                                    "points": 0.0,
+                                    "low_zone_tries": 6,
+                                    "modified": "2024-08-09 09:12:40 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13567,
+                                    "route_name": "4",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 3,
+                                    "low_zone": true,
+                                    "points": 9.8,
+                                    "low_zone_tries": 2,
+                                    "modified": "2024-08-09 09:30:30 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        },
+                        {
+                            "stage_name": "Lead",
+                            "stage_score": 54,
+                            "stage_rank": 8,
+                            "ascents": [
+                                {
+                                    "route_id": 13568,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": null,
+                                    "score": "37",
+                                    "plus": false,
+                                    "restarted": false,
+                                    "time_ms": 0,
+                                    "modified": "2024-08-09 10:51:39 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 3131,
+            "squad_id": null,
+            "rank": 9,
+            "name": "FLOHÉ Yannick",
+            "bib_number": null,
+            "firstname": "Yannick",
+            "lastname": "FLOHÉ",
+            "country": "GER",
+            "organisation_id": 6,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/GER.png",
+            "rounds": [
+                {
+                    "category_round_id": 9181,
+                    "round_name": "Semi-Final",
+                    "rank": 9,
+                    "score": "68.8",
+                    "combined_stages": [
+                        {
+                            "stage_name": "Boulder",
+                            "stage_score": 29.7,
+                            "stage_rank": 12,
+                            "ascents": [
+                                {
+                                    "route_id": 13554,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 1,
+                                    "low_zone": true,
+                                    "points": 10.0,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 08:57:48 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13555,
+                                    "route_name": "2",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 1,
+                                    "low_zone": true,
+                                    "points": 10.0,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 09:08:17 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13556,
+                                    "route_name": "3",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": false,
+                                    "zone_tries": 0,
+                                    "low_zone": true,
+                                    "points": 4.9,
+                                    "low_zone_tries": 2,
+                                    "modified": "2024-08-05 09:18:47 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13557,
+                                    "route_name": "4",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": false,
+                                    "zone_tries": 0,
+                                    "low_zone": true,
+                                    "points": 4.8,
+                                    "low_zone_tries": 3,
+                                    "modified": "2024-08-05 09:29:16 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        },
+                        {
+                            "stage_name": "Lead",
+                            "stage_score": 39.1,
+                            "stage_rank": 9,
+                            "ascents": [
+                                {
+                                    "route_id": 13558,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": null,
+                                    "score": "33+",
+                                    "plus": true,
+                                    "restarted": false,
+                                    "time_ms": 0,
+                                    "modified": "2024-08-07 09:07:42 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 2276,
+            "squad_id": null,
+            "rank": 10,
+            "name": "NARASAKI Tomoa",
+            "bib_number": null,
+            "firstname": "Tomoa",
+            "lastname": "NARASAKI",
+            "country": "JPN",
+            "organisation_id": 25,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/JPN.png",
+            "rounds": [
+                {
+                    "category_round_id": 9181,
+                    "round_name": "Semi-Final",
+                    "rank": 10,
+                    "score": "66.5",
+                    "combined_stages": [
+                        {
+                            "stage_name": "Boulder",
+                            "stage_score": 54.4,
+                            "stage_rank": 2,
+                            "ascents": [
+                                {
+                                    "route_id": 13554,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 3,
+                                    "low_zone": true,
+                                    "points": 9.8,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 09:29:17 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13555,
+                                    "route_name": "2",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 1,
+                                    "low_zone": true,
+                                    "points": 10.0,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 09:39:47 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13556,
+                                    "route_name": "3",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 3,
+                                    "low_zone": true,
+                                    "points": 9.8,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 09:50:17 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13557,
+                                    "route_name": "4",
+                                    "top": true,
+                                    "top_tries": 3,
+                                    "zone": true,
+                                    "zone_tries": 3,
+                                    "low_zone": true,
+                                    "points": 24.8,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 10:00:47 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        },
+                        {
+                            "stage_name": "Lead",
+                            "stage_score": 12.1,
+                            "stage_rank": 14,
+                            "ascents": [
+                                {
+                                    "route_id": 13558,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": null,
+                                    "score": "21+",
+                                    "plus": true,
+                                    "restarted": false,
+                                    "time_ms": 0,
+                                    "modified": "2024-08-07 09:31:03 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 532,
+            "squad_id": null,
+            "rank": 11,
+            "name": "AVEZOU Sam",
+            "bib_number": null,
+            "firstname": "Sam",
+            "lastname": "AVEZOU",
+            "country": "FRA",
+            "organisation_id": 10,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/FRA.png",
+            "rounds": [
+                {
+                    "category_round_id": 9181,
+                    "round_name": "Semi-Final",
+                    "rank": 11,
+                    "score": "61.3",
+                    "combined_stages": [
+                        {
+                            "stage_name": "Boulder",
+                            "stage_score": 49.2,
+                            "stage_rank": 4,
+                            "ascents": [
+                                {
+                                    "route_id": 13554,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 1,
+                                    "low_zone": true,
+                                    "points": 10.0,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 09:03:02 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13555,
+                                    "route_name": "2",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 1,
+                                    "low_zone": true,
+                                    "points": 10.0,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 09:13:32 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13556,
+                                    "route_name": "3",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": false,
+                                    "zone_tries": 0,
+                                    "low_zone": true,
+                                    "points": 4.8,
+                                    "low_zone_tries": 3,
+                                    "modified": "2024-08-05 09:24:02 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13557,
+                                    "route_name": "4",
+                                    "top": true,
+                                    "top_tries": 7,
+                                    "zone": true,
+                                    "zone_tries": 2,
+                                    "low_zone": true,
+                                    "points": 24.4,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 09:34:32 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        },
+                        {
+                            "stage_name": "Lead",
+                            "stage_score": 12.1,
+                            "stage_rank": 14,
+                            "ascents": [
+                                {
+                                    "route_id": 13558,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": null,
+                                    "score": "21+",
+                                    "plus": true,
+                                    "restarted": false,
+                                    "time_ms": 0,
+                                    "modified": "2024-08-07 09:07:23 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 2947,
+            "squad_id": null,
+            "rank": 12,
+            "name": "PAN Yufei",
+            "bib_number": null,
+            "firstname": "Yufei",
+            "lastname": "PAN",
+            "country": "CHN",
+            "organisation_id": 37,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CHN.png",
+            "rounds": [
+                {
+                    "category_round_id": 9181,
+                    "round_name": "Semi-Final",
+                    "rank": 12,
+                    "score": "59.1",
+                    "combined_stages": [
+                        {
+                            "stage_name": "Boulder",
+                            "stage_score": 29.0,
+                            "stage_rank": 13,
+                            "ascents": [
+                                {
+                                    "route_id": 13554,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": false,
+                                    "zone_tries": 0,
+                                    "low_zone": true,
+                                    "points": 4.9,
+                                    "low_zone_tries": 2,
+                                    "modified": "2024-08-05 08:26:17 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13555,
+                                    "route_name": "2",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 5,
+                                    "low_zone": true,
+                                    "points": 9.6,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 08:36:46 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13556,
+                                    "route_name": "3",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": false,
+                                    "zone_tries": 0,
+                                    "low_zone": true,
+                                    "points": 5.0,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 08:47:17 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13557,
+                                    "route_name": "4",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 6,
+                                    "low_zone": true,
+                                    "points": 9.5,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 08:57:48 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        },
+                        {
+                            "stage_name": "Lead",
+                            "stage_score": 30.1,
+                            "stage_rank": 10,
+                            "ascents": [
+                                {
+                                    "route_id": 13558,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": null,
+                                    "score": "30+",
+                                    "plus": true,
+                                    "restarted": false,
+                                    "time_ms": 0,
+                                    "modified": "2024-08-07 08:32:29 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 2574,
+            "squad_id": null,
+            "rank": 13,
+            "name": "MEGOS Alexander",
+            "bib_number": null,
+            "firstname": "Alexander",
+            "lastname": "MEGOS",
+            "country": "GER",
+            "organisation_id": 6,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/GER.png",
+            "rounds": [
+                {
+                    "category_round_id": 9181,
+                    "round_name": "Semi-Final",
+                    "rank": 13,
+                    "score": "48.7",
+                    "combined_stages": [
+                        {
+                            "stage_name": "Boulder",
+                            "stage_score": 24.7,
+                            "stage_rank": 15,
+                            "ascents": [
+                                {
+                                    "route_id": 13554,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": false,
+                                    "zone_tries": 0,
+                                    "low_zone": true,
+                                    "points": 5.0,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 09:13:32 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13555,
+                                    "route_name": "2",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 4,
+                                    "low_zone": true,
+                                    "points": 9.7,
+                                    "low_zone_tries": 2,
+                                    "modified": "2024-08-05 09:24:02 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13556,
+                                    "route_name": "3",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": false,
+                                    "zone_tries": 0,
+                                    "low_zone": true,
+                                    "points": 5.0,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 09:34:32 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13557,
+                                    "route_name": "4",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": false,
+                                    "zone_tries": 0,
+                                    "low_zone": true,
+                                    "points": 5.0,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 09:45:03 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        },
+                        {
+                            "stage_name": "Lead",
+                            "stage_score": 24,
+                            "stage_rank": 11,
+                            "ascents": [
+                                {
+                                    "route_id": 13558,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": null,
+                                    "score": "27",
+                                    "plus": false,
+                                    "restarted": false,
+                                    "time_ms": 0,
+                                    "modified": "2024-08-07 09:17:31 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 373,
+            "squad_id": null,
+            "rank": 14,
+            "name": "VAN DUYSEN Hannes",
+            "bib_number": "15",
+            "firstname": "Hannes",
+            "lastname": "VAN DUYSEN",
+            "country": "BEL",
+            "organisation_id": 9,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/BEL.png",
+            "rounds": [
+                {
+                    "category_round_id": 9181,
+                    "round_name": "Semi-Final",
+                    "rank": 14,
+                    "score": "46.3",
+                    "combined_stages": [
+                        {
+                            "stage_name": "Boulder",
+                            "stage_score": 34.3,
+                            "stage_rank": 7,
+                            "ascents": [
+                                {
+                                    "route_id": 13554,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 1,
+                                    "low_zone": true,
+                                    "points": 10.0,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 08:31:32 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13555,
+                                    "route_name": "2",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 3,
+                                    "low_zone": true,
+                                    "points": 9.8,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 08:42:02 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13556,
+                                    "route_name": "3",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": false,
+                                    "zone_tries": 0,
+                                    "low_zone": true,
+                                    "points": 4.8,
+                                    "low_zone_tries": 3,
+                                    "modified": "2024-08-05 08:52:33 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13557,
+                                    "route_name": "4",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 4,
+                                    "low_zone": true,
+                                    "points": 9.7,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 09:03:02 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        },
+                        {
+                            "stage_name": "Lead",
+                            "stage_score": 12,
+                            "stage_rank": 17,
+                            "ascents": [
+                                {
+                                    "route_id": 13558,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": null,
+                                    "score": "21",
+                                    "plus": false,
+                                    "restarted": false,
+                                    "time_ms": 0,
+                                    "modified": "2024-08-07 08:36:16 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 2101,
+            "squad_id": null,
+            "rank": 15,
+            "name": "LEE Dohyun",
+            "bib_number": null,
+            "firstname": "Dohyun",
+            "lastname": "LEE",
+            "country": "KOR",
+            "organisation_id": 21,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/KOR.png",
+            "rounds": [
+                {
+                    "category_round_id": 9181,
+                    "round_name": "Semi-Final",
+                    "rank": 15,
+                    "score": "46.0",
+                    "combined_stages": [
+                        {
+                            "stage_name": "Boulder",
+                            "stage_score": 34.0,
+                            "stage_rank": 10,
+                            "ascents": [
+                                {
+                                    "route_id": 13554,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 5,
+                                    "low_zone": true,
+                                    "points": 9.6,
+                                    "low_zone_tries": 4,
+                                    "modified": "2024-08-05 09:24:02 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13555,
+                                    "route_name": "2",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 2,
+                                    "low_zone": true,
+                                    "points": 9.9,
+                                    "low_zone_tries": 2,
+                                    "modified": "2024-08-05 09:34:32 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13556,
+                                    "route_name": "3",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 6,
+                                    "low_zone": true,
+                                    "points": 9.5,
+                                    "low_zone_tries": 3,
+                                    "modified": "2024-08-05 09:45:03 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13557,
+                                    "route_name": "4",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": false,
+                                    "zone_tries": 0,
+                                    "low_zone": true,
+                                    "points": 5.0,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 09:55:32 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        },
+                        {
+                            "stage_name": "Lead",
+                            "stage_score": 12,
+                            "stage_rank": 17,
+                            "ascents": [
+                                {
+                                    "route_id": 13558,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": null,
+                                    "score": "21",
+                                    "plus": false,
+                                    "restarted": false,
+                                    "time_ms": 0,
+                                    "modified": "2024-08-07 09:27:22 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 1170,
+            "squad_id": null,
+            "rank": 16,
+            "name": "POTOCAR Luka",
+            "bib_number": null,
+            "firstname": "Luka",
+            "lastname": "POTOCAR",
+            "country": "SLO",
+            "organisation_id": 15,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/SLO.png",
+            "rounds": [
+                {
+                    "category_round_id": 9181,
+                    "round_name": "Semi-Final",
+                    "rank": 16,
+                    "score": "43.6",
+                    "combined_stages": [
+                        {
+                            "stage_name": "Boulder",
+                            "stage_score": 19.6,
+                            "stage_rank": 17,
+                            "ascents": [
+                                {
+                                    "route_id": 13554,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": 11,
+                                    "zone": false,
+                                    "zone_tries": 11,
+                                    "low_zone": false,
+                                    "points": 0.0,
+                                    "low_zone_tries": 11,
+                                    "modified": "2024-08-05 08:21:03 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13555,
+                                    "route_name": "2",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 5,
+                                    "low_zone": true,
+                                    "points": 9.6,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 08:31:32 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13556,
+                                    "route_name": "3",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": false,
+                                    "zone_tries": 0,
+                                    "low_zone": true,
+                                    "points": 5.0,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 08:42:02 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13557,
+                                    "route_name": "4",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": false,
+                                    "zone_tries": 0,
+                                    "low_zone": true,
+                                    "points": 5.0,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 08:52:33 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        },
+                        {
+                            "stage_name": "Lead",
+                            "stage_score": 24,
+                            "stage_rank": 11,
+                            "ascents": [
+                                {
+                                    "route_id": 13558,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": null,
+                                    "score": "27",
+                                    "plus": false,
+                                    "restarted": false,
+                                    "time_ms": 0,
+                                    "modified": "2024-08-07 08:27:02 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 4299,
+            "squad_id": null,
+            "rank": 17,
+            "name": "LEHMANN Sascha",
+            "bib_number": "11",
+            "firstname": "Sascha",
+            "lastname": "LEHMANN",
+            "country": "SUI",
+            "organisation_id": 8,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/SUI.png",
+            "rounds": [
+                {
+                    "category_round_id": 9181,
+                    "round_name": "Semi-Final",
+                    "rank": 17,
+                    "score": "36.1",
+                    "combined_stages": [
+                        {
+                            "stage_name": "Boulder",
+                            "stage_score": 24.0,
+                            "stage_rank": 16,
+                            "ascents": [
+                                {
+                                    "route_id": 13554,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": false,
+                                    "zone_tries": 0,
+                                    "low_zone": true,
+                                    "points": 4.5,
+                                    "low_zone_tries": 6,
+                                    "modified": "2024-08-05 08:52:33 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13555,
+                                    "route_name": "2",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": false,
+                                    "zone_tries": 0,
+                                    "low_zone": true,
+                                    "points": 5.0,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 09:03:02 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13556,
+                                    "route_name": "3",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 6,
+                                    "low_zone": true,
+                                    "points": 9.5,
+                                    "low_zone_tries": 3,
+                                    "modified": "2024-08-05 09:13:32 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13557,
+                                    "route_name": "4",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": false,
+                                    "zone_tries": 0,
+                                    "low_zone": true,
+                                    "points": 5.0,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 09:24:02 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        },
+                        {
+                            "stage_name": "Lead",
+                            "stage_score": 12.1,
+                            "stage_rank": 14,
+                            "ascents": [
+                                {
+                                    "route_id": 13558,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": null,
+                                    "score": "21+",
+                                    "plus": true,
+                                    "restarted": false,
+                                    "time_ms": 0,
+                                    "modified": "2024-08-07 08:58:23 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 1749,
+            "squad_id": null,
+            "rank": 18,
+            "name": "GRUPPER Jesse",
+            "bib_number": null,
+            "firstname": "Jesse",
+            "lastname": "GRUPPER",
+            "country": "USA",
+            "organisation_id": 20,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/USA.png",
+            "rounds": [
+                {
+                    "category_round_id": 9181,
+                    "round_name": "Semi-Final",
+                    "rank": 18,
+                    "score": "30.9",
+                    "combined_stages": [
+                        {
+                            "stage_name": "Boulder",
+                            "stage_score": 18.9,
+                            "stage_rank": 18,
+                            "ascents": [
+                                {
+                                    "route_id": 13554,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": 9,
+                                    "zone": false,
+                                    "zone_tries": 9,
+                                    "low_zone": false,
+                                    "points": 0.0,
+                                    "low_zone_tries": 9,
+                                    "modified": "2024-08-05 08:36:46 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13555,
+                                    "route_name": "2",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": true,
+                                    "zone_tries": 5,
+                                    "low_zone": true,
+                                    "points": 9.6,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 08:47:17 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13556,
+                                    "route_name": "3",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": false,
+                                    "zone_tries": 0,
+                                    "low_zone": true,
+                                    "points": 4.5,
+                                    "low_zone_tries": 6,
+                                    "modified": "2024-08-05 08:57:48 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13557,
+                                    "route_name": "4",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": false,
+                                    "zone_tries": 0,
+                                    "low_zone": true,
+                                    "points": 4.8,
+                                    "low_zone_tries": 3,
+                                    "modified": "2024-08-05 09:08:17 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        },
+                        {
+                            "stage_name": "Lead",
+                            "stage_score": 12,
+                            "stage_rank": 17,
+                            "ascents": [
+                                {
+                                    "route_id": 13558,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": null,
+                                    "score": "21",
+                                    "plus": false,
+                                    "restarted": false,
+                                    "time_ms": 0,
+                                    "modified": "2024-08-07 08:40:50 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 2493,
+            "squad_id": null,
+            "rank": 19,
+            "name": "HARRISON Campbell",
+            "bib_number": null,
+            "firstname": "Campbell",
+            "lastname": "HARRISON",
+            "country": "AUS",
+            "organisation_id": 28,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/AUS.png",
+            "rounds": [
+                {
+                    "category_round_id": 9181,
+                    "round_name": "Semi-Final",
+                    "rank": 19,
+                    "score": "23.4",
+                    "combined_stages": [
+                        {
+                            "stage_name": "Boulder",
+                            "stage_score": 9.4,
+                            "stage_rank": 19,
+                            "ascents": [
+                                {
+                                    "route_id": 13554,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": 10,
+                                    "zone": false,
+                                    "zone_tries": 10,
+                                    "low_zone": false,
+                                    "points": 0.0,
+                                    "low_zone_tries": 10,
+                                    "modified": "2024-08-05 08:10:32 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13555,
+                                    "route_name": "2",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": false,
+                                    "zone_tries": 0,
+                                    "low_zone": true,
+                                    "points": 4.4,
+                                    "low_zone_tries": 7,
+                                    "modified": "2024-08-05 08:21:03 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13556,
+                                    "route_name": "3",
+                                    "top": false,
+                                    "top_tries": 10,
+                                    "zone": false,
+                                    "zone_tries": 10,
+                                    "low_zone": false,
+                                    "points": 0.0,
+                                    "low_zone_tries": 10,
+                                    "modified": "2024-08-05 08:31:32 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13557,
+                                    "route_name": "4",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": false,
+                                    "zone_tries": 0,
+                                    "low_zone": true,
+                                    "points": 5.0,
+                                    "low_zone_tries": 1,
+                                    "modified": "2024-08-05 08:42:02 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        },
+                        {
+                            "stage_name": "Lead",
+                            "stage_score": 14,
+                            "stage_rank": 13,
+                            "ascents": [
+                                {
+                                    "route_id": 13558,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": null,
+                                    "score": "22",
+                                    "plus": false,
+                                    "restarted": false,
+                                    "time_ms": 0,
+                                    "modified": "2024-08-07 08:16:53 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 1095,
+            "squad_id": null,
+            "rank": 20,
+            "name": "JANSE VAN RENSBURG Mel",
+            "bib_number": null,
+            "firstname": "Mel",
+            "lastname": "JANSE VAN RENSBURG",
+            "country": "RSA",
+            "organisation_id": 14,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/RSA.png",
+            "rounds": [
+                {
+                    "category_round_id": 9181,
+                    "round_name": "Semi-Final",
+                    "rank": 20,
+                    "score": "16.5",
+                    "combined_stages": [
+                        {
+                            "stage_name": "Boulder",
+                            "stage_score": 9.4,
+                            "stage_rank": 19,
+                            "ascents": [
+                                {
+                                    "route_id": 13554,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": 9,
+                                    "zone": false,
+                                    "zone_tries": 9,
+                                    "low_zone": false,
+                                    "points": 0.0,
+                                    "low_zone_tries": 9,
+                                    "modified": "2024-08-05 08:05:18 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13555,
+                                    "route_name": "2",
+                                    "top": false,
+                                    "top_tries": 18,
+                                    "zone": false,
+                                    "zone_tries": 18,
+                                    "low_zone": false,
+                                    "points": 0.0,
+                                    "low_zone_tries": 18,
+                                    "modified": "2024-08-05 08:15:48 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13556,
+                                    "route_name": "3",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": false,
+                                    "zone_tries": 0,
+                                    "low_zone": true,
+                                    "points": 4.7,
+                                    "low_zone_tries": 4,
+                                    "modified": "2024-08-05 08:26:17 +00:00",
+                                    "status": "confirmed"
+                                },
+                                {
+                                    "route_id": 13557,
+                                    "route_name": "4",
+                                    "top": false,
+                                    "top_tries": 0,
+                                    "zone": false,
+                                    "zone_tries": 0,
+                                    "low_zone": true,
+                                    "points": 4.7,
+                                    "low_zone_tries": 4,
+                                    "modified": "2024-08-05 08:36:46 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        },
+                        {
+                            "stage_name": "Lead",
+                            "stage_score": 7.1,
+                            "stage_rank": 20,
+                            "ascents": [
+                                {
+                                    "route_id": 13558,
+                                    "route_name": "1",
+                                    "top": false,
+                                    "top_tries": null,
+                                    "score": "17+",
+                                    "plus": true,
+                                    "restarted": false,
+                                    "time_ms": 0,
+                                    "modified": "2024-08-07 08:13:23 +00:00",
+                                    "status": "confirmed"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

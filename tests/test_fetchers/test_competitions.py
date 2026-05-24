@@ -10,11 +10,11 @@ from ifsc_data.db.repository import Repository
 from ifsc_data.fetchers import competitions as competitions_fetcher
 
 
-def _seed_competition(memory_db) -> tuple[Repository, int]:
+def _seed_competition(memory_db, *, discipline: str = "lead") -> tuple[Repository, int]:
     repo = Repository(memory_db)
     season_id = repo.upsert_season(2024, year=2024)
     event_id = repo.upsert_event_skeleton(100, season_id=season_id)
-    discipline_id = repo.upsert_discipline("lead")
+    discipline_id = repo.upsert_discipline(discipline)
     category_id = repo.upsert_category("Men", 0)
     comp_id = repo.upsert_competition(
         event_id=event_id, ifsc_id=5,
@@ -28,6 +28,16 @@ def _stub_client(ranking: list[dict]) -> MagicMock:
     def fake_stream_paths(items, *args, **kwargs):
         for key, path in items:
             yield Fetched(key=key, path=path, data={"ranking": ranking})
+    client.stream_paths.side_effect = fake_stream_paths
+    return client
+
+
+def _stub_client_payload(payload: dict) -> MagicMock:
+    """Same as `_stub_client` but takes a full payload dict (with category_rounds, etc.)."""
+    client = MagicMock()
+    def fake_stream_paths(items, *args, **kwargs):
+        for key, path in items:
+            yield Fetched(key=key, path=path, data=payload)
     client.stream_paths.side_effect = fake_stream_paths
     return client
 
@@ -97,3 +107,158 @@ def test_hydrate_rolls_back_on_failure(memory_db, monkeypatch):
         "SELECT last_fetched_at FROM competitions WHERE id = ?", (comp_id,)
     ).fetchone()
     assert row["last_fetched_at"] is None
+
+
+# ---------------------------------------------------------------- Per-round tests
+
+
+@pytest.mark.parametrize("label,disc,expected", [
+    # disc, expected: round count, route count, has_ascents, optional flags
+    ("",        "lead",    {"rounds": 3, "has_lead_ascents": True}),
+    ("-speed",  "speed",   {"rounds": 2, "has_speed_ascents": True}),
+    ("-boulder","boulder", {"rounds": 3, "has_boulder_ascents": True, "has_starting_group": True}),
+    ("-combined","boulder&lead", {"rounds": 2, "has_combined_stages": True}),
+])
+def test_hydrate_writes_per_round_data(label, disc, expected, fixture, memory_db):
+    """Parametrized: each discipline fixture exercises a different code path."""
+    payload = fixture(f"events-id-result-id{label}")
+    repo, comp_id = _seed_competition(memory_db, discipline=disc)
+    client = _stub_client_payload(payload)
+
+    ok, fail = competitions_fetcher.hydrate(repo, client, stale_days=0)
+    assert (ok, fail) == (1, 0)
+
+    # Round count matches.
+    n_rounds = memory_db.execute(
+        "SELECT COUNT(*) FROM category_rounds WHERE competition_id = ?", (comp_id,)
+    ).fetchone()[0]
+    assert n_rounds == expected["rounds"]
+
+    # Routes were collected.
+    n_routes = memory_db.execute(
+        "SELECT COUNT(*) FROM routes r "
+        "JOIN category_rounds cr ON r.category_round_id = cr.id "
+        "WHERE cr.competition_id = ?", (comp_id,)
+    ).fetchone()[0]
+    assert n_routes > 0, f"{disc}: no routes collected"
+
+    # round_results filled.
+    n_rr = memory_db.execute(
+        "SELECT COUNT(*) FROM round_results WHERE competition_id = ?", (comp_id,)
+    ).fetchone()[0]
+    assert n_rr > 0
+
+    # stage_results filled.
+    n_sr = memory_db.execute(
+        "SELECT COUNT(*) FROM stage_results WHERE competition_id = ?", (comp_id,)
+    ).fetchone()[0]
+    assert n_sr > 0
+
+    # ascents filled.
+    n_asc = memory_db.execute(
+        "SELECT COUNT(*) FROM ascents WHERE competition_id = ?", (comp_id,)
+    ).fetchone()[0]
+    assert n_asc > 0
+
+    # Discipline-specific assertions.
+    if expected.get("has_lead_ascents"):
+        n_top = memory_db.execute(
+            "SELECT COUNT(*) FROM ascents WHERE competition_id = ? AND top IS NOT NULL", (comp_id,)
+        ).fetchone()[0]
+        assert n_top > 0
+    if expected.get("has_speed_ascents"):
+        n_time = memory_db.execute(
+            "SELECT COUNT(*) FROM ascents WHERE competition_id = ? AND time_ms IS NOT NULL AND dnf IS NOT NULL", (comp_id,)
+        ).fetchone()[0]
+        assert n_time > 0
+        # Speed final must produce multiple stages (heats).
+        n_speed_stages = memory_db.execute(
+            "SELECT COUNT(*) FROM round_stages rs "
+            "JOIN category_rounds cr ON rs.category_round_id = cr.id "
+            "WHERE cr.competition_id = ? AND rs.heat_id IS NOT NULL", (comp_id,)
+        ).fetchone()[0]
+        assert n_speed_stages > 0
+    if expected.get("has_boulder_ascents"):
+        n_points = memory_db.execute(
+            "SELECT COUNT(*) FROM ascents WHERE competition_id = ? AND points IS NOT NULL AND zone IS NOT NULL", (comp_id,)
+        ).fetchone()[0]
+        assert n_points > 0
+    if expected.get("has_starting_group"):
+        n_sg = memory_db.execute(
+            "SELECT COUNT(*) FROM round_results WHERE competition_id = ? AND starting_group IS NOT NULL", (comp_id,)
+        ).fetchone()[0]
+        assert n_sg > 0
+    if expected.get("has_combined_stages"):
+        n_combined = memory_db.execute(
+            "SELECT COUNT(*) FROM round_stages rs "
+            "JOIN category_rounds cr ON rs.category_round_id = cr.id "
+            "WHERE cr.competition_id = ? AND rs.kind IN ('boulder','lead')", (comp_id,)
+        ).fetchone()[0]
+        assert n_combined > 0
+
+
+def test_per_round_rehydrate_clears_stale_rows(fixture, memory_db):
+    """Re-running hydrate leaves no orphan stage/round/ascent rows; structural
+    rows (category_rounds, routes) are upserted, not deleted."""
+    payload = fixture("events-id-result-id")
+    repo, comp_id = _seed_competition(memory_db)
+    client = _stub_client_payload(payload)
+
+    competitions_fetcher.hydrate(repo, client, stale_days=0)
+    counts_first = {
+        t: memory_db.execute(f"SELECT COUNT(*) FROM {t}").fetchone()[0]
+        for t in ("category_rounds", "routes", "round_stages",
+                  "round_results", "stage_results", "ascents")
+    }
+    competitions_fetcher.hydrate(repo, client, stale_days=0)
+    counts_second = {
+        t: memory_db.execute(f"SELECT COUNT(*) FROM {t}").fetchone()[0]
+        for t in ("category_rounds", "routes", "round_stages",
+                  "round_results", "stage_results", "ascents")
+    }
+    assert counts_first == counts_second
+
+
+def test_per_round_transaction_rolls_back_on_failure(fixture, memory_db, monkeypatch):
+    """A mid-ingest failure rolls back the entire per-competition transaction —
+    no half-written rounds/stages/ascents are left behind."""
+    payload = fixture("events-id-result-id")
+    repo, comp_id = _seed_competition(memory_db)
+    client = _stub_client_payload(payload)
+
+    original = repo.upsert_ascent
+    call_count = {"n": 0}
+    def explosive(**kwargs):
+        call_count["n"] += 1
+        if call_count["n"] == 5:
+            raise RuntimeError("simulated mid-ascent failure")
+        return original(**kwargs)
+    monkeypatch.setattr(repo, "upsert_ascent", explosive)
+
+    ok, fail = competitions_fetcher.hydrate(repo, client, stale_days=0)
+    assert (ok, fail) == (0, 1)
+
+    for tbl in ("category_rounds", "routes", "round_stages",
+                "round_results", "stage_results", "ascents", "results"):
+        n = memory_db.execute(f"SELECT COUNT(*) FROM {tbl}").fetchone()[0]
+        assert n == 0, f"{tbl} should be empty after rollback, got {n}"
+
+
+def test_speed_final_route_reuse_does_not_violate_unique(fixture, memory_db):
+    """The same athlete climbs the same route across multiple speed-final heats.
+    UNIQUE (round_stage_id, athlete_id, route_id) must allow this."""
+    payload = fixture("events-id-result-id-speed")
+    repo, comp_id = _seed_competition(memory_db, discipline="speed")
+    client = _stub_client_payload(payload)
+
+    ok, fail = competitions_fetcher.hydrate(repo, client, stale_days=0)
+    assert (ok, fail) == (1, 0)
+
+    # Find an athlete who appears on the same route in 2+ heats.
+    rows = memory_db.execute(
+        "SELECT athlete_id, route_id, COUNT(DISTINCT round_stage_id) AS n_stages "
+        "FROM ascents WHERE competition_id = ? "
+        "GROUP BY athlete_id, route_id HAVING n_stages > 1",
+        (comp_id,),
+    ).fetchall()
+    assert len(rows) > 0, "expected at least one athlete to climb the same route in multiple heats"

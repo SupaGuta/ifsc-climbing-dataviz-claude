@@ -7,6 +7,10 @@ encoding) for readability.
 
 Filenames carry a UTC timestamp (`<view>_YYYY-MM-DDTHHMMSSZ.csv`) so multiple
 exports don't overwrite each other.
+
+`ascents` is registered but excluded from `export_all` (size: ~900k rows of
+22 columns ≈ 200 MB+). Run `python -m ifsc_data export ascents` explicitly
+when needed.
 """
 from __future__ import annotations
 
@@ -113,9 +117,93 @@ VIEWS: dict[str, str] = {
         JOIN athletes a ON r.athlete_id = a.id
         ORDER BY e.date_start DESC, c.id, r.rank
     """,
+    "round_results": """
+        SELECT
+            e.ifsc_id AS event_ifsc_id,
+            e.name AS event_name,
+            s.year AS season_year,
+            l.name AS league_name,
+            e.city AS event_city,
+            e.country AS event_country,
+            e.date_start AS event_date,
+            d.name AS discipline,
+            cat.name AS category,
+            CASE cat.gender WHEN 0 THEN 'male' WHEN 1 THEN 'female' ELSE NULL END AS gender,
+            cr.ifsc_id AS category_round_ifsc_id,
+            cr.name AS round_name,
+            cr.kind AS round_kind,
+            cr.format AS round_format,
+            cr.league_round_id,
+            a.ifsc_id AS athlete_ifsc_id,
+            a.firstname AS athlete_firstname,
+            a.lastname AS athlete_lastname,
+            a.country AS athlete_country,
+            rr.rank AS round_rank,
+            rr.score AS round_score,
+            rr.starting_group
+        FROM round_results rr
+        JOIN category_rounds cr ON rr.category_round_id = cr.id
+        JOIN competitions c ON rr.competition_id = c.id
+        JOIN events e ON c.event_id = e.id
+        LEFT JOIN seasons s ON e.season_id = s.id
+        LEFT JOIN leagues l ON e.league_id = l.id
+        LEFT JOIN disciplines d ON c.discipline_id = d.id
+        LEFT JOIN categories cat ON c.category_id = cat.id
+        JOIN athletes a ON rr.athlete_id = a.id
+        ORDER BY e.date_start DESC, c.id, cr.league_round_id, rr.rank
+    """,
+    "ascents": """
+        SELECT
+            e.ifsc_id AS event_ifsc_id,
+            e.date_start AS event_date,
+            d.name AS discipline,
+            cat.name AS category,
+            cr.name AS round_name,
+            cr.kind AS round_kind,
+            rs.seq AS stage_seq,
+            rs.name AS stage_name,
+            rs.kind AS stage_kind,
+            rt.ifsc_id AS route_ifsc_id,
+            rt.name AS route_name,
+            a.ifsc_id AS athlete_ifsc_id,
+            a.firstname AS athlete_firstname,
+            a.lastname AS athlete_lastname,
+            a.country AS athlete_country,
+            asc_.rank AS ascent_rank,
+            asc_.score AS ascent_score,
+            asc_.top,
+            asc_.plus,
+            asc_.status,
+            asc_.corrective_rank,
+            asc_.top_tries,
+            asc_.restarted,
+            asc_.time_ms,
+            asc_.dnf,
+            asc_.dns,
+            asc_.zone,
+            asc_.zone_tries,
+            asc_.low_zone,
+            asc_.low_zone_tries,
+            asc_.points,
+            asc_.modified
+        FROM ascents asc_
+        JOIN routes rt ON asc_.route_id = rt.id
+        JOIN round_stages rs ON asc_.round_stage_id = rs.id
+        JOIN category_rounds cr ON rs.category_round_id = cr.id
+        JOIN competitions c ON asc_.competition_id = c.id
+        JOIN events e ON c.event_id = e.id
+        LEFT JOIN disciplines d ON c.discipline_id = d.id
+        LEFT JOIN categories cat ON c.category_id = cat.id
+        JOIN athletes a ON asc_.athlete_id = a.id
+        ORDER BY e.date_start DESC, c.id, cr.league_round_id, rs.seq, rt.ifsc_id, asc_.rank
+    """,
 }
 
 VIEW_NAMES: tuple[str, ...] = tuple(VIEWS.keys())
+
+# Views included in `export_all`. `ascents` is registered but opt-in only
+# (very wide and ~6× the row count of round_results).
+DEFAULT_EXPORT_VIEWS: tuple[str, ...] = tuple(n for n in VIEW_NAMES if n != "ascents")
 
 
 def _timestamp() -> str:
@@ -159,5 +247,5 @@ def export_all(
     *,
     output_dir: Path = DEFAULT_EXPORT_DIR,
 ) -> dict[str, Path]:
-    """Export every view. Returns {name: path} for each CSV written."""
-    return {name: export_view(conn, name, output_dir=output_dir) for name in VIEW_NAMES}
+    """Export every default view. `ascents` is opt-in; call `export_view` for it."""
+    return {name: export_view(conn, name, output_dir=output_dir) for name in DEFAULT_EXPORT_VIEWS}

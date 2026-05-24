@@ -14,12 +14,16 @@ from datetime import datetime, timedelta, timezone
 from typing import Any, Optional
 
 # Tables that carry a `last_fetched_at` column.
-HYDRATABLE_TABLES = ("seasons", "season_leagues", "events", "competitions", "athletes")
+HYDRATABLE_TABLES = (
+    "seasons", "season_leagues", "events", "competitions", "athletes",
+    "category_rounds", "routes",
+)
 
 # All tables — used as the whitelist for generic queries that take a table name.
 ALL_TABLES = (
     *HYDRATABLE_TABLES,
     "leagues", "disciplines", "categories", "results",
+    "round_stages", "round_results", "stage_results", "ascents",
 )
 
 # ISO-8601 with explicit Z so downstream consumers never have to guess UTC.
@@ -339,4 +343,193 @@ class Repository:
         self.conn.execute(
             "DELETE FROM results WHERE competition_id = ?", (competition_id,)
         )
+        self._maybe_commit()
+
+    # --------------------------------------------------------- Category rounds
+
+    def upsert_category_round(
+        self,
+        ifsc_id: int,
+        *,
+        competition_id: int,
+        kind: Optional[str] = None,
+        name: Optional[str] = None,
+        category: Optional[str] = None,
+        format: Optional[str] = None,
+        format_identifier: Optional[str] = None,
+        status: Optional[str] = None,
+        status_as_of: Optional[str] = None,
+        league_round_id: Optional[int] = None,
+    ) -> int:
+        row = self.conn.execute(
+            "INSERT INTO category_rounds "
+            "(ifsc_id, competition_id, kind, name, category, format, format_identifier, "
+            " status, status_as_of, league_round_id) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) "
+            "ON CONFLICT(ifsc_id) DO UPDATE SET "
+            "  competition_id = excluded.competition_id, "
+            "  kind = COALESCE(excluded.kind, category_rounds.kind), "
+            "  name = COALESCE(excluded.name, category_rounds.name), "
+            "  category = COALESCE(excluded.category, category_rounds.category), "
+            "  format = COALESCE(excluded.format, category_rounds.format), "
+            "  format_identifier = COALESCE(excluded.format_identifier, category_rounds.format_identifier), "
+            "  status = COALESCE(excluded.status, category_rounds.status), "
+            "  status_as_of = COALESCE(excluded.status_as_of, category_rounds.status_as_of), "
+            "  league_round_id = COALESCE(excluded.league_round_id, category_rounds.league_round_id) "
+            "RETURNING id",
+            (ifsc_id, competition_id, kind, name, category, format,
+             format_identifier, status, status_as_of, league_round_id),
+        ).fetchone()
+        self._maybe_commit()
+        return row[0]
+
+    # ----------------------------------------------------------- Round stages
+
+    def upsert_round_stage(
+        self,
+        *,
+        category_round_id: int,
+        seq: int,
+        name: Optional[str] = None,
+        kind: Optional[str] = None,
+        heat_id: Optional[int] = None,
+        combined_stage_ifsc_id: Optional[int] = None,
+    ) -> int:
+        row = self.conn.execute(
+            "INSERT INTO round_stages "
+            "(category_round_id, seq, name, kind, heat_id, combined_stage_ifsc_id) "
+            "VALUES (?, ?, ?, ?, ?, ?) "
+            "ON CONFLICT(category_round_id, seq) DO UPDATE SET "
+            "  name = COALESCE(excluded.name, round_stages.name), "
+            "  kind = COALESCE(excluded.kind, round_stages.kind), "
+            "  heat_id = COALESCE(excluded.heat_id, round_stages.heat_id), "
+            "  combined_stage_ifsc_id = COALESCE(excluded.combined_stage_ifsc_id, round_stages.combined_stage_ifsc_id) "
+            "RETURNING id",
+            (category_round_id, seq, name, kind, heat_id, combined_stage_ifsc_id),
+        ).fetchone()
+        self._maybe_commit()
+        return row[0]
+
+    # ----------------------------------------------------------------- Routes
+
+    def upsert_route(
+        self,
+        ifsc_id: int,
+        *,
+        category_round_id: int,
+        name: Optional[str] = None,
+    ) -> int:
+        row = self.conn.execute(
+            "INSERT INTO routes (ifsc_id, category_round_id, name) VALUES (?, ?, ?) "
+            "ON CONFLICT(ifsc_id) DO UPDATE SET "
+            "  category_round_id = excluded.category_round_id, "
+            "  name = COALESCE(excluded.name, routes.name) "
+            "RETURNING id",
+            (ifsc_id, category_round_id, name),
+        ).fetchone()
+        self._maybe_commit()
+        return row[0]
+
+    # ----------------------------------------------------------- Round results
+
+    def upsert_round_result(
+        self,
+        *,
+        competition_id: int,
+        category_round_id: int,
+        athlete_id: int,
+        rank: Optional[int],
+        score: Optional[str],
+        starting_group: Optional[str] = None,
+    ) -> None:
+        self.conn.execute(
+            "INSERT OR REPLACE INTO round_results "
+            "(competition_id, category_round_id, athlete_id, rank, score, starting_group) "
+            "VALUES (?, ?, ?, ?, ?, ?)",
+            (competition_id, category_round_id, athlete_id, rank, score, starting_group),
+        )
+        self._maybe_commit()
+
+    # ----------------------------------------------------------- Stage results
+
+    def upsert_stage_result(
+        self,
+        *,
+        competition_id: int,
+        round_stage_id: int,
+        athlete_id: int,
+        rank: Optional[int] = None,
+        score: Optional[str] = None,
+        time_ms: Optional[int] = None,
+        winner: Optional[int] = None,
+    ) -> None:
+        self.conn.execute(
+            "INSERT OR REPLACE INTO stage_results "
+            "(competition_id, round_stage_id, athlete_id, rank, score, time_ms, winner) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?)",
+            (competition_id, round_stage_id, athlete_id, rank, score, time_ms, winner),
+        )
+        self._maybe_commit()
+
+    # ---------------------------------------------------------------- Ascents
+
+    def upsert_ascent(
+        self,
+        *,
+        competition_id: int,
+        round_stage_id: int,
+        route_id: int,
+        athlete_id: int,
+        rank: Optional[int] = None,
+        score: Optional[str] = None,
+        status: Optional[str] = None,
+        modified: Optional[str] = None,
+        top: Optional[int] = None,
+        plus: Optional[int] = None,
+        corrective_rank: Optional[float] = None,
+        top_tries: Optional[int] = None,
+        restarted: Optional[int] = None,
+        time_ms: Optional[int] = None,
+        dnf: Optional[int] = None,
+        dns: Optional[int] = None,
+        zone: Optional[int] = None,
+        zone_tries: Optional[int] = None,
+        low_zone: Optional[int] = None,
+        low_zone_tries: Optional[int] = None,
+        points: Optional[float] = None,
+    ) -> None:
+        self.conn.execute(
+            "INSERT OR REPLACE INTO ascents "
+            "(competition_id, round_stage_id, route_id, athlete_id, "
+            " rank, score, status, modified, "
+            " top, plus, corrective_rank, top_tries, restarted, time_ms, "
+            " dnf, dns, zone, zone_tries, low_zone, low_zone_tries, points) "
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            (competition_id, round_stage_id, route_id, athlete_id,
+             rank, score, status, modified,
+             top, plus, corrective_rank, top_tries, restarted, time_ms,
+             dnf, dns, zone, zone_tries, low_zone, low_zone_tries, points),
+        )
+        self._maybe_commit()
+
+    def delete_round_data_for_competition(self, competition_id: int) -> None:
+        """Wipe ascents, stage_results, round_results, round_stages for a competition.
+
+        `category_rounds` and `routes` are intentionally preserved (UPSERTed in the
+        same transaction) to keep their `last_fetched_at` and any future startlist
+        hydration state intact. See ADR 0007.
+        """
+        for table in ("ascents", "stage_results", "round_results", "round_stages"):
+            if table == "round_stages":
+                # round_stages has no competition_id column; cascade via category_rounds.
+                self.conn.execute(
+                    "DELETE FROM round_stages WHERE category_round_id IN ("
+                    "  SELECT id FROM category_rounds WHERE competition_id = ?"
+                    ")",
+                    (competition_id,),
+                )
+            else:
+                self.conn.execute(
+                    f"DELETE FROM {table} WHERE competition_id = ?", (competition_id,)
+                )
         self._maybe_commit()

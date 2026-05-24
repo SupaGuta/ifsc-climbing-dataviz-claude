@@ -11,7 +11,7 @@ users). Pick whichever fits your workflow; both yield equivalent results.
 python -m ifsc_data export
 ```
 
-Writes six CSVs to `data/exports/`:
+Writes seven CSVs to `data/exports/`:
 
 ```
 seasons_2026-05-23T140530Z.csv
@@ -19,22 +19,33 @@ leagues_2026-05-23T140530Z.csv
 events_2026-05-23T140530Z.csv
 competitions_2026-05-23T140530Z.csv
 athletes_2026-05-23T140530Z.csv
-results_2026-05-23T140530Z.csv
+results_2026-05-23T140530Z.csv         (final overall ranking)
+round_results_2026-05-23T140530Z.csv   (per-round rank + score)
 ```
 
-The `results_*.csv` is the big one — fully denormalized with event name,
-city, country, date, discipline, category, gender, athlete name, athlete
-country, and rank. Most analyses can work off this single file.
+The `results_*.csv` carries the final overall rank per competition.
+`round_results_*.csv` is the per-phase variant: one row per (athlete × round)
+with rank, score, round name, round kind, and `starting_group` (boulder
+qualif). Most analyses use one of these two.
+
+**`ascents` is opt-in.** Per-route detail (~880k rows × 22 columns ≈ 200 MB)
+is not part of `export` defaults. Run it explicitly when needed:
+
+```bash
+python -m ifsc_data export ascents
+```
 
 ## Export one view
 
 ```bash
 python -m ifsc_data export results
-python -m ifsc_data export athletes --output-dir /tmp/csv
+python -m ifsc_data export round_results
+python -m ifsc_data export ascents --output-dir /tmp/csv
 ```
 
 Choices: `seasons`, `leagues`, `events`, `competitions`, `athletes`,
-`results`. View definitions live in [`src/ifsc_data/exporter.py`](../../src/ifsc_data/exporter.py).
+`results`, `round_results`, `ascents`. View definitions live in
+[`src/ifsc_data/exporter.py`](../../src/ifsc_data/exporter.py).
 
 ---
 

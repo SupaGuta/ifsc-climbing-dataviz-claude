@@ -1,0 +1,3878 @@
+{
+    "event": "IFSC World Cup Chamonix 2025",
+    "dcat": "SPEED Men",
+    "status": "finished",
+    "status_as_of": "2025-10-02 07:18:42 UTC",
+    "ranking_as_of": "2026-04-22 08:23:17 UTC",
+    "cutoff_rank": null,
+    "category_rounds": [
+        {
+            "category_round_id": 9407,
+            "kind": "speed",
+            "name": "Qualification",
+            "category": "Men",
+            "schedule": null,
+            "status": "finished",
+            "status_as_of": "2025-07-11 19:28:09 UTC",
+            "result_url": "/api/v1/category_rounds/9407/results",
+            "starting_groups": [],
+            "combined_stages": [],
+            "round": {
+                "league_round_id": 1
+            },
+            "format_identifier": "speed_qualification_ifsc_2025",
+            "format": "IFSC 2025: Qualification",
+            "routes": [
+                {
+                    "id": 17103,
+                    "name": "A",
+                    "startlist": "/api/v1/routes/17103/startlist"
+                },
+                {
+                    "id": 17104,
+                    "name": "B",
+                    "startlist": "/api/v1/routes/17104/startlist"
+                }
+            ]
+        },
+        {
+            "category_round_id": 10137,
+            "kind": "speed",
+            "name": "Final",
+            "category": "Men",
+            "schedule": null,
+            "status": "finished",
+            "status_as_of": "2025-07-12 20:11:58 UTC",
+            "result_url": "/api/v1/category_rounds/10137/results",
+            "starting_groups": [],
+            "combined_stages": [],
+            "round": {
+                "league_round_id": 3
+            },
+            "format_identifier": "speed_elimination_ifsc_2023",
+            "format": "IFSC 2023+: Elimination",
+            "routes": [
+                {
+                    "id": 17099,
+                    "name": "A",
+                    "startlist": "/api/v1/routes/17099/startlist"
+                },
+                {
+                    "id": 17100,
+                    "name": "B",
+                    "startlist": "/api/v1/routes/17100/startlist"
+                }
+            ]
+        }
+    ],
+    "ranking": [
+        {
+            "athlete_id": 13034,
+            "squad_id": null,
+            "rank": 1,
+            "name": "WATSON Samuel",
+            "bib_number": "4",
+            "firstname": "Samuel",
+            "lastname": "WATSON",
+            "country": "USA",
+            "organisation_id": 20,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/USA.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 3,
+                    "score": "4.90",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 4924,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:44:52 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 4901,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:21:57 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                },
+                {
+                    "category_round_id": 10137,
+                    "round_name": "Final",
+                    "rank": 1,
+                    "score": "4.65",
+                    "speed_elimination_stages": [
+                        {
+                            "id": 0,
+                            "name": "1/8",
+                            "heat_id": 77865,
+                            "ascent_summary": "",
+                            "score": "4.82",
+                            "winner": 1,
+                            "time": 4827,
+                            "ascents": [
+                                {
+                                    "route_id": 17099,
+                                    "route_name": "A",
+                                    "time_ms": 4827,
+                                    "dnf": false,
+                                    "dns": false,
+                                    "modified": "2025-07-12 19:33:09 +00:00",
+                                    "status": "active"
+                                }
+                            ]
+                        },
+                        {
+                            "id": 1,
+                            "name": "1/4",
+                            "heat_id": 77874,
+                            "ascent_summary": "",
+                            "score": "4.79",
+                            "winner": 1,
+                            "time": 4797,
+                            "ascents": [
+                                {
+                                    "route_id": 17099,
+                                    "route_name": "A",
+                                    "time_ms": 4797,
+                                    "dnf": false,
+                                    "dns": false,
+                                    "modified": "2025-07-12 19:48:54 +00:00",
+                                    "status": "active"
+                                }
+                            ]
+                        },
+                        {
+                            "id": 2,
+                            "name": "1/2",
+                            "heat_id": 77876,
+                            "ascent_summary": "",
+                            "score": "4.69",
+                            "winner": 1,
+                            "time": 4699,
+                            "ascents": [
+                                {
+                                    "route_id": 17100,
+                                    "route_name": "B",
+                                    "time_ms": 4699,
+                                    "dnf": false,
+                                    "dns": false,
+                                    "modified": "2025-07-12 20:00:37 +00:00",
+                                    "status": "active"
+                                }
+                            ]
+                        },
+                        {
+                            "id": 4,
+                            "name": "Final",
+                            "heat_id": 77878,
+                            "ascent_summary": "",
+                            "score": "4.65",
+                            "winner": 1,
+                            "time": 4653,
+                            "ascents": [
+                                {
+                                    "route_id": 17100,
+                                    "route_name": "B",
+                                    "time_ms": 4653,
+                                    "dnf": false,
+                                    "dns": false,
+                                    "modified": "2025-07-12 20:10:56 +00:00",
+                                    "status": "active"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 3361,
+            "squad_id": null,
+            "rank": 2,
+            "name": "KHAIBULLIN Rishat",
+            "bib_number": "17",
+            "firstname": "Rishat",
+            "lastname": "KHAIBULLIN",
+            "country": "KAZ",
+            "organisation_id": 47,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/KAZ.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 8,
+                    "score": "5.03",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5036,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:45:13 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5088,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:22:19 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                },
+                {
+                    "category_round_id": 10137,
+                    "round_name": "Final",
+                    "rank": 2,
+                    "score": "4.87",
+                    "speed_elimination_stages": [
+                        {
+                            "id": 0,
+                            "name": "1/8",
+                            "heat_id": 77870,
+                            "ascent_summary": "",
+                            "score": "5.03",
+                            "winner": 1,
+                            "time": 5038,
+                            "ascents": [
+                                {
+                                    "route_id": 17099,
+                                    "route_name": "A",
+                                    "time_ms": 5038,
+                                    "dnf": false,
+                                    "dns": false,
+                                    "modified": "2025-07-12 19:25:46 +00:00",
+                                    "status": "active"
+                                }
+                            ]
+                        },
+                        {
+                            "id": 1,
+                            "name": "1/4",
+                            "heat_id": 77871,
+                            "ascent_summary": "",
+                            "score": "4.89",
+                            "winner": 1,
+                            "time": 4890,
+                            "ascents": [
+                                {
+                                    "route_id": 17100,
+                                    "route_name": "B",
+                                    "time_ms": 4890,
+                                    "dnf": false,
+                                    "dns": false,
+                                    "modified": "2025-07-12 19:44:44 +00:00",
+                                    "status": "active"
+                                }
+                            ]
+                        },
+                        {
+                            "id": 2,
+                            "name": "1/2",
+                            "heat_id": 77875,
+                            "ascent_summary": "",
+                            "score": "4.83",
+                            "winner": 1,
+                            "time": 4831,
+                            "ascents": [
+                                {
+                                    "route_id": 17099,
+                                    "route_name": "A",
+                                    "time_ms": 4831,
+                                    "dnf": false,
+                                    "dns": false,
+                                    "modified": "2025-07-12 19:58:55 +00:00",
+                                    "status": "active"
+                                }
+                            ]
+                        },
+                        {
+                            "id": 4,
+                            "name": "Final",
+                            "heat_id": 77878,
+                            "ascent_summary": "",
+                            "score": "4.87",
+                            "winner": 0,
+                            "time": 4873,
+                            "ascents": [
+                                {
+                                    "route_id": 17099,
+                                    "route_name": "A",
+                                    "time_ms": 4873,
+                                    "dnf": false,
+                                    "dns": false,
+                                    "modified": "2025-07-12 20:10:46 +00:00",
+                                    "status": "active"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 13592,
+            "squad_id": null,
+            "rank": 3,
+            "name": "HAMMER Zach",
+            "bib_number": "38",
+            "firstname": "Zach",
+            "lastname": "HAMMER",
+            "country": "USA",
+            "organisation_id": 20,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/USA.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 4,
+                    "score": "4.91",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 4945,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:20:03 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 4914,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:23:21 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                },
+                {
+                    "category_round_id": 10137,
+                    "round_name": "Final",
+                    "rank": 3,
+                    "score": "4.96",
+                    "speed_elimination_stages": [
+                        {
+                            "id": 0,
+                            "name": "1/8",
+                            "heat_id": 77866,
+                            "ascent_summary": "",
+                            "score": "5.13",
+                            "winner": 1,
+                            "time": 5134,
+                            "ascents": [
+                                {
+                                    "route_id": 17099,
+                                    "route_name": "A",
+                                    "time_ms": 5134,
+                                    "dnf": false,
+                                    "dns": false,
+                                    "modified": "2025-07-12 19:27:15 +00:00",
+                                    "status": "active"
+                                }
+                            ]
+                        },
+                        {
+                            "id": 1,
+                            "name": "1/4",
+                            "heat_id": 77872,
+                            "ascent_summary": "",
+                            "score": "5.00",
+                            "winner": 1,
+                            "time": 5007,
+                            "ascents": [
+                                {
+                                    "route_id": 17099,
+                                    "route_name": "A",
+                                    "time_ms": 5007,
+                                    "dnf": false,
+                                    "dns": false,
+                                    "modified": "2025-07-12 19:46:01 +00:00",
+                                    "status": "active"
+                                }
+                            ]
+                        },
+                        {
+                            "id": 2,
+                            "name": "1/2",
+                            "heat_id": 77875,
+                            "ascent_summary": "",
+                            "score": "4.97",
+                            "winner": 0,
+                            "time": 4973,
+                            "ascents": [
+                                {
+                                    "route_id": 17100,
+                                    "route_name": "B",
+                                    "time_ms": 4973,
+                                    "dnf": false,
+                                    "dns": false,
+                                    "modified": "2025-07-12 19:59:07 +00:00",
+                                    "status": "active"
+                                }
+                            ]
+                        },
+                        {
+                            "id": 3,
+                            "name": "Small Final",
+                            "heat_id": 77877,
+                            "ascent_summary": "",
+                            "score": "4.96",
+                            "winner": 1,
+                            "time": 4965,
+                            "ascents": [
+                                {
+                                    "route_id": 17099,
+                                    "route_name": "A",
+                                    "time_ms": 4965,
+                                    "dnf": false,
+                                    "dns": false,
+                                    "modified": "2025-07-12 20:07:05 +00:00",
+                                    "status": "active"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 11701,
+            "squad_id": null,
+            "rank": 4,
+            "name": "NOYA CARDONA Erik",
+            "bib_number": "74",
+            "firstname": "Erik",
+            "lastname": "NOYA CARDONA",
+            "country": "ESP",
+            "organisation_id": 12,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/ESP.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 10,
+                    "score": "5.057",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5057,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:21:22 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5156,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:47:01 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                },
+                {
+                    "category_round_id": 10137,
+                    "round_name": "Final",
+                    "rank": 4,
+                    "score": "5.08",
+                    "speed_elimination_stages": [
+                        {
+                            "id": 0,
+                            "name": "1/8",
+                            "heat_id": 77869,
+                            "ascent_summary": "",
+                            "score": "5.35",
+                            "winner": 1,
+                            "time": 5358,
+                            "ascents": [
+                                {
+                                    "route_id": 17100,
+                                    "route_name": "B",
+                                    "time_ms": 5358,
+                                    "dnf": false,
+                                    "dns": false,
+                                    "modified": "2025-07-12 19:31:48 +00:00",
+                                    "status": "active"
+                                }
+                            ]
+                        },
+                        {
+                            "id": 1,
+                            "name": "1/4",
+                            "heat_id": 77873,
+                            "ascent_summary": "",
+                            "score": "5.75",
+                            "winner": 1,
+                            "time": 5755,
+                            "ascents": [
+                                {
+                                    "route_id": 17100,
+                                    "route_name": "B",
+                                    "time_ms": 5755,
+                                    "dnf": false,
+                                    "dns": false,
+                                    "modified": "2025-07-12 19:47:46 +00:00",
+                                    "status": "active"
+                                }
+                            ]
+                        },
+                        {
+                            "id": 2,
+                            "name": "1/2",
+                            "heat_id": 77876,
+                            "ascent_summary": "",
+                            "score": "5.44",
+                            "winner": 0,
+                            "time": 5440,
+                            "ascents": [
+                                {
+                                    "route_id": 17099,
+                                    "route_name": "A",
+                                    "time_ms": 5440,
+                                    "dnf": false,
+                                    "dns": false,
+                                    "modified": "2025-07-12 20:00:23 +00:00",
+                                    "status": "active"
+                                }
+                            ]
+                        },
+                        {
+                            "id": 3,
+                            "name": "Small Final",
+                            "heat_id": 77877,
+                            "ascent_summary": "",
+                            "score": "5.08",
+                            "winner": 0,
+                            "time": 5087,
+                            "ascents": [
+                                {
+                                    "route_id": 17100,
+                                    "route_name": "B",
+                                    "time_ms": 5087,
+                                    "dnf": false,
+                                    "dns": false,
+                                    "modified": "2025-07-12 20:07:12 +00:00",
+                                    "status": "active"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 11395,
+            "squad_id": null,
+            "rank": 5,
+            "name": "LONG Jianguo",
+            "bib_number": "33",
+            "firstname": "Jianguo",
+            "lastname": "LONG",
+            "country": "CHN",
+            "organisation_id": 37,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CHN.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 1,
+                    "score": "4.78",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 4919,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:45:41 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 4788,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:22:55 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                },
+                {
+                    "category_round_id": 10137,
+                    "round_name": "Final",
+                    "rank": 5,
+                    "score": "4.92 (4.78)",
+                    "speed_elimination_stages": [
+                        {
+                            "id": 0,
+                            "name": "1/8",
+                            "heat_id": 77863,
+                            "ascent_summary": "",
+                            "score": "5.10",
+                            "winner": 1,
+                            "time": 5102,
+                            "ascents": [
+                                {
+                                    "route_id": 17099,
+                                    "route_name": "A",
+                                    "time_ms": 5102,
+                                    "dnf": false,
+                                    "dns": false,
+                                    "modified": "2025-07-12 19:24:20 +00:00",
+                                    "status": "active"
+                                }
+                            ]
+                        },
+                        {
+                            "id": 1,
+                            "name": "1/4",
+                            "heat_id": 77871,
+                            "ascent_summary": "",
+                            "score": "4.92",
+                            "winner": 0,
+                            "time": 4923,
+                            "ascents": [
+                                {
+                                    "route_id": 17099,
+                                    "route_name": "A",
+                                    "time_ms": 4923,
+                                    "dnf": false,
+                                    "dns": false,
+                                    "modified": "2025-07-12 19:44:31 +00:00",
+                                    "status": "active"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 3362,
+            "squad_id": null,
+            "rank": 6,
+            "name": "MAIMURATOV Amir",
+            "bib_number": "36",
+            "firstname": "Amir",
+            "lastname": "MAIMURATOV",
+            "country": "KAZ",
+            "organisation_id": 47,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/KAZ.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 2,
+                    "score": "4.89",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5037,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:45:47 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 4894,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:23:01 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                },
+                {
+                    "category_round_id": 10137,
+                    "round_name": "Final",
+                    "rank": 6,
+                    "score": "5.96 (4.89)",
+                    "speed_elimination_stages": [
+                        {
+                            "id": 0,
+                            "name": "1/8",
+                            "heat_id": 77864,
+                            "ascent_summary": "",
+                            "score": "5.00",
+                            "winner": 1,
+                            "time": 5004,
+                            "ascents": [
+                                {
+                                    "route_id": 17099,
+                                    "route_name": "A",
+                                    "time_ms": 5004,
+                                    "dnf": false,
+                                    "dns": false,
+                                    "modified": "2025-07-12 19:30:06 +00:00",
+                                    "status": "active"
+                                }
+                            ]
+                        },
+                        {
+                            "id": 1,
+                            "name": "1/4",
+                            "heat_id": 77873,
+                            "ascent_summary": "",
+                            "score": "5.96",
+                            "winner": 0,
+                            "time": 5967,
+                            "ascents": [
+                                {
+                                    "route_id": 17099,
+                                    "route_name": "A",
+                                    "time_ms": 5967,
+                                    "dnf": false,
+                                    "dns": false,
+                                    "modified": "2025-07-12 19:47:28 +00:00",
+                                    "status": "active"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 11381,
+            "squad_id": null,
+            "rank": 7,
+            "name": "OMASA Ryo",
+            "bib_number": "64",
+            "firstname": "Ryo",
+            "lastname": "OMASA",
+            "country": "JPN",
+            "organisation_id": 25,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/JPN.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 6,
+                    "score": "4.95",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 4951,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:20:57 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5031,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:46:42 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                },
+                {
+                    "category_round_id": 10137,
+                    "round_name": "Final",
+                    "rank": 7,
+                    "score": "5.06 (4.95)",
+                    "speed_elimination_stages": [
+                        {
+                            "id": 0,
+                            "name": "1/8",
+                            "heat_id": 77868,
+                            "ascent_summary": "",
+                            "score": "5.31",
+                            "winner": 1,
+                            "time": 5311,
+                            "ascents": [
+                                {
+                                    "route_id": 17099,
+                                    "route_name": "A",
+                                    "time_ms": 5311,
+                                    "dnf": false,
+                                    "dns": false,
+                                    "modified": "2025-07-12 19:34:36 +00:00",
+                                    "status": "active"
+                                }
+                            ]
+                        },
+                        {
+                            "id": 1,
+                            "name": "1/4",
+                            "heat_id": 77874,
+                            "ascent_summary": "",
+                            "score": "5.06",
+                            "winner": 0,
+                            "time": 5060,
+                            "ascents": [
+                                {
+                                    "route_id": 17100,
+                                    "route_name": "B",
+                                    "time_ms": 5060,
+                                    "dnf": false,
+                                    "dns": false,
+                                    "modified": "2025-07-12 19:49:04 +00:00",
+                                    "status": "active"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 1027,
+            "squad_id": null,
+            "rank": 8,
+            "name": "ZURLONI Matteo",
+            "bib_number": "20",
+            "firstname": "Matteo",
+            "lastname": "ZURLONI",
+            "country": "ITA",
+            "organisation_id": 13,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/ITA.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 12,
+                    "score": "5.083",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5083,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:45:18 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 6917,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:22:26 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                },
+                {
+                    "category_round_id": 10137,
+                    "round_name": "Final",
+                    "rank": 8,
+                    "score": "6.26 (5.08)",
+                    "speed_elimination_stages": [
+                        {
+                            "id": 0,
+                            "name": "1/8",
+                            "heat_id": 77867,
+                            "ascent_summary": "",
+                            "score": "5.24",
+                            "winner": 1,
+                            "time": 5243,
+                            "ascents": [
+                                {
+                                    "route_id": 17100,
+                                    "route_name": "B",
+                                    "time_ms": 5243,
+                                    "dnf": false,
+                                    "dns": false,
+                                    "modified": "2025-07-12 19:29:04 +00:00",
+                                    "status": "active"
+                                }
+                            ]
+                        },
+                        {
+                            "id": 1,
+                            "name": "1/4",
+                            "heat_id": 77872,
+                            "ascent_summary": "",
+                            "score": "6.26",
+                            "winner": 0,
+                            "time": 6263,
+                            "ascents": [
+                                {
+                                    "route_id": 17100,
+                                    "route_name": "B",
+                                    "time_ms": 6263,
+                                    "dnf": false,
+                                    "dns": false,
+                                    "modified": "2025-07-12 19:46:14 +00:00",
+                                    "status": "active"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 3324,
+            "squad_id": null,
+            "rank": 9,
+            "name": "KATIBIN Kiromal",
+            "bib_number": "44",
+            "firstname": "Kiromal",
+            "lastname": "KATIBIN",
+            "country": "INA",
+            "organisation_id": 45,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/INA.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 5,
+                    "score": "4.93",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 4933,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:20:27 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 4936,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:46:06 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                },
+                {
+                    "category_round_id": 10137,
+                    "round_name": "Final",
+                    "rank": 9,
+                    "score": "5.28 (4.93)",
+                    "speed_elimination_stages": [
+                        {
+                            "id": 0,
+                            "name": "1/8",
+                            "heat_id": 77867,
+                            "ascent_summary": "",
+                            "score": "5.28",
+                            "winner": 0,
+                            "time": 5282,
+                            "ascents": [
+                                {
+                                    "route_id": 17099,
+                                    "route_name": "A",
+                                    "time_ms": 5282,
+                                    "dnf": false,
+                                    "dns": false,
+                                    "modified": "2025-07-12 19:28:43 +00:00",
+                                    "status": "active"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 13547,
+            "squad_id": null,
+            "rank": 10,
+            "name": "NURSAMSA Raharjati",
+            "bib_number": "58",
+            "firstname": "Raharjati",
+            "lastname": "NURSAMSA",
+            "country": "INA",
+            "organisation_id": 45,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/INA.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 7,
+                    "score": "4.98",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 4984,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:20:47 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5133,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:46:32 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                },
+                {
+                    "category_round_id": 10137,
+                    "round_name": "Final",
+                    "rank": 10,
+                    "score": "FALL (4.98)",
+                    "speed_elimination_stages": [
+                        {
+                            "id": 0,
+                            "name": "1/8",
+                            "heat_id": 77869,
+                            "ascent_summary": "",
+                            "score": "FALL",
+                            "winner": 0,
+                            "time": null,
+                            "ascents": [
+                                {
+                                    "route_id": 17099,
+                                    "route_name": "A",
+                                    "time_ms": 0,
+                                    "dnf": true,
+                                    "dns": false,
+                                    "modified": "2025-07-12 19:31:33 +00:00",
+                                    "status": "active"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 13601,
+            "squad_id": null,
+            "rank": 11,
+            "name": "LI Xu",
+            "bib_number": "46",
+            "firstname": "Xu",
+            "lastname": "LI",
+            "country": "CHN",
+            "organisation_id": 37,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CHN.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 9,
+                    "score": "5.051",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5051,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:20:29 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5107,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:46:10 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                },
+                {
+                    "category_round_id": 10137,
+                    "round_name": "Final",
+                    "rank": 11,
+                    "score": "5.13 (5.05)",
+                    "speed_elimination_stages": [
+                        {
+                            "id": 0,
+                            "name": "1/8",
+                            "heat_id": 77870,
+                            "ascent_summary": "",
+                            "score": "5.13",
+                            "winner": 0,
+                            "time": 5133,
+                            "ascents": [
+                                {
+                                    "route_id": 17100,
+                                    "route_name": "B",
+                                    "time_ms": 5133,
+                                    "dnf": false,
+                                    "dns": false,
+                                    "modified": "2025-07-12 19:25:58 +00:00",
+                                    "status": "active"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 494,
+            "squad_id": null,
+            "rank": 12,
+            "name": "REBREYEND Pierre",
+            "bib_number": "75",
+            "firstname": "Pierre",
+            "lastname": "REBREYEND",
+            "country": "FRA",
+            "organisation_id": 10,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/FRA.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 11,
+                    "score": "5.082",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5082,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:23:14 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5172,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:47:03 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                },
+                {
+                    "category_round_id": 10137,
+                    "round_name": "Final",
+                    "rank": 12,
+                    "score": "5.58 (5.08)",
+                    "speed_elimination_stages": [
+                        {
+                            "id": 0,
+                            "name": "1/8",
+                            "heat_id": 77868,
+                            "ascent_summary": "",
+                            "score": "5.58",
+                            "winner": 0,
+                            "time": 5586,
+                            "ascents": [
+                                {
+                                    "route_id": 17100,
+                                    "route_name": "B",
+                                    "time_ms": 5586,
+                                    "dnf": false,
+                                    "dns": false,
+                                    "modified": "2025-07-12 19:34:48 +00:00",
+                                    "status": "active"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 899,
+            "squad_id": null,
+            "rank": 13,
+            "name": "ZODDA Gian Luca",
+            "bib_number": "37",
+            "firstname": "Gian Luca",
+            "lastname": "ZODDA",
+            "country": "ITA",
+            "organisation_id": 13,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/ITA.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 13,
+                    "score": "5.084",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5200,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:45:49 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5084,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:23:19 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                },
+                {
+                    "category_round_id": 10137,
+                    "round_name": "Final",
+                    "rank": 13,
+                    "score": "6.33 (5.08)",
+                    "speed_elimination_stages": [
+                        {
+                            "id": 0,
+                            "name": "1/8",
+                            "heat_id": 77866,
+                            "ascent_summary": "",
+                            "score": "6.33",
+                            "winner": 0,
+                            "time": 6334,
+                            "ascents": [
+                                {
+                                    "route_id": 17100,
+                                    "route_name": "B",
+                                    "time_ms": 6334,
+                                    "dnf": false,
+                                    "dns": false,
+                                    "modified": "2025-07-12 19:27:35 +00:00",
+                                    "status": "active"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 3115,
+            "squad_id": null,
+            "rank": 14,
+            "name": "CARMANNS Leander",
+            "bib_number": "40",
+            "firstname": "Leander",
+            "lastname": "CARMANNS",
+            "country": "GER",
+            "organisation_id": 6,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/GER.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 14,
+                    "score": "5.089",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 0,
+                            "dnf": true,
+                            "dns": false,
+                            "modified": "2025-07-11 19:20:06 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5089,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:45:59 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                },
+                {
+                    "category_round_id": 10137,
+                    "round_name": "Final",
+                    "rank": 14,
+                    "score": "5.20 (5.08)",
+                    "speed_elimination_stages": [
+                        {
+                            "id": 0,
+                            "name": "1/8",
+                            "heat_id": 77865,
+                            "ascent_summary": "",
+                            "score": "5.20",
+                            "winner": 0,
+                            "time": 5201,
+                            "ascents": [
+                                {
+                                    "route_id": 17100,
+                                    "route_name": "B",
+                                    "time_ms": 5201,
+                                    "dnf": false,
+                                    "dns": false,
+                                    "modified": "2025-07-12 19:33:22 +00:00",
+                                    "status": "active"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 14963,
+            "squad_id": null,
+            "rank": 15,
+            "name": "CHU Shouhong",
+            "bib_number": "41",
+            "firstname": "Shouhong",
+            "lastname": "CHU",
+            "country": "CHN",
+            "organisation_id": 37,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CHN.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 15,
+                    "score": "5.093",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5093,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:20:07 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5289,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:46:00 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                },
+                {
+                    "category_round_id": 10137,
+                    "round_name": "Final",
+                    "rank": 15,
+                    "score": "5.16 (5.09)",
+                    "speed_elimination_stages": [
+                        {
+                            "id": 0,
+                            "name": "1/8",
+                            "heat_id": 77864,
+                            "ascent_summary": "",
+                            "score": "5.16",
+                            "winner": 0,
+                            "time": 5169,
+                            "ascents": [
+                                {
+                                    "route_id": 17100,
+                                    "route_name": "B",
+                                    "time_ms": 5169,
+                                    "dnf": false,
+                                    "dns": false,
+                                    "modified": "2025-07-12 19:30:17 +00:00",
+                                    "status": "active"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 865,
+            "squad_id": null,
+            "rank": 16,
+            "name": "FOSSALI Ludovico",
+            "bib_number": "31",
+            "firstname": "Ludovico",
+            "lastname": "FOSSALI",
+            "country": "ITA",
+            "organisation_id": 13,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/ITA.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 16,
+                    "score": "5.094",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5094,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:45:37 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5133,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:22:51 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                },
+                {
+                    "category_round_id": 10137,
+                    "round_name": "Final",
+                    "rank": 16,
+                    "score": "5.13 (5.09)",
+                    "speed_elimination_stages": [
+                        {
+                            "id": 0,
+                            "name": "1/8",
+                            "heat_id": 77863,
+                            "ascent_summary": "",
+                            "score": "5.13",
+                            "winner": 0,
+                            "time": 5134,
+                            "ascents": [
+                                {
+                                    "route_id": 17100,
+                                    "route_name": "B",
+                                    "time_ms": 5134,
+                                    "dnf": false,
+                                    "dns": false,
+                                    "modified": "2025-07-12 19:24:34 +00:00",
+                                    "status": "active"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 16426,
+            "squad_id": null,
+            "rank": 17,
+            "name": "YANG Jie",
+            "bib_number": "45",
+            "firstname": "Jie",
+            "lastname": "YANG",
+            "country": "CHN",
+            "organisation_id": 37,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CHN.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 17,
+                    "score": "5.098",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 8358,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:20:28 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5098,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:46:08 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 474,
+            "squad_id": null,
+            "rank": 18,
+            "name": "MORO Guillaume",
+            "bib_number": "22",
+            "firstname": "Guillaume",
+            "lastname": "MORO",
+            "country": "FRA",
+            "organisation_id": 10,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/FRA.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 18,
+                    "score": "5.106",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5162,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:45:20 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5106,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:22:29 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 1511,
+            "squad_id": null,
+            "rank": 19,
+            "name": "TKACH Yaroslav",
+            "bib_number": "68",
+            "firstname": "Yaroslav",
+            "lastname": "TKACH",
+            "country": "UKR",
+            "organisation_id": 18,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/UKR.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 19,
+                    "score": "5.107",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5107,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:21:05 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 0,
+                            "dnf": true,
+                            "dns": false,
+                            "modified": "2025-07-11 18:46:51 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 3340,
+            "squad_id": null,
+            "rank": 20,
+            "name": "LEONARDO Veddriq",
+            "bib_number": "14",
+            "firstname": "Veddriq",
+            "lastname": "LEONARDO",
+            "country": "INA",
+            "organisation_id": 45,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/INA.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 20,
+                    "score": "5.11",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5112,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:45:08 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5732,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:22:14 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 16253,
+            "squad_id": null,
+            "rank": 21,
+            "name": "ROBBY AL HILMI Antasyafi",
+            "bib_number": "13",
+            "firstname": "Antasyafi",
+            "lastname": "ROBBY AL HILMI",
+            "country": "INA",
+            "organisation_id": 45,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/INA.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 21,
+                    "score": "5.13",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5139,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:45:07 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5182,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:22:12 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 13353,
+            "squad_id": null,
+            "rank": 22,
+            "name": "ROBBIATI Luca",
+            "bib_number": "49",
+            "firstname": "Luca",
+            "lastname": "ROBBIATI",
+            "country": "ITA",
+            "organisation_id": 13,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/ITA.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 22,
+                    "score": "5.15",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5155,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:20:33 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5344,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:46:15 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 3471,
+            "squad_id": null,
+            "rank": 23,
+            "name": "ALIPOUR SHENAZANDIFARD Reza",
+            "bib_number": "15",
+            "firstname": "Reza",
+            "lastname": "ALIPOUR SHENAZANDIFARD",
+            "country": "IRI",
+            "organisation_id": 49,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/IRI.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 23,
+                    "score": "5.17",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5283,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:45:09 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5179,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:22:16 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 12391,
+            "squad_id": null,
+            "rank": 24,
+            "name": "MOREL Jérôme",
+            "bib_number": "27",
+            "firstname": "Jérôme",
+            "lastname": "MOREL",
+            "country": "FRA",
+            "organisation_id": 10,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/FRA.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 24,
+                    "score": "5.193",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 6098,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:45:30 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5193,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:22:42 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 13703,
+            "squad_id": null,
+            "rank": 25,
+            "name": "AMON Kevin",
+            "bib_number": "70",
+            "firstname": "Kevin",
+            "lastname": "AMON",
+            "country": "AUT",
+            "organisation_id": 16,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/AUT.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 25,
+                    "score": "5.199",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 0,
+                            "dnf": true,
+                            "dns": false,
+                            "modified": "2025-07-11 19:21:16 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5199,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:46:53 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 1547,
+            "squad_id": null,
+            "rank": 26,
+            "name": "ILCHYSHYN Hryhorii",
+            "bib_number": "48",
+            "firstname": "Hryhorii",
+            "lastname": "ILCHYSHYN",
+            "country": "UKR",
+            "organisation_id": 18,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/UKR.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 26,
+                    "score": "5.211 (5.23)",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5211,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:20:31 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5233,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:46:13 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 3270,
+            "squad_id": null,
+            "rank": 27,
+            "name": "MUHAMMAD FAJRI Alfian",
+            "bib_number": "67",
+            "firstname": "Alfian",
+            "lastname": "MUHAMMAD FAJRI",
+            "country": "INA",
+            "organisation_id": 45,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/INA.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 27,
+                    "score": "5.211 (5.37)",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5211,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:21:01 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5372,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:46:48 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 14443,
+            "squad_id": null,
+            "rank": 28,
+            "name": "KALIBAY Zhandos",
+            "bib_number": "69",
+            "firstname": "Zhandos",
+            "lastname": "KALIBAY",
+            "country": "KAZ",
+            "organisation_id": 47,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/KAZ.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 28,
+                    "score": "5.217",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5217,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:21:06 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5750,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:46:52 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 13915,
+            "squad_id": null,
+            "rank": 29,
+            "name": "DAVID Julian",
+            "bib_number": "6",
+            "firstname": "Julian",
+            "lastname": "DAVID",
+            "country": "NZL",
+            "organisation_id": 53,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/NZL.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 29,
+                    "score": "5.22",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5225,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:44:55 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 0,
+                            "dnf": true,
+                            "dns": false,
+                            "modified": "2025-07-11 19:21:58 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 13043,
+            "squad_id": null,
+            "rank": 30,
+            "name": "FUJINO Shuto",
+            "bib_number": "73",
+            "firstname": "Shuto",
+            "lastname": "FUJINO",
+            "country": "JPN",
+            "organisation_id": 25,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/JPN.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 30,
+                    "score": "5.23",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 6091,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:21:13 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5233,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:46:59 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 14962,
+            "squad_id": null,
+            "rank": 31,
+            "name": "SHI Zechuan",
+            "bib_number": "11",
+            "firstname": "Zechuan",
+            "lastname": "SHI",
+            "country": "CHN",
+            "organisation_id": 37,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CHN.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 31,
+                    "score": "5.26",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 7042,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:45:02 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5264,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:22:08 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 11738,
+            "squad_id": null,
+            "rank": 32,
+            "name": "MOZOLEVYCH Denys",
+            "bib_number": "43",
+            "firstname": "Denys",
+            "lastname": "MOZOLEVYCH",
+            "country": "UKR",
+            "organisation_id": 18,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/UKR.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 32,
+                    "score": "5.27",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5274,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:20:10 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5390,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:46:05 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 11893,
+            "squad_id": null,
+            "rank": 33,
+            "name": "PITCHER Ethan",
+            "bib_number": "72",
+            "firstname": "Ethan",
+            "lastname": "PITCHER",
+            "country": "CAN",
+            "organisation_id": 19,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CAN.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 33,
+                    "score": "5.30",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5308,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:21:19 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5658,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:46:56 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 14052,
+            "squad_id": null,
+            "rank": 34,
+            "name": "SCHLECHT Logan",
+            "bib_number": "55",
+            "firstname": "Logan",
+            "lastname": "SCHLECHT",
+            "country": "USA",
+            "organisation_id": 20,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/USA.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 34,
+                    "score": "5.31",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5311,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:20:43 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5410,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:46:26 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 3397,
+            "squad_id": null,
+            "rank": 35,
+            "name": "ALTYNBEKOV Beknur",
+            "bib_number": "63",
+            "firstname": "Beknur",
+            "lastname": "ALTYNBEKOV",
+            "country": "KAZ",
+            "organisation_id": 47,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/KAZ.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 35,
+                    "score": "5.326",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 10146,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:20:56 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5326,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:46:41 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 13264,
+            "squad_id": null,
+            "rank": 36,
+            "name": "MEILI Gilles",
+            "bib_number": "66",
+            "firstname": "Gilles",
+            "lastname": "MEILI",
+            "country": "SUI",
+            "organisation_id": 8,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/SUI.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 36,
+                    "score": "5.329",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 0,
+                            "dnf": true,
+                            "dns": false,
+                            "modified": "2025-07-11 19:21:03 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5329,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:46:47 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 14497,
+            "squad_id": null,
+            "rank": 37,
+            "name": "GÓMEZ BARRIOS Miguel",
+            "bib_number": "56",
+            "firstname": "Miguel",
+            "lastname": "GÓMEZ BARRIOS",
+            "country": "ESP",
+            "organisation_id": 12,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/ESP.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 37,
+                    "score": "5.35",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5350,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:20:44 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5544,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:46:28 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 612,
+            "squad_id": null,
+            "rank": 38,
+            "name": "GARNIER Marceau",
+            "bib_number": "60",
+            "firstname": "Marceau",
+            "lastname": "GARNIER",
+            "country": "FRA",
+            "organisation_id": 10,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/FRA.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 38,
+                    "score": "5.39",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5398,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:20:50 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 8620,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:46:34 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 13153,
+            "squad_id": null,
+            "rank": 39,
+            "name": "JUNG Yongjun",
+            "bib_number": "57",
+            "firstname": "Yongjun",
+            "lastname": "JUNG",
+            "country": "KOR",
+            "organisation_id": 21,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/KOR.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 39,
+                    "score": "5.411",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5411,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:20:45 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 0,
+                            "dnf": true,
+                            "dns": false,
+                            "modified": "2025-07-11 18:46:29 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 12742,
+            "squad_id": null,
+            "rank": 40,
+            "name": "UMLAUF Aodhan",
+            "bib_number": "12",
+            "firstname": "Aodhan",
+            "lastname": "UMLAUF",
+            "country": "GER",
+            "organisation_id": 6,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/GER.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 40,
+                    "score": "5.414",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5547,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:45:04 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5414,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:22:09 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 2076,
+            "squad_id": null,
+            "rank": 41,
+            "name": "LEE Yongsu",
+            "bib_number": "28",
+            "firstname": "Yongsu",
+            "lastname": "LEE",
+            "country": "KOR",
+            "organisation_id": 21,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/KOR.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 41,
+                    "score": "5.43",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5435,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:45:32 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 8837,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:22:44 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 3551,
+            "squad_id": null,
+            "rank": 42,
+            "name": "ALIPOURSHENAZANDIFARD Milad",
+            "bib_number": "47",
+            "firstname": "Milad",
+            "lastname": "ALIPOURSHENAZANDIFARD",
+            "country": "IRI",
+            "organisation_id": 49,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/IRI.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 42,
+                    "score": "5.46",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5465,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:20:30 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 9102,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:46:11 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 13653,
+            "squad_id": null,
+            "rank": 43,
+            "name": "ZEDLER Andrin",
+            "bib_number": "39",
+            "firstname": "Andrin",
+            "lastname": "ZEDLER",
+            "country": "GER",
+            "organisation_id": 6,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/GER.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 43,
+                    "score": "5.50",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5506,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:20:04 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5687,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:45:57 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 1798,
+            "squad_id": null,
+            "rank": 44,
+            "name": "BRATSCHI Noah",
+            "bib_number": "10",
+            "firstname": "Noah",
+            "lastname": "BRATSCHI",
+            "country": "USA",
+            "organisation_id": 20,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/USA.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 44,
+                    "score": "5.53",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5534,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:45:01 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 6951,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:22:06 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 1908,
+            "squad_id": null,
+            "rank": 45,
+            "name": "ERNSBERGER Merritt",
+            "bib_number": "29",
+            "firstname": "Merritt",
+            "lastname": "ERNSBERGER",
+            "country": "USA",
+            "organisation_id": 20,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/USA.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 45,
+                    "score": "5.56",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5572,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:45:33 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5569,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:22:47 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 2122,
+            "squad_id": null,
+            "rank": 46,
+            "name": "CHOI Jongbin",
+            "bib_number": "59",
+            "firstname": "Jongbin",
+            "lastname": "CHOI",
+            "country": "KOR",
+            "organisation_id": 21,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/KOR.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 46,
+                    "score": "5.57",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 6149,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:20:48 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5574,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:46:33 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 13821,
+            "squad_id": null,
+            "rank": 47,
+            "name": "GOODALL Andrew",
+            "bib_number": "5",
+            "firstname": "Andrew",
+            "lastname": "GOODALL",
+            "country": "GBR",
+            "organisation_id": 11,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/GBR.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 47,
+                    "score": "5.58",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 6532,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:44:53 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5586,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:21:46 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 12310,
+            "squad_id": null,
+            "rank": 48,
+            "name": "BRUYNS Joshua",
+            "bib_number": "3",
+            "firstname": "Joshua",
+            "lastname": "BRUYNS",
+            "country": "RSA",
+            "organisation_id": 14,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/RSA.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 48,
+                    "score": "5.623",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5623,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:44:50 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 0,
+                            "dnf": true,
+                            "dns": false,
+                            "modified": "2025-07-11 19:21:55 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 11854,
+            "squad_id": null,
+            "rank": 49,
+            "name": "LE Dylan",
+            "bib_number": "62",
+            "firstname": "Dylan",
+            "lastname": "LE",
+            "country": "CAN",
+            "organisation_id": 19,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CAN.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 49,
+                    "score": "5.625",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5625,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:20:54 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5891,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:46:39 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 11737,
+            "squad_id": null,
+            "rank": 50,
+            "name": "PAYET GABORIAUD Marius",
+            "bib_number": "65",
+            "firstname": "Marius",
+            "lastname": "PAYET GABORIAUD",
+            "country": "FRA",
+            "organisation_id": 10,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/FRA.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 50,
+                    "score": "5.633",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5723,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:20:59 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5633,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:46:46 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 11603,
+            "squad_id": null,
+            "rank": 51,
+            "name": "Bader Linus",
+            "bib_number": "7",
+            "firstname": "Linus",
+            "lastname": "BADER",
+            "country": "GER",
+            "organisation_id": 6,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/GER.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 51,
+                    "score": "5.637",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 6078,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:44:56 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5637,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:21:49 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 17137,
+            "squad_id": null,
+            "rank": 52,
+            "name": "GAYRARD Aurélien",
+            "bib_number": "51",
+            "firstname": "Aurélien",
+            "lastname": "GAYRARD",
+            "country": "FRA",
+            "organisation_id": 10,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/FRA.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 52,
+                    "score": "5.68",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 6024,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:20:36 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5680,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:46:18 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 1263,
+            "squad_id": null,
+            "rank": 53,
+            "name": "KNAPP Lukas",
+            "bib_number": "61",
+            "firstname": "Lukas",
+            "lastname": "KNAPP",
+            "country": "AUT",
+            "organisation_id": 16,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/AUT.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 53,
+                    "score": "5.75",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5754,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:20:52 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5758,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:46:37 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 10820,
+            "squad_id": null,
+            "rank": 54,
+            "name": "MURAT Alisher",
+            "bib_number": "30",
+            "firstname": "Alisher",
+            "lastname": "MURAT",
+            "country": "KAZ",
+            "organisation_id": 47,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/KAZ.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 54,
+                    "score": "5.81",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5812,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:45:35 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 6845,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:22:49 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 13747,
+            "squad_id": null,
+            "rank": 55,
+            "name": "MENGUAL Max",
+            "bib_number": "26",
+            "firstname": "Max",
+            "lastname": "MENGUAL",
+            "country": "FRA",
+            "organisation_id": 10,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/FRA.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 55,
+                    "score": "5.83",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5838,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:45:28 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 8051,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:22:41 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 2218,
+            "squad_id": null,
+            "rank": 56,
+            "name": "CHAN Cheung-Chi Shoji",
+            "bib_number": "76",
+            "firstname": "Cheung-Chi Shoji",
+            "lastname": "CHAN",
+            "country": "HKG",
+            "organisation_id": 24,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/HKG.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 56,
+                    "score": "5.84",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5842,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:23:16 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 6491,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:21:38 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 13851,
+            "squad_id": null,
+            "rank": 57,
+            "name": "BARTON Hayden",
+            "bib_number": "18",
+            "firstname": "Hayden",
+            "lastname": "BARTON",
+            "country": "AUS",
+            "organisation_id": 28,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/AUS.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 57,
+                    "score": "5.85",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 6525,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:45:14 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5853,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:22:21 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 13604,
+            "squad_id": null,
+            "rank": 58,
+            "name": "ZHANG Dingfeng",
+            "bib_number": "9",
+            "firstname": "Dingfeng",
+            "lastname": "ZHANG",
+            "country": "CHN",
+            "organisation_id": 37,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/CHN.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 58,
+                    "score": "5.87",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 7400,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:44:59 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5879,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:22:04 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 16274,
+            "squad_id": null,
+            "rank": 59,
+            "name": "PIÑA Héctor",
+            "bib_number": "1",
+            "firstname": "Héctor",
+            "lastname": "PIÑA",
+            "country": "VEN",
+            "organisation_id": 42,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/VEN.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 59,
+                    "score": "5.88",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5984,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:44:47 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5882,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:21:39 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 13746,
+            "squad_id": null,
+            "rank": 60,
+            "name": "LEHMANN Paco",
+            "bib_number": "54",
+            "firstname": "Paco",
+            "lastname": "LEHMANN",
+            "country": "FRA",
+            "organisation_id": 10,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/FRA.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 60,
+                    "score": "5.90",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5905,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:20:41 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 7046,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:46:24 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 12393,
+            "squad_id": null,
+            "rank": 61,
+            "name": "SZALECKI Oskar",
+            "bib_number": "23",
+            "firstname": "Oskar",
+            "lastname": "SZALECKI",
+            "country": "POL",
+            "organisation_id": 36,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/POL.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 61,
+                    "score": "5.94",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 5945,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:45:23 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 7059,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:22:34 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 14038,
+            "squad_id": null,
+            "rank": 62,
+            "name": "JO Jinyong",
+            "bib_number": "32",
+            "firstname": "Jinyong",
+            "lastname": "JO",
+            "country": "KOR",
+            "organisation_id": 21,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/KOR.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 62,
+                    "score": "6.00",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 7007,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:45:39 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 6009,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:22:53 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 13951,
+            "squad_id": null,
+            "rank": 63,
+            "name": "CANCEL Gabriel",
+            "bib_number": "2",
+            "firstname": "Gabriel",
+            "lastname": "CANCEL",
+            "country": "FRA",
+            "organisation_id": 10,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/FRA.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 63,
+                    "score": "6.01",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 6019,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:44:49 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 6121,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:21:54 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 15536,
+            "squad_id": null,
+            "rank": 64,
+            "name": "TURNER Luke",
+            "bib_number": "19",
+            "firstname": "Luke",
+            "lastname": "TURNER",
+            "country": "GBR",
+            "organisation_id": 11,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/GBR.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 64,
+                    "score": "6.10",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 6776,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:45:16 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 6109,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:22:24 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 15106,
+            "squad_id": null,
+            "rank": 65,
+            "name": "ABU ERGEEB Nasser",
+            "bib_number": "71",
+            "firstname": "Nasser",
+            "lastname": "ABU ERGEEB",
+            "country": "KUW",
+            "organisation_id": 103,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/KUW.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 65,
+                    "score": "6.14",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 7134,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:21:17 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 6148,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:46:55 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 1317,
+            "squad_id": null,
+            "rank": 66,
+            "name": "BOGESCHDORFER Lawrence",
+            "bib_number": "25",
+            "firstname": "Lawrence",
+            "lastname": "BOGESCHDORFER",
+            "country": "AUT",
+            "organisation_id": 16,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/AUT.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 66,
+                    "score": "6.18",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 6203,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:30:01 +00:00",
+                            "status": "confirmed"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 6184,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:22:39 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 13888,
+            "squad_id": null,
+            "rank": 67,
+            "name": "ALENCASTER Andrés",
+            "bib_number": "24",
+            "firstname": "Andrés",
+            "lastname": "ALENCASTER",
+            "country": "MEX",
+            "organisation_id": 69,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/MEX.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 67,
+                    "score": "6.24",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 6246,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:45:24 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 7788,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:22:37 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 11881,
+            "squad_id": null,
+            "rank": 68,
+            "name": "EGG Pedro",
+            "bib_number": "16",
+            "firstname": "Pedro",
+            "lastname": "EGG",
+            "country": "BRA",
+            "organisation_id": 40,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/BRA.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 68,
+                    "score": "6.26",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 7669,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:45:11 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 6261,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:22:18 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 3169,
+            "squad_id": null,
+            "rank": 69,
+            "name": "STERNIK Valentin",
+            "bib_number": "35",
+            "firstname": "Valentin",
+            "lastname": "STERNIK",
+            "country": "ARG",
+            "organisation_id": 41,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/ARG.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 69,
+                    "score": "6.35",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 6359,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:45:45 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 9763,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:22:58 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 6283,
+            "squad_id": null,
+            "rank": 70,
+            "name": "BOULOS Alessandro",
+            "bib_number": "34",
+            "firstname": "Alessandro",
+            "lastname": "BOULOS",
+            "country": "ITA",
+            "organisation_id": 13,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/ITA.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 70,
+                    "score": "6.51",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 6516,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:45:43 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 0,
+                            "dnf": true,
+                            "dns": false,
+                            "modified": "2025-07-11 19:22:57 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 3182,
+            "squad_id": null,
+            "rank": 71,
+            "name": "PEREZ Gustavo Jose",
+            "bib_number": "21",
+            "firstname": "Gustavo Jose",
+            "lastname": "PEREZ",
+            "country": "VEN",
+            "organisation_id": 42,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/VEN.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 71,
+                    "score": "7.02",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 0,
+                            "dnf": true,
+                            "dns": false,
+                            "modified": "2025-07-11 18:45:19 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 7024,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:22:27 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 15007,
+            "squad_id": null,
+            "rank": 72,
+            "name": "NORDIN Aideen",
+            "bib_number": "53",
+            "firstname": "Aideen",
+            "lastname": "NORDIN",
+            "country": "MAS",
+            "organisation_id": 46,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/MAS.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 72,
+                    "score": "7.06",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 8632,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:20:40 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 7066,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:46:22 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 2240,
+            "squad_id": null,
+            "rank": 73,
+            "name": "WONG Cheuk-Nam",
+            "bib_number": "52",
+            "firstname": "Cheuk-Nam",
+            "lastname": "WONG",
+            "country": "HKG",
+            "organisation_id": 24,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/HKG.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 73,
+                    "score": "7.15",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 7150,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:20:38 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 10177,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:46:20 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 13060,
+            "squad_id": null,
+            "rank": 74,
+            "name": "TOKTAROV Damir",
+            "bib_number": "50",
+            "firstname": "Damir",
+            "lastname": "TOKTAROV",
+            "country": "KAZ",
+            "organisation_id": 47,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/KAZ.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 74,
+                    "score": "7.52",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 7525,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:20:34 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 7650,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:46:17 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 14051,
+            "squad_id": null,
+            "rank": 75,
+            "name": "HOM Michael",
+            "bib_number": "42",
+            "firstname": "Michael",
+            "lastname": "HOM",
+            "country": "USA",
+            "organisation_id": 20,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/USA.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 75,
+                    "score": "FALSE START (5.121)",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 0,
+                            "dnf": false,
+                            "dns": true,
+                            "modified": "2025-07-11 19:20:09 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5121,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 18:46:02 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "athlete_id": 2845,
+            "squad_id": null,
+            "rank": 76,
+            "name": "DZIENSKI Marcin",
+            "bib_number": "8",
+            "firstname": "Marcin",
+            "lastname": "DZIENSKI",
+            "country": "POL",
+            "organisation_id": 36,
+            "flag_url": "https://d1n1qj9geboqnb.cloudfront.net/flags/POL.png",
+            "rounds": [
+                {
+                    "category_round_id": 9407,
+                    "round_name": "Qualification",
+                    "rank": 76,
+                    "score": "FALSE START (5.513)",
+                    "ascents": [
+                        {
+                            "route_id": 17103,
+                            "route_name": "A",
+                            "time_ms": 0,
+                            "dnf": false,
+                            "dns": true,
+                            "modified": "2025-07-11 18:44:58 +00:00",
+                            "status": "locked"
+                        },
+                        {
+                            "route_id": 17104,
+                            "route_name": "B",
+                            "time_ms": 5513,
+                            "dnf": false,
+                            "dns": false,
+                            "modified": "2025-07-11 19:25:59 +00:00",
+                            "status": "locked"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

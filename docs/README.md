@@ -27,7 +27,9 @@ docs/
 │   ├── 0002-streaming-writes.md
 │   ├── 0003-selective-4xx-skip-retry.md
 │   ├── 0004-incremental-hydration-with-staleness.md
-│   └── 0005-transactional-boundary-on-competitions.md
+│   ├── 0005-transactional-boundary-on-competitions.md
+│   ├── 0006-ongoing-only-pull-new.md
+│   └── 0007-per-round-ingestion.md
 ├── data-dictionary/                  ← per-table column reference (units, ranges, coverage)
 │   ├── README.md                     ← conventions, units, recompute-coverage snippet
 │   ├── seasons.md
@@ -36,6 +38,12 @@ docs/
 │   ├── competitions.md
 │   ├── athletes.md
 │   ├── results.md
+│   ├── category-rounds.md            ← phases (qualif/semi/final)
+│   ├── round-stages.md               ← speed-final heats + combined sub-stages
+│   ├── routes.md                     ← lead routes, speed lanes, boulders
+│   ├── round-results.md              ← per-round rank + score
+│   ├── stage-results.md              ← per-stage detail
+│   ├── ascents.md                    ← per-route performance detail
 │   └── reference-tables.md           ← leagues, disciplines, categories
 ├── cli-cookbook/                     ← task-oriented recipes
 │   ├── README.md

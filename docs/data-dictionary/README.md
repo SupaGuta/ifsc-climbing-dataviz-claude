@@ -17,7 +17,13 @@ and the relevant ADRs.
 - [events](events.md) — competition events with city/country/date
 - [competitions](competitions.md) — (event × discipline × category) triples
 - [athletes](athletes.md) — athlete profiles
-- [results](results.md) — (competition × athlete × rank)
+- [results](results.md) — (competition × athlete × overall rank)
+- [category-rounds](category-rounds.md) — phases of a competition (qualif / semi / final)
+- [round-stages](round-stages.md) — sub-stages of a round (speed-final heats, combined sub-disciplines)
+- [routes](routes.md) — individual climbing routes / boulders / speed lanes
+- [round-results](round-results.md) — (round × athlete) per-phase rank + score
+- [stage-results](stage-results.md) — (stage × athlete) per-stage detail
+- [ascents](ascents.md) — (route × athlete × stage) per-route performance detail
 - [reference-tables](reference-tables.md) — `leagues`, `disciplines`, `categories`
 
 ## Conventions
@@ -80,8 +86,10 @@ denominator.
 
 ## What's *not* in the warehouse
 
-- **Round-by-round attempts** (qualification routes, top boulders, semi-final
-  ascents). The API exposes these per-competition but they're not ingested.
+- **Startlists and starting orders.** The API exposes
+  `/api/v1/routes/{id}/startlist` and per-stage starting orders, but they're
+  not currently ingested. `category_rounds.last_fetched_at` and
+  `routes.last_fetched_at` are reserved for future startlist hydration.
 - **Judge / route-setter data.** Not consumed.
 - **Live ranking deltas.** Each competition stores its final ranking only.
 - **Anything older than IFSC's API coverage.** The earliest seasons date from

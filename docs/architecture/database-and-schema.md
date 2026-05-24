@@ -9,20 +9,26 @@ the single-file SQLite choice is in
 
 ## Tables
 
-The schema mirrors the API entity tree. Nine tables total, plus a
+The schema mirrors the API entity tree. Fifteen tables total, plus a
 `schema_version` bookkeeping table.
 
-| Table            | Rows fed by                             | Hydratable | Notes                                                       |
-|------------------|------------------------------------------|:----------:|-------------------------------------------------------------|
-| `seasons`        | `seasons.discover` + `seasons.hydrate`   |     ✓      | `year` is set during hydration                              |
-| `leagues`        | `seasons.hydrate`                        |            | Reference data, name-unique                                 |
-| `season_leagues` | `seasons.hydrate` (skeleton) + `season_leagues.hydrate` | ✓ | Join row between season × league                            |
-| `disciplines`    | `season_leagues.hydrate`                 |            | Reference data, name-unique (lowercase)                     |
-| `categories`     | `season_leagues.hydrate`                 |            | Reference data; `gender` is 0=men, 1=women, NULL=other      |
-| `events`         | `seasons.hydrate` / `season_leagues.hydrate` (skeleton) + `events.hydrate` | ✓ | City + country from `parsers.event_location` + API field    |
-| `competitions`   | `events.hydrate` (skeleton) + `competitions.hydrate` | ✓ | UNIQUE on `(event_id, ifsc_id)`, not on `ifsc_id` alone     |
-| `athletes`       | `competitions.hydrate` (skeleton) + `athletes.hydrate` | ✓ | `is_paraclimbing` is heuristic; see parsing-and-heuristics |
-| `results`        | `competitions.hydrate`                   |            | Derived: wiped + reinserted per competition                 |
+| Table             | Rows fed by                             | Hydratable | Notes                                                       |
+|-------------------|------------------------------------------|:----------:|-------------------------------------------------------------|
+| `seasons`         | `seasons.discover` + `seasons.hydrate`   |     ✓      | `year` is set during hydration                              |
+| `leagues`         | `seasons.hydrate`                        |            | Reference data, name-unique                                 |
+| `season_leagues`  | `seasons.hydrate` (skeleton) + `season_leagues.hydrate` | ✓ | Join row between season × league                            |
+| `disciplines`     | `season_leagues.hydrate`                 |            | Reference data, name-unique (lowercase)                     |
+| `categories`      | `season_leagues.hydrate`                 |            | Reference data; `gender` is 0=men, 1=women, NULL=other      |
+| `events`          | `seasons.hydrate` / `season_leagues.hydrate` (skeleton) + `events.hydrate` | ✓ | City + country from `parsers.event_location` + API field    |
+| `competitions`    | `events.hydrate` (skeleton) + `competitions.hydrate` | ✓ | UNIQUE on `(event_id, ifsc_id)`, not on `ifsc_id` alone     |
+| `athletes`        | `competitions.hydrate` (skeleton) + `athletes.hydrate` | ✓ | `is_paraclimbing` is heuristic; see parsing-and-heuristics |
+| `results`         | `competitions.hydrate`                   |            | Derived: wiped + reinserted per competition. Final overall rank only. |
+| `category_rounds` | `competitions.hydrate`                   |     ✓      | Phases of a competition (qualif / semi / final). `last_fetched_at` reserved for future startlist work. |
+| `round_stages`    | `competitions.hydrate`                   |            | Sub-stages of a round (speed-final heats, combined sub-disciplines). |
+| `routes`          | `competitions.hydrate`                   |     ✓      | One per (round × route). `last_fetched_at` reserved for future startlist work. |
+| `round_results`   | `competitions.hydrate`                   |            | Derived: per-round rank + score per athlete                 |
+| `stage_results`   | `competitions.hydrate`                   |            | Derived: per-stage detail (combined sub-stages, speed heats)|
+| `ascents`         | `competitions.hydrate`                   |            | Derived: per-route performance. Excluded from `export_all` by default. |
 
 **Hydratable** tables carry a `last_fetched_at` TEXT column. Every hydratable
 table also has `CREATE INDEX idx_<table>_last_fetched` so `find_stale`
@@ -87,23 +93,27 @@ its data, but every row written before it is durable. See
 [ADR 0002](../decisions/0002-streaming-writes.md).
 
 **The exception is `competitions.hydrate`.** It wraps each competition's
-work-unit in a transaction:
+work-unit in a transaction — covering both the `results` write and the
+per-round structural / athlete data (`category_rounds`, `round_stages`,
+`routes`, `round_results`, `stage_results`, `ascents`):
 
 ```python
 with repo.transaction():
+    repo.delete_round_data_for_competition(comp_id)
     repo.delete_results_for_competition(comp_id)
-    for entry in data.get("ranking") or []:
-        ...
-        repo.upsert_result(...)
+    # Phase A: top-level category_rounds + routes + default/combined stages
+    # Phase B: per-athlete dispatch on (ascents | combined_stages | speed_elimination_stages)
     repo.mark_fetched("competitions", comp_id)
 ```
 
 The `delete + reinsert` pattern means a partial failure mid-loop would leave
-the competition with an empty result set and a NULL `last_fetched_at`. The
-transaction rolls back the delete on exception, so either all-new results
-land or none do. See
+the competition with empty per-round tables and a NULL `last_fetched_at`. The
+transaction rolls back all of these on exception, so either everything lands
+or nothing does. See
 [ADR 0005](../decisions/0005-transactional-boundary-on-competitions.md) for
-the full reasoning.
+the original rationale and
+[ADR 0007](../decisions/0007-per-round-ingestion.md) for the per-round
+extension.
 
 Nested transactions are flattened: only the outermost commits. This matters
 because some repo methods could in principle call others — keeping the

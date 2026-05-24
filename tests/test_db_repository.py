@@ -222,3 +222,119 @@ def test_find_ongoing_competitions_joins_through_event(memory_db):
     row = next(r for r in repo.find_ongoing_competitions() if r["comp_id"] == ongoing_comp)
     assert row["comp_ifsc"] == 801
     assert row["event_ifsc"] == 701
+
+
+# ----------------------------------------------------------- Per-round upserts
+
+
+def _seed_competition_minimal(memory_db):
+    repo = Repository(memory_db)
+    sid = repo.upsert_season(2024, year=2024)
+    eid = repo.upsert_event_skeleton(1, season_id=sid)
+    did = repo.upsert_discipline("lead")
+    cid = repo.upsert_category("Men", gender=0)
+    comp_id = repo.upsert_competition(
+        event_id=eid, ifsc_id=1, discipline_id=did, category_id=cid
+    )
+    return repo, comp_id
+
+
+def test_upsert_category_round_coalesce_preserves_values(memory_db):
+    repo, comp_id = _seed_competition_minimal(memory_db)
+    a = repo.upsert_category_round(
+        100, competition_id=comp_id, kind="lead", name="Qualification",
+    )
+    # Re-upsert without name; COALESCE preserves the previous name.
+    b = repo.upsert_category_round(100, competition_id=comp_id, kind="lead")
+    assert a == b
+    row = memory_db.execute("SELECT name FROM category_rounds WHERE id = ?", (a,)).fetchone()
+    assert row["name"] == "Qualification"
+
+
+def test_upsert_route_relinks_to_new_round(memory_db):
+    repo, comp_id = _seed_competition_minimal(memory_db)
+    cr1 = repo.upsert_category_round(100, competition_id=comp_id, name="Qualif")
+    cr2 = repo.upsert_category_round(101, competition_id=comp_id, name="Final")
+    rt = repo.upsert_route(500, category_round_id=cr1, name="A")
+    # Re-upsert moves the route to cr2; name is preserved by COALESCE.
+    rt2 = repo.upsert_route(500, category_round_id=cr2)
+    assert rt == rt2
+    row = memory_db.execute("SELECT category_round_id, name FROM routes WHERE id = ?", (rt,)).fetchone()
+    assert row["category_round_id"] == cr2
+    assert row["name"] == "A"
+
+
+def test_upsert_round_stage_unique_on_round_seq(memory_db):
+    repo, comp_id = _seed_competition_minimal(memory_db)
+    cr = repo.upsert_category_round(100, competition_id=comp_id)
+    a = repo.upsert_round_stage(category_round_id=cr, seq=0)
+    b = repo.upsert_round_stage(category_round_id=cr, seq=0, name="Default")
+    assert a == b
+    row = memory_db.execute("SELECT name FROM round_stages WHERE id = ?", (a,)).fetchone()
+    assert row["name"] == "Default"
+
+
+def test_upsert_round_result_replace_semantics(memory_db):
+    repo, comp_id = _seed_competition_minimal(memory_db)
+    cr = repo.upsert_category_round(100, competition_id=comp_id)
+    ath = repo.upsert_athlete_skeleton(42)
+    repo.upsert_round_result(
+        competition_id=comp_id, category_round_id=cr, athlete_id=ath, rank=10, score="7.0"
+    )
+    # Second insert replaces the first.
+    repo.upsert_round_result(
+        competition_id=comp_id, category_round_id=cr, athlete_id=ath, rank=5, score="8.5",
+        starting_group="Group A",
+    )
+    rows = memory_db.execute("SELECT rank, score, starting_group FROM round_results").fetchall()
+    assert len(rows) == 1
+    assert rows[0]["rank"] == 5
+    assert rows[0]["score"] == "8.5"
+    assert rows[0]["starting_group"] == "Group A"
+
+
+def test_upsert_ascent_unique_on_stage_athlete_route(memory_db):
+    """Speed-final allows the same (athlete, route) across different heats;
+    UNIQUE on (round_stage_id, athlete_id, route_id) lets this in."""
+    repo, comp_id = _seed_competition_minimal(memory_db)
+    cr = repo.upsert_category_round(100, competition_id=comp_id)
+    s0 = repo.upsert_round_stage(category_round_id=cr, seq=0, name="1/8")
+    s1 = repo.upsert_round_stage(category_round_id=cr, seq=1, name="1/4")
+    ath = repo.upsert_athlete_skeleton(42)
+    rt = repo.upsert_route(500, category_round_id=cr, name="A")
+
+    repo.upsert_ascent(
+        competition_id=comp_id, round_stage_id=s0, route_id=rt, athlete_id=ath, time_ms=4827
+    )
+    repo.upsert_ascent(
+        competition_id=comp_id, round_stage_id=s1, route_id=rt, athlete_id=ath, time_ms=4797
+    )
+    n = memory_db.execute("SELECT COUNT(*) FROM ascents").fetchone()[0]
+    assert n == 2
+
+
+def test_delete_round_data_for_competition_preserves_structural_rows(memory_db):
+    repo, comp_id = _seed_competition_minimal(memory_db)
+    cr = repo.upsert_category_round(100, competition_id=comp_id)
+    rt = repo.upsert_route(500, category_round_id=cr)
+    stage = repo.upsert_round_stage(category_round_id=cr, seq=0)
+    ath = repo.upsert_athlete_skeleton(42)
+    repo.upsert_round_result(
+        competition_id=comp_id, category_round_id=cr, athlete_id=ath, rank=1, score="T"
+    )
+    repo.upsert_stage_result(
+        competition_id=comp_id, round_stage_id=stage, athlete_id=ath, rank=1
+    )
+    repo.upsert_ascent(
+        competition_id=comp_id, round_stage_id=stage, route_id=rt, athlete_id=ath, top=1
+    )
+
+    repo.delete_round_data_for_competition(comp_id)
+
+    assert memory_db.execute("SELECT COUNT(*) FROM ascents").fetchone()[0] == 0
+    assert memory_db.execute("SELECT COUNT(*) FROM stage_results").fetchone()[0] == 0
+    assert memory_db.execute("SELECT COUNT(*) FROM round_results").fetchone()[0] == 0
+    assert memory_db.execute("SELECT COUNT(*) FROM round_stages").fetchone()[0] == 0
+    # Structural rows preserved.
+    assert memory_db.execute("SELECT COUNT(*) FROM category_rounds").fetchone()[0] == 1
+    assert memory_db.execute("SELECT COUNT(*) FROM routes").fetchone()[0] == 1

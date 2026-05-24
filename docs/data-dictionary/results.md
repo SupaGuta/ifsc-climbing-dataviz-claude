@@ -1,8 +1,10 @@
 # `results`
 
-The join table. One row per (competition × athlete) with the athlete's final
-rank in that competition. This is the table you query for almost any
-analytical question.
+The join table. One row per (competition × athlete) with the athlete's
+**final overall** rank in that competition — the top-level `rank` from the
+IFSC payload. For per-round ranks (qualif / semi / final) see
+[`round-results`](round-results.md); for per-route ascent detail see
+[`ascents`](ascents.md).
 
 **Typical size:** ~148,000 rows.
 
