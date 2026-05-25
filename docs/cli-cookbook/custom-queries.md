@@ -94,7 +94,7 @@ federation code — mixes ISO3 with IFSC variants like `GER`, `SUI`, `INA`,
 `IRI`, `MAS`, `SIN`) and `country_iso3` (canonical ISO 3166-1 alpha-3).
 For aggregations, **prefer `country_iso3`** — otherwise Germany splits
 across `GER` (IFSC) and `DEU` (ISO3), Indonesia across `INA` and `IDN`,
-etc. See [ADR 0008](../../decisions/0008-country-iso3-sibling-column.md).
+etc. See [ADR 0008](../decisions/0008-country-iso3-sibling-column.md).
 
 ```sql
 -- Number of athletes per country (top 20) — ISO3-clean

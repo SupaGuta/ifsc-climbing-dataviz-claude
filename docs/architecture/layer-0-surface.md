@@ -129,7 +129,7 @@ A schema-breaking change goes through:
 ## How to consume
 
 - **CLI:** `python -m wcl_data export` writes denormalized CSVs to
-  `data/exports/`. See the [README](../../README.md) for view reference.
+  `data/exports/`. See the [README](../README.md) for view reference.
 - **Python:** `wcl_data.config.load_settings()` → `wcl_data.db.schema.open_db(path)`
   → `wcl_data.db.repository.Repository(conn)`. See
   [`../python-api/`](../python-api/README.md).
