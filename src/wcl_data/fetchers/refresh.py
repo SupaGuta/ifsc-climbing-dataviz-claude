@@ -83,6 +83,7 @@ def pull_new(
     *,
     limit: Optional[int] = None,
     grace_days: int = 15,
+    stale_days: Optional[int] = None,
 ) -> dict[str, tuple[int, int]]:
     """Discover all newly-published content without re-hydrating existing data.
 
@@ -92,14 +93,22 @@ def pull_new(
     because ended seasons never gain new leagues/events and ended events never
     gain new competitions. See ADR 0006.
 
-    Athletes are unchanged: only brand-new skeletons (NULL `last_fetched_at`)
-    discovered during this run get hydrated.
+    Athletes default to brand-new skeletons only (NULL `last_fetched_at`).
+    Pass `stale_days=N` to ALSO re-hydrate previously-hydrated athletes whose
+    last_fetched_at is older than N days — useful for picking up biographical
+    updates (federation transfers, height/arm-span corrections) without paying
+    for a full `refresh`.
 
     Order of magnitude: ~30-60s on a steady-state warehouse, vs ~45-90 min
     for `refresh --stale-days 0`. The `refresh` command remains the escape
     hatch for catching retroactive World Climbing edits to ended containers.
     """
     summary: dict[str, tuple[int, int]] = {}
+
+    # 365_000 days ≈ 1000 years; effectively "NULL last_fetched_at only" —
+    # the default that preserves pull-new's historical "newly-discovered
+    # athletes only" semantics when no override is passed.
+    athletes_stale_days = 365_000 if stale_days is None else stale_days
 
     seasons.discover(repo, client)
     _run_phase(summary, "seasons", lambda: seasons.hydrate(
@@ -114,10 +123,8 @@ def pull_new(
     _run_phase(summary, "competitions", lambda: competitions.hydrate(
         repo, client, rows=repo.find_ongoing_competitions(grace_days=grace_days), limit=limit,
     ))
-    # Huge stale_days → only rows with last_fetched_at IS NULL match. That is
-    # exactly the set of athletes just discovered during competitions hydration.
     _run_phase(summary, "athletes", lambda: athletes.hydrate(
-        repo, client, stale_days=365_000, limit=limit,
+        repo, client, stale_days=athletes_stale_days, limit=limit,
     ))
 
     return summary

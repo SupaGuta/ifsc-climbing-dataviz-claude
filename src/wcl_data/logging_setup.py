@@ -54,11 +54,18 @@ class _NoWarning(logging.Filter):
         return record.levelno != logging.WARNING
 
 
-def configure(level: int = logging.INFO, *, verbose: bool = False) -> None:
+def configure(level: int = logging.INFO, *, verbose: bool = False, quiet: bool = False) -> None:
     """Configure root logger. Idempotent.
 
-    `verbose=True` keeps warnings on the console (useful for debugging).
-    Default behaviour hides them from stdout; they always go to the file log.
+    Verbosity matrix (console; the WARN-and-above file log at logs/wcl-data.log
+    is unaffected):
+
+      default      -> INFO + ERROR + CRITICAL    (WARN hidden, file-only)
+      verbose=True -> INFO + WARN + ERROR + CRIT (everything)
+      quiet=True   -> ERROR + CRITICAL only      (no INFO chatter)
+
+    `verbose` and `quiet` are mutually exclusive at the CLI layer; if both
+    arrive here `quiet` wins (errors-only is the more conservative choice).
     """
     root = logging.getLogger()
     if root.handlers:
@@ -72,9 +79,14 @@ def configure(level: int = logging.INFO, *, verbose: bool = False) -> None:
     fh.setFormatter(file_formatter)
 
     ch = logging.StreamHandler()
-    ch.setLevel(level)
+    if quiet:
+        ch.setLevel(logging.ERROR)
+    else:
+        ch.setLevel(level)
     ch.setFormatter(_ColorFormatter())
-    if not verbose:
+    if not verbose and not quiet:
+        # Quiet already silences WARN by raising the level; the filter is only
+        # needed for the default path (level=INFO, WARN should not appear).
         ch.addFilter(_NoWarning())
 
     root.setLevel(min(level, logging.WARNING))

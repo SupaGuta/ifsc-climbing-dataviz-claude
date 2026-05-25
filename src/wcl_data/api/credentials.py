@@ -10,6 +10,7 @@ in `.env` age out.
 from __future__ import annotations
 
 import logging
+import os
 import re
 from dataclasses import dataclass
 from pathlib import Path
@@ -69,9 +70,14 @@ def update_env_file(env_path: Path, csrf: str, cookie: str) -> None:
     """Update `WCL_CSRF_TOKEN` and `WCL_SESSION_COOKIE` in `env_path`.
 
     - If the file doesn't exist: create with just the two lines.
-    - If it exists: replace the existing WCL_CSRF_TOKEN / WCL_SESSION_COOKIE
-      lines in place; preserve every other line, comment, and ordering. Append
-      either key if it's missing.
+    - If it exists: copy the current bytes to `<env_path>.bak` (recovery file
+      for a fat-fingered re-auth), then replace the existing WCL_CSRF_TOKEN /
+      WCL_SESSION_COOKIE lines in place. Every other line, comment, and
+      ordering is preserved; missing keys are appended.
+
+    On POSIX the written file is `chmod 0o600` so a leaked dotfile can't be
+    world-read; `os.chmod` is a no-op on Windows (NTFS perms model differs),
+    so the call is gated by `os.name`.
     """
     if not env_path.exists():
         env_path.write_text(
@@ -79,7 +85,20 @@ def update_env_file(env_path: Path, csrf: str, cookie: str) -> None:
             f"WCL_SESSION_COOKIE={cookie}\n",
             encoding="utf-8",
         )
+        _restrict_env_perms(env_path)
         return
+
+    # Byte-for-byte backup so the recovery file matches whatever the user
+    # had — line endings, trailing newline, encoding. `.env.bak` is a
+    # rolling one-deep history: a second re-auth overwrites the previous
+    # backup with the now-stale token. Good enough for "I just clobbered
+    # my creds, restore the previous file".
+    bak_path = env_path.with_name(env_path.name + ".bak")
+    bak_path.write_bytes(env_path.read_bytes())
+    # Chmod the bak too — it carries the previous (still-valid until the
+    # token actually expires) credentials, so leaving it world-readable
+    # would defeat the 0o600 hardening on .env itself.
+    _restrict_env_perms(bak_path)
 
     raw = env_path.read_text(encoding="utf-8")
     # Preserve the file's existing line ending (CRLF on Windows-checked-out
@@ -105,3 +124,17 @@ def update_env_file(env_path: Path, csrf: str, cookie: str) -> None:
         new_lines.append(f"WCL_SESSION_COOKIE={cookie}")
 
     env_path.write_text(newline.join(new_lines) + newline, encoding="utf-8")
+    _restrict_env_perms(env_path)
+
+
+def _restrict_env_perms(env_path: Path) -> None:
+    """`chmod 0o600` on POSIX; no-op on Windows.
+
+    Split out so the gating logic is in one place and the create / overwrite
+    paths in `update_env_file` stay focused on content. On NTFS, `os.chmod`
+    only toggles the read-only bit — it does not map to a POSIX-style
+    user-only access control, so calling it on Windows would be misleading
+    rather than protective.
+    """
+    if os.name != "nt":
+        os.chmod(env_path, 0o600)

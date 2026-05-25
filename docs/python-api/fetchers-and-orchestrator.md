@@ -47,17 +47,24 @@ everything (~45-90 min, including all per-round data from ADR 0007);
 ### `pull_new`
 
 ```python
-summary = refresh.pull_new(repo, client, limit=None, grace_days=15)
+summary = refresh.pull_new(repo, client, limit=None, grace_days=15, stale_days=None)
 ```
 
 Re-fetches **ongoing** containers only — current-year seasons, events
 within `grace_days` of `date_end`, plus their descendants — then hydrates
 **only newly-discovered athletes** by passing `stale_days=365_000` (only
-NULL `last_fetched_at` matches). The everyday "catch new content cheaply"
-entry point. See [ADR 0006](../decisions/0006-ongoing-only-pull-new.md).
+NULL `last_fetched_at` matches) when `stale_days=None`. The everyday
+"catch new content cheaply" entry point. See
+[ADR 0006](../decisions/0006-ongoing-only-pull-new.md).
 
 `grace_days` defaults to 15. The CLI surface (`--grace-days`) and env var
 (`WCL_GRACE_DAYS`) plumb through to this argument.
+
+`stale_days` is forwarded as-is to the athletes phase: pass `stale_days=30`
+to ALSO re-hydrate previously-hydrated athletes whose `last_fetched_at` is
+older than 30 days (useful for picking up federation transfers, height /
+arm-span corrections) without paying for a full `refresh`. The CLI surface
+is `wcl-data pull-new --stale-days N`.
 
 ### `hydrate_entity`
 

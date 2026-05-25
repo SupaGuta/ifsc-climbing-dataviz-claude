@@ -39,6 +39,13 @@ assert set(HYDRATABLE_TABLES) <= set(ALL_TABLES), (
     f"ALL_TABLES {sorted(ALL_TABLES)}"
 )
 
+# Frozenset companions for `_validate_table`'s O(1) membership check. The
+# public tuples above carry display ordering (status walks them top-to-bottom)
+# so we can't replace them outright — the lookup variants are kept module-local
+# and the public tuples remain the canonical source of truth.
+_ALL_TABLES_LOOKUP: frozenset[str] = frozenset(ALL_TABLES)
+_HYDRATABLE_TABLES_LOOKUP: frozenset[str] = frozenset(HYDRATABLE_TABLES)
+
 # Public allowed-column sets for the per-row update helpers below. Hoisted to
 # module level so callers (athletes.hydrate / events.hydrate) can introspect
 # them, and so test suites can pin "hydrate's kwargs ⊆ allowed columns" — the
@@ -66,9 +73,9 @@ def utcnow() -> str:
     return datetime.now(timezone.utc).strftime(TS_FMT)
 
 
-def _validate_table(table: str, allowed: tuple[str, ...]) -> None:
+def _validate_table(table: str, allowed: frozenset[str]) -> None:
     if table not in allowed:
-        raise ValueError(f"table {table!r} not in allowed set {allowed}")
+        raise ValueError(f"table {table!r} not in allowed set {sorted(allowed)}")
 
 
 class Repository:
@@ -107,18 +114,18 @@ class Repository:
     # ---------------------------------------------------------------- Generic
 
     def count(self, table: str) -> int:
-        _validate_table(table, ALL_TABLES)
+        _validate_table(table, _ALL_TABLES_LOOKUP)
         return self.conn.execute(f"SELECT COUNT(*) FROM {table}").fetchone()[0]
 
     def count_hydrated(self, table: str) -> int:
-        _validate_table(table, HYDRATABLE_TABLES)
+        _validate_table(table, _HYDRATABLE_TABLES_LOOKUP)
         return self.conn.execute(
             f"SELECT COUNT(*) FROM {table} WHERE last_fetched_at IS NOT NULL"
         ).fetchone()[0]
 
     def latest_fetched_at(self, table: str) -> Optional[str]:
         """MAX(last_fetched_at) for a hydratable table, or None if all-NULL/empty."""
-        _validate_table(table, HYDRATABLE_TABLES)
+        _validate_table(table, _HYDRATABLE_TABLES_LOOKUP)
         row = self.conn.execute(
             f"SELECT MAX(last_fetched_at) FROM {table}"
         ).fetchone()
@@ -130,7 +137,7 @@ class Repository:
         return int(row[0]) if row and row[0] is not None else 0
 
     def mark_fetched(self, table: str, row_id: int) -> None:
-        _validate_table(table, HYDRATABLE_TABLES)
+        _validate_table(table, _HYDRATABLE_TABLES_LOOKUP)
         self.conn.execute(
             f"UPDATE {table} SET last_fetched_at = ? WHERE id = ?",
             (utcnow(), row_id),
@@ -139,7 +146,7 @@ class Repository:
 
     def find_stale(self, table: str, *, stale_days: int) -> list[sqlite3.Row]:
         """Rows whose last_fetched_at is NULL or older than `stale_days`."""
-        _validate_table(table, HYDRATABLE_TABLES)
+        _validate_table(table, _HYDRATABLE_TABLES_LOOKUP)
         cutoff = (datetime.now(timezone.utc) - timedelta(days=stale_days)).strftime(TS_FMT)
         return list(self.conn.execute(
             f"SELECT id, ifsc_id FROM {table} "

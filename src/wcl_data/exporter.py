@@ -1,26 +1,35 @@
-"""Denormalized CSV exports of the warehouse.
+"""Denormalized exports of the warehouse.
 
 Each view in `VIEWS` is a single SELECT that pre-joins related tables so the
-resulting CSV is self-contained — no need to open the SQLite file to follow
+resulting file is self-contained — no need to open the SQLite file to follow
 foreign keys. Gender is exported as `"male"`/`"female"` (not the integer
 encoding) for readability.
 
-Filenames carry a UTC timestamp (`<view>_YYYY-MM-DDTHHMMSSZ.csv`) so multiple
-exports don't overwrite each other.
+Filenames carry a UTC timestamp (`<view>_YYYY-MM-DDTHHMMSSZ.<ext>`) so
+multiple exports don't overwrite each other.
 
 `ascents` is registered but excluded from `export_all` (size: ~900k rows of
-22 columns ≈ 200 MB+). Run `python -m wcl_data export ascents` explicitly
+22 columns ≈ 600 MB+). Run `python -m wcl_data export ascents` explicitly
 when needed.
+
+Formats: `csv` (default), `jsonl` (one JSON object per row, columns as keys),
+and `parquet` (columnar; requires `pyarrow` as an opt-in dep — the import is
+lazy so the default csv path stays dep-free).
 """
 from __future__ import annotations
 
 import csv
+import json
 import logging
 import sqlite3
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Literal
 
 from .config import REPO_ROOT
+
+ExportFormat = Literal["csv", "jsonl", "parquet"]
+SUPPORTED_FORMATS: tuple[ExportFormat, ...] = ("csv", "jsonl", "parquet")
 
 log = logging.getLogger(__name__)
 
@@ -250,27 +259,32 @@ def export_view(
     name: str,
     *,
     output_dir: Path = DEFAULT_EXPORT_DIR,
+    format: ExportFormat = "csv",
 ) -> Path:
-    """Run the named view and write its rows to a timestamped CSV.
+    """Run the named view and write its rows to a timestamped file.
 
-    Raises ValueError if `name` isn't in `VIEWS`. Returns the output path.
+    Raises ValueError if `name` isn't in `VIEWS` or `format` isn't in
+    `SUPPORTED_FORMATS`. Returns the output path. `parquet` requires
+    `pyarrow` (opt-in) — install via `pip install pyarrow` or add it to
+    your venv before requesting that format.
     """
     if name not in VIEWS:
         raise ValueError(f"Unknown view {name!r}. Choose from {VIEW_NAMES}.")
+    if format not in SUPPORTED_FORMATS:
+        raise ValueError(f"Unknown format {format!r}. Choose from {SUPPORTED_FORMATS}.")
 
     output_dir.mkdir(parents=True, exist_ok=True)
-    path = output_dir / f"{name}_{_timestamp()}.csv"
+    path = output_dir / f"{name}_{_timestamp()}.{_extension_for(format)}"
 
     cursor = conn.execute(VIEWS[name])
     columns = [d[0] for d in cursor.description]
 
-    row_count = 0
-    with path.open("w", encoding="utf-8", newline="") as f:
-        writer = csv.writer(f)
-        writer.writerow(columns)
-        for row in cursor:
-            writer.writerow(row)
-            row_count += 1
+    if format == "csv":
+        row_count = _write_csv(cursor, columns, path)
+    elif format == "jsonl":
+        row_count = _write_jsonl(cursor, columns, path)
+    else:  # parquet
+        row_count = _write_parquet(cursor, columns, path)
 
     log.info("Exported %d row(s) of %s -> %s", row_count, name, path.name)
     return path
@@ -280,6 +294,66 @@ def export_all(
     conn: sqlite3.Connection,
     *,
     output_dir: Path = DEFAULT_EXPORT_DIR,
+    format: ExportFormat = "csv",
 ) -> dict[str, Path]:
     """Export every default view. `ascents` is opt-in; call `export_view` for it."""
-    return {name: export_view(conn, name, output_dir=output_dir) for name in DEFAULT_EXPORT_VIEWS}
+    return {
+        name: export_view(conn, name, output_dir=output_dir, format=format)
+        for name in DEFAULT_EXPORT_VIEWS
+    }
+
+
+# ---- format writers -------------------------------------------------------
+
+def _extension_for(format: ExportFormat) -> str:
+    return {"csv": "csv", "jsonl": "jsonl", "parquet": "parquet"}[format]
+
+
+def _write_csv(cursor: sqlite3.Cursor, columns: list[str], path: Path) -> int:
+    row_count = 0
+    with path.open("w", encoding="utf-8", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow(columns)
+        for row in cursor:
+            writer.writerow(row)
+            row_count += 1
+    return row_count
+
+
+def _write_jsonl(cursor: sqlite3.Cursor, columns: list[str], path: Path) -> int:
+    """One JSON object per row. Streamed write so we don't materialize the
+    full result set in memory (matters for the `ascents` view at ~900k rows)."""
+    row_count = 0
+    with path.open("w", encoding="utf-8") as f:
+        for row in cursor:
+            obj = {col: row[i] for i, col in enumerate(columns)}
+            f.write(json.dumps(obj, ensure_ascii=False))
+            f.write("\n")
+            row_count += 1
+    return row_count
+
+
+def _write_parquet(cursor: sqlite3.Cursor, columns: list[str], path: Path) -> int:
+    """Columnar export. Lazy-imports pyarrow so the default csv path stays
+    dep-free; a friendly ImportError is raised when pyarrow is missing.
+
+    Materializes the full result set into Arrow arrays before writing — fine
+    for the warehouse views but a footgun for very wide / very long custom
+    queries. Acceptable trade-off for now (pyarrow doesn't expose a
+    streaming-from-iterator writer that's worth the extra code).
+    """
+    try:
+        import pyarrow as pa
+        import pyarrow.parquet as pq
+    except ImportError as exc:
+        raise ImportError(
+            "parquet export requires the optional `pyarrow` dependency. "
+            "Install via `pip install pyarrow` and retry."
+        ) from exc
+
+    rows = list(cursor)
+    # Transpose row tuples into per-column lists for Arrow's columnar layout.
+    column_data = {col: [row[i] for row in rows] for i, col in enumerate(columns)}
+    table = pa.table(column_data)
+    pq.write_table(table, path)
+    return len(rows)
