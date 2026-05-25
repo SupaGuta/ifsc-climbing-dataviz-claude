@@ -471,3 +471,92 @@ def test_refresh_credentials_updates_session_headers(monkeypatch, tmp_path):
     assert client._session.headers["Cookie"] == "_results_session=NEW_COOKIE"
     assert client.settings.csrf_token == "NEW_CSRF"
     assert client.settings.session_cookie == "_results_session=NEW_COOKIE"
+
+
+# ===========================================================================
+# Phase C9 — mock-fidelity edge cases
+# ===========================================================================
+
+def test_empty_body_200_becomes_transient_fetcherror(monkeypatch, tmp_path):
+    """A 200/application/json with zero-byte body must surface as a retriable
+    FetchError, not silently terminate the fetcher's for-loop.
+
+    Empty body fails json.loads with `Expecting value` — the same path as
+    malformed JSON, but the empty case is worth pinning separately because
+    a proxy/CDN bug can swallow the body without changing the status code.
+    """
+    client = APIClient(make_settings(tmp_path))
+    attempts = {"/1": 0}
+
+    def fake_get(url, timeout, **kw):
+        attempts["/1"] += 1
+        if attempts["/1"] == 1:
+            return _stub_response(200, body_bytes=b"")   # zero-byte body
+        return _stub_response(200, {"ok": True})
+
+    monkeypatch.setattr(client._session, "get", fake_get)
+    keys = [r.key for r in client.stream("athletes", [1], retry_delay=0)]
+    assert keys == [1]
+    assert attempts["/1"] == 2
+
+
+def test_non_ascii_payload_round_trips_intact(monkeypatch, tmp_path):
+    """UTF-8 diacritics in the response body must survive json.loads unmangled.
+
+    Real event names carry Žilina, Sukoró, Pölten, etc. — a future change
+    that breaks the UTF-8 byte-stream → str round-trip (e.g. accidental
+    `.decode('ascii')`) would silently corrupt city/event/athlete columns.
+    """
+    client = APIClient(make_settings(tmp_path))
+    body = {
+        "name": "Žilina",
+        "athletes": [
+            {"firstname": "Janja", "lastname": "Garnbret"},   # Slovenian
+            {"firstname": "Sorato", "lastname": "Anraku"},    # Japanese name
+            {"firstname": "JURÁŠ", "lastname": "Pötlinger"},   # Bare unicode escape
+        ],
+        "city": "St. Pölten",
+        "emoji": "🧗",
+    }
+
+    def fake_get(url, timeout, **kw):
+        return _stub_response(200, body)
+
+    monkeypatch.setattr(client._session, "get", fake_get)
+    results = list(client.stream("events", [1]))
+    assert len(results) == 1
+    data = results[0].data
+    assert data["name"] == "Žilina"
+    assert data["city"] == "St. Pölten"
+    assert data["emoji"] == "🧗"
+    assert data["athletes"][0]["firstname"] == "Janja"
+    assert data["athletes"][1]["lastname"] == "Anraku"
+
+
+def test_utf8_multibyte_body_streamed_chunked(monkeypatch, tmp_path):
+    """UTF-8 multibyte chars split across iter_content chunks must reassemble.
+
+    Real chunked-transfer-encoding can deliver a single character's bytes
+    across two reads. The client buffers raw bytes (not decoded text)
+    before json.loads, so this should work — pin the contract.
+    """
+    import json as _json
+    client = APIClient(make_settings(tmp_path))
+
+    # "Žilina" → "\xc5\xbdilina" — split the multibyte Ž across two chunks.
+    body_bytes = _json.dumps({"city": "Žilina"}, ensure_ascii=False).encode("utf-8")
+    # Find the split point such that the Ž (bytes \xc5\xbd) sits across the boundary.
+    split_at = body_bytes.index(b"\xc5\xbd") + 1   # between \xc5 and \xbd
+    chunks = [body_bytes[:split_at], body_bytes[split_at:]]
+
+    resp = _stub_response(200)
+    resp.iter_content.return_value = chunks
+    resp.content = body_bytes
+
+    def fake_get(url, timeout, **kw):
+        return resp
+
+    monkeypatch.setattr(client._session, "get", fake_get)
+    results = list(client.stream("events", [1]))
+    assert len(results) == 1
+    assert results[0].data == {"city": "Žilina"}

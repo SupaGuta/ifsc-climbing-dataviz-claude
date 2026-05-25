@@ -4,8 +4,14 @@ from __future__ import annotations
 from datetime import datetime, timedelta, timezone
 
 import pytest
+from freezegun import freeze_time
 
 from wcl_data.db.repository import Repository, TS_FMT
+
+
+# Stable "today" for find_ongoing_* tests — chosen mid-year so a calendar-year
+# rollover near test execution can't flip the "ongoing" boundary on us.
+FROZEN_NOW = "2026-06-15"
 
 
 def test_upsert_season_is_idempotent(memory_db):
@@ -103,6 +109,96 @@ def test_transaction_rolls_back_on_exception(memory_db):
     assert ids == {99}
 
 
+def test_transaction_rolls_back_on_keyboard_interrupt(memory_db):
+    """Ctrl-C during a transaction body must roll back any in-flight rows.
+
+    `KeyboardInterrupt` is a `BaseException`, not an `Exception` — the
+    repository's `except BaseException` clause is what catches it. A future
+    refactor that narrows that catch to `except Exception` would silently
+    let half-committed transaction state leak past the interrupt; this
+    test pins the contract.
+    """
+    repo = Repository(memory_db)
+    pre = repo.upsert_season(99, year=1999)
+
+    with pytest.raises(KeyboardInterrupt):
+        with repo.transaction():
+            repo.upsert_season(200, year=2031)
+            raise KeyboardInterrupt
+
+    ids = {r[0] for r in memory_db.execute("SELECT ifsc_id FROM seasons").fetchall()}
+    assert ids == {99}
+    # The transaction flag must have been reset so a second transaction works.
+    with repo.transaction():
+        repo.upsert_season(300, year=2032)
+    ids_after = {r[0] for r in memory_db.execute("SELECT ifsc_id FROM seasons").fetchall()}
+    assert ids_after == {99, 300}
+
+
+def test_nested_transaction_outer_commits_both_rows(tmp_path):
+    """Nested `with repo.transaction()` calls flatten — only the outermost commits.
+
+    Proves the deferred-commit contract by opening a SECOND connection that
+    can only see committed state (WAL isolates uncommitted writes from
+    other readers). The inner `__exit__` must NOT have committed; the
+    second connection sees zero rows until the outer block exits.
+
+    A previous version of this test read `repo._in_transaction` directly —
+    brittle because a refactor to depth-counter semantics for proper
+    SAVEPOINT nesting would change the type without changing the
+    user-visible contract.
+    """
+    from wcl_data.db.schema import open_db
+
+    db_path = tmp_path / "wcl.sqlite"
+    writer_conn = open_db(db_path)
+    reader_conn = open_db(db_path)
+    try:
+        repo = Repository(writer_conn)
+        with repo.transaction():
+            repo.upsert_season(1, year=2020)
+            with repo.transaction():
+                repo.upsert_season(2, year=2021)
+            # Inside outer transaction: a SEPARATE connection sees ZERO
+            # committed rows — the inner __exit__ did NOT trip a commit.
+            uncommitted = list(reader_conn.execute(
+                "SELECT ifsc_id FROM seasons"
+            ))
+            assert uncommitted == [], (
+                "inner transaction __exit__ must not commit; reader connection "
+                "should still see the pre-outer-block state"
+            )
+
+        # Outer __exit__ committed both rows; reader sees them now.
+        committed = {r[0] for r in reader_conn.execute("SELECT ifsc_id FROM seasons")}
+        assert committed == {1, 2}
+    finally:
+        writer_conn.close()
+        reader_conn.close()
+
+
+def test_nested_transaction_inner_exception_rolls_back_outer(memory_db):
+    """An exception in a nested block propagates through and rolls back the
+    outer transaction — both rows should be absent.
+    """
+    repo = Repository(memory_db)
+
+    with pytest.raises(RuntimeError, match="inner failure"):
+        with repo.transaction():
+            repo.upsert_season(1, year=2020)
+            with repo.transaction():
+                repo.upsert_season(2, year=2021)
+                raise RuntimeError("inner failure")
+
+    ids = {r[0] for r in memory_db.execute("SELECT ifsc_id FROM seasons")}
+    assert ids == set()
+    # A second transaction must still be entrable — i.e. the outer __exit__
+    # cleanly reset internal state regardless of how it tracks nesting.
+    with repo.transaction():
+        repo.upsert_season(7, year=2030)
+    assert {r[0] for r in memory_db.execute("SELECT ifsc_id FROM seasons")} == {7}
+
+
 def test_validate_table_rejects_unknown_table(memory_db):
     repo = Repository(memory_db)
     with pytest.raises(ValueError, match="not in allowed set"):
@@ -130,11 +226,14 @@ def test_backfill_event_country_from_siblings(memory_db):
 
 
 # --------------------------------------------------------------- find_ongoing_*
-# These power `pull-new`'s ongoing-only scope. See ADR 0006.
+# These power `pull-new`'s ongoing-only scope. See ADR 0006. Time is frozen so
+# the "ongoing" boundary stays stable regardless of when the test runs (a
+# calendar-year rollover would otherwise flip the year=current_year assertions).
 
+@freeze_time(FROZEN_NOW)
 def test_find_ongoing_seasons_includes_current_and_skeletons(memory_db):
     repo = Repository(memory_db)
-    current_year = datetime.now(timezone.utc).year
+    current_year = 2026  # matches FROZEN_NOW
 
     ongoing = repo.upsert_season(101, year=current_year)
     ended = repo.upsert_season(102, year=current_year - 5)
@@ -146,9 +245,10 @@ def test_find_ongoing_seasons_includes_current_and_skeletons(memory_db):
     assert ended not in got
 
 
+@freeze_time(FROZEN_NOW)
 def test_find_ongoing_season_leagues_follows_parent_season(memory_db):
     repo = Repository(memory_db)
-    current_year = datetime.now(timezone.utc).year
+    current_year = 2026
 
     ongoing_season = repo.upsert_season(201, year=current_year)
     ended_season = repo.upsert_season(202, year=current_year - 5)
@@ -162,6 +262,7 @@ def test_find_ongoing_season_leagues_follows_parent_season(memory_db):
     assert ended_sl not in got
 
 
+@freeze_time(FROZEN_NOW)
 def test_find_ongoing_events_respects_grace_days(memory_db):
     repo = Repository(memory_db)
     today = datetime.now(timezone.utc).date()
@@ -192,6 +293,7 @@ def test_find_ongoing_events_respects_grace_days(memory_db):
     assert recent_ended not in strict
 
 
+@freeze_time(FROZEN_NOW)
 def test_find_ongoing_competitions_joins_through_event(memory_db):
     repo = Repository(memory_db)
     today = datetime.now(timezone.utc).date()
@@ -463,3 +565,122 @@ def test_latest_fetched_at_rejects_non_hydratable(memory_db):
         repo.latest_fetched_at("leagues")
     with pytest.raises(ValueError, match="not in allowed set"):
         repo.latest_fetched_at("category_rounds")
+
+
+# ---------------------------------------------------------------- cup_rankings
+# `upsert_cup_ranking` uses `INSERT OR REPLACE`, which deletes the conflicting
+# row and inserts a fresh one — so the autoincrement `id` churns on every
+# re-hydration. Phase D4 in REVIEW.md proposes switching this to a UNIQUE
+# index + `ON CONFLICT ... UPDATE` (which preserves ids). When that lands,
+# the `test_cup_ranking_id_churns_on_replace` test will fail — making the
+# contract switch visible rather than silent.
+
+def test_cup_ranking_upsert_replaces_value(memory_db):
+    """A re-upsert on the same UNIQUE key (athlete, cup, d_cat) overwrites the row.
+
+    `d_cat_id=1` (non-NULL) is needed: SQLite UNIQUE treats NULL d_cat_id as
+    distinct on every insert, so a NULL→NULL "re-upsert" would actually
+    insert a second row. See `test_cup_ranking_unique_treats_null_d_cat_as_distinct`.
+    """
+    repo = Repository(memory_db)
+    ath = repo.upsert_athlete_skeleton(42)
+
+    repo.upsert_cup_ranking(
+        athlete_id=ath, cup_ifsc_id=100, cup_name="World Cup", d_cat_id=1, rank=5,
+    )
+    repo.upsert_cup_ranking(
+        athlete_id=ath, cup_ifsc_id=100, cup_name="World Cup", d_cat_id=1, rank=1,
+    )
+    rows = list(memory_db.execute(
+        "SELECT rank FROM cup_rankings WHERE athlete_id = ? AND cup_ifsc_id = ?",
+        (ath, 100),
+    ))
+    assert len(rows) == 1
+    assert rows[0]["rank"] == 1
+
+
+def test_cup_ranking_id_churns_on_replace(memory_db):
+    """`INSERT OR REPLACE` deletes + re-inserts → the autoincrement id changes.
+
+    This is the current behavior; D4 proposes switching to UPSERT (which
+    preserves ids). When the switch lands, flip this test to assert
+    `id1 == id2` to pin the new contract.
+    """
+    repo = Repository(memory_db)
+    ath = repo.upsert_athlete_skeleton(42)
+
+    repo.upsert_cup_ranking(
+        athlete_id=ath, cup_ifsc_id=100, cup_name="World Cup", d_cat_id=1, rank=5,
+    )
+    id1 = memory_db.execute(
+        "SELECT id FROM cup_rankings WHERE athlete_id = ? AND cup_ifsc_id = ? AND d_cat_id = ?",
+        (ath, 100, 1),
+    ).fetchone()[0]
+
+    repo.upsert_cup_ranking(
+        athlete_id=ath, cup_ifsc_id=100, cup_name="World Cup", d_cat_id=1, rank=1,
+    )
+    id2 = memory_db.execute(
+        "SELECT id FROM cup_rankings WHERE athlete_id = ? AND cup_ifsc_id = ? AND d_cat_id = ?",
+        (ath, 100, 1),
+    ).fetchone()[0]
+
+    assert id1 != id2, (
+        "cup_ranking id should churn under INSERT OR REPLACE. If this fails, "
+        "the implementation likely switched to UPSERT — update the assertion "
+        "to id1 == id2 and revise REVIEW.md D4."
+    )
+
+
+def test_cup_ranking_unique_treats_null_d_cat_as_distinct(memory_db):
+    """SQLite UNIQUE treats NULL as distinct per-NULL — two NULL-d_cat rows on
+    the same (athlete, cup) co-exist. This is the SQLite default; REVIEW.md D4
+    proposes a partial unique index on COALESCE(d_cat_id, -1) to fold them.
+    """
+    repo = Repository(memory_db)
+    ath = repo.upsert_athlete_skeleton(42)
+
+    repo.upsert_cup_ranking(athlete_id=ath, cup_ifsc_id=100, d_cat_id=None, rank=1)
+    repo.upsert_cup_ranking(athlete_id=ath, cup_ifsc_id=100, d_cat_id=None, rank=2)
+
+    rows = list(memory_db.execute(
+        "SELECT rank FROM cup_rankings WHERE athlete_id = ? AND cup_ifsc_id = ?",
+        (ath, 100),
+    ))
+    # Two rows — NULL ≠ NULL in SQLite's default UNIQUE semantics.
+    assert len(rows) == 2
+
+
+def test_cup_ranking_unique_with_d_cat_collapses_to_one(memory_db):
+    """Same (athlete, cup) with a concrete d_cat_id collapses to one row."""
+    repo = Repository(memory_db)
+    ath = repo.upsert_athlete_skeleton(42)
+
+    repo.upsert_cup_ranking(athlete_id=ath, cup_ifsc_id=100, d_cat_id=1, rank=1)
+    repo.upsert_cup_ranking(athlete_id=ath, cup_ifsc_id=100, d_cat_id=1, rank=2)
+
+    rows = list(memory_db.execute(
+        "SELECT rank FROM cup_rankings WHERE athlete_id = ? AND cup_ifsc_id = ?",
+        (ath, 100),
+    ))
+    assert len(rows) == 1
+    assert rows[0]["rank"] == 2
+
+
+def test_delete_cup_rankings_for_athlete(memory_db):
+    """`delete_cup_rankings_for_athlete` should wipe only that athlete's rows."""
+    repo = Repository(memory_db)
+    ath_a = repo.upsert_athlete_skeleton(42)
+    ath_b = repo.upsert_athlete_skeleton(43)
+
+    repo.upsert_cup_ranking(athlete_id=ath_a, cup_ifsc_id=100, rank=1)
+    repo.upsert_cup_ranking(athlete_id=ath_a, cup_ifsc_id=101, rank=2)
+    repo.upsert_cup_ranking(athlete_id=ath_b, cup_ifsc_id=100, rank=3)
+
+    repo.delete_cup_rankings_for_athlete(ath_a)
+
+    remaining = {(r["athlete_id"], r["cup_ifsc_id"], r["rank"])
+                 for r in memory_db.execute(
+                     "SELECT athlete_id, cup_ifsc_id, rank FROM cup_rankings"
+                 )}
+    assert remaining == {(ath_b, 100, 3)}

@@ -9,9 +9,14 @@ from __future__ import annotations
 from datetime import datetime, timedelta, timezone
 from unittest.mock import MagicMock
 
+from freezegun import freeze_time
+
 from wcl_data.api.client import Fetched
 from wcl_data.db.repository import Repository
 from wcl_data.fetchers import refresh as refresh_orchestrator
+
+
+FROZEN_NOW = "2026-06-15"
 
 
 def _stub_client(*, current_year: int):
@@ -65,6 +70,7 @@ def _stub_client(*, current_year: int):
     return client
 
 
+@freeze_time(FROZEN_NOW)
 def test_pull_new_skips_ended_containers(memory_db):
     """Seed an ongoing + an ancient season+event+competition; only ongoing gets fetched."""
     repo = Repository(memory_db)
@@ -117,6 +123,7 @@ def test_pull_new_skips_ended_containers(memory_db):
     assert set(summary.keys()) == {"seasons", "season_leagues", "events", "competitions", "athletes"}
 
 
+@freeze_time(FROZEN_NOW)
 def test_pull_new_grace_days_zero_excludes_recently_ended(memory_db):
     """With grace_days=0, an event ended yesterday is treated as already done."""
     repo = Repository(memory_db)

@@ -3,7 +3,11 @@ from __future__ import annotations
 
 import pytest
 
-from wcl_data.parsers.event_location import parse_city_country, to_iso3
+from wcl_data.parsers.event_location import (
+    parse_city_country,
+    postprocess_city,
+    to_iso3,
+)
 
 
 @pytest.mark.parametrize("name,city,country", [
@@ -127,3 +131,65 @@ def test_trailing_country_name_after_separator(name, country):
 def test_trailing_non_country_does_not_match(name):
     city, country = parse_city_country(name)
     assert (city, country) == (None, None)
+
+
+# --- postprocess_city heuristics (C12) -------------------------------------
+#
+# Each case targets a specific branch in `postprocess_city`. Names are drawn
+# from real event titles where a naive city extraction would have left
+# meaningful noise — the goal of the heuristics is to scrub it without
+# inventing data.
+
+@pytest.mark.parametrize("raw_city,country,event_name,expected", [
+    # `None` city stays None.
+    (None, None, "anything", None),
+    # Blank / whitespace-only collapses to None.
+    ("   ", None, "anything", None),
+
+    # "rock junior" events that produce 'Rock' / 'Rock Junior' as city → drop.
+    ("Rock Junior", None, "Rock Junior Bouldering 2018", None),
+    ("rock", None, "Rock Junior Bouldering 2018", None),
+
+    # "of " prefix gets stripped.
+    ("of Innsbruck", "AUT", "anything", "Innsbruck"),
+
+    # Promotional / event-naming prefixes get stripped.
+    ("Speed Rock Barcelona", "ESP", "Speed Rock Festival", "Barcelona"),
+    ("Blocmaster Praha", "CZE", "Blocmaster Series", "Praha"),
+    ("Bouldertag Salzburg", "AUT", "Bouldertag Open", "Salzburg"),
+    ("Master Innsbruck", "AUT", "Master Series", "Innsbruck"),
+
+    # "boulder " prefix gets stripped UNLESS the only word is "boulder".
+    ("Boulder Vail", "USA", "Boulder Worldcup", "Vail"),
+    ("Boulder", "USA", "Boulder", "Boulder"),
+    # Quirk: "Boulder Colorado" with country=USA first strips "Boulder " then
+    # leaves "Colorado" — the US-state strip only fires when there's still a
+    # leading word, so a single-word state name survives. Documenting this so
+    # a future change to either branch becomes a visible test failure.
+    ("Boulder Colorado", "USA", "anything", "Colorado"),
+
+    # Namba Hips suffix scrub.
+    ("Osaka Hips", "JPN", "Namba Hips Bouldering 2018", "Osaka"),
+
+    # China-specific "Province" suffix.
+    ("Sichuan Province", "CHN", "anything", "Sichuan"),
+    ("Sichuan province", "CHN", "anything", "Sichuan"),
+    # NOT stripped when country isn't CHN.
+    ("Sichuan Province", "USA", "anything", "Sichuan Province"),
+
+    # US state suffix stripping (country must be USA).
+    ("Salt Lake City Utah", "USA", "anything", "Salt Lake City"),
+    ("Vail Colorado", "USA", "anything", "Vail"),
+    # Two-word state (New York, New Mexico, North Carolina, etc.)
+    ("Albany New York", "USA", "anything", "Albany"),
+    # NOT stripped when country isn't USA.
+    ("Salt Lake City Utah", "AUT", "anything", "Salt Lake City Utah"),
+
+    # tidy_case: ALL-CAPS gets Title-Cased.
+    ("CHAMONIX", "FRA", "anything", "Chamonix"),
+    ("HONG KONG", "HKG", "anything", "Hong Kong"),
+    # Mixed-case is left alone (not >90% uppercase).
+    ("Chamonix", "FRA", "anything", "Chamonix"),
+])
+def test_postprocess_city_heuristics(raw_city, country, event_name, expected):
+    assert postprocess_city(raw_city, country, event_name) == expected
