@@ -11,7 +11,7 @@ pip install -e ".[dev]"       # adds pytest + pytest-mock
 cp .env.example .env
 python -m wcl_data auth      # fetch fresh CSRF + cookie into .env
 python -m wcl_data init      # create data/wcl.sqlite
-python -m wcl_data pull-new  # populate it (~3–5 min)
+python -m wcl_data refresh   # populate it (~45-90 min for a full backfill)
 ```
 
 For notebook work add `pip install -e ".[notebook]"` (jupyterlab + pandas).

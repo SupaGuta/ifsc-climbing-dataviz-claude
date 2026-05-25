@@ -60,13 +60,14 @@ Fetched fresh credentials from https://ifsc.results.info
   CSRF token:     a1b2c3d4e5f6g7h8... (88 chars)
   Session cookie: _ifsc_results_session=... (123 chars)
 
---dry-run: not writing to .env. Lines that would be written:
-  WCL_CSRF_TOKEN=<full token>
-  WCL_SESSION_COOKIE=<full cookie>
+--dry-run: not writing to .env. Tokens truncated for safety; rerun without --dry-run to write the full values.
+  WCL_CSRF_TOKEN=a1b2c3d4e5f6g7h8...  (88 chars)
+  WCL_SESSION_COOKIE=_ifsc_results_session=...  (123 chars)
 ```
 
-Useful for verifying that fetch works before committing to a rewrite, or
-when you want to paste credentials into a different file.
+Useful for verifying that fetch works before writing to `.env`. To copy
+the full credentials into a non-default location, use `--env-file PATH`
+(see below) — `--dry-run` no longer emits full tokens to stdout.
 
 ### `--env-file PATH`
 
@@ -121,8 +122,9 @@ cookie-name match.
 - **Credentials are sensitive enough to keep out of git** — `.env` is
   gitignored and should stay that way. See
   [backup.md](backup.md) for `.env` hygiene.
-- **The `--dry-run` output prints the full token to stdout**, so don't
-  pipe it to a shared log when debugging.
+- **`--dry-run` truncates tokens** (first 16 chars + length) so the
+  preview is safe to share in bug reports or screen shares. Full tokens
+  only land in the target `.env` file.
 - **No multi-user model.** The CSRF token is tied to a single anonymous
   session; there's no per-user auth on the World Climbing public API. Multiple
   developers can use independent `.env` files without conflict.

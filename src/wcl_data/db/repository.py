@@ -579,9 +579,10 @@ class Repository:
     def delete_round_data_for_competition(self, competition_id: int) -> None:
         """Wipe ascents, stage_results, round_results, round_stages for a competition.
 
-        `category_rounds` and `routes` are intentionally preserved (UPSERTed in the
-        same transaction) to keep their `last_fetched_at` and any future startlist
-        hydration state intact. See ADR 0007.
+        `category_rounds` and `routes` are intentionally preserved (UPSERTed in
+        the same transaction) — their ids are referenced by foreign keys from
+        the wiped children, and re-creating them would churn FK targets. See
+        ADR 0007.
         """
         for table in ("ascents", "stage_results", "round_results", "round_stages"):
             if table == "round_stages":

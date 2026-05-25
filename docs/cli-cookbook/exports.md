@@ -11,7 +11,7 @@ users). Pick whichever fits your workflow; both yield equivalent results.
 python -m wcl_data export
 ```
 
-Writes seven CSVs to `data/exports/`:
+Writes eight CSVs to `data/exports/`:
 
 ```
 seasons_2026-05-23T140530Z.csv
@@ -19,6 +19,7 @@ leagues_2026-05-23T140530Z.csv
 events_2026-05-23T140530Z.csv
 competitions_2026-05-23T140530Z.csv
 athletes_2026-05-23T140530Z.csv
+cup_rankings_2026-05-23T140530Z.csv    (season-end overall standings per cup × discipline)
 results_2026-05-23T140530Z.csv         (final overall ranking)
 round_results_2026-05-23T140530Z.csv   (per-round rank + score)
 ```
@@ -44,7 +45,8 @@ python -m wcl_data export ascents --output-dir /tmp/csv
 ```
 
 Choices: `seasons`, `leagues`, `events`, `competitions`, `athletes`,
-`results`, `round_results`, `ascents`. View definitions live in
+`cup_rankings`, `results`, `round_results`, `ascents`. View definitions
+live in
 [`src/wcl_data/exporter.py`](https://github.com/SupaGuta/world-climbing-lab/blob/main/src/wcl_data/exporter.py).
 
 ---

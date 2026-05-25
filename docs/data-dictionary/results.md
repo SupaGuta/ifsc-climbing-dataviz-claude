@@ -64,6 +64,6 @@ is therefore inherited from the parent competition's `last_fetched_at`.
   filter `WHERE rank IS NOT NULL`. If you're computing participation, don't.
 - **The big denormalized view in `src/wcl_data/exporter.py` ("results")**
   pre-joins through `competitions`, `events`, `seasons`, `leagues`,
-  `disciplines`, `categories`, and `athletes` — 14 columns of context per
+  `disciplines`, `categories`, and `athletes` — 17 columns of context per
   result row. Use it directly via `python -m wcl_data export results` when
   you want a single self-contained CSV.

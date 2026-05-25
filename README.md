@@ -75,7 +75,7 @@ python -m wcl_data auth [--dry-run] [--env-file PATH]
 
 | Flag | Type | Default | Description |
 |------|------|---------|-------------|
-| `--dry-run` | flag | off | Print the fetched values without writing `.env`. Tokens shown in full so you can copy-paste. |
+| `--dry-run` | flag | off | Print the fetched values (truncated to first 16 chars) without writing `.env`. Rerun without `--dry-run` to write the full values to `.env`. |
 | `--env-file PATH` | path | `<repo>/.env` | Target file for the update. |
 
 **Behaviour:** preserves every other line in `.env` (comments, other variables, ordering). Only the `WCL_CSRF_TOKEN` and `WCL_SESSION_COOKIE` lines are replaced in place. If either key is missing, it's appended.
@@ -213,7 +213,7 @@ python -m wcl_data export [view] [--output-dir PATH]
 
 | Name | Choices | Default |
 |------|---------|---------|
-| `view` | `seasons`, `leagues`, `events`, `competitions`, `athletes`, `results`, `round_results`, `ascents` | (omit to export the 7 non-bulky views — `ascents` is opt-in) |
+| `view` | `seasons`, `leagues`, `events`, `competitions`, `athletes`, `cup_rankings`, `results`, `round_results`, `ascents` | (omit to export the 8 non-bulky views — `ascents` is opt-in) |
 
 **Options:**
 
@@ -226,7 +226,7 @@ python -m wcl_data export [view] [--output-dir PATH]
 **Examples:**
 
 ```bash
-python -m wcl_data export                         # all seven default views to data/exports/
+python -m wcl_data export                         # all eight default views to data/exports/
 python -m wcl_data export results                 # only the big denormalized view
 python -m wcl_data export ascents                 # opt-in: ~900k rows × 31 columns (~200 MB)
 python -m wcl_data export athletes --output-dir /tmp/csv
@@ -322,7 +322,7 @@ tests/
 pytest -q
 ```
 
-125 tests covering: the event-location parser (incl. ISO3 validation, IFSC/IOC variant acceptance, the "Event - Country" no-paren fallback, the city dictionary fallback for historical UIAA rows, and the `to_iso3` IFSC→ISO3 normalization), the streaming API client (mocked transport, retry policy, give-up semantics, retry non-duplication), the repository (upsert idempotency, transaction commit/rollback, stale-detection boundary, table-name validation, country backfill), the per-fetcher parse logic (athletes — including federation, speed-PB, paraclimbing sport-class, and cup-rankings expansion; events; competitions including per-round transactional rollback and the four discipline shapes — lead / speed / boulder / combined), the `pull-new` ongoing-only filter, and the CSV exporter (all views, join correctness, `country_iso3` columns, filename format, edge cases).
+140 tests covering: the event-location parser (incl. ISO3 validation, IFSC/IOC variant acceptance, the "Event - Country" no-paren fallback, the city dictionary fallback for historical UIAA rows, and the `to_iso3` IFSC→ISO3 normalization), the streaming API client (mocked transport, retry policy, give-up semantics, retry non-duplication), the repository (upsert idempotency, transaction commit/rollback, stale-detection boundary, table-name validation, country backfill), the per-fetcher parse logic (athletes — including federation, speed-PB, paraclimbing sport-class, and cup-rankings expansion; events; competitions including per-round transactional rollback and the four discipline shapes — lead / speed / boulder / combined), the `pull-new` ongoing-only filter, and the CSV exporter (all views, join correctness, `country_iso3` columns, filename format, edge cases).
 
 ## Notes / known limits
 

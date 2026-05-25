@@ -69,12 +69,14 @@ never deletes data.
 ## 5. Populate
 
 ```bash
-python -m wcl_data pull-new
+python -m wcl_data refresh
 ```
 
 Walks the entity graph (seasons → season_leagues → events → competitions →
-athletes), inserting and hydrating as it goes. **Takes 3–5 minutes** from
-an empty database; subsequent runs only catch what's new.
+athletes), inserting and hydrating as it goes — including the per-round
+tables introduced in ADR 0007 (`category_rounds`, `round_stages`, `routes`,
+`round_results`, `stage_results`, `ascents`). **Takes ~45-90 minutes** on a
+fresh DB; subsequent `pull-new` runs catch only what's new in ~30-60 seconds.
 
 Watch the console: each phase prints its row count and progress. Logs at
 WARNING level are hidden from console by default; add `-v` to see them:

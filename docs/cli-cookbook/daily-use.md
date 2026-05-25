@@ -58,15 +58,15 @@ The nuclear option: every hydratable row is treated as stale, including
 re-extract every event's city/country, after a schema bump (e.g. ADR 0007's
 per-round tables), or once a year for general freshness.
 
-**Note on the per-round backfill:** after the schema migrated to v2 (ADR 0007),
-the per-round tables (`category_rounds`, `round_stages`, `routes`,
-`round_results`, `stage_results`, `ascents`) start empty even for previously-
-hydrated competitions. The `competitions.last_fetched_at` doesn't get cleared
-by the schema upgrade, so running `pull-new` alone won't backfill them — only
-ongoing competitions would be touched. A one-time `refresh --stale-days 0`
-re-hydrates everything and fills the new tables. Plan ~60 minutes for that
-first run; subsequent `pull-new` and `refresh` calls keep the new tables
-in sync automatically.
+**Note on the per-round backfill:** after the per-round tables landed in
+schema v3 (ADR 0007), the new tables (`category_rounds`, `round_stages`,
+`routes`, `round_results`, `stage_results`, `ascents`) start empty even
+for previously-hydrated competitions. The `competitions.last_fetched_at`
+doesn't get cleared by the schema upgrade, so running `pull-new` alone
+won't backfill them — only ongoing competitions would be touched. A
+one-time `refresh --stale-days 0` re-hydrates everything and fills the new
+tables. Plan ~45-90 minutes for that first run; subsequent `pull-new` and
+`refresh` calls keep the new tables in sync automatically.
 
 ## Touch one entity only
 

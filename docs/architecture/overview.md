@@ -55,17 +55,31 @@ and their ranks. The package's tables mirror that tree:
 
 ```
 seasons ──┬── season_leagues ──┐
-          │                    ├── events ── competitions ──┬── athletes
-          └────────────────────┘                            └── results
+          │                    ├── events ── competitions ──┬── athletes ── cup_rankings
+          └────────────────────┘                            ├── results
+                                                            └── category_rounds
+                                                                  ├── round_stages ── stage_results
+                                                                  ├── routes ── ascents
+                                                                  └── round_results
 ```
 
 Five tables are **hydratable** (carry `last_fetched_at`): `seasons`,
-`season_leagues`, `events`, `competitions`, `athletes`. Four are reference data
-(`leagues`, `disciplines`, `categories`) or a derived join (`results`).
-Reference tables don't need staleness because their values are tiny and
-rewritten on every parent hydration; `results` doesn't need staleness because
-it's wiped + reinserted as part of competition hydration (see
-[ADR 0005](../decisions/0005-transactional-boundary-on-competitions.md)).
+`season_leagues`, `events`, `competitions`, `athletes`. The rest of the
+16-table warehouse falls into two non-hydratable groups:
+
+- **Reference tables** (`leagues`, `disciplines`, `categories`) — tiny,
+  rewritten on every parent hydration; no staleness needed.
+- **Derived data** wiped + reinserted as a side effect of a parent's
+  hydration: `results` (per competition — see
+  [ADR 0005](../decisions/0005-transactional-boundary-on-competitions.md));
+  the per-round family added in
+  [ADR 0007](../decisions/0007-per-round-ingestion.md) (`category_rounds`,
+  `round_stages`, `routes`, `round_results`, `stage_results`, `ascents`);
+  and `cup_rankings` (per athlete — see
+  [ADR 0009](../decisions/0009-athletes-payload-expansion.md)).
+
+See [database-and-schema.md](database-and-schema.md) for the full
+table-by-table reference.
 
 Hydration order is **fixed** in `src/wcl_data/fetchers/refresh.py`:
 
@@ -104,7 +118,8 @@ stale. This is why a fresh DB walks the whole tree top-down on the first run.
 
 A full `pull-new` against a current warehouse touches a few hundred rows
 across seasons → events → competitions, hydrates only the brand-new athletes
-discovered along the way, and finishes in 3–5 minutes.
+discovered along the way, and finishes in ~30-60 seconds on a steady-state
+warehouse (a few minutes if a backlog of new athletes has accumulated).
 
 ## Where to go next
 

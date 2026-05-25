@@ -12,7 +12,7 @@ a 36-file reference tree that already documents this codebase end-to-end:
 
 - `docs/contributing.md` — dev setup, tests, code conventions, add-a-fetcher walkthrough
 - `docs/architecture/` — system snapshot (edit in place as code changes)
-- `docs/decisions/` — numbered ADRs 0001-0007, append-only
+- `docs/decisions/` — numbered ADRs 0001-0009, append-only
 - `docs/data-dictionary/` — per-table column reference with coverage stats
 - `docs/cli-cookbook/`, `docs/python-api/`, `docs/operations/` — task-oriented recipes
 
@@ -61,7 +61,7 @@ This repo's primary dev environment is Windows / PowerShell 5.1.
 
 ## ADR convention
 
-`docs/decisions/` is append-only and numbered (currently 0001-0007). If a
+`docs/decisions/` is append-only and numbered (currently 0001-0009). If a
 design decision changes, add a new ADR rather than rewriting an old one.
 Small dated footnote-style notes on an existing ADR are fine when the
 context shifted but the core decision still stands — see the 2026-05-24

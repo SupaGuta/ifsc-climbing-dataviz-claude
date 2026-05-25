@@ -140,9 +140,10 @@ def _cmd_auth(*, dry_run: bool, env_file: Optional[Path]) -> int:
 
     if dry_run:
         print()
-        print("--dry-run: not writing to .env. Lines that would be written:")
-        print(f"  WCL_CSRF_TOKEN={creds.csrf_token}")
-        print(f"  WCL_SESSION_COOKIE={creds.session_cookie}")
+        print("--dry-run: not writing to .env. Tokens truncated for safety; "
+              "rerun without --dry-run to write the full values.")
+        print(f"  WCL_CSRF_TOKEN={creds.csrf_token[:16]}...  ({len(creds.csrf_token)} chars)")
+        print(f"  WCL_SESSION_COOKIE={cookie_name}=...  ({len(creds.session_cookie)} chars)")
         return 0
 
     target = env_file if env_file is not None else REPO_ROOT / ".env"

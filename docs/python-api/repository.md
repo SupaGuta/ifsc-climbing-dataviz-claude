@@ -204,7 +204,10 @@ sync. Returns the number of rows affected on the `country` pass.
 from wcl_data.db.repository import HYDRATABLE_TABLES, ALL_TABLES, TS_FMT, utcnow
 
 HYDRATABLE_TABLES       # ("seasons", "season_leagues", "events", "competitions", "athletes")
-ALL_TABLES              # HYDRATABLE_TABLES + ("leagues", "disciplines", "categories", "results")
+ALL_TABLES              # HYDRATABLE_TABLES + ("leagues", "disciplines", "categories", "results",
+                        #                       "category_rounds", "round_stages", "routes",
+                        #                       "round_results", "stage_results", "ascents",
+                        #                       "cup_rankings")  → 16 entries total
 TS_FMT                  # "%Y-%m-%dT%H:%M:%SZ"
 utcnow()                # current UTC stamp in TS_FMT
 ```

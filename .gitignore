@@ -10,7 +10,10 @@ build/
 dist/
 
 # Environment / secrets
-.env
+.env*
+
+# Personal scratch / review files
+REVIEW.md
 
 # MySQL Workbench backups
 *.bak
@@ -19,11 +22,9 @@ dist/
 *.log
 logs/
 
-# Local SQLite warehouse (built by `wcl-data init` / `refresh`)
-data/*.sqlite
-data/*.sqlite-journal
-data/*.sqlite-wal
-data/*.sqlite-shm
+# Local SQLite warehouse (built by `wcl-data init` / `refresh`).
+# Wildcard catches misnamed backups too (e.g. wcl.20260523.sqlite-copy).
+data/wcl.*
 
 # CSV exports (timestamped, regenerable)
 data/exports/

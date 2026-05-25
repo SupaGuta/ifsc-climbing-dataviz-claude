@@ -61,7 +61,7 @@ SQLite-version changes), export to CSV:
 python -m wcl_data export
 ```
 
-Writes six CSVs to `data/exports/` with timestamped filenames. The
+Writes eight CSVs to `data/exports/` with timestamped filenames. The
 `results_*.csv` is the big one — it's fully denormalized and can
 reconstruct most analytical questions on its own.
 
@@ -72,8 +72,8 @@ Trade-offs vs a SQLite snapshot:
 | Bit-perfect, every row preserved | Pre-joined view — some redundancy, some columns omitted |
 | Restored with a file copy | Restored by re-ingesting (slow) |
 | Binary format | Plain text, greppable, opens anywhere |
-| ~20 MB | ~40 MB for `results`; a few MB for the rest |
-| One file | Six files |
+| ~600 MB (post-ADR 0007 per-round tables) | ~40 MB for `results`; per-round views (`round_results`, `ascents` opt-in) are the bulk |
+| One file | Eight files |
 
 For most "I want yesterday's data back" cases, the `.sqlite` snapshot is
 the right answer. For "I want this data to outlive the project," CSVs are
