@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING, Optional
 from ..api.client import APIClient
 from ..db.repository import Repository
 from ..parsers import event_location
+from ._common import resolve_rows
 from ._logging import ProgressLogger, RateLimitedExceptionLogger
 
 if TYPE_CHECKING:
@@ -29,12 +30,7 @@ def hydrate(
     limit: Optional[int] = None,
 ) -> tuple[int, int]:
     """Pass either `stale_days` (default) or `rows` (used by `pull_new`)."""
-    if rows is None:
-        if stale_days is None:
-            raise ValueError("hydrate() requires either stale_days or rows")
-        rows = repo.find_stale("events", stale_days=stale_days)
-    if limit is not None:
-        rows = rows[:limit]
+    rows = resolve_rows(repo, "events", rows=rows, stale_days=stale_days, limit=limit)
     if not rows:
         return 0, 0
 
@@ -95,9 +91,7 @@ def hydrate(
                     discipline_id = repo.upsert_discipline(discipline_name)
                     # Categories are normally pre-seeded by season_leagues, but make
                     # sure we have one even if a category appears here first.
-                    cat_row = repo.conn.execute(
-                        "SELECT id FROM categories WHERE name = ?", (category_name,)
-                    ).fetchone()
+                    cat_row = repo.find_category_by_name(category_name)
                     category_id = cat_row[0] if cat_row else repo.upsert_category(category_name, None)
 
                     repo.upsert_competition(

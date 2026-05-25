@@ -48,7 +48,7 @@ def test_find_stale_includes_old_rows(memory_db):
     assert any(r["id"] == season_id for r in stale)
 
 
-def test_update_athlete_only_writes_allowed_fields(memory_db):
+def test_update_athlete_writes_allowed_fields(memory_db):
     repo = Repository(memory_db)
     aid = repo.upsert_athlete_skeleton(1364)
     repo.update_athlete(
@@ -56,12 +56,28 @@ def test_update_athlete_only_writes_allowed_fields(memory_db):
         firstname="Adam",
         lastname="ONDRA",
         gender=0,
-        unknown_field="should be ignored",
     )
     row = memory_db.execute("SELECT * FROM athletes WHERE id = ?", (aid,)).fetchone()
     assert row["firstname"] == "Adam"
     assert row["lastname"] == "ONDRA"
     assert row["gender"] == 0
+
+
+def test_update_athlete_raises_on_unknown_field(memory_db):
+    """Typo-bait guard: a misspelled kwarg used to be a silent no-op."""
+    repo = Repository(memory_db)
+    aid = repo.upsert_athlete_skeleton(1364)
+    with pytest.raises(ValueError, match="unknown column"):
+        repo.update_athlete(aid, firstname="Adam", unknown_field="oops")
+
+
+def test_update_event_raises_on_unknown_field(memory_db):
+    """Same typo-bait guard for the events updater."""
+    repo = Repository(memory_db)
+    sid = repo.upsert_season(2024, year=2024)
+    eid = repo.upsert_event_skeleton(1, season_id=sid)
+    with pytest.raises(ValueError, match="unknown column"):
+        repo.update_event(eid, name="X", invalid_col="oops")
 
 
 def test_find_stale_zero_days_returns_recently_fetched_and_null(memory_db):
@@ -205,6 +221,87 @@ def test_validate_table_rejects_unknown_table(memory_db):
         repo.count("not_a_real_table")
     with pytest.raises(ValueError, match="not in allowed set"):
         repo.find_stale("results", stale_days=30)  # results has no last_fetched_at
+
+
+# --- E3 helpers (Phase E): direct unit tests for the 4 methods that replaced
+# inline `repo.conn.execute(...)` sites in the fetchers. Coverage of the
+# fetcher integration tests was only transitive; these pin the contract
+# (empty-table behavior, multi-match nondeterminism, row shape) directly.
+
+
+def test_max_season_ifsc_id_returns_none_on_empty(memory_db):
+    repo = Repository(memory_db)
+    assert repo.max_season_ifsc_id() is None
+
+
+def test_max_season_ifsc_id_returns_highest(memory_db):
+    repo = Repository(memory_db)
+    repo.upsert_season(100)
+    repo.upsert_season(50)
+    repo.upsert_season(200)
+    assert repo.max_season_ifsc_id() == 200
+
+
+def test_find_season_by_year_returns_row(memory_db):
+    repo = Repository(memory_db)
+    sid = repo.upsert_season(7, year=2024)
+    row = repo.find_season_by_year(2024)
+    assert row is not None
+    assert row[0] == sid
+
+
+def test_find_season_by_year_returns_none_when_absent(memory_db):
+    repo = Repository(memory_db)
+    repo.upsert_season(7, year=2024)
+    assert repo.find_season_by_year(1999) is None
+
+
+def test_find_category_by_name_returns_row(memory_db):
+    repo = Repository(memory_db)
+    cid = repo.upsert_category("Men", gender=0)
+    row = repo.find_category_by_name("Men")
+    assert row is not None
+    assert row[0] == cid
+
+
+def test_find_category_by_name_returns_none_when_absent(memory_db):
+    repo = Repository(memory_db)
+    assert repo.find_category_by_name("Nonexistent") is None
+
+
+def test_find_stale_competitions_with_event_ifsc_row_shape(memory_db):
+    """Row shape must be (comp_id, comp_ifsc, event_ifsc) — fetcher contract."""
+    repo = Repository(memory_db)
+    sid = repo.upsert_season(1, year=2024)
+    eid = repo.upsert_event_skeleton(101, season_id=sid)
+    discipline = repo.upsert_discipline("lead")
+    category = repo.upsert_category("Men", gender=0)
+    cid = repo.upsert_competition(
+        event_id=eid, ifsc_id=801, discipline_id=discipline, category_id=category,
+    )
+
+    rows = repo.find_stale_competitions_with_event_ifsc(stale_days=30)
+    assert len(rows) == 1
+    row = rows[0]
+    assert row["comp_id"] == cid
+    assert row["comp_ifsc"] == 801
+    assert row["event_ifsc"] == 101
+
+
+def test_find_stale_competitions_with_event_ifsc_excludes_fresh(memory_db):
+    repo = Repository(memory_db)
+    sid = repo.upsert_season(1, year=2024)
+    eid = repo.upsert_event_skeleton(101, season_id=sid)
+    discipline = repo.upsert_discipline("lead")
+    category = repo.upsert_category("Men", gender=0)
+    cid = repo.upsert_competition(
+        event_id=eid, ifsc_id=801, discipline_id=discipline, category_id=category,
+    )
+    repo.mark_fetched("competitions", cid)
+
+    # stale_days=30 with a just-fetched competition → no rows.
+    rows = repo.find_stale_competitions_with_event_ifsc(stale_days=30)
+    assert rows == []
 
 
 def test_backfill_event_country_from_siblings(memory_db):

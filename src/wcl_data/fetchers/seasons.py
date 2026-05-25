@@ -11,6 +11,7 @@ from typing import TYPE_CHECKING, Optional
 
 from ..api.client import APIClient
 from ..db.repository import Repository
+from ._common import resolve_rows
 from ._logging import ProgressLogger, RateLimitedExceptionLogger
 
 if TYPE_CHECKING:
@@ -24,8 +25,7 @@ INITIAL_PROBE_RANGE = 50  # When the DB is empty, probe 0..N to bootstrap.
 
 def discover(repo: Repository, client: APIClient, *, lookahead: int = DEFAULT_LOOKAHEAD) -> int:
     """Probe new season ifsc_ids past the current max. Returns count of new rows."""
-    row = repo.conn.execute("SELECT MAX(ifsc_id) FROM seasons").fetchone()
-    current_max = row[0]
+    current_max = repo.max_season_ifsc_id()
     if current_max is None:
         candidates = list(range(0, INITIAL_PROBE_RANGE))
     else:
@@ -56,12 +56,7 @@ def hydrate(
     Pass either `stale_days` (default behavior, used by `refresh`/`hydrate`) or
     `rows` (used by `pull_new` to scope to ongoing seasons only).
     """
-    if rows is None:
-        if stale_days is None:
-            raise ValueError("hydrate() requires either stale_days or rows")
-        rows = repo.find_stale("seasons", stale_days=stale_days)
-    if limit is not None:
-        rows = rows[:limit]
+    rows = resolve_rows(repo, "seasons", rows=rows, stale_days=stale_days, limit=limit)
     if not rows:
         return 0, 0
 

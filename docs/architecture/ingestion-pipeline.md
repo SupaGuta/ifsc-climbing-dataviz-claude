@@ -3,11 +3,16 @@
 `wcl_data` exposes three "modes" of ingestion at the CLI: `refresh`,
 `pull-new`, and `hydrate`. All three are thin compositions of the same two
 primitives — **discover** and **hydrate** — applied across the entity graph
-defined in `src/wcl_data/fetchers/refresh.py`:
+defined in `src/wcl_data/db/repository.py`:
 
 ```python
-ENTITIES = ("seasons", "season_leagues", "events", "competitions", "athletes")
+HYDRATABLE_TABLES = ("seasons", "season_leagues", "events", "competitions", "athletes")
 ```
+
+`refresh.ENTITIES` aliases `HYDRATABLE_TABLES`; both names point to the
+same tuple object. The canonical edit site is `HYDRATABLE_TABLES` —
+adding a new entity requires also extending `_FETCHER_MODULES` in
+`refresh.py` (an `assert` at module-load enforces the pairing).
 
 This document explains those two primitives and how the three CLI modes combine
 them.
@@ -124,14 +129,15 @@ have no parent).
 
 ## Order matters
 
-The `ENTITIES` order isn't just an enumeration — it's the topological
-dependency order. `season_leagues` need seasons to exist; `events` are
-discovered via both seasons and season_leagues; `competitions` need events;
-results+athletes need competitions. Running the phases out of order would
-either skip new children or leave dangling FKs.
+The `HYDRATABLE_TABLES` order isn't just an enumeration — it's the
+topological dependency order. `season_leagues` need seasons to exist;
+`events` are discovered via both seasons and season_leagues; `competitions`
+need events; results+athletes need competitions. Running the phases out of
+order would either skip new children or leave dangling FKs.
 
-The orchestrator hard-codes the order in `refresh.py`. Per-entity fetchers
-never call each other directly — they only read from / write to the DB.
+The orchestrator hard-codes the order in `refresh.py` (`refresh_all` and
+`pull_new` enumerate the phases explicitly). Per-entity fetchers never
+call each other directly — they only read from / write to the DB.
 
 ## Where to add a new entity
 
@@ -143,8 +149,11 @@ is:
    `src/wcl_data/db/repository.py`.
 3. Add `src/wcl_data/fetchers/<entity>.py` with the same `hydrate(repo,
    client, *, stale_days, limit)` signature as the existing ones.
-4. Add the entity to the `ENTITIES` tuple in `refresh.py` and wire it into
-   `refresh_all`, `pull_new`, and `hydrate_entity`.
+4. Add the entity name to `HYDRATABLE_TABLES` in `repository.py` (the
+   canonical tuple; `refresh.ENTITIES` aliases it), add the new fetcher
+   module to `_FETCHER_MODULES` in `refresh.py` (a module-load `assert`
+   enforces the pairing), and wire it into `refresh_all` and `pull_new`.
+   `hydrate_entity` dispatches via `_FETCHER_MODULES` automatically.
 5. If the entity has a parent, modify the parent's fetcher to insert
    skeletons (cascade discovery). If not, add a `discover()` probe like
    `seasons.discover`.

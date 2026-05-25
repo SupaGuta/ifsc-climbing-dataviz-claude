@@ -55,6 +55,34 @@ For custom queries that need the same cutoff format:
 cutoff = repo.stale_cutoff(30)              # 'YYYY-MM-DDTHH:MM:SSZ'
 ```
 
+`find_stale_competitions_with_event_ifsc` is a specialized variant for the
+`competitions` table — it joins through `events` to surface the event's
+`ifsc_id` alongside each stale competition:
+
+```python
+rows = repo.find_stale_competitions_with_event_ifsc(stale_days=30)
+# → list[sqlite3.Row] with comp_id / comp_ifsc / event_ifsc columns
+```
+
+Used by `competitions.hydrate` to build the
+`/events/{event_ifsc}/result/{comp_ifsc}` request paths without a per-row
+follow-up query. Row shape matches `find_ongoing_competitions` so both
+sources are interchangeable as `rows=` arguments to `competitions.hydrate`.
+
+## Lookups by natural key
+
+```python
+repo.max_season_ifsc_id()                       # → Optional[int]; None on empty
+repo.find_season_by_year(2024)                  # → Optional[sqlite3.Row] with `id` column
+repo.find_category_by_name("Men")               # → Optional[sqlite3.Row] with `id` column
+```
+
+`max_season_ifsc_id` returns the highest `seasons.ifsc_id` seen so far —
+used by `seasons.discover` to choose the lookahead range. `find_season_by_year`
+and `find_category_by_name` are non-unique lookups (neither `year` nor
+category `name` are UNIQUE in the schema); with multiple matches the first
+arbitrary row wins (callers are expected to handle the None case).
+
 ## Finding ongoing rows
 
 For `pull-new`'s ongoing-only scope (see
@@ -131,20 +159,32 @@ repo.update_athlete(athlete_id,
                     birthday="1999-03-12")
 ```
 
-`update_*` methods use a whitelist of allowed field names; unknown keys are
-silently ignored. Calling with no recognized fields is a no-op.
+`update_*` methods use a whitelist of allowed field names. **Unknown keys
+raise `ValueError`** — a typo-bait guard. Calling with no recognized fields
+is a no-op.
 
-The allowed fields are:
+> ⚠ `update_event` / `update_athlete` are commonly invoked inside
+> `with repo.transaction():` — an unknown kwarg raises mid-transaction and
+> rolls back every other write in the same block. Treat the allowed sets as
+> coupled to your fetcher's kwarg keys: extending one means extending the
+> other.
 
-- **`update_event`** — `name`, `city`, `country`, `country_iso3`,
-  `date_start`, `date_end`, `is_paraclimbing`.
-- **`update_athlete`** — `firstname`, `lastname`, `gender`, `height`,
-  `arm_span`, `birthday`, `city`, `country`, `country_iso3`, `photo_url`,
-  `federation_id`, `federation_name`, `federation_abbreviation`,
-  `federation_url`, `paraclimbing_sport_class`, `sport_class_status`,
-  `sport_class_review_date`, `speed_pb_time`, `speed_pb_date`,
-  `speed_pb_event_name`, `speed_pb_round_name`. (The v3-era
-  `is_paraclimbing` kwarg was dropped in v4 — see
+The allowed-column sets are exported as frozensets so tests and callers can
+introspect them:
+
+```python
+from wcl_data.db.repository import UPDATE_EVENT_ALLOWED, UPDATE_ATHLETE_ALLOWED
+```
+
+- **`update_event` / `UPDATE_EVENT_ALLOWED`** — `name`, `city`, `country`,
+  `country_iso3`, `date_start`, `date_end`, `is_paraclimbing`.
+- **`update_athlete` / `UPDATE_ATHLETE_ALLOWED`** — `firstname`, `lastname`,
+  `gender`, `height`, `arm_span`, `birthday`, `city`, `country`,
+  `country_iso3`, `photo_url`, `federation_id`, `federation_name`,
+  `federation_abbreviation`, `federation_url`, `paraclimbing_sport_class`,
+  `sport_class_status`, `sport_class_review_date`, `speed_pb_time`,
+  `speed_pb_date`, `speed_pb_event_name`, `speed_pb_round_name`. (The
+  v3-era `is_paraclimbing` kwarg was dropped in v4 — see
   [ADR 0009](../decisions/0009-athletes-payload-expansion.md).)
 
 `country_iso3` is the canonical ISO 3166-1 alpha-3 sibling of `country`
@@ -204,10 +244,14 @@ sync. Returns the number of rows affected on the `country` pass.
 from wcl_data.db.repository import HYDRATABLE_TABLES, ALL_TABLES, TS_FMT, utcnow
 
 HYDRATABLE_TABLES       # ("seasons", "season_leagues", "events", "competitions", "athletes")
-ALL_TABLES              # HYDRATABLE_TABLES + ("leagues", "disciplines", "categories", "results",
-                        #                       "category_rounds", "round_stages", "routes",
-                        #                       "round_results", "stage_results", "ascents",
-                        #                       "cup_rankings")  → 16 entries total
+ALL_TABLES              # ("seasons", "leagues", "season_leagues", "disciplines",
+                        #  "categories", "events", "competitions", "athletes", "results",
+                        #  "category_rounds", "round_stages", "routes",
+                        #  "round_results", "stage_results", "ascents", "cup_rankings")
+                        # → 16 entries total, ordered hierarchically (parents → children
+                        #   → derived) so `wcl-data status` reads top-to-bottom as the
+                        #   ingestion graph. HYDRATABLE_TABLES ⊂ ALL_TABLES (a module-load
+                        #   assert pins this).
 TS_FMT                  # "%Y-%m-%dT%H:%M:%SZ"
 utcnow()                # current UTC stamp in TS_FMT
 ```

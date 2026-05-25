@@ -18,14 +18,43 @@ HYDRATABLE_TABLES = (
     "seasons", "season_leagues", "events", "competitions", "athletes",
 )
 
-# All tables — used as the whitelist for generic queries that take a table name.
+# All tables — used as the whitelist for generic queries that take a table name
+# AND as the iteration order for `wcl-data status`. Ordered hierarchically
+# (parents → children → derived) rather than "hydratables first" so the status
+# table reads top-to-bottom as the ingestion graph. HYDRATABLE_TABLES ⊂ ALL_TABLES.
 ALL_TABLES = (
-    *HYDRATABLE_TABLES,
-    "leagues", "disciplines", "categories", "results",
+    "seasons", "leagues", "season_leagues", "disciplines",
+    "categories", "events", "competitions", "athletes", "results",
     "category_rounds", "round_stages", "routes",
-    "round_results", "stage_results", "ascents",
-    "cup_rankings",
+    "round_results", "stage_results", "ascents", "cup_rankings",
 )
+
+# Module-load invariant: every hydratable must appear in ALL_TABLES so that
+# generic helpers like `count()` / `mark_fetched()` don't silently reject a
+# newly-added entity. The hand-enumerated ALL_TABLES (chosen for hierarchical
+# display order) trades the previous `(*HYDRATABLE_TABLES, ...)` auto-derive
+# for this explicit assertion.
+assert set(HYDRATABLE_TABLES) <= set(ALL_TABLES), (
+    f"HYDRATABLE_TABLES {sorted(HYDRATABLE_TABLES)} not a subset of "
+    f"ALL_TABLES {sorted(ALL_TABLES)}"
+)
+
+# Public allowed-column sets for the per-row update helpers below. Hoisted to
+# module level so callers (athletes.hydrate / events.hydrate) can introspect
+# them, and so test suites can pin "hydrate's kwargs ⊆ allowed columns" — the
+# strict raise in update_event/update_athlete is unforgiving inside
+# `with repo.transaction():` (a typo'd kwarg rolls back the whole iteration).
+UPDATE_EVENT_ALLOWED: frozenset[str] = frozenset({
+    "name", "city", "country", "country_iso3",
+    "date_start", "date_end", "is_paraclimbing",
+})
+UPDATE_ATHLETE_ALLOWED: frozenset[str] = frozenset({
+    "firstname", "lastname", "gender", "height", "arm_span",
+    "birthday", "city", "country", "country_iso3", "photo_url",
+    "federation_id", "federation_name", "federation_abbreviation", "federation_url",
+    "paraclimbing_sport_class", "sport_class_status", "sport_class_review_date",
+    "speed_pb_time", "speed_pb_date", "speed_pb_event_name", "speed_pb_round_name",
+})
 
 # ISO-8601 with explicit Z so downstream consumers never have to guess UTC.
 # Lexicographically sortable, so TEXT comparison in find_stale still works.
@@ -170,6 +199,46 @@ class Repository:
             (cutoff,),
         ))
 
+    def find_stale_competitions_with_event_ifsc(self, stale_days: int) -> list[sqlite3.Row]:
+        """Competitions never fetched (or older than `stale_days`), joined with their event's ifsc_id.
+
+        Shape mirrors `find_ongoing_competitions` — `(comp_id, comp_ifsc, event_ifsc)`
+        — so competitions.hydrate can accept either source via its `rows=` kwarg.
+        """
+        cutoff = self.stale_cutoff(stale_days)
+        return list(self.conn.execute(
+            "SELECT c.id AS comp_id, c.ifsc_id AS comp_ifsc, e.ifsc_id AS event_ifsc "
+            "FROM competitions c JOIN events e ON c.event_id = e.id "
+            "WHERE c.last_fetched_at IS NULL OR c.last_fetched_at < ? "
+            "ORDER BY c.id ASC",
+            (cutoff,),
+        ))
+
+    def max_season_ifsc_id(self) -> Optional[int]:
+        """Highest seasons.ifsc_id seen so far, or None on an empty table.
+
+        Used by `seasons.discover` to bound the lookahead probe past the current max.
+        """
+        row = self.conn.execute("SELECT MAX(ifsc_id) FROM seasons").fetchone()
+        return row[0] if row else None
+
+    def find_season_by_year(self, year: int) -> Optional[sqlite3.Row]:
+        """Look up a season by calendar `year` (the seasons.year column).
+
+        Returns None if no season with that year exists — callers must handle
+        the missing-parent case explicitly (season_leagues.hydrate currently
+        skips writes and retries on the next pass).
+        """
+        return self.conn.execute(
+            "SELECT id FROM seasons WHERE year = ?", (year,),
+        ).fetchone()
+
+    def find_category_by_name(self, name: str) -> Optional[sqlite3.Row]:
+        """Look up a category by its `name` column. Returns None if absent."""
+        return self.conn.execute(
+            "SELECT id FROM categories WHERE name = ?", (name,),
+        ).fetchone()
+
     # ----------------------------------------------------------------- Seasons
 
     def upsert_season(self, ifsc_id: int, *, year: Optional[int] = None) -> int:
@@ -274,10 +343,23 @@ class Repository:
         return row[0]
 
     def update_event(self, row_id: int, **fields: Any) -> None:
-        allowed = {"name", "city", "country", "country_iso3", "date_start", "date_end", "is_paraclimbing"}
-        cols = [k for k in fields if k in allowed]
-        if not cols:
+        """Partial update by column name; see `UPDATE_EVENT_ALLOWED`.
+
+        Strict whitelist — unknown kwargs raise `ValueError`. Production callers
+        spell out every column explicitly, so this is a typo guard for future
+        callers. CAUTION: called from inside `with repo.transaction():`, an
+        unknown kwarg rolls back the entire transaction (every other write in
+        the same block).
+        """
+        unknown = set(fields) - UPDATE_EVENT_ALLOWED
+        if unknown:
+            raise ValueError(
+                f"update_event got unknown column(s): {sorted(unknown)}; "
+                f"allowed: {sorted(UPDATE_EVENT_ALLOWED)}"
+            )
+        if not fields:
             return
+        cols = list(fields)
         sets = ", ".join(f"{c} = ?" for c in cols)
         values = [fields[c] for c in cols] + [row_id]
         self.conn.execute(f"UPDATE events SET {sets} WHERE id = ?", values)
@@ -354,16 +436,20 @@ class Repository:
         return row[0]
 
     def update_athlete(self, row_id: int, **fields: Any) -> None:
-        allowed = {
-            "firstname", "lastname", "gender", "height", "arm_span",
-            "birthday", "city", "country", "country_iso3", "photo_url",
-            "federation_id", "federation_name", "federation_abbreviation", "federation_url",
-            "paraclimbing_sport_class", "sport_class_status", "sport_class_review_date",
-            "speed_pb_time", "speed_pb_date", "speed_pb_event_name", "speed_pb_round_name",
-        }
-        cols = [k for k in fields if k in allowed]
-        if not cols:
+        """Partial update by column name; see `UPDATE_ATHLETE_ALLOWED`.
+
+        Strict whitelist; see `update_event` for the rationale and the
+        in-transaction-rollback caveat.
+        """
+        unknown = set(fields) - UPDATE_ATHLETE_ALLOWED
+        if unknown:
+            raise ValueError(
+                f"update_athlete got unknown column(s): {sorted(unknown)}; "
+                f"allowed: {sorted(UPDATE_ATHLETE_ALLOWED)}"
+            )
+        if not fields:
             return
+        cols = list(fields)
         sets = ", ".join(f"{c} = ?" for c in cols)
         values = [fields[c] for c in cols] + [row_id]
         self.conn.execute(f"UPDATE athletes SET {sets} WHERE id = ?", values)

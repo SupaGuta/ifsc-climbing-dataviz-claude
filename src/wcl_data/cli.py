@@ -226,7 +226,7 @@ def _cmd_auth(*, dry_run: bool, env_file: Optional[Path]) -> int:
 
 
 def _cmd_status(settings) -> int:
-    from .db.repository import HYDRATABLE_TABLES
+    from .db.repository import ALL_TABLES, HYDRATABLE_TABLES
 
     conn = open_db(settings.db_path)
     try:
@@ -235,12 +235,7 @@ def _cmd_status(settings) -> int:
         print(f"schema_version: {repo.schema_version()}")
         print()
         print(f"{'table':<20} {'rows':>10} {'hydrated':>10} {'last_hydrated':>14}")
-        for table in (
-            "seasons", "leagues", "season_leagues", "disciplines",
-            "categories", "events", "competitions", "athletes", "results",
-            "category_rounds", "round_stages", "routes",
-            "round_results", "stage_results", "ascents", "cup_rankings",
-        ):
+        for table in ALL_TABLES:
             total = repo.count(table)
             hydrated = "-"
             last_hydrated = "-"

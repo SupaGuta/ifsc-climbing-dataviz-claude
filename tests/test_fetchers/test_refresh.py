@@ -147,3 +147,97 @@ def test_pull_new_grace_days_zero_excludes_recently_ended(memory_db):
     # Default grace would have included 3001; strict mode excludes it.
     assert 3001 not in client._events_requested
     assert (3001, 4001) not in client._comps_requested
+
+
+# --- hydrate_entity dispatch + discovery wiring (Phase E hardening) ---
+#
+# The `_FETCHER_MODULES` / `_DISCOVERY_ENTITIES` machinery is what determines
+# which entities get a discover() probe before hydrate(). Pre-Phase-E this
+# was a hardcoded if/elif chain; post-Phase-E the discover dispatch resolves
+# via attribute lookup on the entity's own module. These tests pin both: the
+# dispatch fires for seasons (discovery + hydrate), and does NOT fire for
+# non-discovery entities (hydrate only).
+
+
+def test_hydrate_entity_seasons_runs_discover_then_hydrate(memory_db, monkeypatch):
+    """For seasons: discover() must run BEFORE hydrate() in a single call."""
+    from wcl_data.fetchers import seasons as seasons_mod
+
+    calls: list[str] = []
+
+    def fake_discover(repo, client, **_kw):
+        calls.append("discover")
+        return 0
+
+    def fake_hydrate(repo, client, *, stale_days=None, rows=None, limit=None):
+        calls.append("hydrate")
+        return 0, 0
+
+    monkeypatch.setattr(seasons_mod, "discover", fake_discover)
+    monkeypatch.setattr(seasons_mod, "hydrate", fake_hydrate)
+
+    repo = Repository(memory_db)
+    client = MagicMock()
+    refresh_orchestrator.hydrate_entity(repo, client, "seasons", stale_days=0)
+
+    assert calls == ["discover", "hydrate"]
+
+
+def test_hydrate_entity_non_discovery_skips_discover(memory_db, monkeypatch):
+    """For events: only hydrate() runs — no discover probe."""
+    from wcl_data.fetchers import events as events_mod
+
+    calls: list[str] = []
+
+    def fake_hydrate(repo, client, *, stale_days=None, rows=None, limit=None):
+        calls.append("hydrate")
+        return 0, 0
+
+    monkeypatch.setattr(events_mod, "hydrate", fake_hydrate)
+    # Patch events.discover too: if hydrate_entity ever wrongly called it,
+    # we'd see "discover" in the list. (events has no .discover today; this
+    # patch is a guard for future regressions.)
+    monkeypatch.setattr(events_mod, "discover", lambda *a, **kw: calls.append("discover"), raising=False)
+
+    repo = Repository(memory_db)
+    client = MagicMock()
+    refresh_orchestrator.hydrate_entity(repo, client, "events", stale_days=0)
+
+    assert calls == ["hydrate"]
+
+
+def test_hydrate_entity_honors_monkeypatched_hydrate(memory_db, monkeypatch):
+    """Module-attribute dispatch means a runtime patch of competitions.hydrate
+    is observed through hydrate_entity. Pins the late-binding contract — see
+    `_FETCHER_MODULES` (Phase E hardening): if a future refactor switches back
+    to capturing function references at import time, this test fails.
+    """
+    from wcl_data.fetchers import competitions as competitions_mod
+
+    sentinel = (42, 7)
+
+    def fake_hydrate(repo, client, *, stale_days=None, rows=None, limit=None):
+        return sentinel
+
+    monkeypatch.setattr(competitions_mod, "hydrate", fake_hydrate)
+
+    repo = Repository(memory_db)
+    client = MagicMock()
+    result = refresh_orchestrator.hydrate_entity(
+        repo, client, "competitions", stale_days=0,
+    )
+    assert result == sentinel
+
+
+def test_hydrate_entity_unknown_entity_lists_actual_whitelist(memory_db):
+    """Error message must list `_FETCHER_MODULES.keys()` — the actual gate —
+    not a stale source. Pins the fix for the self-contradicting-message bug
+    where a name in HYDRATABLE_TABLES but not in _FETCHER_MODULES used to
+    appear in the 'Choose from (...)' suffix.
+    """
+    import pytest as _pytest
+
+    repo = Repository(memory_db)
+    client = MagicMock()
+    with _pytest.raises(ValueError, match=r"Unknown entity 'judges'"):
+        refresh_orchestrator.hydrate_entity(repo, client, "judges", stale_days=0)

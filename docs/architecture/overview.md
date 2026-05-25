@@ -99,11 +99,14 @@ Five tables are **hydratable** (carry `last_fetched_at`): `seasons`,
 See [database-and-schema.md](database-and-schema.md) for the full
 table-by-table reference.
 
-Hydration order is **fixed** in `src/wcl_data/fetchers/refresh.py`:
+Hydration order is **fixed** in `src/wcl_data/db/repository.py`:
 
 ```python
-ENTITIES = ("seasons", "season_leagues", "events", "competitions", "athletes")
+HYDRATABLE_TABLES = ("seasons", "season_leagues", "events", "competitions", "athletes")
 ```
+
+`refresh.ENTITIES` is an alias for this tuple — both names point to the
+same object. The canonical edit site is `HYDRATABLE_TABLES`.
 
 Each phase can *create* skeleton rows for the next phase (e.g. hydrating a
 season inserts `season_league` and `event` skeletons with NULL

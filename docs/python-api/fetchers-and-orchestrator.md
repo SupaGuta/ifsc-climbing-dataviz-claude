@@ -66,26 +66,30 @@ ok, fail = refresh.hydrate_entity(repo, client, "athletes", stale_days=30)
 ok, fail = refresh.hydrate_entity(repo, client, "events", stale_days=0, limit=100)
 ```
 
-Runs one phase only. `entity` must be one of `refresh.ENTITIES`:
+Runs one phase only. `entity` must be one of `refresh.ENTITIES` (an alias
+for `wcl_data.db.repository.HYDRATABLE_TABLES`):
 
 ```python
 refresh.ENTITIES        # ("seasons", "season_leagues", "events", "competitions", "athletes")
 ```
 
 `hydrate_entity("seasons", ...)` also runs `seasons.discover` first
-(seasons have no parent endpoint).
+(seasons have no parent endpoint). Entities with a discovery probe are
+tracked in `refresh._DISCOVERY_ENTITIES`; the orchestrator dispatches
+through `refresh._FETCHER_MODULES[entity].discover(...)` so a future
+entity that gains a `discover()` callable is wired in by adding its name
+to both `_FETCHER_MODULES` and `_DISCOVERY_ENTITIES`.
 
 ## Per-fetcher entry points
 
 Each fetcher module exposes a `hydrate(repo, client, *, stale_days=None,
-rows=None, limit=None)` with identical signature, and `seasons`
-additionally exposes `discover`. Pass either `stale_days=` (default
-behavior — fetcher calls `repo.find_stale` internally) or `rows=` (caller
-supplies the work list). `pull_new` uses the `rows=` mode to scope to
-ongoing containers; `refresh` / `hydrate_entity` use `stale_days=`.
-
-`athletes.hydrate` does **not** accept `rows=` — it always goes through
-`find_stale` with the NULL-only trick.
+rows=None, limit=None)` with identical signature (the `rows=`/`stale_days=`
+resolution is centralized in `wcl_data.fetchers._common.resolve_rows`);
+`seasons` additionally exposes `discover`. Pass either `stale_days=`
+(default — fetcher calls the canonical stale-rows source for the table) or
+`rows=` (caller supplies the work list, which is shape-checked against the
+table's expected column set). `pull_new` uses `rows=`; `refresh` /
+`hydrate_entity` use `stale_days=`.
 
 ```python
 from wcl_data.fetchers import seasons, season_leagues, events, competitions, athletes

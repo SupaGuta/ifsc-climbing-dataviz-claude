@@ -505,6 +505,54 @@ def test_lazy_combined_fallback_writes_kind(memory_db):
     assert kinds == {"boulder", "lead"}, f"expected both kinds, got {kinds}"
 
 
+def test_combined_stages_missing_stage_name_dedupes_to_single_row(memory_db):
+    """When an athlete's combined_stages has two entries both lacking
+    `stage_name`, the second one must REUSE the round_stages row allocated by
+    the first (via the empty-string sentinel in combined_stage_by_kind) rather
+    than allocating a duplicate. Pre-Phase-E this leaked one fresh round_stages
+    row per None-named entry; the sentinel collapses them.
+    """
+    repo, comp_id = _seed_competition(memory_db, discipline="boulder&lead")
+    payload = {
+        "event": "combined null-name dedup",
+        "dcat": "BOULDER&LEAD Men",
+        # Phase A intentionally empty so phase B allocates the fallback stages.
+        "category_rounds": [],
+        "ranking": [
+            {
+                "athlete_id": 42,
+                "rank": 1,
+                "rounds": [
+                    {
+                        "category_round_id": 9000,
+                        "round_name": "Final",
+                        "rank": 1,
+                        "score": "100",
+                        # Two combined-stage entries, both with stage_name omitted.
+                        "combined_stages": [
+                            {"stage_rank": 1, "stage_score": "50", "ascents": []},
+                            {"stage_rank": 2, "stage_score": "75", "ascents": []},
+                        ],
+                    }
+                ],
+            }
+        ],
+    }
+    client = _stub_client_payload(payload)
+    ok, fail = competitions_fetcher.hydrate(repo, client, stale_days=0)
+    assert (ok, fail) == (1, 0)
+
+    # Exactly one round_stages row under the lazily-created round 9000 —
+    # both None-named sub-stages collapse to the same stage via the sentinel.
+    n_stages = memory_db.execute(
+        "SELECT COUNT(*) FROM round_stages rs "
+        "JOIN category_rounds cr ON rs.category_round_id = cr.id "
+        "WHERE cr.competition_id = ? AND cr.ifsc_id = 9000",
+        (comp_id,),
+    ).fetchone()[0]
+    assert n_stages == 1, f"Expected 1 round_stage, got {n_stages}"
+
+
 def test_speed_seq_recognizes_canonical_names():
     """The 5 canonical heat names map to seq 0-4."""
     assert competitions_fetcher._speed_seq("1/8") == 0

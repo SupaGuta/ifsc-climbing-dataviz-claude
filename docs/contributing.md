@@ -99,12 +99,21 @@ The full checklist:
    `repo.upsert_<entity>_skeleton(...)` so the new table gets populated.
 
 5. **Orchestrator** — in `src/wcl_data/fetchers/refresh.py`:
-   - Add the entity to the `ENTITIES` tuple.
-   - Import the new module and add it to `refresh_all`, `pull_new`, and
-     `hydrate_entity`.
+   - Add the entity name to `HYDRATABLE_TABLES` in
+     `src/wcl_data/db/repository.py` (the canonical tuple — `refresh.ENTITIES`
+     is an alias).
+   - Import the new fetcher module and add it to `_FETCHER_MODULES`. A
+     module-load `assert` pins `set(_FETCHER_MODULES) == set(HYDRATABLE_TABLES)`,
+     so a half-applied change fails at import.
+   - Wire the new entity into `refresh_all` and `pull_new` (the per-phase
+     `_run_phase` calls). `hydrate_entity` dispatches via `_FETCHER_MODULES`
+     automatically.
+   - If the new entity has a discovery probe (a top-level `discover(repo,
+     client)` callable in its module), add its name to `_DISCOVERY_ENTITIES`.
 
 6. **CLI** — `src/wcl_data/cli.py`'s `hydrate` subcommand reads its
-   `choices` from `ENTITIES`, so it picks up the new entity automatically.
+   `choices` from `refresh.ENTITIES` (= `HYDRATABLE_TABLES`), so it picks up
+   the new entity automatically once step 5 is done.
 
 7. **Tests** — add a `tests/test_fetchers/test_<entity>.py` with a
    captured-fixture JSON in `tests/fixtures/`. The existing tests are good

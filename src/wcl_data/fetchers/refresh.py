@@ -2,15 +2,60 @@
 from __future__ import annotations
 
 import logging
+from types import ModuleType
 from typing import Callable, Optional
 
 from ..api.client import APIClient, AuthFailureAbort
-from ..db.repository import Repository
+from ..db.repository import HYDRATABLE_TABLES, Repository
 from . import athletes, competitions, events, season_leagues, seasons
 
 log = logging.getLogger(__name__)
 
-ENTITIES = ("seasons", "season_leagues", "events", "competitions", "athletes")
+# Re-export under the historical name. ENTITIES is the order of hydration in
+# `refresh_all` / `pull_new` and is referenced by the CLI's `hydrate` choices
+# argument; the canonical definition lives on Repository so we don't keep two
+# tuples in sync. See docs/python-api/fetchers-and-orchestrator.md.
+ENTITIES = HYDRATABLE_TABLES
+
+# Per-entity dispatch table. Keyed by the same names as HYDRATABLE_TABLES;
+# values are the fetcher MODULES (not bound functions) so `hydrate_entity`
+# can resolve `.hydrate` / `.discover` via attribute lookup at call time —
+# this keeps the dispatch monkeypatch-friendly (a test that does
+# `monkeypatch.setattr(fetchers.seasons, "hydrate", mock)` is honored by both
+# the direct call sites in pull_new/refresh_all AND through hydrate_entity).
+#
+# The module-valued dict also avoids hiding signature drift behind
+# `Callable[..., tuple[int, int]]`: each call site spells out `.hydrate(...)`
+# so the caller sees the actual function signature.
+_FETCHER_MODULES: dict[str, ModuleType] = {
+    "seasons": seasons,
+    "season_leagues": season_leagues,
+    "events": events,
+    "competitions": competitions,
+    "athletes": athletes,
+}
+
+# Entities whose hydrate pass is preceded by a separate discovery probe.
+# Today only seasons has a `.discover(repo, client)` hook; adding more entities
+# to this set is the supported extension point (each entity's own module must
+# expose a top-level `discover(repo, client)` callable — AttributeError on a
+# misconfigured set is the fail-fast intended behavior).
+_DISCOVERY_ENTITIES: frozenset[str] = frozenset({"seasons"})
+
+# Module-load invariants: pin the dispatch tables against HYDRATABLE_TABLES
+# so the three sources of truth (HYDRATABLE_TABLES, _FETCHER_MODULES,
+# _DISCOVERY_ENTITIES) can't silently drift. A new hydratable entity added to
+# HYDRATABLE_TABLES without a corresponding _FETCHER_MODULES entry trips this
+# assert at import — fail-fast, before any CLI invocation reaches the
+# misleading "Unknown entity X. Choose from (...X...)" runtime error.
+assert set(_FETCHER_MODULES) == set(HYDRATABLE_TABLES), (
+    f"_FETCHER_MODULES keys {sorted(_FETCHER_MODULES)} != "
+    f"HYDRATABLE_TABLES {sorted(HYDRATABLE_TABLES)}"
+)
+assert _DISCOVERY_ENTITIES <= set(_FETCHER_MODULES), (
+    f"_DISCOVERY_ENTITIES {sorted(_DISCOVERY_ENTITIES)} not subset of "
+    f"_FETCHER_MODULES {sorted(_FETCHER_MODULES)}"
+)
 
 
 def _run_phase(
@@ -120,15 +165,16 @@ def hydrate_entity(
     stale_days: int,
     limit: Optional[int] = None,
 ) -> tuple[int, int]:
-    if entity == "seasons":
-        seasons.discover(repo, client)
-        return seasons.hydrate(repo, client, stale_days=stale_days, limit=limit)
-    if entity == "season_leagues":
-        return season_leagues.hydrate(repo, client, stale_days=stale_days, limit=limit)
-    if entity == "events":
-        return events.hydrate(repo, client, stale_days=stale_days, limit=limit)
-    if entity == "competitions":
-        return competitions.hydrate(repo, client, stale_days=stale_days, limit=limit)
-    if entity == "athletes":
-        return athletes.hydrate(repo, client, stale_days=stale_days, limit=limit)
-    raise ValueError(f"Unknown entity {entity!r}. Choose from {ENTITIES}.")
+    if entity not in _FETCHER_MODULES:
+        raise ValueError(
+            f"Unknown entity {entity!r}. "
+            f"Choose from {tuple(_FETCHER_MODULES)}."
+        )
+    mod = _FETCHER_MODULES[entity]
+    if entity in _DISCOVERY_ENTITIES:
+        # Each entity in _DISCOVERY_ENTITIES owns its own .discover(repo, client)
+        # — adding a new entity to the set requires giving its module a
+        # `discover` callable. AttributeError on a misconfigured set is the
+        # intended fail-fast.
+        mod.discover(repo, client)
+    return mod.hydrate(repo, client, stale_days=stale_days, limit=limit)

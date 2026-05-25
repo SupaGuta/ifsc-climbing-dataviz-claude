@@ -16,6 +16,7 @@ from typing import TYPE_CHECKING, Any, Optional, cast
 
 from ..api.client import APIClient
 from ..db.repository import Repository
+from ._common import resolve_rows
 from ._logging import ProgressLogger, RateLimitedExceptionLogger
 
 if TYPE_CHECKING:
@@ -241,8 +242,11 @@ def _process_category_rounds(
                     combined_stage_ifsc_id=cs.get("id"),
                 )
                 stages_for_round[seq] = stage_local
-                if cs_kind:
-                    kind_index[cs_kind.lower()] = stage_local
+                # Empty-string sentinel for missing `kind` mirrors the
+                # per-athlete `_ingest_combined_round` index_key shape, so
+                # entries with kind=None still resolve via the index instead
+                # of allocating duplicate round_stages rows in phase B.
+                kind_index[cs_kind.lower() if cs_kind else ""] = stage_local
         else:
             # Default stage seq=0; populated lazily on first use in phase B
             # (we avoid creating it for empty rounds with no athletes).
@@ -320,6 +324,144 @@ def _ensure_speed_stage(
     return stages[seq]
 
 
+def _ingest_speed_round(
+    repo: Repository,
+    *,
+    comp_id: int,
+    athlete_id: int,
+    cr_local: int,
+    elim_stages: list[dict[str, Any]],
+    route_id_by_ifsc: dict[int, int],
+    stage_local_by_round: dict[int, dict[int, int]],
+) -> None:
+    """Per-athlete speed-final body: one stage_result + one set of ascents per heat."""
+    for heat in elim_stages:
+        if not isinstance(heat, dict):
+            continue
+        stage_local = _ensure_speed_stage(
+            repo,
+            cr_local=cr_local,
+            heat=heat,
+            stage_local_by_round=stage_local_by_round,
+        )
+        repo.upsert_stage_result(
+            competition_id=comp_id,
+            round_stage_id=stage_local,
+            athlete_id=athlete_id,
+            rank=None,
+            score=_norm_score(heat.get("score")),
+            time_ms=heat.get("time"),
+            winner=_to_int_bool(heat.get("winner")),
+        )
+        _ingest_ascents(
+            repo,
+            ascents=heat.get("ascents") or [],
+            competition_id=comp_id,
+            round_stage_id=stage_local,
+            athlete_id=athlete_id,
+            route_id_by_ifsc=route_id_by_ifsc,
+            category_round_id=cr_local,
+        )
+
+
+def _ingest_combined_round(
+    repo: Repository,
+    *,
+    comp_id: int,
+    athlete_id: int,
+    cr_local: int,
+    combined_stages: list[dict[str, Any]],
+    route_id_by_ifsc: dict[int, int],
+    stage_local_by_round: dict[int, dict[int, int]],
+    combined_stage_by_kind: dict[int, dict[str, int]],
+) -> None:
+    """Per-athlete combined body: match sub-stages to structural stages by kind."""
+    for stage in combined_stages:
+        if not isinstance(stage, dict):
+            continue
+        # Match per-athlete sub-stages to the structural stages by
+        # `stage_name` ↔ `kind` (case-insensitive) rather than by enumerate
+        # position — positions can diverge if an athlete only competed in
+        # some of the sub-stages.
+        stage_name = stage.get("stage_name")
+        kind_key = stage_name.lower() if stage_name else None
+        # Empty-string sentinel for missing stage_name so the kind index can
+        # still record the allocated stage. Without this, two per-athlete
+        # combined-stage entries both lacking stage_name would each fall
+        # through the lookup and get their own duplicate round_stages row.
+        index_key = kind_key or ""
+        kind_index = combined_stage_by_kind.get(cr_local) or {}
+        stages = stage_local_by_round.setdefault(cr_local, {})
+        stage_local = kind_index.get(index_key)
+        if stage_local is None:
+            # True fallback: structural stage missing (e.g. round was lazy-
+            # created from ranking). Allocate a fresh seq and write kind too.
+            next_seq = max(stages, default=-1) + 1
+            stage_local = repo.upsert_round_stage(
+                category_round_id=cr_local,
+                seq=next_seq,
+                name=stage_name,
+                kind=kind_key,
+            )
+            stages[next_seq] = stage_local
+            combined_stage_by_kind.setdefault(cr_local, {})[index_key] = stage_local
+        repo.upsert_stage_result(
+            competition_id=comp_id,
+            round_stage_id=stage_local,
+            athlete_id=athlete_id,
+            rank=stage.get("stage_rank"),
+            score=_norm_score(stage.get("stage_score")),
+        )
+        _ingest_ascents(
+            repo,
+            ascents=stage.get("ascents") or [],
+            competition_id=comp_id,
+            round_stage_id=stage_local,
+            athlete_id=athlete_id,
+            route_id_by_ifsc=route_id_by_ifsc,
+            category_round_id=cr_local,
+        )
+
+
+def _ingest_simple_round(
+    repo: Repository,
+    *,
+    comp_id: int,
+    athlete_id: int,
+    cr_local: int,
+    rnd: dict[str, Any],
+    ascents: Optional[list[dict[str, Any]]],
+    route_id_by_ifsc: dict[int, int],
+    stage_local_by_round: dict[int, dict[int, int]],
+) -> None:
+    """Per-athlete body for a simple (lead / boulder / qualifying) round.
+
+    Ascents land on a single default `seq=0` stage; rank/score come from the
+    round itself rather than a sub-stage.
+    """
+    stage_local = _ensure_default_stage(
+        repo,
+        cr_local=cr_local,
+        stage_local_by_round=stage_local_by_round,
+    )
+    repo.upsert_stage_result(
+        competition_id=comp_id,
+        round_stage_id=stage_local,
+        athlete_id=athlete_id,
+        rank=rnd.get("rank"),
+        score=_norm_score(rnd.get("score")),
+    )
+    _ingest_ascents(
+        repo,
+        ascents=ascents or [],
+        competition_id=comp_id,
+        round_stage_id=stage_local,
+        athlete_id=athlete_id,
+        route_id_by_ifsc=route_id_by_ifsc,
+        category_round_id=cr_local,
+    )
+
+
 def hydrate(
     repo: Repository,
     client: APIClient,
@@ -334,19 +476,7 @@ def hydrate(
     when `stale_days` is used; callers passing `rows=` must use the same shape
     (e.g. `repo.find_ongoing_competitions()`).
     """
-    if rows is None:
-        if stale_days is None:
-            raise ValueError("hydrate() requires either stale_days or rows")
-        cutoff = repo.stale_cutoff(stale_days)
-        rows = list(repo.conn.execute(
-            "SELECT c.id AS comp_id, c.ifsc_id AS comp_ifsc, e.ifsc_id AS event_ifsc "
-            "FROM competitions c JOIN events e ON c.event_id = e.id "
-            "WHERE c.last_fetched_at IS NULL OR c.last_fetched_at < ? "
-            "ORDER BY c.id ASC",
-            (cutoff,),
-        ))
-    if limit is not None:
-        rows = rows[:limit]
+    rows = resolve_rows(repo, "competitions", rows=rows, stale_days=stale_days, limit=limit)
     if not rows:
         return 0, 0
 
@@ -448,99 +578,36 @@ def hydrate(
                             combined_stages = None
 
                         if elim_stages:
-                            for heat in elim_stages:
-                                if not isinstance(heat, dict):
-                                    continue
-                                stage_local = _ensure_speed_stage(
-                                    repo,
-                                    cr_local=cr_local,
-                                    heat=heat,
-                                    stage_local_by_round=stage_local_by_round,
-                                )
-                                repo.upsert_stage_result(
-                                    competition_id=comp_id,
-                                    round_stage_id=stage_local,
-                                    athlete_id=athlete_id,
-                                    rank=None,
-                                    score=_norm_score(heat.get("score")),
-                                    time_ms=heat.get("time"),
-                                    winner=_to_int_bool(heat.get("winner")),
-                                )
-                                _ingest_ascents(
-                                    repo,
-                                    ascents=heat.get("ascents") or [],
-                                    competition_id=comp_id,
-                                    round_stage_id=stage_local,
-                                    athlete_id=athlete_id,
-                                    route_id_by_ifsc=route_id_by_ifsc,
-                                    category_round_id=cr_local,
-                                )
-                        elif combined_stages:
-                            for stage in combined_stages:
-                                if not isinstance(stage, dict):
-                                    continue
-                                # Match per-athlete sub-stages to the structural
-                                # stages by `stage_name` ↔ `kind` (case-insensitive)
-                                # rather than by enumerate position — positions can
-                                # diverge if an athlete only competed in some of
-                                # the sub-stages.
-                                stage_name = stage.get("stage_name")
-                                kind_key = stage_name.lower() if stage_name else None
-                                kind_index = combined_stage_by_kind.get(cr_local) or {}
-                                stages = stage_local_by_round.setdefault(cr_local, {})
-                                stage_local = kind_index.get(kind_key) if kind_key else None
-                                if stage_local is None:
-                                    # True fallback: structural stage missing
-                                    # (e.g. round was lazy-created from ranking).
-                                    # Allocate a fresh seq and write kind too.
-                                    next_seq = max(stages, default=-1) + 1
-                                    stage_local = repo.upsert_round_stage(
-                                        category_round_id=cr_local,
-                                        seq=next_seq,
-                                        name=stage_name,
-                                        kind=kind_key,
-                                    )
-                                    stages[next_seq] = stage_local
-                                    if kind_key:
-                                        combined_stage_by_kind.setdefault(cr_local, {})[kind_key] = stage_local
-                                repo.upsert_stage_result(
-                                    competition_id=comp_id,
-                                    round_stage_id=stage_local,
-                                    athlete_id=athlete_id,
-                                    rank=stage.get("stage_rank"),
-                                    score=_norm_score(stage.get("stage_score")),
-                                )
-                                _ingest_ascents(
-                                    repo,
-                                    ascents=stage.get("ascents") or [],
-                                    competition_id=comp_id,
-                                    round_stage_id=stage_local,
-                                    athlete_id=athlete_id,
-                                    route_id_by_ifsc=route_id_by_ifsc,
-                                    category_round_id=cr_local,
-                                )
-                        else:
-                            # Simple round: ascents directly under the round.
-                            stage_local = _ensure_default_stage(
+                            _ingest_speed_round(
                                 repo,
+                                comp_id=comp_id,
+                                athlete_id=athlete_id,
                                 cr_local=cr_local,
+                                elim_stages=elim_stages,
+                                route_id_by_ifsc=route_id_by_ifsc,
                                 stage_local_by_round=stage_local_by_round,
                             )
-                            repo.upsert_stage_result(
-                                competition_id=comp_id,
-                                round_stage_id=stage_local,
-                                athlete_id=athlete_id,
-                                rank=rnd.get("rank"),
-                                score=_norm_score(rnd.get("score")),
-                            )
-                            _ingest_ascents(
+                        elif combined_stages:
+                            _ingest_combined_round(
                                 repo,
-                                ascents=ascents or [],
-                                competition_id=comp_id,
-                                round_stage_id=stage_local,
+                                comp_id=comp_id,
                                 athlete_id=athlete_id,
+                                cr_local=cr_local,
+                                combined_stages=combined_stages,
                                 route_id_by_ifsc=route_id_by_ifsc,
-                                category_round_id=cr_local,
+                                stage_local_by_round=stage_local_by_round,
+                                combined_stage_by_kind=combined_stage_by_kind,
+                            )
+                        else:
+                            _ingest_simple_round(
+                                repo,
+                                comp_id=comp_id,
+                                athlete_id=athlete_id,
+                                cr_local=cr_local,
+                                rnd=rnd,
+                                ascents=ascents,
+                                route_id_by_ifsc=route_id_by_ifsc,
+                                stage_local_by_round=stage_local_by_round,
                             )
 
                 repo.mark_fetched("competitions", comp_id)

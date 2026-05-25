@@ -3,12 +3,16 @@ from __future__ import annotations
 
 import logging
 import re
-from typing import Optional
+from typing import TYPE_CHECKING, Optional
 
 from ..api.client import APIClient
 from ..db.repository import Repository
 from ..parsers.event_location import to_iso3
+from ._common import resolve_rows
 from ._logging import ProgressLogger, RateLimitedExceptionLogger
+
+if TYPE_CHECKING:
+    import sqlite3
 
 log = logging.getLogger(__name__)
 
@@ -48,21 +52,27 @@ def hydrate(
     repo: Repository,
     client: APIClient,
     *,
-    stale_days: int,
+    stale_days: Optional[int] = None,
+    rows: Optional[list[sqlite3.Row]] = None,
     limit: Optional[int] = None,
 ) -> tuple[int, int]:
-    stale = repo.find_stale("athletes", stale_days=stale_days)
-    if limit is not None:
-        stale = stale[:limit]
-    if not stale:
+    """Pass either `stale_days` (default) or `rows` (uniform with peers).
+
+    The `rows=` form is accepted for signature symmetry with the other four
+    hydrators (seasons/season_leagues/events/competitions); pull_new currently
+    drives this fetcher with `stale_days=365_000` to scope to NULL-fetched
+    skeletons rather than a pre-computed list.
+    """
+    rows = resolve_rows(repo, "athletes", rows=rows, stale_days=stale_days, limit=limit)
+    if not rows:
         return 0, 0
 
-    ifsc_to_id = {row["ifsc_id"]: row["id"] for row in stale}
-    log.info("Hydrating %d athlete(s).", len(stale))
+    ifsc_to_id = {row["ifsc_id"]: row["id"] for row in rows}
+    log.info("Hydrating %d athlete(s).", len(rows))
 
     ok = fail = 0
     exc_log = RateLimitedExceptionLogger(log)
-    progress = ProgressLogger(log, len(stale), "athletes")
+    progress = ProgressLogger(log, len(rows), "athletes")
     for fetched in client.stream("athletes", ifsc_to_id.keys()):
         progress.tick()
         ath_ifsc = int(fetched.key)

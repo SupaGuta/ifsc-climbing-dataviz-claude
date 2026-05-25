@@ -6,7 +6,10 @@ Conservative heuristics:
   * Country token before a year "..., USA 1997" → ISO3
   * If nothing extractable, returns (None, None) rather than guessing.
 
-The public entry point is `parse_city_country(event_name)`.
+The public entry point is `parse_city_country(event_name)`. The `__all__`
+declaration below pins the four symbols any caller outside this module should
+rely on; everything else is an internal helper kept module-scoped for testability
+and shared use by the public functions.
 """
 from __future__ import annotations
 
@@ -17,6 +20,14 @@ try:
     import pycountry  # type: ignore
 except Exception:  # pragma: no cover
     pycountry = None
+
+
+__all__ = [
+    "parse_city_country",
+    "to_iso3",
+    "city_to_iso3",
+    "postprocess_city",
+]
 
 
 # --- Regex building blocks -------------------------------------------------

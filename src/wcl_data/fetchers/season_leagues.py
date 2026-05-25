@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING, Optional
 
 from ..api.client import APIClient
 from ..db.repository import Repository
+from ._common import resolve_rows
 from ._logging import ProgressLogger, RateLimitedExceptionLogger
 
 if TYPE_CHECKING:
@@ -26,12 +27,7 @@ def hydrate(
     limit: Optional[int] = None,
 ) -> tuple[int, int]:
     """Pass either `stale_days` (default) or `rows` (used by `pull_new`)."""
-    if rows is None:
-        if stale_days is None:
-            raise ValueError("hydrate() requires either stale_days or rows")
-        rows = repo.find_stale("season_leagues", stale_days=stale_days)
-    if limit is not None:
-        rows = rows[:limit]
+    rows = resolve_rows(repo, "season_leagues", rows=rows, stale_days=stale_days, limit=limit)
     if not rows:
         return 0, 0
 
@@ -56,9 +52,7 @@ def hydrate(
                 year = data.get("season")
                 season_id: Optional[int] = None
                 if year is not None:
-                    row = repo.conn.execute(
-                        "SELECT id FROM seasons WHERE year = ?", (int(year),)
-                    ).fetchone()
+                    row = repo.find_season_by_year(int(year))
                     if row:
                         season_id = row[0]
 
