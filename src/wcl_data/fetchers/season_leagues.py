@@ -46,33 +46,56 @@ def hydrate(
         sl_ifsc = int(fetched.key)
         sl_row_id = ifsc_to_id[sl_ifsc]
         data = fetched.data
+        # Per-iteration transaction (matches seasons.hydrate, ADR 0005): a
+        # parse failure halfway through a season_league's d_cats / events
+        # list rolls back the whole iteration rather than leaving (e.g.)
+        # half the events registered and the rest missing.
         try:
-            # Resolve season + league IDs (rows may have been created with NULLs).
-            year = data.get("season")
-            season_id = None
-            if year is not None:
-                row = repo.conn.execute(
-                    "SELECT id FROM seasons WHERE year = ?", (int(year),)
-                ).fetchone()
-                if row:
-                    season_id = row[0]
+            with repo.transaction():
+                # Resolve season + league IDs from the payload.
+                year = data.get("season")
+                season_id: Optional[int] = None
+                if year is not None:
+                    row = repo.conn.execute(
+                        "SELECT id FROM seasons WHERE year = ?", (int(year),)
+                    ).fetchone()
+                    if row:
+                        season_id = row[0]
 
-            league_name = data.get("league")
-            league_id = repo.upsert_league(league_name) if league_name else None
+                league_name = data.get("league")
+                league_id = repo.upsert_league(league_name) if league_name else None
 
-            repo.upsert_season_league(sl_ifsc, season_id=season_id, league_id=league_id)
+                # v6 events.season_id, season_leagues.season_id/league_id are
+                # NOT NULL. Skip writes when either FK can't be resolved —
+                # the existing row keeps its parent ids untouched (seasons.hydrate
+                # populated them on first insert) and the next refresh retries
+                # once the parents are known.
+                if season_id is not None and league_id is not None:
+                    repo.upsert_season_league(
+                        sl_ifsc, season_id=season_id, league_id=league_id,
+                    )
+                else:
+                    log.warning(
+                        "season_league %s: could not resolve season=%r / league=%r; "
+                        "skipping FK refresh, will retry on next hydrate.",
+                        sl_ifsc, year, league_name,
+                    )
 
-            # Disciplines + categories
-            for d_cat in data.get("d_cats") or []:
-                _ingest_d_cat(repo, d_cat.get("name") or "")
+                # Disciplines + categories — independent of the season/league FKs.
+                for d_cat in data.get("d_cats") or []:
+                    _ingest_d_cat(repo, d_cat.get("name") or "")
 
-            # Event skeletons (with season + league association)
-            for event in data.get("events") or []:
-                ev_ifsc = event.get("event_id")
-                if ev_ifsc is not None:
-                    repo.upsert_event_skeleton(int(ev_ifsc), season_id=season_id, league_id=league_id)
+                # Event skeletons (with season + league association). Same
+                # NOT NULL guard — season_id is required to insert an event.
+                if season_id is not None:
+                    for event in data.get("events") or []:
+                        ev_ifsc = event.get("event_id")
+                        if ev_ifsc is not None:
+                            repo.upsert_event_skeleton(
+                                int(ev_ifsc), season_id=season_id, league_id=league_id,
+                            )
 
-            repo.mark_fetched("season_leagues", sl_row_id)
+                repo.mark_fetched("season_leagues", sl_row_id)
             ok += 1
         except Exception as exc:
             exc_log.log("Failed to parse /season_leagues/%s: %s", sl_ifsc, exc)

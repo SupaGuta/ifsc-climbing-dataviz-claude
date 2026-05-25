@@ -475,8 +475,9 @@ def test_v5_migration_drops_dead_last_fetched_at(memory_db):
     indexes). The columns were reserved for a startlist hydrator that never
     landed and were never set by `mark_fetched` — see 2026-05-25 note on ADR 0007.
 
-    We simulate a v4 DB by re-adding the columns and indexes by hand, then
-    re-run apply_schema and verify they're gone.
+    We simulate a v4 DB by re-adding the columns/indexes and rewinding the
+    recorded `schema_version` to 4 so the version-gated migration framework
+    actually re-fires the v4→v5 leg.
     """
     from wcl_data.db.schema import apply_schema
 
@@ -489,6 +490,7 @@ def test_v5_migration_drops_dead_last_fetched_at(memory_db):
     memory_db.execute(
         "CREATE INDEX idx_routes_last_fetched ON routes(last_fetched_at)"
     )
+    memory_db.execute("DELETE FROM schema_version WHERE version > 4")
     memory_db.commit()
 
     apply_schema(memory_db)
@@ -568,20 +570,14 @@ def test_latest_fetched_at_rejects_non_hydratable(memory_db):
 
 
 # ---------------------------------------------------------------- cup_rankings
-# `upsert_cup_ranking` uses `INSERT OR REPLACE`, which deletes the conflicting
-# row and inserts a fresh one — so the autoincrement `id` churns on every
-# re-hydration. Phase D4 in REVIEW.md proposes switching this to a UNIQUE
-# index + `ON CONFLICT ... UPDATE` (which preserves ids). When that lands,
-# the `test_cup_ranking_id_churns_on_replace` test will fail — making the
-# contract switch visible rather than silent.
+# v6 (Phase D4) replaced the inline UNIQUE (athlete_id, cup_ifsc_id, d_cat_id)
+# with an expression UNIQUE index on COALESCE(d_cat_id, -1) and switched the
+# upsert from INSERT OR REPLACE to ON CONFLICT ... DO UPDATE. The net effect:
+# (1) NULL-d_cat duplicates collapse to one row, (2) the row id stays stable
+# across re-hydration so out-of-band joins on cup_rankings.id don't churn.
 
 def test_cup_ranking_upsert_replaces_value(memory_db):
-    """A re-upsert on the same UNIQUE key (athlete, cup, d_cat) overwrites the row.
-
-    `d_cat_id=1` (non-NULL) is needed: SQLite UNIQUE treats NULL d_cat_id as
-    distinct on every insert, so a NULL→NULL "re-upsert" would actually
-    insert a second row. See `test_cup_ranking_unique_treats_null_d_cat_as_distinct`.
-    """
+    """A re-upsert on the same UNIQUE key (athlete, cup, d_cat) overwrites the row."""
     repo = Repository(memory_db)
     ath = repo.upsert_athlete_skeleton(42)
 
@@ -599,12 +595,12 @@ def test_cup_ranking_upsert_replaces_value(memory_db):
     assert rows[0]["rank"] == 1
 
 
-def test_cup_ranking_id_churns_on_replace(memory_db):
-    """`INSERT OR REPLACE` deletes + re-inserts → the autoincrement id changes.
+def test_cup_ranking_id_stable_across_upsert(memory_db):
+    """v6 contract: re-upserting the same key keeps the row's id (no churn).
 
-    This is the current behavior; D4 proposes switching to UPSERT (which
-    preserves ids). When the switch lands, flip this test to assert
-    `id1 == id2` to pin the new contract.
+    ON CONFLICT ... DO UPDATE mutates the existing row in place. Stable ids
+    matter for any consumer that joined on `cup_rankings.id` out-of-band
+    between runs (analytics notebooks, downstream caches).
     """
     repo = Repository(memory_db)
     ath = repo.upsert_athlete_skeleton(42)
@@ -625,17 +621,19 @@ def test_cup_ranking_id_churns_on_replace(memory_db):
         (ath, 100, 1),
     ).fetchone()[0]
 
-    assert id1 != id2, (
-        "cup_ranking id should churn under INSERT OR REPLACE. If this fails, "
-        "the implementation likely switched to UPSERT — update the assertion "
-        "to id1 == id2 and revise REVIEW.md D4."
+    assert id1 == id2, (
+        "cup_ranking id should be stable across re-upsert in v6 (D4). If this "
+        "fails, the implementation likely reverted to INSERT OR REPLACE — fix "
+        "upsert_cup_ranking or update this test if the contract changed deliberately."
     )
 
 
-def test_cup_ranking_unique_treats_null_d_cat_as_distinct(memory_db):
-    """SQLite UNIQUE treats NULL as distinct per-NULL — two NULL-d_cat rows on
-    the same (athlete, cup) co-exist. This is the SQLite default; REVIEW.md D4
-    proposes a partial unique index on COALESCE(d_cat_id, -1) to fold them.
+def test_cup_ranking_null_d_cat_collapses_to_one(memory_db):
+    """v6 expression UNIQUE on COALESCE(d_cat_id, -1) folds NULL-d_cat duplicates.
+
+    The v5 inline UNIQUE treated each NULL as distinct (per SQLite's default
+    UNIQUE semantics). v6's expression index maps NULL → -1 so two NULL-d_cat
+    rows on the same (athlete, cup) collapse via ON CONFLICT ... DO UPDATE.
     """
     repo = Repository(memory_db)
     ath = repo.upsert_athlete_skeleton(42)
@@ -647,8 +645,8 @@ def test_cup_ranking_unique_treats_null_d_cat_as_distinct(memory_db):
         "SELECT rank FROM cup_rankings WHERE athlete_id = ? AND cup_ifsc_id = ?",
         (ath, 100),
     ))
-    # Two rows — NULL ≠ NULL in SQLite's default UNIQUE semantics.
-    assert len(rows) == 2
+    assert len(rows) == 1
+    assert rows[0]["rank"] == 2
 
 
 def test_cup_ranking_unique_with_d_cat_collapses_to_one(memory_db):

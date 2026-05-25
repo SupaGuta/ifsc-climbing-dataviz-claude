@@ -78,3 +78,4 @@ bullets is fine.
 - [0008 — `country_iso3` sibling column on events and athletes](0008-country-iso3-sibling-column.md)
 - [0009 — Expanded capture of the `/athletes/{id}` payload](0009-athletes-payload-expansion.md)
 - [0010 — Operational silence guardrails: auth abort, 429 retry, exit codes](0010-operational-silence-guardrails.md)
+- [0011 — Schema hardening + versioned forward migrations](0011-schema-hardening-and-versioned-migrations.md)

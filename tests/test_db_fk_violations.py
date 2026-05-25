@@ -55,16 +55,21 @@ def _seed_event(conn: sqlite3.Connection) -> dict:
 BAD_ID = 999_999
 
 
+# season_leagues.season_id / league_id and events.season_id are NOT NULL as of v6,
+# so each FK test seeds a valid id for the *other* FK column to isolate one
+# constraint violation per case (otherwise NOT NULL would fire before FK).
 _add(
     "season_leagues.season_id",
     _seed_event,
-    "INSERT INTO season_leagues (ifsc_id, season_id) VALUES (?, ?)",
+    "INSERT INTO season_leagues (ifsc_id, season_id, league_id) "
+    "VALUES (?, ?, (SELECT id FROM leagues LIMIT 1))",
     (1, BAD_ID),
 )
 _add(
     "season_leagues.league_id",
     _seed_event,
-    "INSERT INTO season_leagues (ifsc_id, league_id) VALUES (?, ?)",
+    "INSERT INTO season_leagues (ifsc_id, season_id, league_id) "
+    "VALUES (?, (SELECT id FROM seasons LIMIT 1), ?)",
     (2, BAD_ID),
 )
 _add(
@@ -76,7 +81,8 @@ _add(
 _add(
     "events.league_id",
     _seed_event,
-    "INSERT INTO events (ifsc_id, league_id) VALUES (?, ?)",
+    "INSERT INTO events (ifsc_id, season_id, league_id) "
+    "VALUES (?, (SELECT id FROM seasons LIMIT 1), ?)",
     (98, BAD_ID),
 )
 _add(

@@ -201,15 +201,22 @@ class Repository:
         self,
         ifsc_id: int,
         *,
-        season_id: Optional[int] = None,
-        league_id: Optional[int] = None,
+        season_id: int,
+        league_id: int,
     ) -> int:
+        # v6 made season_leagues.season_id/league_id NOT NULL. The signature
+        # is required-positional-kwarg to match: callers that can't resolve
+        # both FKs must guard at the call site (e.g. season_leagues.hydrate
+        # logs and skips). SQLite UPSERT only intercepts UNIQUE/PK
+        # violations — NOT NULL fires on the INSERT side and would abort the
+        # statement before ON CONFLICT DO UPDATE could COALESCE-preserve the
+        # prior value, so the old `Optional[int] = None` contract was a lie.
         row = self.conn.execute(
             "INSERT INTO season_leagues (ifsc_id, season_id, league_id) "
             "VALUES (?, ?, ?) "
             "ON CONFLICT(ifsc_id) DO UPDATE SET "
-            "  season_id = COALESCE(excluded.season_id, season_leagues.season_id), "
-            "  league_id = COALESCE(excluded.league_id, season_leagues.league_id) "
+            "  season_id = excluded.season_id, "
+            "  league_id = excluded.league_id "
             "RETURNING id",
             (ifsc_id, season_id, league_id),
         ).fetchone()
@@ -247,13 +254,18 @@ class Repository:
         self,
         ifsc_id: int,
         *,
-        season_id: Optional[int] = None,
+        season_id: int,
         league_id: Optional[int] = None,
     ) -> int:
+        # v6 made events.season_id NOT NULL — same NULL-INSERT-aborts-before-
+        # UPSERT story as upsert_season_league. `league_id` stays Optional
+        # because events first seen via /seasons/{id}.events[] legitimately
+        # arrive without a league association (only /season_leagues/{id}
+        # later fills it in via the COALESCE-on-update path below).
         row = self.conn.execute(
             "INSERT INTO events (ifsc_id, season_id, league_id) VALUES (?, ?, ?) "
             "ON CONFLICT(ifsc_id) DO UPDATE SET "
-            "  season_id = COALESCE(excluded.season_id, events.season_id), "
+            "  season_id = excluded.season_id, "
             "  league_id = COALESCE(excluded.league_id, events.league_id) "
             "RETURNING id",
             (ifsc_id, season_id, league_id),
@@ -370,10 +382,32 @@ class Repository:
         d_cat_id: Optional[int] = None,
         rank: Optional[int] = None,
     ) -> None:
+        # Conflict target is the v6 expression UNIQUE index
+        # `idx_cup_rankings_uniq` on (athlete_id, cup_ifsc_id,
+        # COALESCE(d_cat_id, -1)). Used in isolation (e.g. notebook write
+        # paths), ON CONFLICT … DO UPDATE preserves the row id; v5's INSERT
+        # OR REPLACE deleted + re-inserted and churned it.
+        #
+        # NOTE: athletes.hydrate (the only production caller) still wipes
+        # an athlete's cup_rankings via `delete_cup_rankings_for_athlete`
+        # before this loop, so id stability does NOT hold across full
+        # re-hydration today — rowids continue past the table max on each
+        # cycle. The wipe-and-rewrite pattern keeps cup_rankings in sync
+        # with the athlete's current payload (rankings that disappeared
+        # from the payload need to leave the DB) and predates v6. If a
+        # downstream consumer ever needs id stability across re-hydration,
+        # athletes.hydrate is the place to fix it (track seen keys, then
+        # `DELETE … WHERE NOT IN (...)` instead of the blanket wipe).
         self.conn.execute(
-            "INSERT OR REPLACE INTO cup_rankings "
+            "INSERT INTO cup_rankings "
             "(athlete_id, cup_ifsc_id, cup_name, season, discipline, d_cat_id, rank) "
-            "VALUES (?, ?, ?, ?, ?, ?, ?)",
+            "VALUES (?, ?, ?, ?, ?, ?, ?) "
+            "ON CONFLICT (athlete_id, cup_ifsc_id, COALESCE(d_cat_id, -1)) DO UPDATE SET "
+            "  cup_name = excluded.cup_name, "
+            "  season = excluded.season, "
+            "  discipline = excluded.discipline, "
+            "  d_cat_id = excluded.d_cat_id, "
+            "  rank = excluded.rank",
             (athlete_id, cup_ifsc_id, cup_name, season, discipline, d_cat_id, rank),
         )
         self._maybe_commit()

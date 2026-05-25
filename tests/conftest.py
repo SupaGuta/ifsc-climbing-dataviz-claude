@@ -48,11 +48,10 @@ def fixture(request) -> Any:
 @pytest.fixture
 def memory_db():
     """Yield a connection to an in-memory SQLite DB with the schema applied."""
-    from wcl_data.db.schema import apply_schema
+    from wcl_data.db.schema import _configure_connection, apply_schema
 
     conn = sqlite3.connect(":memory:")
-    conn.row_factory = sqlite3.Row
-    conn.execute("PRAGMA foreign_keys = ON")
+    _configure_connection(conn)
     apply_schema(conn)
     yield conn
     conn.close()

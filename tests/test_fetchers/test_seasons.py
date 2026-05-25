@@ -179,15 +179,12 @@ def test_hydrate_skips_leagues_without_name(memory_db):
 def test_hydrate_failure_counts_failures(memory_db):
     """Parser exceptions are caught per-item; fail count surfaces in the summary.
 
-    Also pins the current partial-write contract: hydrate runs
-    `upsert_season(.., year=int(data["name"]))` BEFORE iterating `leagues`,
-    so when the malformed leagues field raises, the year update has already
-    been auto-committed (per the repo's per-call commit semantics) and the
-    row's last_fetched_at remains NULL (mark_fetched never ran).
-
-    If a future refactor wraps hydrate in a per-item transaction (rolling
-    back the year update on failure), this test will fail — making the
-    contract change visible.
+    Pins the v6 per-iteration-transaction contract (Phase D9): hydrate
+    wraps each season's writes in `with repo.transaction():`, so when the
+    malformed `leagues` field raises mid-iteration, the prior
+    `upsert_season(year=...)` rolls back too. The row is left with both
+    `year` and `last_fetched_at` NULL so the next refresh picks it up
+    cleanly — no half-populated state for the retry to step around.
     """
     repo = Repository(memory_db)
     repo.upsert_season(1)
@@ -202,10 +199,8 @@ def test_hydrate_failure_counts_failures(memory_db):
     assert ok == 0
     assert fail == 1
 
-    # Partial-write contract: year is updated (auto-commit on each upsert),
-    # last_fetched_at stays NULL (mark_fetched never ran).
     row = memory_db.execute(
         "SELECT year, last_fetched_at FROM seasons WHERE ifsc_id = 1"
     ).fetchone()
-    assert row["year"] == 2024, "year was upserted before the failure — not rolled back"
+    assert row["year"] is None, "year update should roll back with the failed transaction"
     assert row["last_fetched_at"] is None, "row must remain stale so retry re-fetches it"

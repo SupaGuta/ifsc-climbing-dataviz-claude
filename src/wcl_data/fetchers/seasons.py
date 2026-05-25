@@ -76,28 +76,33 @@ def hydrate(
         season_ifsc = int(fetched.key)
         season_row_id = ifsc_to_id[season_ifsc]
         data = fetched.data
+        # Group the per-season writes so a parse failure halfway through
+        # doesn't leave a season half-populated (e.g. some leagues but not
+        # all events, mark_fetched without children). Matches the
+        # competitions.hydrate pattern (ADR 0005).
         try:
-            year = data.get("name")
-            repo.upsert_season(season_ifsc, year=int(year) if year is not None else None)
+            with repo.transaction():
+                year = data.get("name")
+                repo.upsert_season(season_ifsc, year=int(year) if year is not None else None)
 
-            for league in data.get("leagues") or []:
-                league_name = league.get("name")
-                if not league_name:
-                    continue
-                league_id = repo.upsert_league(league_name)
-                url = league.get("url") or ""
-                # url shape: /api/v1/season_leagues/{id} — pull the numeric id
-                sl_ifsc = _last_int_segment(url)
-                if sl_ifsc is not None:
-                    repo.upsert_season_league(sl_ifsc, season_id=season_row_id, league_id=league_id)
+                for league in data.get("leagues") or []:
+                    league_name = league.get("name")
+                    if not league_name:
+                        continue
+                    league_id = repo.upsert_league(league_name)
+                    url = league.get("url") or ""
+                    # url shape: /api/v1/season_leagues/{id} — pull the numeric id
+                    sl_ifsc = _last_int_segment(url)
+                    if sl_ifsc is not None:
+                        repo.upsert_season_league(sl_ifsc, season_id=season_row_id, league_id=league_id)
 
-            # The seasons endpoint also lists events directly — register skeletons.
-            for event in data.get("events") or []:
-                ev_ifsc = event.get("event_id")
-                if ev_ifsc is not None:
-                    repo.upsert_event_skeleton(int(ev_ifsc), season_id=season_row_id)
+                # The seasons endpoint also lists events directly — register skeletons.
+                for event in data.get("events") or []:
+                    ev_ifsc = event.get("event_id")
+                    if ev_ifsc is not None:
+                        repo.upsert_event_skeleton(int(ev_ifsc), season_id=season_row_id)
 
-            repo.mark_fetched("seasons", season_row_id)
+                repo.mark_fetched("seasons", season_row_id)
             ok += 1
         except Exception as exc:
             exc_log.log("Failed to parse /seasons/%s: %s", season_ifsc, exc)
