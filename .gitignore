@@ -11,6 +11,7 @@ dist/
 
 # Environment / secrets
 .env*
+!.env.example
 
 # Personal scratch / review files
 REVIEW.md
@@ -22,8 +23,10 @@ REVIEW.md
 *.log
 logs/
 
-# Local SQLite warehouse (built by `wcl-data init` / `refresh`).
-# Wildcard catches misnamed backups too (e.g. wcl.20260523.sqlite-copy).
+# Local SQLite warehouse + sidecar files (journal, wal, shm, copy variants).
+# `data/wcl.*` also catches misnamed backups (e.g. wcl.20260523.sqlite-copy).
+data/*.sqlite
+data/*.sqlite-*
 data/wcl.*
 
 # CSV exports (timestamped, regenerable)

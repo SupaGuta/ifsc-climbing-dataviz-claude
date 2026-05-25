@@ -135,15 +135,15 @@ def _cmd_auth(*, dry_run: bool, env_file: Optional[Path]) -> int:
     creds = fetch_credentials()
     print(f"Fetched fresh credentials from {REFERER_URL}")
     print(f"  CSRF token:     {creds.csrf_token[:16]}... ({len(creds.csrf_token)} chars)")
-    cookie_name = creds.session_cookie.split("=", 1)[0]
+    cookie_name, _, cookie_value = creds.session_cookie.partition("=")
     print(f"  Session cookie: {cookie_name}=... ({len(creds.session_cookie)} chars)")
 
     if dry_run:
         print()
         print("--dry-run: not writing to .env. Tokens truncated for safety; "
               "rerun without --dry-run to write the full values.")
-        print(f"  WCL_CSRF_TOKEN={creds.csrf_token[:16]}...  ({len(creds.csrf_token)} chars)")
-        print(f"  WCL_SESSION_COOKIE={cookie_name}=...  ({len(creds.session_cookie)} chars)")
+        print(f"  WCL_CSRF_TOKEN={creds.csrf_token[:16]}... ({len(creds.csrf_token)} chars)")
+        print(f"  WCL_SESSION_COOKIE={cookie_name}={cookie_value[:16]}... ({len(creds.session_cookie)} chars)")
         return 0
 
     target = env_file if env_file is not None else REPO_ROOT / ".env"

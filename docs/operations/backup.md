@@ -32,9 +32,10 @@ Restore by copying back:
 cp data/wcl.20260523.sqlite data/wcl.sqlite
 ```
 
-Snapshots in `data/` are **not** gitignored by default — only `data/exports/`,
-`*.log`, and a few other patterns are. If you don't want a snapshot accidentally
-committed, drop it under `data/exports/` or extend `.gitignore`.
+Snapshots named `data/wcl.*` (the recommended pattern above) **are gitignored**
+by `.gitignore`'s `data/wcl.*` rule — they won't be accidentally committed.
+If you store a snapshot elsewhere or under a different name, verify with
+`git check-ignore -v <path>` before assuming it's safe.
 
 ## `.env` hygiene
 
@@ -97,9 +98,11 @@ If everything's lost (machine wipe, repo re-clone, etc.):
 3. `cp .env.example .env`
 4. `python -m wcl_data auth` → fills in fresh credentials
 5. `python -m wcl_data init` → recreates schema
-6. `python -m wcl_data pull-new` → repopulates from the live API (~5 min)
+6. `python -m wcl_data refresh` → repopulates from the live API (~45-90 min for a full backfill, incl. per-round tables)
 
-Total time from zero: under 10 minutes. The World Climbing API is the source of
-truth; the local warehouse is reproducible.
+Total time from zero: ~45-90 minutes (most of it the refresh). `pull-new`
+alone won't work here — it only touches ongoing containers and would leave
+historical seasons and per-round tables empty. The World Climbing API is
+the source of truth; the local warehouse is reproducible.
 
 Snapshots and CSV exports are conveniences, not load-bearing.

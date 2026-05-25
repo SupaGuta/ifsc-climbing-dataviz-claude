@@ -50,18 +50,36 @@ contract: a SQLite file with documented tables.
 ## The entity graph
 
 The API is a tree rooted at *seasons*. Each season lists its leagues and
-events; each event lists its competitions; each competition lists its athletes
-and their ranks. The package's tables mirror that tree:
+events; each event lists its competitions; each competition lists its
+athletes (via the results array) and their ranks. The package's tables
+mirror that **discovery / parent-fetch order**:
 
 ```
 seasons ──┬── season_leagues ──┐
-          │                    ├── events ── competitions ──┬── athletes ── cup_rankings
-          └────────────────────┘                            ├── results
+          │                    ├── events ── competitions ──┬── results
+          └────────────────────┘                            ├── athletes ── cup_rankings
                                                             └── category_rounds
-                                                                  ├── round_stages ── stage_results
-                                                                  ├── routes ── ascents
-                                                                  └── round_results
+                                                                  ├── round_stages
+                                                                  ├── routes
+                                                                  ├── round_results
+                                                                  ├── stage_results
+                                                                  └── ascents
 ```
+
+> **This is a discovery tree, not the FK graph.** A few load-bearing
+> schema relationships are not visible above:
+> - `athletes` has **no FK to `competitions`** — they connect only through
+>   the `results` / `round_results` / `stage_results` / `ascents` join
+>   tables. Athletes are *discovered* during competition hydration, not
+>   children of competitions in the schema sense.
+> - `round_results`, `stage_results`, and `ascents` each carry a direct
+>   `competition_id` FK (in addition to their per-round parent). The
+>   per-competition wipe path uses `competition_id` directly.
+> - `ascents` has 4 NOT NULL FKs (`competitions`, `round_stages`,
+>   `routes`, `athletes`) — it's a 4-way join row, not a chain.
+>
+> See [database-and-schema.md](database-and-schema.md) for the full FK
+> reference.
 
 Five tables are **hydratable** (carry `last_fetched_at`): `seasons`,
 `season_leagues`, `events`, `competitions`, `athletes`. The rest of the

@@ -126,7 +126,7 @@ To start completely fresh:
 ```powershell
 Remove-Item data\wcl.sqlite
 python -m wcl_data init
-python -m wcl_data pull-new
+python -m wcl_data refresh
 ```
 
 **bash:**
@@ -134,13 +134,14 @@ python -m wcl_data pull-new
 ```bash
 rm data/wcl.sqlite
 python -m wcl_data init
-python -m wcl_data pull-new
+python -m wcl_data refresh
 ```
 
-This rebuilds the warehouse from scratch (~5 min). Use only when you
-suspect schema-level corruption or want to validate the cold-start path.
-**Always back up first** (see [backup.md](backup.md)) if you're not 100%
-sure.
+This rebuilds the warehouse from scratch (~45-90 min — `pull-new` alone
+won't backfill historical seasons or the per-round tables). Use only when
+you suspect schema-level corruption or want to validate the cold-start
+path. **Always back up first** (see [backup.md](backup.md)) if you're not
+100% sure.
 
 ## What recovery does *not* cover
 

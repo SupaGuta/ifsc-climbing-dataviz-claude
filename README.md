@@ -282,9 +282,9 @@ Single SQLite file at `data/wcl.sqlite`, schema defined in `src/wcl_data/db/sche
 
 | Table             | Purpose                                                            | Hydratable |
 |-------------------|--------------------------------------------------------------------|:----------:|
-| `category_rounds` | One row per round (qualif / semi / final) inside a competition.    |     ✓      |
+| `category_rounds` | One row per round (qualif / semi / final) inside a competition.    |            |
 | `round_stages`    | Sub-divisions of a round: combined sub-stages, speed-final heats; `seq=0` default stage for simple rounds. | |
-| `routes`          | One row per (round, route). Speed-final lanes reuse routes — keyed by IFSC route id. |     ✓      |
+| `routes`          | One row per (round, route). Speed-final lanes reuse routes — keyed by IFSC route id. |            |
 | `round_results`   | One row per (round, athlete) with `rank` / `score` / `starting_group`. | |
 | `stage_results`   | One row per (stage, athlete). Mirrors `round_results` for simple rounds; distinct for combined / speed-final. | |
 | `ascents`         | Wide table: one row per (stage × athlete × route) with discipline-specific columns (`top`, `plus`, `time_ms`, `zone`, `points`, …). | |

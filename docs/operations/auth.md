@@ -58,11 +58,11 @@ Output shape:
 ```
 Fetched fresh credentials from https://ifsc.results.info
   CSRF token:     a1b2c3d4e5f6g7h8... (88 chars)
-  Session cookie: _ifsc_results_session=... (123 chars)
+  Session cookie: _ifsc_resultservice_session=... (123 chars)
 
 --dry-run: not writing to .env. Tokens truncated for safety; rerun without --dry-run to write the full values.
   WCL_CSRF_TOKEN=a1b2c3d4e5f6g7h8...  (88 chars)
-  WCL_SESSION_COOKIE=_ifsc_results_session=...  (123 chars)
+  WCL_SESSION_COOKIE=_ifsc_resultservice_session=...  (123 chars)
 ```
 
 Useful for verifying that fetch works before writing to `.env`. To copy

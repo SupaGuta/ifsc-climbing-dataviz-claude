@@ -98,16 +98,25 @@ numbers:
 
 ```
 DB: .../data/wcl.sqlite
-table                      rows   hydrated
-seasons                      38         38
-leagues                      15          -
-season_leagues              450        450
-disciplines                   5          -
-categories                   70          -
-events                     1401       1401
-competitions               5825       5825
-athletes                  14923      14922
-results                  148139          -
+schema_version: 5
+
+table                      rows   hydrated  last_hydrated
+seasons                      38         38     2026-05-25
+leagues                      15          -              -
+season_leagues              450        450     2026-05-25
+disciplines                   5          -              -
+categories                   70          -              -
+events                     1401       1401     2026-05-25
+competitions               5825       5825     2026-05-24
+athletes                  14923      14922     2026-05-25
+results                  148139          -              -
+category_rounds           19284          -              -
+round_stages              22156          -              -
+routes                    28491          -              -
+round_results            187623          -              -
+stage_results            201845          -              -
+ascents                  882450          -              -
+cup_rankings              42830          -              -
 ```
 
 Off by a row or two on athletes is normal (one known permanent 404).

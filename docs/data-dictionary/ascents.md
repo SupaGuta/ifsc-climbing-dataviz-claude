@@ -72,9 +72,10 @@ populates only the subset of columns that the source ascent payload had.
   `"locked"`; combined ascents (where the source endpoint is different) use
   `"confirmed"`. Treat as a string, not as a boolean alias.
 - **The table is excluded from `export_all` by default.** Default exports
-  generate 8 CSVs (everything except `ascents`); adding `ascents` roughly
-  doubles the total size on disk because of this table's row count. Run
-  `python -m wcl_data export ascents` to generate it on demand. See
+  generate 8 CSVs (everything except `ascents`); `ascents` on its own is
+  ~200 MB — several times the combined size of the eight default CSVs —
+  because of this table's row count. Run `python -m wcl_data export
+  ascents` to generate it on demand. See
   [`exporter.py`](https://github.com/SupaGuta/world-climbing-lab/blob/main/src/wcl_data/exporter.py)'s
   `DEFAULT_EXPORT_VIEWS`.
 - **Re-hydrating a competition wipes its ascents first** (along with

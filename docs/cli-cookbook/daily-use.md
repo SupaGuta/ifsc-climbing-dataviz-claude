@@ -37,8 +37,10 @@ python -m wcl_data refresh
 ```
 
 Discover + hydrate anything stale (default: NULL or older than 30 days)
-across the full graph, **including athlete profiles**. Takes ~5–10 minutes
-on a healthy DB.
+across the full graph, **including athlete profiles**. Wall-clock varies
+with staleness: ~30s if nothing's overdue, up to ~30 minutes when many
+athletes are due for the 30-day re-hydration. For the nuclear option
+(`--stale-days 0`), see below.
 
 Override the threshold per run:
 
@@ -59,7 +61,7 @@ re-extract every event's city/country, after a schema bump (e.g. ADR 0007's
 per-round tables), or once a year for general freshness.
 
 **Note on the per-round backfill:** after the per-round tables landed in
-schema v3 (ADR 0007), the new tables (`category_rounds`, `round_stages`,
+schema v2 (ADR 0007), the new tables (`category_rounds`, `round_stages`,
 `routes`, `round_results`, `stage_results`, `ascents`) start empty even
 for previously-hydrated competitions. The `competitions.last_fetched_at`
 doesn't get cleared by the schema upgrade, so running `pull-new` alone
