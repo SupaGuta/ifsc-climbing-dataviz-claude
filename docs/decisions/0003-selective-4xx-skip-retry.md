@@ -58,9 +58,19 @@ Defaults: `max_retries=2`, `retry_delay=2.0`.
   failure) but no row updates. Mitigation: the `auth` CLI command and
   the README documenting "re-run auth when refresh starts failing
   silently." This is a known UX rough edge; a future ADR may revisit.
+
+  > **Note (2026-05-25):** Resolved by [ADR 0010](0010-operational-silence-guardrails.md).
+  > 401/403 are still dropped *per-request* (so a single transient blip
+  > doesn't kill the run), but 5 consecutive auth failures across the pool
+  > now raise `AuthFailureAbort` and exit 5.
+
 - A 429 (rate limit) would also be dropped. The IFSC API has never
   returned 429 in production. If that changes, add a 429-aware predicate
   and document in a new ADR.
+
+  > **Note (2026-05-25):** [ADR 0010](0010-operational-silence-guardrails.md)
+  > adds 429 to the default retry predicate with `Retry-After` honored —
+  > preempting the "if that changes" case before observing it in production.
 
 ## Alternatives considered
 

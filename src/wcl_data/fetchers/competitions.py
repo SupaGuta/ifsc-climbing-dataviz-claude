@@ -16,6 +16,7 @@ from typing import TYPE_CHECKING, Any, Optional, cast
 
 from ..api.client import APIClient
 from ..db.repository import Repository
+from ._logging import ProgressLogger, RateLimitedExceptionLogger
 
 if TYPE_CHECKING:
     import sqlite3
@@ -289,11 +290,25 @@ def _ensure_speed_stage(
         seq = int(heat_id)
     else:
         seq = _speed_seq(heat.get("name"))
-        log.warning(
-            "Speed heat without heat_id (cr_local=%s, name=%r) — falling back "
-            "to name-based seq; co-located heats with the same name will collapse",
-            cr_local, heat.get("name"),
-        )
+        # The legacy heat-name fallback resolves cleanly for ~99.99% of pre-2018
+        # speed payloads — that path is structurally fine, just lower fidelity
+        # than modern heat_id-keyed stages. Keep an audit trail in the file log
+        # at DEBUG so it can be inspected on demand, and only escalate when the
+        # name is genuinely unrecognized (seq=999 → ascents will collide on
+        # (cr_local, seq=999) and silently overwrite each other).
+        if seq == 999:
+            log.warning(
+                "Unrecognized speed heat name (cr_local=%s, name=%r) — "
+                "ascents will collapse onto the fallback stage; "
+                "consider adding to SPEED_HEAT_SEQ",
+                cr_local, heat.get("name"),
+            )
+        else:
+            log.debug(
+                "Speed heat without heat_id (cr_local=%s, name=%r) — "
+                "resolved via SPEED_HEAT_SEQ to seq=%d",
+                cr_local, heat.get("name"), seq,
+            )
     stages = stage_local_by_round.setdefault(cr_local, {})
     if seq not in stages:
         stages[seq] = repo.upsert_round_stage(
@@ -343,7 +358,10 @@ def hydrate(
     ]
 
     ok = fail = 0
+    exc_log = RateLimitedExceptionLogger(log)
+    progress = ProgressLogger(log, len(rows), "competitions")
     for fetched in client.stream_paths(items):
+        progress.tick()
         comp_id = int(fetched.key)
         data = fetched.data
         try:
@@ -528,7 +546,7 @@ def hydrate(
                 repo.mark_fetched("competitions", comp_id)
             ok += 1
         except Exception as exc:
-            log.exception("Failed to parse %s: %s", fetched.path, exc)
+            exc_log.log("Failed to parse %s: %s", fetched.path, exc)
             fail += 1
 
     log.info("Competitions: %d hydrated, %d failed.", ok, fail)

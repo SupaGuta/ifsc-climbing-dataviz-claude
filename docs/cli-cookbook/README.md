@@ -19,6 +19,8 @@ behavior, see [`../architecture/`](../architecture/overview.md) and the
   warehouse for ad-hoc questions
 - [troubleshooting.md](troubleshooting.md) — "I ran X and got Y, what now"
   for common failure modes
+- [exit-codes.md](exit-codes.md) — exit-code taxonomy (0 success, 3 DB lock,
+  4 missing creds, 5 mid-run auth failure, …) for wrapper scripts and CI
 
 ## Decision matrix
 

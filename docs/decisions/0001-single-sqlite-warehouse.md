@@ -54,6 +54,12 @@ Store all warehouse data in a **single SQLite file** at `data/wcl.sqlite`
   in a notebook can briefly block an `ingest`. In practice, ingestion
   finishes per-row so this is unmeasurable.
 
+  > **Note (2026-05-25):** [ADR 0010](0010-operational-silence-guardrails.md)
+  > enables `journal_mode=WAL` + `synchronous=NORMAL` on every connection
+  > open, so readers no longer block on writers (only writer-vs-writer
+  > still serializes). Sidecar `*-wal` / `*-shm` files appear alongside
+  > `wcl.sqlite` and are coalesced into the main file on a clean close.
+
 ## Alternatives considered
 
 - **Postgres / MySQL** — overkill for this dataset size, and would require

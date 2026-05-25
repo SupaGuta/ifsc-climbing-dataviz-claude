@@ -18,7 +18,8 @@ class Settings:
     session_cookie: str
     referer: str
     max_workers: int
-    request_timeout: int
+    connect_timeout: float
+    read_timeout: float
     db_path: Path
     stale_days: int
     grace_days: int
@@ -38,6 +39,11 @@ def load_settings(*, require_credentials: bool = True) -> Settings:
     With `require_credentials=True` (default) missing CSRF/cookie raises RuntimeError.
     With `require_credentials=False` the credentials default to empty strings,
     which is fine for commands that don't hit the API (init / status / export).
+
+    `WCL_CONNECT_TIMEOUT` / `WCL_READ_TIMEOUT` are split so a slow DNS / TLS
+    handshake fails fast (5s default) while a legitimately large per-result
+    payload still has time to stream (120s default). The two map to the
+    `(connect, read)` tuple `requests` accepts directly.
     """
     csrf = os.getenv("WCL_CSRF_TOKEN", "").strip()
     cookie = os.getenv("WCL_SESSION_COOKIE", "").strip()
@@ -56,7 +62,8 @@ def load_settings(*, require_credentials: bool = True) -> Settings:
         session_cookie=cookie,
         referer=os.getenv("WCL_REFERER", "https://ifsc.results.info"),
         max_workers=int(os.getenv("WCL_MAX_WORKERS", "50")),
-        request_timeout=int(os.getenv("WCL_REQUEST_TIMEOUT", "120")),
+        connect_timeout=float(os.getenv("WCL_CONNECT_TIMEOUT", "5")),
+        read_timeout=float(os.getenv("WCL_READ_TIMEOUT", "120")),
         db_path=db_path,
         stale_days=int(os.getenv("WCL_STALE_DAYS", "30")),
         grace_days=int(os.getenv("WCL_GRACE_DAYS", "15")),

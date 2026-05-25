@@ -1,15 +1,27 @@
-"""Command-line interface for the World Climbing Lab ingest layer."""
+"""Command-line interface for the World Climbing Lab ingest layer.
+
+Exit codes — kept in sync with docs/cli-cookbook/exit-codes.md:
+  0  success
+  1  generic error (unhandled exception, parser issues from argparse)
+  2  usage error (unknown view, unknown entity — surfaced via argparse / explicit returns)
+  3  DB lock / IO problem (another wcl-data writer holds the file, or disk error)
+  4  credentials missing / expired (set 4 BEFORE the upstream request; 5 is for live API failures)
+  5  upstream API unrecoverable failure (e.g. AuthFailureAbort after creds-validity threshold)
+"""
 from __future__ import annotations
 
 import argparse
 import logging
+import sqlite3
 import sys
 from dataclasses import replace
 from pathlib import Path
 from typing import Optional
 
+import requests
+
 from . import logging_setup
-from .api.client import APIClient
+from .api.client import APIClient, AuthFailureAbort
 from .config import load_settings
 from .db.repository import Repository
 from .db.schema import open_db
@@ -20,6 +32,14 @@ log = logging.getLogger(__name__)
 
 # Commands that don't need World Climbing API credentials.
 _NO_CREDS_COMMANDS = {"init", "status", "export", "auth"}
+
+# Exit-code taxonomy — see module docstring.
+EXIT_OK = 0
+EXIT_GENERIC = 1
+EXIT_USAGE = 2
+EXIT_DB_LOCK = 3
+EXIT_AUTH = 4
+EXIT_UPSTREAM = 5
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -105,13 +125,66 @@ def main(argv: list[str] | None = None) -> int:
 
     logging_setup.configure(verbose=args.verbose)
 
-    settings = load_settings(require_credentials=args.command not in _NO_CREDS_COMMANDS)
+    try:
+        settings = load_settings(require_credentials=args.command not in _NO_CREDS_COMMANDS)
+    except RuntimeError as exc:
+        # Missing or empty WCL_CSRF_TOKEN / WCL_SESSION_COOKIE — print a
+        # one-line friendly message instead of dumping the traceback.
+        print(f"error: {exc}", file=sys.stderr)
+        return EXIT_AUTH
 
+    try:
+        return _dispatch(args, settings, parser)
+    except AuthFailureAbort as exc:
+        # Threshold-tripped 401/403 storm during a run. The client has already
+        # logged the ERROR; surface a short stderr line and exit 5. If the
+        # orchestrator attached a partial summary (entities that completed
+        # before the abort), print it so the user sees what progress was
+        # made — important because phases commit per-item, so completed
+        # entities have durable rows.
+        print(f"error: {exc}", file=sys.stderr)
+        if exc.partial_summary:
+            print("\nPartial progress before abort:", file=sys.stderr)
+            _print_summary(exc.partial_summary, file=sys.stderr)
+        return EXIT_UPSTREAM
+    except sqlite3.OperationalError as exc:
+        # Only "database is locked" maps to EXIT_DB_LOCK. Other OperationalErrors
+        # (malformed schema, no-such-column from a partial migration, "database
+        # disk image is malformed") indicate genuine data-corruption / code bugs
+        # — propagate them as tracebacks rather than silently labelling them as
+        # "another process may be running", which sends the user troubleshooting
+        # the wrong problem.
+        message = str(exc)
+        if "locked" not in message.lower():
+            raise
+        print(
+            f"error: SQLite reports the database is locked. "
+            f"Another wcl-data process may be running, or a notebook "
+            f"holds an open write transaction. ({message})",
+            file=sys.stderr,
+        )
+        return EXIT_DB_LOCK
+    except (RuntimeError, requests.RequestException, OSError) as exc:
+        # `_cmd_auth` is the recovery path for expired credentials, but its own
+        # failure modes (RuntimeError when fetch_credentials can't parse the
+        # CSRF meta tag, requests.RequestException on network failure, OSError
+        # when update_env_file can't write .env) used to escape as tracebacks
+        # + exit 1 — contradicting the documented exit-4 contract for cred-
+        # related errors. Funnel them all through EXIT_AUTH with a friendly
+        # stderr line. Only fires for the `auth` subcommand; other commands
+        # don't raise these exception types from their _cmd_* helpers.
+        if args.command != "auth":
+            raise
+        print(f"error: {exc}", file=sys.stderr)
+        return EXIT_AUTH
+
+
+def _dispatch(args: argparse.Namespace, settings, parser: argparse.ArgumentParser) -> int:
     if args.command == "init":
         conn = open_db(settings.db_path)
         conn.close()
         log.info("DB initialised at %s", settings.db_path)
-        return 0
+        return EXIT_OK
 
     if args.command == "auth":
         return _cmd_auth(dry_run=args.dry_run, env_file=args.env_file)
@@ -246,7 +319,7 @@ def _cmd_export(settings, *, view: Optional[str], output_dir: Optional[Path]) ->
                     f"Unknown view {view!r}. Available: {', '.join(VIEW_NAMES)}.",
                     file=sys.stderr,
                 )
-                return 2
+                return EXIT_USAGE
             path = export_view(conn, view, output_dir=out)
             print(f"Exported {view} -> {path}")
     finally:
@@ -254,10 +327,11 @@ def _cmd_export(settings, *, view: Optional[str], output_dir: Optional[Path]) ->
     return 0
 
 
-def _print_summary(summary: dict[str, tuple[int, int]]) -> None:
-    print(f"{'entity':<20} {'hydrated':>10} {'failed':>10}")
+def _print_summary(summary: dict[str, tuple[int, int]], *, file=None) -> None:
+    out = file if file is not None else sys.stdout
+    print(f"{'entity':<20} {'hydrated':>10} {'failed':>10}", file=out)
     for entity, (ok, fail) in summary.items():
-        print(f"{entity:<20} {ok:>10} {fail:>10}")
+        print(f"{entity:<20} {ok:>10} {fail:>10}", file=out)
 
 
 if __name__ == "__main__":  # pragma: no cover

@@ -2,15 +2,34 @@
 from __future__ import annotations
 
 import logging
-from typing import Optional
+from typing import Callable, Optional
 
-from ..api.client import APIClient
+from ..api.client import APIClient, AuthFailureAbort
 from ..db.repository import Repository
 from . import athletes, competitions, events, season_leagues, seasons
 
 log = logging.getLogger(__name__)
 
 ENTITIES = ("seasons", "season_leagues", "events", "competitions", "athletes")
+
+
+def _run_phase(
+    summary: dict[str, tuple[int, int]],
+    entity: str,
+    hydrate_call: Callable[[], tuple[int, int]],
+) -> None:
+    """Run one entity's hydrate; attach partial summary to AuthFailureAbort.
+
+    Phases commit per-item, so already-completed entities have durable rows
+    in the DB. The partial-summary dict lets the CLI print "seasons: 5/0,
+    events: died" instead of nothing — operator gets visibility into how
+    far the run got before the abort.
+    """
+    try:
+        summary[entity] = hydrate_call()
+    except AuthFailureAbort as exc:
+        exc.partial_summary = dict(summary)
+        raise
 
 
 def pull_new(
@@ -38,21 +57,23 @@ def pull_new(
     summary: dict[str, tuple[int, int]] = {}
 
     seasons.discover(repo, client)
-    summary["seasons"] = seasons.hydrate(
+    _run_phase(summary, "seasons", lambda: seasons.hydrate(
         repo, client, rows=repo.find_ongoing_seasons(), limit=limit,
-    )
-    summary["season_leagues"] = season_leagues.hydrate(
+    ))
+    _run_phase(summary, "season_leagues", lambda: season_leagues.hydrate(
         repo, client, rows=repo.find_ongoing_season_leagues(), limit=limit,
-    )
-    summary["events"] = events.hydrate(
+    ))
+    _run_phase(summary, "events", lambda: events.hydrate(
         repo, client, rows=repo.find_ongoing_events(grace_days=grace_days), limit=limit,
-    )
-    summary["competitions"] = competitions.hydrate(
+    ))
+    _run_phase(summary, "competitions", lambda: competitions.hydrate(
         repo, client, rows=repo.find_ongoing_competitions(grace_days=grace_days), limit=limit,
-    )
+    ))
     # Huge stale_days → only rows with last_fetched_at IS NULL match. That is
     # exactly the set of athletes just discovered during competitions hydration.
-    summary["athletes"] = athletes.hydrate(repo, client, stale_days=365_000, limit=limit)
+    _run_phase(summary, "athletes", lambda: athletes.hydrate(
+        repo, client, stale_days=365_000, limit=limit,
+    ))
 
     return summary
 
@@ -72,11 +93,21 @@ def refresh_all(
     summary: dict[str, tuple[int, int]] = {}
 
     seasons.discover(repo, client)
-    summary["seasons"] = seasons.hydrate(repo, client, stale_days=stale_days, limit=limit)
-    summary["season_leagues"] = season_leagues.hydrate(repo, client, stale_days=stale_days, limit=limit)
-    summary["events"] = events.hydrate(repo, client, stale_days=stale_days, limit=limit)
-    summary["competitions"] = competitions.hydrate(repo, client, stale_days=stale_days, limit=limit)
-    summary["athletes"] = athletes.hydrate(repo, client, stale_days=stale_days, limit=limit)
+    _run_phase(summary, "seasons", lambda: seasons.hydrate(
+        repo, client, stale_days=stale_days, limit=limit,
+    ))
+    _run_phase(summary, "season_leagues", lambda: season_leagues.hydrate(
+        repo, client, stale_days=stale_days, limit=limit,
+    ))
+    _run_phase(summary, "events", lambda: events.hydrate(
+        repo, client, stale_days=stale_days, limit=limit,
+    ))
+    _run_phase(summary, "competitions", lambda: competitions.hydrate(
+        repo, client, stale_days=stale_days, limit=limit,
+    ))
+    _run_phase(summary, "athletes", lambda: athletes.hydrate(
+        repo, client, stale_days=stale_days, limit=limit,
+    ))
 
     return summary
 

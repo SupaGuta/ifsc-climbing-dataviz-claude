@@ -8,6 +8,12 @@ schema reset) see [`../operations/recovery.md`](../operations/recovery.md).
 **Cause:** the World Climbing session cookie has expired. They typically last a few
 months.
 
+**Surface:** the CLI now aborts on 5 consecutive 401/403 responses and
+exits with code 5 — see [exit-codes.md](exit-codes.md). The stderr line
+points at `wcl_data auth`. Older builds dropped every remaining row to the
+WARN file log and continued; if you're seeing `0 hydrated` despite a
+"clean" run, you're on a pre-Phase-B build.
+
 **Fix:**
 
 ```bash
@@ -134,10 +140,13 @@ filled in on the next pass. Details in
 
 ## Symptom: `sqlite3.OperationalError: database is locked`
 
-Another process has the DB open in write mode. Common causes:
+The CLI now catches this and exits 3 with a one-line stderr message instead
+of dumping the traceback. Underlying causes:
 
 - You ran `pull-new` in two terminals at once. SQLite serializes writers;
-  the second one will wait then time out.
+  the second one will wait then time out. (WAL mode lets readers
+  coexist with the writer, so `status` and notebook reads no longer trip
+  this on their own — only two writers do.)
 - A notebook has a long-running write transaction. Restart the notebook
   kernel or close the connection.
 

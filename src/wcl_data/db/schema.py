@@ -290,10 +290,37 @@ def _drop_index_if_exists(conn: sqlite3.Connection, index: str) -> None:
 
 
 def open_db(path: Path) -> sqlite3.Connection:
-    """Open the DB at `path`, applying schema if missing."""
+    """Open the DB at `path`, applying schema if missing.
+
+    WAL journal mode lets a reader (notebook, status query) coexist with the
+    long-running ingest writer instead of blocking on a SHARED lock; the
+    `-wal` and `-shm` sidecar files appear alongside `wcl.sqlite` and are
+    rolled back into the main file on a clean close. `synchronous=NORMAL`
+    is the WAL-recommended pairing — durable across process crashes (only a
+    power loss between WAL frame writes can lose the last transaction),
+    materially faster than FULL on the per-item commit cadence used by the
+    fetchers.
+
+    SQLite silently falls back from WAL to a rollback journal on filesystems
+    that can't host the shared-memory `-shm` file (CIFS / SMB mounts, some
+    FUSE drivers, WSL2 `/mnt/c` paths in certain modes). We read the result
+    row back and log a WARNING when that happens so the reader-coexistence
+    guarantee isn't silently false.
+    """
     path.parent.mkdir(parents=True, exist_ok=True)
     conn = sqlite3.connect(path)
     conn.row_factory = sqlite3.Row
     conn.execute("PRAGMA foreign_keys = ON")
+    mode_row = conn.execute("PRAGMA journal_mode = WAL").fetchone()
+    applied_mode = (mode_row[0] if mode_row else "").lower()
+    if applied_mode != "wal":
+        import logging
+        logging.getLogger(__name__).warning(
+            "PRAGMA journal_mode=WAL refused by SQLite for %s (got %r). "
+            "Reader-vs-writer concurrency falls back to SHARED-lock semantics; "
+            "common cause: network filesystem (CIFS/SMB, some FUSE/WSL paths).",
+            path, applied_mode,
+        )
+    conn.execute("PRAGMA synchronous = NORMAL")
     apply_schema(conn)
     return conn

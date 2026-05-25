@@ -8,6 +8,7 @@ from typing import Optional
 from ..api.client import APIClient
 from ..db.repository import Repository
 from ..parsers.event_location import to_iso3
+from ._logging import ProgressLogger, RateLimitedExceptionLogger
 
 log = logging.getLogger(__name__)
 
@@ -60,7 +61,10 @@ def hydrate(
     log.info("Hydrating %d athlete(s).", len(stale))
 
     ok = fail = 0
+    exc_log = RateLimitedExceptionLogger(log)
+    progress = ProgressLogger(log, len(stale), "athletes")
     for fetched in client.stream("athletes", ifsc_to_id.keys()):
+        progress.tick()
         ath_ifsc = int(fetched.key)
         ath_row_id = ifsc_to_id[ath_ifsc]
         data = fetched.data
@@ -123,7 +127,7 @@ def hydrate(
                 repo.mark_fetched("athletes", ath_row_id)
             ok += 1
         except Exception as exc:
-            log.exception("Failed to parse /athletes/%s: %s", ath_ifsc, exc)
+            exc_log.log("Failed to parse /athletes/%s: %s", ath_ifsc, exc)
             fail += 1
 
     log.info("Athletes: %d hydrated, %d failed.", ok, fail)

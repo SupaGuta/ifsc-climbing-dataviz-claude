@@ -11,6 +11,7 @@ from typing import TYPE_CHECKING, Optional
 
 from ..api.client import APIClient
 from ..db.repository import Repository
+from ._logging import ProgressLogger, RateLimitedExceptionLogger
 
 if TYPE_CHECKING:
     import sqlite3
@@ -68,7 +69,10 @@ def hydrate(
     log.info("Hydrating %d season(s).", len(rows))
 
     ok = fail = 0
+    exc_log = RateLimitedExceptionLogger(log)
+    progress = ProgressLogger(log, len(rows), "seasons")
     for fetched in client.stream("seasons", ifsc_to_id.keys()):
+        progress.tick()
         season_ifsc = int(fetched.key)
         season_row_id = ifsc_to_id[season_ifsc]
         data = fetched.data
@@ -96,7 +100,7 @@ def hydrate(
             repo.mark_fetched("seasons", season_row_id)
             ok += 1
         except Exception as exc:
-            log.exception("Failed to parse /seasons/%s: %s", season_ifsc, exc)
+            exc_log.log("Failed to parse /seasons/%s: %s", season_ifsc, exc)
             fail += 1
 
     log.info("Seasons: %d hydrated, %d failed.", ok, fail)

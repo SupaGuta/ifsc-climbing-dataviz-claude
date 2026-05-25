@@ -254,7 +254,8 @@ python -m wcl_data export athletes --output-dir /tmp/csv
 | `WCL_SESSION_COOKIE` | (required) | `Cookie` header value. |
 | `WCL_REFERER` | `https://ifsc.results.info` | Sent as `Referer` header. |
 | `WCL_MAX_WORKERS` | `50` | Default concurrent worker count. Overridable per-command with `--workers`. |
-| `WCL_REQUEST_TIMEOUT` | `120` | Per-request timeout in seconds. |
+| `WCL_CONNECT_TIMEOUT` | `5` | TCP/TLS connect timeout in seconds. Fast-fails on a stalled handshake without holding up the worker pool. |
+| `WCL_READ_TIMEOUT` | `120` | Per-request read timeout in seconds. Larger because a single big-event payload (~5 MB) can take seconds to stream. |
 | `WCL_DB_PATH` | `data/wcl.sqlite` | Where the warehouse lives. Relative paths resolve against the repo root. |
 | `WCL_STALE_DAYS` | `30` | Default staleness threshold for `refresh` / `hydrate`. Overridable with `--stale-days`. |
 | `WCL_GRACE_DAYS` | `15` | Days past an event's `date_end` during which `pull-new` still treats it as ongoing. Catches late result corrections. Overridable with `--grace-days`. |
