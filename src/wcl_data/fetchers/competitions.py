@@ -26,12 +26,40 @@ log = logging.getLogger(__name__)
 # fallback when a heat has no `heat_id` (legacy payloads); modern payloads
 # always carry heat_id and seq is set to heat_id directly so each physical
 # heat gets its own round_stages row.
+#
+# Keys are lowercased; lookup normalizes via lower().strip(). Aliases cover
+# the variants observed in production: FR "Finale", DE "Kleines Finale",
+# "1/N - Final" suffix, dash-instead-of-slash, no-space, and abbreviations.
 SPEED_HEAT_SEQ: dict[str, int] = {
+    # Canonical
     "1/8": 0,
     "1/4": 1,
     "1/2": 2,
-    "Small Final": 3,
-    "Final": 4,
+    "small final": 3,
+    "final": 4,
+    # "1/N - Final" suffix (dominant legacy form: ~480 of 493 collapsed stages)
+    "1/8 - final": 0,
+    "1/4 - final": 1,
+    "1/2 - final": 2,
+    # No-space variant
+    "1/8-final": 0,
+    "1/4-final": 1,
+    "1/2-final": 2,
+    # Dash-instead-of-slash variant
+    "1-8 - final": 0,
+    "1-4 - final": 1,
+    "1-2 - final": 2,
+    # French ("Finale" = "Final")
+    "finale": 4,
+    "1/8 - finale": 0,
+    "1/4 - finale": 1,
+    "1/2 - finale": 2,
+    # German
+    "kleines finale": 3,
+    # English synonym for 1/2
+    "semifinal": 2,
+    # Abbreviation
+    "sm. final": 3,
 }
 
 
@@ -51,10 +79,14 @@ def _to_int_bool(value: Any) -> Optional[int]:
 
 
 def _speed_seq(name: Optional[str]) -> int:
-    """Resolve a speed heat name to a stable seq; unknown names → 999."""
+    """Resolve a speed heat name to a stable seq; unknown names → 999.
+
+    Input is normalized via lower().strip() so casing and trailing whitespace
+    don't trigger the fallback.
+    """
     if name is None:
         return 999
-    return SPEED_HEAT_SEQ.get(name, 999)
+    return SPEED_HEAT_SEQ.get(name.lower().strip(), 999)
 
 
 def _ascent_kwargs(ascent: dict[str, Any]) -> dict[str, Any]:

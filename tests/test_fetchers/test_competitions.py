@@ -505,6 +505,61 @@ def test_lazy_combined_fallback_writes_kind(memory_db):
     assert kinds == {"boulder", "lead"}, f"expected both kinds, got {kinds}"
 
 
+def test_speed_seq_recognizes_canonical_names():
+    """The 5 canonical heat names map to seq 0-4."""
+    assert competitions_fetcher._speed_seq("1/8") == 0
+    assert competitions_fetcher._speed_seq("1/4") == 1
+    assert competitions_fetcher._speed_seq("1/2") == 2
+    assert competitions_fetcher._speed_seq("Small Final") == 3
+    assert competitions_fetcher._speed_seq("Final") == 4
+
+
+def test_speed_seq_recognizes_legacy_suffix_variants():
+    """The dominant legacy form ("1/N - Final") and its variants resolve correctly."""
+    # " - Final" suffix (most common: ~480 of 493 collapsed stages pre-fix)
+    assert competitions_fetcher._speed_seq("1/8 - Final") == 0
+    assert competitions_fetcher._speed_seq("1/4 - Final") == 1
+    assert competitions_fetcher._speed_seq("1/2 - Final") == 2
+    # No-space variant
+    assert competitions_fetcher._speed_seq("1/8-Final") == 0
+    assert competitions_fetcher._speed_seq("1/4-Final") == 1
+    assert competitions_fetcher._speed_seq("1/2-Final") == 2
+    # Dash-instead-of-slash variant
+    assert competitions_fetcher._speed_seq("1-8 - Final") == 0
+    assert competitions_fetcher._speed_seq("1-4 - Final") == 1
+    assert competitions_fetcher._speed_seq("1-2 - Final") == 2
+
+
+def test_speed_seq_recognizes_localized_names():
+    """French ("Finale") and German ("Kleines Finale") variants."""
+    assert competitions_fetcher._speed_seq("Finale") == 4
+    assert competitions_fetcher._speed_seq("1/8 - Finale") == 0
+    assert competitions_fetcher._speed_seq("1/4 - Finale") == 1
+    assert competitions_fetcher._speed_seq("1/2 - Finale") == 2
+    assert competitions_fetcher._speed_seq("Kleines Finale") == 3
+
+
+def test_speed_seq_recognizes_synonyms_and_abbreviations():
+    """English "Semifinal" maps to 1/2; "sm. Final" abbreviates Small Final."""
+    assert competitions_fetcher._speed_seq("Semifinal") == 2
+    assert competitions_fetcher._speed_seq("sm. Final") == 3
+
+
+def test_speed_seq_is_case_insensitive_and_strips_whitespace():
+    assert competitions_fetcher._speed_seq("FINAL") == 4
+    assert competitions_fetcher._speed_seq("final") == 4
+    assert competitions_fetcher._speed_seq("  Final  ") == 4
+    assert competitions_fetcher._speed_seq("small final") == 3
+    assert competitions_fetcher._speed_seq("SMALL FINAL") == 3
+
+
+def test_speed_seq_returns_999_for_unknown_and_none():
+    assert competitions_fetcher._speed_seq("Quarterfinal") == 999
+    assert competitions_fetcher._speed_seq("Round of 16") == 999
+    assert competitions_fetcher._speed_seq("") == 999
+    assert competitions_fetcher._speed_seq(None) == 999
+
+
 def test_speed_final_route_reuse_does_not_violate_unique(fixture, memory_db):
     """The same athlete climbs the same route across multiple speed-final heats.
     UNIQUE (round_stage_id, athlete_id, route_id) must allow this."""
