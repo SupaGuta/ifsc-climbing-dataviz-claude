@@ -16,14 +16,14 @@ from typing import Any, Optional
 # Tables that carry a `last_fetched_at` column.
 HYDRATABLE_TABLES = (
     "seasons", "season_leagues", "events", "competitions", "athletes",
-    "category_rounds", "routes",
 )
 
 # All tables — used as the whitelist for generic queries that take a table name.
 ALL_TABLES = (
     *HYDRATABLE_TABLES,
     "leagues", "disciplines", "categories", "results",
-    "round_stages", "round_results", "stage_results", "ascents",
+    "category_rounds", "round_stages", "routes",
+    "round_results", "stage_results", "ascents",
     "cup_rankings",
 )
 
@@ -86,6 +86,19 @@ class Repository:
         return self.conn.execute(
             f"SELECT COUNT(*) FROM {table} WHERE last_fetched_at IS NOT NULL"
         ).fetchone()[0]
+
+    def latest_fetched_at(self, table: str) -> Optional[str]:
+        """MAX(last_fetched_at) for a hydratable table, or None if all-NULL/empty."""
+        _validate_table(table, HYDRATABLE_TABLES)
+        row = self.conn.execute(
+            f"SELECT MAX(last_fetched_at) FROM {table}"
+        ).fetchone()
+        return row[0] if row else None
+
+    def schema_version(self) -> int:
+        """Highest version recorded in `schema_version`; 0 on an empty table."""
+        row = self.conn.execute("SELECT MAX(version) FROM schema_version").fetchone()
+        return int(row[0]) if row and row[0] is not None else 0
 
     def mark_fetched(self, table: str, row_id: int) -> None:
         _validate_table(table, HYDRATABLE_TABLES)

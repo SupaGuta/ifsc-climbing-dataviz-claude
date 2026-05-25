@@ -3,6 +3,21 @@
 **Status:** Accepted
 **Date:** 2026-05-24
 
+> **Note (2026-05-25):** Schema v4 → v5 dropped the `last_fetched_at`
+> columns (and their indexes) from `category_rounds` and `routes`. They
+> were declared in this ADR as forward hooks for a startlist hydrator
+> (`/api/v1/category_rounds/{id}/results`, `/api/v1/routes/{id}/startlist`)
+> but were never actually set — only `mark_fetched` writes that column,
+> and the competitions parser never called it on these two tables. The
+> columns showed `hydrated: 0` in `status` output, which read like a bug.
+> The freshness contract for `category_rounds` and `routes` is now: they
+> inherit from `competitions.last_fetched_at`, since they're UPSERTed
+> inside the parent competition's transaction. If a startlist hydrator
+> ever lands, it can re-add the columns via `_add_missing_column` —
+> migration cost is symmetric. The core decision below (six new tables,
+> per-competition transactional boundary, wide `ascents` table with
+> discipline-specific nullable columns) is unchanged.
+
 ## Context
 
 The `results` table only stored final overall rank per (competition, athlete).

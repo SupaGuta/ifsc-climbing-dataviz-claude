@@ -8,7 +8,7 @@ from __future__ import annotations
 import sqlite3
 from pathlib import Path
 
-CURRENT_VERSION = 4
+CURRENT_VERSION = 5
 
 DDL = """
 CREATE TABLE IF NOT EXISTS schema_version (
@@ -142,11 +142,9 @@ CREATE TABLE IF NOT EXISTS category_rounds (
     format_identifier TEXT,
     status TEXT,
     status_as_of TEXT,
-    league_round_id INTEGER,
-    last_fetched_at TEXT
+    league_round_id INTEGER
 );
 CREATE INDEX IF NOT EXISTS idx_category_rounds_competition ON category_rounds(competition_id);
-CREATE INDEX IF NOT EXISTS idx_category_rounds_last_fetched ON category_rounds(last_fetched_at);
 
 CREATE TABLE IF NOT EXISTS round_stages (
     id INTEGER PRIMARY KEY,
@@ -165,11 +163,9 @@ CREATE TABLE IF NOT EXISTS routes (
     id INTEGER PRIMARY KEY,
     ifsc_id INTEGER UNIQUE NOT NULL,
     category_round_id INTEGER NOT NULL REFERENCES category_rounds(id),
-    name TEXT,
-    last_fetched_at TEXT
+    name TEXT
 );
 CREATE INDEX IF NOT EXISTS idx_routes_round ON routes(category_round_id);
-CREATE INDEX IF NOT EXISTS idx_routes_last_fetched ON routes(last_fetched_at);
 
 CREATE TABLE IF NOT EXISTS round_results (
     id INTEGER PRIMARY KEY,
@@ -237,9 +233,12 @@ def apply_schema(conn: sqlite3.Connection) -> None:
 
     For DBs created before a column existed, missing columns are added via
     ALTER TABLE — guarded by a PRAGMA table_info check so the call stays
-    idempotent. Symmetric `_drop_column_if_exists` handles removals (e.g.
-    schema v3 → v4 dropped `athletes.is_paraclimbing` in favour of the
-    raw `paraclimbing_sport_class`).
+    idempotent. Symmetric `_drop_column_if_exists` / `_drop_index_if_exists`
+    handle removals (e.g. schema v3 → v4 dropped `athletes.is_paraclimbing`
+    in favour of the raw `paraclimbing_sport_class`; v4 → v5 dropped
+    `last_fetched_at` from `category_rounds` and `routes`, which were
+    reserved for a startlist hydrator that never landed and were never set
+    in practice — see the 2026-05-25 note on ADR 0007).
     """
     conn.executescript(DDL)
     _add_missing_column(conn, "events", "country_iso3", "TEXT")
@@ -259,6 +258,10 @@ def apply_schema(conn: sqlite3.Connection) -> None:
     ):
         _add_missing_column(conn, "athletes", col, sql_type)
     _drop_column_if_exists(conn, "athletes", "is_paraclimbing")
+    _drop_index_if_exists(conn, "idx_category_rounds_last_fetched")
+    _drop_index_if_exists(conn, "idx_routes_last_fetched")
+    _drop_column_if_exists(conn, "category_rounds", "last_fetched_at")
+    _drop_column_if_exists(conn, "routes", "last_fetched_at")
     conn.execute(
         "INSERT OR IGNORE INTO schema_version (version) VALUES (?)",
         (CURRENT_VERSION,),
@@ -280,6 +283,10 @@ def _drop_column_if_exists(
     cols = {row[1] for row in conn.execute(f"PRAGMA table_info({table})")}
     if column in cols:
         conn.execute(f"ALTER TABLE {table} DROP COLUMN {column}")
+
+
+def _drop_index_if_exists(conn: sqlite3.Connection, index: str) -> None:
+    conn.execute(f"DROP INDEX IF EXISTS {index}")
 
 
 def open_db(path: Path) -> sqlite3.Connection:

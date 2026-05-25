@@ -20,6 +20,7 @@ docs/
 │   ├── ingestion-pipeline.md         ← discover → hydrate cycle, refresh vs pull-new vs hydrate
 │   ├── api-client.md                 ← streaming client, retry policy, concurrency
 │   ├── database-and-schema.md        ← tables, staleness, transactional boundary
+│   ├── layer-0-surface.md            ← the contract for downstream consumers: stable surface, guarantees, hors-scope
 │   └── parsing-and-heuristics.md     ← event-name parsing, paraclimbing heuristic, lossy data
 ├── decisions/                        ← ADR-style record of non-obvious choices
 │   ├── README.md                     ← what an ADR is + template

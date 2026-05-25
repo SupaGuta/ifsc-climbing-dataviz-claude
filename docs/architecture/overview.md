@@ -111,5 +111,6 @@ discovered along the way, and finishes in 3–5 minutes.
 - [ingestion-pipeline.md](ingestion-pipeline.md) — `refresh` vs `pull-new` vs `hydrate`, and why the staleness model produces those three modes
 - [api-client.md](api-client.md) — streaming, retry, concurrency
 - [database-and-schema.md](database-and-schema.md) — table-by-table reference and the transactional boundary
+- [layer-0-surface.md](layer-0-surface.md) — the contract Layer 0 exposes to downstream consumers (stable surface, guarantees, what's deliberately out of scope)
 - [parsing-and-heuristics.md](parsing-and-heuristics.md) — where the package guesses, and where it gives up rather than guess
 - [../decisions/](../decisions/README.md) — the *why* behind the design choices above

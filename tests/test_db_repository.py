@@ -364,3 +364,102 @@ def test_delete_round_data_for_competition_preserves_structural_rows(memory_db):
     # Structural rows preserved.
     assert memory_db.execute("SELECT COUNT(*) FROM category_rounds").fetchone()[0] == 1
     assert memory_db.execute("SELECT COUNT(*) FROM routes").fetchone()[0] == 1
+
+
+# ---------------------------------------------------------------- Schema v5 migration
+
+def test_v5_migration_drops_dead_last_fetched_at(memory_db):
+    """v4 → v5 drops `last_fetched_at` from category_rounds + routes (and their
+    indexes). The columns were reserved for a startlist hydrator that never
+    landed and were never set by `mark_fetched` — see 2026-05-25 note on ADR 0007.
+
+    We simulate a v4 DB by re-adding the columns and indexes by hand, then
+    re-run apply_schema and verify they're gone.
+    """
+    from wcl_data.db.schema import apply_schema
+
+    memory_db.execute("ALTER TABLE category_rounds ADD COLUMN last_fetched_at TEXT")
+    memory_db.execute(
+        "CREATE INDEX idx_category_rounds_last_fetched "
+        "ON category_rounds(last_fetched_at)"
+    )
+    memory_db.execute("ALTER TABLE routes ADD COLUMN last_fetched_at TEXT")
+    memory_db.execute(
+        "CREATE INDEX idx_routes_last_fetched ON routes(last_fetched_at)"
+    )
+    memory_db.commit()
+
+    apply_schema(memory_db)
+
+    cr_cols = {r[1] for r in memory_db.execute("PRAGMA table_info(category_rounds)")}
+    rt_cols = {r[1] for r in memory_db.execute("PRAGMA table_info(routes)")}
+    assert "last_fetched_at" not in cr_cols
+    assert "last_fetched_at" not in rt_cols
+
+    cr_idx = {r[1] for r in memory_db.execute("PRAGMA index_list(category_rounds)")}
+    rt_idx = {r[1] for r in memory_db.execute("PRAGMA index_list(routes)")}
+    assert "idx_category_rounds_last_fetched" not in cr_idx
+    assert "idx_routes_last_fetched" not in rt_idx
+
+
+def test_hydratable_tables_excludes_category_rounds_and_routes(memory_db):
+    """category_rounds and routes are no longer hydratable since v5."""
+    from wcl_data.db.repository import HYDRATABLE_TABLES
+
+    assert "category_rounds" not in HYDRATABLE_TABLES
+    assert "routes" not in HYDRATABLE_TABLES
+
+    repo = Repository(memory_db)
+    with pytest.raises(ValueError, match="not in allowed set"):
+        repo.find_stale("category_rounds", stale_days=0)
+    with pytest.raises(ValueError, match="not in allowed set"):
+        repo.find_stale("routes", stale_days=0)
+    with pytest.raises(ValueError, match="not in allowed set"):
+        repo.mark_fetched("category_rounds", 1)
+    with pytest.raises(ValueError, match="not in allowed set"):
+        repo.count_hydrated("routes")
+
+
+def test_category_rounds_and_routes_still_in_all_tables(memory_db):
+    """They remain countable via the generic Repository.count()."""
+    repo = Repository(memory_db)
+    assert repo.count("category_rounds") == 0
+    assert repo.count("routes") == 0
+
+
+# ---------------------------------------------------------------- Status helpers
+
+def test_schema_version_matches_current(memory_db):
+    from wcl_data.db.schema import CURRENT_VERSION
+
+    repo = Repository(memory_db)
+    assert repo.schema_version() == CURRENT_VERSION
+
+
+def test_latest_fetched_at_returns_max(memory_db):
+    repo = Repository(memory_db)
+    older = repo.upsert_season(1, year=2020)
+    newer = repo.upsert_season(2, year=2021)
+    memory_db.execute(
+        "UPDATE seasons SET last_fetched_at = '2020-01-01T00:00:00Z' WHERE id = ?",
+        (older,),
+    )
+    memory_db.execute(
+        "UPDATE seasons SET last_fetched_at = '2026-05-25T12:00:00Z' WHERE id = ?",
+        (newer,),
+    )
+    memory_db.commit()
+    assert repo.latest_fetched_at("seasons") == "2026-05-25T12:00:00Z"
+
+
+def test_latest_fetched_at_returns_none_on_empty(memory_db):
+    repo = Repository(memory_db)
+    assert repo.latest_fetched_at("seasons") is None
+
+
+def test_latest_fetched_at_rejects_non_hydratable(memory_db):
+    repo = Repository(memory_db)
+    with pytest.raises(ValueError, match="not in allowed set"):
+        repo.latest_fetched_at("leagues")
+    with pytest.raises(ValueError, match="not in allowed set"):
+        repo.latest_fetched_at("category_rounds")

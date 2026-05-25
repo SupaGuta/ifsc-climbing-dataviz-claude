@@ -98,10 +98,13 @@ denominator.
 
 ## What's *not* in the warehouse
 
+For the full Layer 0 surface contract (stable tables, guarantees, hors-scope),
+see [`../architecture/layer-0-surface.md`](../architecture/layer-0-surface.md).
+The bullets below summarize the main exclusions.
+
 - **Startlists and starting orders.** The API exposes
   `/api/v1/routes/{id}/startlist` and per-stage starting orders, but they're
-  not currently ingested. `category_rounds.last_fetched_at` and
-  `routes.last_fetched_at` are reserved for future startlist hydration.
+  not currently ingested.
 - **Judge / route-setter data.** Not consumed.
 - **Live ranking deltas.** Each competition stores its final ranking only.
 - **Anything older than World Climbing's API coverage.** The earliest seasons date from

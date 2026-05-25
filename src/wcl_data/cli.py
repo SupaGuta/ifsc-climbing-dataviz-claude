@@ -158,7 +158,9 @@ def _cmd_status(settings) -> int:
     try:
         repo = Repository(conn)
         print(f"DB: {settings.db_path}")
-        print(f"{'table':<20} {'rows':>10} {'hydrated':>10}")
+        print(f"schema_version: {repo.schema_version()}")
+        print()
+        print(f"{'table':<20} {'rows':>10} {'hydrated':>10} {'last_hydrated':>14}")
         for table in (
             "seasons", "leagues", "season_leagues", "disciplines",
             "categories", "events", "competitions", "athletes", "results",
@@ -167,9 +169,13 @@ def _cmd_status(settings) -> int:
         ):
             total = repo.count(table)
             hydrated = "-"
+            last_hydrated = "-"
             if table in HYDRATABLE_TABLES:
                 hydrated = str(repo.count_hydrated(table))
-            print(f"{table:<20} {total:>10} {hydrated:>10}")
+                latest = repo.latest_fetched_at(table)
+                # last_fetched_at is ISO-8601 with 'Z'; show the date prefix only.
+                last_hydrated = latest[:10] if latest else "-"
+            print(f"{table:<20} {total:>10} {hydrated:>10} {last_hydrated:>14}")
     finally:
         conn.close()
     return 0

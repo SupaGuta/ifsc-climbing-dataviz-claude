@@ -24,9 +24,9 @@ The schema mirrors the API entity tree. Fifteen tables total, plus a
 | `athletes`        | `competitions.hydrate` (skeleton) + `athletes.hydrate` | ✓ | Carries `country_iso3` sibling (ADR 0008) and federation / sport-class / speed-PB fields (ADR 0009). Paraclimbing proxy is `paraclimbing_sport_class IS NOT NULL` (heuristic); authoritative flag is on `events`. |
 | `cup_rankings`    | `athletes.hydrate`                        |            | Derived: wiped + reinserted per athlete. Season-end overall standing per (cup × discipline). |
 | `results`         | `competitions.hydrate`                   |            | Derived: wiped + reinserted per competition. Final overall rank only. |
-| `category_rounds` | `competitions.hydrate`                   |     ✓      | Phases of a competition (qualif / semi / final). `last_fetched_at` reserved for future startlist work. |
+| `category_rounds` | `competitions.hydrate`                   |            | Phases of a competition (qualif / semi / final). UPSERTed inside the parent competition's transaction; freshness inherits from `competitions.last_fetched_at`. |
 | `round_stages`    | `competitions.hydrate`                   |            | Sub-stages of a round (speed-final heats, combined sub-disciplines). |
-| `routes`          | `competitions.hydrate`                   |     ✓      | One per (round × route). `last_fetched_at` reserved for future startlist work. |
+| `routes`          | `competitions.hydrate`                   |            | One per (round × route). UPSERTed inside the parent competition's transaction; freshness inherits from `competitions.last_fetched_at`. |
 | `round_results`   | `competitions.hydrate`                   |            | Derived: per-round rank + score per athlete                 |
 | `stage_results`   | `competitions.hydrate`                   |            | Derived: per-stage detail (combined sub-stages, speed heats)|
 | `ascents`         | `competitions.hydrate`                   |            | Derived: per-route performance. Excluded from `export_all` by default. |

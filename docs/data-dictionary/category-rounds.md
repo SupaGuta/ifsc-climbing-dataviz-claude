@@ -12,11 +12,13 @@ Combined events use a single `kind` of `"boulder&lead"`.
 from the top-level `category_rounds[]` array in
 `/events/{event_ifsc_id}/result/{comp_ifsc_id}`.
 
-**Hydratable:** yes. `last_fetched_at` carries the timestamp of the last
-hydration, leaving the door open to fetch round-specific endpoints later
-(`/api/v1/category_rounds/{ifsc_id}/results`) without reshaping the schema.
-The current pipeline does not yet use this column on its own — it's set as a
-side effect of the parent competition's hydrate.
+**Not hydratable.** Freshness is inherited from the parent `competitions`
+row: re-running `competitions.hydrate` wipes athlete-keyed per-round data
+(`round_results`, `stage_results`, `ascents`, `round_stages`) and UPSERTs
+`category_rounds` and `routes` rows in the same transaction. A
+`last_fetched_at` column existed on this table through schema v4 but was
+never set in practice; v5 dropped it (see 2026-05-25 note on
+[ADR 0007](../decisions/0007-per-round-ingestion.md)).
 
 ## Columns
 
@@ -33,11 +35,9 @@ side effect of the parent competition's hydrate.
 | `status`            | TEXT    |    ✓     | `"finished"` / `"scheduled"` / `"running"`.            |
 | `status_as_of`      | TEXT    |    ✓     | Raw timestamp from the API.                            |
 | `league_round_id`   | INTEGER |    ✓     | From `round.league_round_id` — ordering hint for "qualif < semi < final". |
-| `last_fetched_at`   | TEXT    |    ✓     | ISO-8601 UTC. Set when the parent competition hydrates. |
 
 **Indexes:**
 - `idx_category_rounds_competition ON competition_id`
-- `idx_category_rounds_last_fetched ON last_fetched_at`
 
 **Constraints:**
 - `UNIQUE (ifsc_id)` — `category_round_id` is globally unique on the IFSC API.

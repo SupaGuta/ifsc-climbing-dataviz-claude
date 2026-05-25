@@ -21,10 +21,11 @@ collected from three possible locations in the payload and deduplicated by
 3. `category_rounds[*].combined_stages[*].routes[]` (Combined — `cr.routes`
    is `[]`)
 
-**Hydratable:** yes. `last_fetched_at` is reserved for future per-route
-endpoint hydration (`/api/v1/routes/{ifsc_id}/startlist`,
-`/api/v1/routes/{ifsc_id}/results`) — currently set as a side effect of the
-parent competition's hydrate.
+**Not hydratable.** Freshness is inherited from the parent `competitions`
+row — re-running `competitions.hydrate` UPSERTs the route in the same
+transaction. A `last_fetched_at` column existed through schema v4, reserved
+for a never-built startlist hydrator; v5 dropped it (see 2026-05-25 note on
+[ADR 0007](../decisions/0007-per-round-ingestion.md)).
 
 ## Columns
 
@@ -34,11 +35,9 @@ parent competition's hydrate.
 | `ifsc_id`           | INTEGER |          | IFSC route id. Globally unique on the API.          |
 | `category_round_id` | INTEGER |          | FK → `category_rounds.id`. NOT NULL.                |
 | `name`              | TEXT    |    ✓     | `"1"`, `"2"`, `"A"`, `"B"`, `"M1"` — the API's per-round label. |
-| `last_fetched_at`   | TEXT    |    ✓     | ISO-8601 UTC. Set by `competitions.hydrate`.        |
 
 **Indexes:**
 - `idx_routes_round ON category_round_id`
-- `idx_routes_last_fetched ON last_fetched_at`
 
 **Constraints:**
 - `UNIQUE (ifsc_id)` — IFSC route ids are globally unique.
